@@ -148,7 +148,7 @@
 <div class="section" id="id4">
 <h2>コンストラクタの引数を使ってプロパティを宣言<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>TypeScript固有の書き方になりますが、コンストラクタ関数にアクセス制御の装飾子をつけると、それがそのままプロパティになります。
-コンストラクタの引数をそのまま同盟のプロパティに代入します。</p>
+コンストラクタの引数をそのまま同名のプロパティに代入します。</p>
 <div class="literal-block-wrapper docutils container" id="id24">
 <div class="code-block-caption"><span class="caption-text">プロパティ定義をコンストラクタ変数に</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 小型犬</span>
@@ -233,7 +233,7 @@
 </pre></div>
 </div>
 <p>静的なプロパティを使いすぎると、複製できないクラスになってしまい、テストなどがしにくくなります。
-あまり多様することはないでしょう。</p>
+あまり多用することはないでしょう。</p>
 </div>
 <div class="section" id="id5">
 <h2>インスタンスクラスフィールド<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -502,7 +502,7 @@
 </ul>
 <p>継承とかオブジェクト指向設計とか方法論とかメソッドはメッセージで云々とか語り出すと大抵炎上するのがオブジェクト指向とかクラスの説明の難しいところです。
 これらの機能は、言語の文化とか、他の代替文法の有無とかで使われ方が大きく変わってきます。</p>
-<p>TypeScript界隈では、Angularなどのフレームワークではインタフェースが多様されています。
+<p>TypeScript界隈では、Angularなどのフレームワークではインタフェースが多用されています。
 ユーザーが実装するコンポーネントなどのクラスにおいて、Anguarが提供するサービスを受けるためのメソッドの形式が決まっていて、実装部分の中身をライブラリユーザーが実装するといった使われ方をしています。
 <code class="docutils literal notranslate"><span class="pre">OnInit</span></code> をimplementsすると、初期化時に呼び出されるといった具合です。</p>
 <p>継承が必要となるのは実装も提供する必要がある場合ですが、コードが追いかけにくくなるとか、拡張性のあるクラス設計が難しいとかもあり、引き継ぐべきメソッドが大量にあるクラス以外で積極的に使うケースはあまり多くないかもしれません。</p>
@@ -583,7 +583,7 @@ sa.drink();
 昔のJavaScriptをやっていたプログラマーから見ると、一番変化と進歩を感じるところがこのクラスでしょう。
 一般的なクラスの機能を備えた上で、型チェックも行われ、さらにデコレータなど追加機能なども含まれました。
 TypeScriptの場合は、エディタによるコード補完の正答率が大幅に上がったりしてリターンが大きいため、生産性の高まりを感じられるでしょう。</p>
-<p>いろいろと機能は多いですが、TypeScriptでは、あまりクラスの細かい機能を多様するコーディングは行われていません。
+<p>いろいろと機能は多いですが、TypeScriptでは、あまりクラスの細かい機能を多用するコーディングは行われていません。
 そのため、本章で取り上げた機能のうち、使わない機能も多いはずです。
 ちょっとしたロジックが書ける（バリデーションなど）構造体、といった感じで使われることがほとんどでしょう。
 最重要なところをピックアップするとしたら次のあたりです。</p>
@@ -606,7 +606,7 @@ TypeScriptの場合は、エディタによるコード補完の正答率が大�
 </ul>
 <p>次の機能をTypeScriptで駆使するようになったら警戒しましょう。
 まず、2段、3段、4段と続くような深い継承になるようなコードを書くことはないでしょう。
-<code class="docutils literal notranslate"><span class="pre">private</span></code> はともかく継承を前提とする <code class="docutils literal notranslate"><span class="pre">protected</span></code> 、抽象クラスを多様するような複雑なクラス設計がでてきたら、アプリケーションコードレベルではほぼ間違いだと思います。
+<code class="docutils literal notranslate"><span class="pre">private</span></code> はともかく継承を前提とする <code class="docutils literal notranslate"><span class="pre">protected</span></code> 、抽象クラスを多用するような複雑なクラス設計がでてきたら、アプリケーションコードレベルではほぼ間違いだと思います。
 もしかしたら、DOMに匹敵するような大規模なクラスライブラリを作るのであれば、抽象クラスだとか <code class="docutils literal notranslate"><span class="pre">protected</span></code> も活躍するかもしれませんが、ほぼ稀でしょう。
 せいぜいインタフェースを定義して、特定のメソッドを持っていたら仲間とみなす、ぐらいのダックタイピングとクラス指向の中間ぐらいがTypeScriptのスイートスポットだと思います。</p>
 <ul class="simple">

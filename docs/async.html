@@ -127,7 +127,7 @@ JavaScriptは、そのような時間のかかる処理は基本的に「非同�
 <p>コールバック地獄では、コードの呼び出し順が上から下ではなく上→下→中と分断されてしまいますが、 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の <code class="docutils literal notranslate"><span class="pre">then()</span></code> 節だけをみれば、上から下に順序良く流れているように見えます。
 初めて見ると面食らうかもしれませんが、慣れてくるとコールバックよりも流れは追いやすいでしょう。</p>
 <p>この <code class="docutils literal notranslate"><span class="pre">Promise</span></code> がJavaScript標準の方法として決定されると、さらなる改善のために<code class="docutils literal notranslate"><span class="pre">await</span></code>という新しいキーワードが導入されました。
-これは <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を使ったコードの、 <code class="docutils literal notranslate"><span class="pre">then()</span></code> 節の中だけを並べたのとほぼ透過になります。
+これは <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を使ったコードの、 <code class="docutils literal notranslate"><span class="pre">then()</span></code> 節の中だけを並べたのとほぼ等価になります。
 それにより、さらにフラットに書けるようになりましたし、行数も半分になります。
 内部的には、<code class="docutils literal notranslate"><span class="pre">await</span></code>はまったく新しい機構というわけではなく、<code class="docutils literal notranslate"><span class="pre">Promise</span></code>を扱いやすくする糖衣構文で、<code class="docutils literal notranslate"><span class="pre">then()</span></code>を呼び出し、その引数で渡される値が関数の返り値となるように動作します。
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> 対応のコードを書くのと、 <code class="docutils literal notranslate"><span class="pre">await</span></code> 対応のコードを書くのは差がありません。
@@ -237,16 +237,16 @@ Node.js標準にもありますし、npmで調べてもたくさんあります�
   return new 味噌汁();
 }
 
-async function ご飯(): Promise&lt;ご飯&gt; {
+async function ご飯温め(): Promise&lt;ご飯&gt; {
   await 電子レンジ();
   return new ご飯();
 }
 
-const [a味噌汁, aご飯] = await Promise.all([味噌汁(), ご飯()]);
+const [a味噌汁, aご飯] = await Promise.all([味噌汁温め(), ご飯温め()]);
 いただきます(a味噌汁, aご飯);
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">味噌汁()</span></code> と <code class="docutils literal notranslate"><span class="pre">ご飯()</span></code> は <code class="docutils literal notranslate"><span class="pre">async</span></code> がついた関数です。
+<p><code class="docutils literal notranslate"><span class="pre">味噌汁温め()</span></code> と <code class="docutils literal notranslate"><span class="pre">ご飯温め()</span></code> は <code class="docutils literal notranslate"><span class="pre">async</span></code> がついた関数です。
 省略可能ですがあえて返り値に <code class="docutils literal notranslate"><span class="pre">Promise</span></code> をつけています。
 これまでの例では、 <code class="docutils literal notranslate"><span class="pre">async</span></code> 関数を呼ぶ時には <code class="docutils literal notranslate"><span class="pre">await</span></code> をつけていました。
 <code class="docutils literal notranslate"><span class="pre">await</span></code> をつけると、待った後の結果（ここでは味噌汁とご飯のインスタンス）が帰ってきます。
@@ -422,10 +422,10 @@ const [a味噌汁, aご飯] = await Promise.all([味噌汁(), ご飯()]);
     <p>
     <ul>
         <li>英数記号: 3894</li>
-        <li>非アスキー: 5952</li>
-        <li>合計文字数: 9846</li>
-        <li>半角換算: 15798</li>
-        <li>全角換算: 7899.0</li>
+        <li>非アスキー: 5962</li>
+        <li>合計文字数: 9856</li>
+        <li>半角換算: 15818</li>
+        <li>全角換算: 7909.0</li>
     </ul>
     </p>
 </div>

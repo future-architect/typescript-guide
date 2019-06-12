@@ -10,6 +10,10 @@
 
    本ドキュメントは、まだ未完成ですが、ウェブフロントエンドの開発を学ぶときに、JavaScriptを経由せずに、最初からTypeScriptで学んでいく社内向けコンテンツとして作成されはじめました。基本の文法部分以外はまだ執筆されていない章もいくつもあります。書かれている章もまだまだ内容が追加される可能性がありますし、環境の変化で内容の変更が入る可能性もあります。
 
+   書籍の原稿はGitHub上で管理しております。もしTypoを見つけてくださった方がいらっしゃいましたら、 `GitHub上で連絡 <https://github.com/future-architect/typescript-guide/pulls>`_ をお願いします [#]_ 。reSTファイルだけ修正してもらえれば、HTML/PDFの生成までは不要です。フィードバックなども歓迎しております。
+
+   .. [#] https://github.com/future-architect/typescript-guide/pulls
+
 .. raw:: html
 
    <p><a href="./typescript-guide.pdf">PDF版をダウンロード</a></p>
@@ -68,6 +72,7 @@
    :caption: Appendix
 
    recommended
+   contributors
 
 .. todolist::
 
