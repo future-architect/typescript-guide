@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>複合型 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="基本的な構文" href="syntax.html" />
+    <link rel="prev" title="プリミティブ型" href="primitive.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>複合型<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>他のプリミティブ型、もしくは複合型自身を内部に含み、大きなデータを定義できるデータ型を「複合型」と呼びます。
+配列、オブジェクトなどがこれにあたります。クラスを定義して作るインスタンスも複合型ですが、リテラルで定義できる配列、およびオブジェクトをここでは取り上げます。</p>
+<div class="section" id="id2">
+<h2>配列<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>配列はTypeScriptの中でかなり多様されるリテラルですが、スプレッド構文、分割代入などが加わり、また、数々のメソッドを駆使することで、関数型言語のような書き方もできます。
+配列は、次に紹介するオブジェクトと同様、リテラルで定義できる複合型の1つです。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 変数に代入。型名を付けるときは配列に入れる要素の型名の後ろに[]を付与する</span>
+<span class="c1">// 後ろの型が明確であれば型名は省略可能</span>
+<span class="kr">const</span> <span class="nx">years</span>: <span class="kt">number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">2021</span><span class="p">];</span>
+<span class="kr">const</span> <span class="nx">divs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tig&#39;</span><span class="p">,</span> <span class="s1">&#39;sig&#39;</span><span class="p">,</span> <span class="s1">&#39;saig&#39;</span><span class="p">,</span> <span class="s1">&#39;scig&#39;</span><span class="p">];</span>
+
+<span class="c1">// 配列に要素を追加。複数個も追加可能</span>
+<span class="nx">years</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">2022</span><span class="p">);</span>
+<span class="nx">years</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">2024</span><span class="p">);</span>
+
+<span class="c1">// 要素から取り出し</span>
+<span class="kr">const</span> <span class="nx">first</span> <span class="o">=</span> <span class="nx">years</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h3>タプル<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Javaなどの配列は要素のすべての型は同じです。TypeScriptでは、配列の要素ごとに型が違う「タプル」というデータ型も定義できます。
+この場合違う型を入れようとするとエラーになります。
+配列のインデックスごとに何を入れるか、名前をつけることはできないため、積極的に使うことはないでしょう。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">movie</span><span class="o">:</span> <span class="p">[</span><span class="kt">string</span><span class="p">,</span> <span class="kt">number</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Gozilla&#39;</span><span class="p">,</span> <span class="mi">1954</span><span class="p">];</span>
+<span class="c1">// error TS2322: Type &#39;number&#39; is not assignable to type &#39;string&#39;.</span>
+<span class="nx">movie</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2019</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>配列からのデータの取り出し<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>以前のJavaScriptは、配列やオブジェクトの中身を変数に取り出すには一つずつ取り出すしかありませんでした。
+現在のJavaScriptとTypeScriptは、分割代入（<code class="docutils literal notranslate"><span class="pre">=</span></code>の左に配列を書く記法）を使って複数の要素をまとめて取り出すことができます。
+<code class="docutils literal notranslate"><span class="pre">slice()</span></code>を使わずに、新しいスプレッド構文（<code class="docutils literal notranslate"><span class="pre">...`</span></code>）を使って、複数の要素をまとめて取り出すことができます。</p>
+<p>スプレッド構文は省略記号のようにピリオドを3つ書く構文で、あたかも複数の要素がそこにあるかのように振る舞います。
+スプレッド構文は取り出し以外にも、配列やオブジェクトの加工、関数呼び出しの引数リストに対しても使える強力な構文です。
+ここでは、2つめ以降のすべての要素を<code class="docutils literal notranslate"><span class="pre">other</span></code>に格納しています。</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">配列の要素の取り出し</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">smalls</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">&quot;小動物&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;小型車&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;小論文&quot;</span>
+<span class="p">];</span>
+<span class="c1">// 旧: 一個ずつ取り出す</span>
+<span class="kd">var</span> <span class="nx">smallCar</span> <span class="o">=</span> <span class="nx">smalls</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">smallAnimal</span> <span class="o">=</span> <span class="nx">smalls</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="c1">// 旧: 2番目以降の要素の取り出し</span>
+<span class="kd">var</span> <span class="nx">other</span> <span class="o">=</span> <span class="nx">smalls</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// 新: まとめて取り出し</span>
+<span class="kr">const</span> <span class="p">[</span><span class="nx">smallCar</span><span class="p">,</span> <span class="nx">smallDog</span><span class="p">]</span> <span class="o">=</span> <span class="nx">smalls</span><span class="p">;</span>
+<span class="c1">// 新: 2番目以降の要素の取り出し</span>
+<span class="kr">const</span> <span class="p">[,</span> <span class="p">...</span><span class="nx">other</span><span class="p">]</span> <span class="o">=</span> <span class="nx">smalls</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>配列の要素の存在チェック<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>以前は、要素のインデックス値を見て判断していましたが、配列に要素が入っているかどうかをbooleanで返す<code class="docutils literal notranslate"><span class="pre">includes()</span></code>メソッドが入ったので、積極的にこれを使っていきましょう。</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">要素の存在チェック</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">places</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;小岩駅&quot;</span><span class="p">,</span> <span class="s2">&quot;小浜市&quot;</span><span class="p">,</span> <span class="s2">&quot;小倉駅&quot;</span><span class="p">];</span>
+
+<span class="c1">// 旧: indexOfを利用</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">places</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;小淵沢&quot;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 見つかった！</span>
+<span class="p">}</span>
+
+<span class="c1">// 新: includesを利用</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">places</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">&quot;小淵沢&quot;</span><span class="p">))</span> <span class="p">{</span>
+  <span class="c1">// 見つかった！</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>配列の加工<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>配列の加工は、他言語の習熟者がJavaScriptを学ぶときにつまづくポイントでした。
+<code class="docutils literal notranslate"><span class="pre">splice()</span></code>という要素の削除と追加を一度に行う謎のメソッドを使ってパズルのように配列を加工していました。
+配列のメソッドによっては、配列そのものを変更したり、新しい配列を返したりが統一されていないのも難解さを増やしているポイントです。
+スプレッド構文を使うと標準文法の範囲内でこのような加工ができます。
+さきほどのスプレッド構文は左辺用でしたが、こちらは右辺で配列の中身を展開します。</p>
+<p>近年のJavaScriptでは関数型言語のテクニックを借りてきてバグの少ないコードにしよう、という動きがあります。
+その1つが、配列やオブジェクトを加工していくのではなく、値が変更されたコピーを別に作って、最後にリプレースするという方法です。
+<code class="docutils literal notranslate"><span class="pre">splice()</span></code>は対象の配列を変更してしまいますが、スプレッド構文を使うと、この方針に沿ったコーディングがしやすくなります。
+配列のコピーも簡単にできます。</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">配列の加工</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">smalls</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">&quot;小動物&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;小型車&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;小論文&quot;</span>
+<span class="p">];</span>
+<span class="kr">const</span> <span class="nx">others</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s2">&quot;小市民&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;小田急&quot;</span>
+<span class="p">];</span>
+
+
+<span class="c1">// 旧: 3番目の要素を削除して、1つの要素を追加しつつ、他の配列と結合</span>
+<span class="nx">smalls</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;小心者&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">newSmalls</span> <span class="o">=</span> <span class="nx">smalls</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">others</span><span class="p">);</span>
+
+<span class="c1">// 新: スプレッド構文で同じ操作をする</span>
+<span class="c1">//     先頭要素の削除の場合、分割代入を使えばslice()も消せます</span>
+<span class="kr">const</span> <span class="nx">newSmalls</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">smalls</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;小心者&quot;</span><span class="p">,</span> <span class="p">...</span><span class="nx">others</span><span class="p">]</span>
+
+<span class="c1">// 旧: 配列のコピー</span>
+<span class="kd">var</span> <span class="nx">copy</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">smalls</span><span class="p">);</span>
+
+<span class="c1">// 新: スプレッド構文で配列のコピー</span>
+<span class="kr">const</span> <span class="nx">copy</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">smalls</span><span class="p">];</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="for-of">
+<h3>ループは<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">...</span> <span class="pre">of</span></code>を使う<a class="headerlink" href="#for-of" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ループの書き方は大きくわけて3通りあります。
+C言語由来のループは昔からあるものですがループ変数が必要です。
+<code class="docutils literal notranslate"><span class="pre">forEach()</span></code>はその後ES5で追加されましたが、その後は言語仕様のアップデートとともに<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">...</span> <span class="pre">of</span></code>構文が追加されました。
+この構文は<code class="docutils literal notranslate"><span class="pre">Array</span></code>, <code class="docutils literal notranslate"><span class="pre">Set</span></code>, <code class="docutils literal notranslate"><span class="pre">Map</span></code>、<code class="docutils literal notranslate"><span class="pre">String</span></code>などの繰り返し可能（iterable）オブジェクトに対してループします。
+配列の場合で、インデックス値が欲しい場合は、<code class="docutils literal notranslate"><span class="pre">entries()</span></code>メソッドを使います。
+関数型主義的なスタイルで統一するために、<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">...</span> <span class="pre">of</span></code> を禁止して<code class="docutils literal notranslate"><span class="pre">forEach()</span></code>のみを使うというコーディング標準を規定している会社もあります（AirBnB）。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">iterable</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;小金井&quot;</span><span class="p">,</span> <span class="s2">&quot;小淵沢&quot;</span><span class="p">,</span> <span class="s2">&quot;小矢部&quot;</span><span class="p">];</span>
+
+<span class="c1">// 旧: C言語由来のループ</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">iterable</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">iterable</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 中: forEach()ループ</span>
+<span class="nx">iterable</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">value</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// 新: for ofループで配列のインデックスが欲しい</span>
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="p">[</span><span class="nx">i</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="nx">of</span> <span class="nx">iterable</span><span class="p">.</span><span class="nx">entries</span><span class="p">())</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// 要素のみ欲しいときは for (const value of iterable)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>この <code class="docutils literal notranslate"><span class="pre">entries()</span></code> メソッドは、出力ターゲットをES2015以上にしないと動作しません。
+次のようなエラーがでます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// error TS2339: Property &#39;entries&#39; does not exist on type &#39;string[]&#39;.</span>
+</pre></div>
+</div>
+<p>Polyfillを使うことで対処もできますが、Polyfillを使わない対処方法としては、 <code class="docutils literal notranslate"><span class="pre">forEach()</span></code> を使う（2つめの引数がインデックス）、旧来のループを使うしかありません。</p>
+</div>
+</div>
+<div class="section" id="iterable">
+<h3>iterableとイテレータ<a class="headerlink" href="#iterable" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>前節の最後に <code class="docutils literal notranslate"><span class="pre">entries()</span></code> メソッドが出てきました。これは、一度のループごとに、インデックスと値のタプルを返すイテレータを返します。
+配列のループのときに、インデックスと値を一緒に返すときにこのイテレータが登場しています。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">];</span>
+<span class="kr">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">]];</span>
+
+<span class="c1">// この2つの結果は同じ</span>
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="p">[</span><span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">]</span> <span class="nx">of</span> <span class="nx">a</span><span class="p">.</span><span class="nx">entries</span><span class="p">())</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">);</span> <span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="p">[</span><span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">]</span> <span class="nx">of</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">);</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>この <code class="docutils literal notranslate"><span class="pre">entries()</span></code> は何者なんでしょうか？正解は、 <code class="docutils literal notranslate"><span class="pre">next()</span></code> というメソッドを持つイテレータと呼ばれるオブジェクトを返すメソッドです。
+この <code class="docutils literal notranslate"><span class="pre">next()</span></code> は、配列の要素と、終了したかどうかの boolean値を返します。
+イテレータ（厳密には外部イテレータと呼ばれる）はJavaやPython、C++ではおなじみのものです。</p>
+<p>上記の <code class="docutils literal notranslate"><span class="pre">b</span></code> のように全部の要素を持つ二重配列を作ってしまえばこのようなイテレータというものは必要ありませんが、その場合、要素数が多くなればなるほど、コピーに時間がかかってループが回る前の準備が遅くなる、という欠点を抱えることになります。そのため、このイテレータという要素を返すオブジェクトをつかい、全コピーを防いでいます。</p>
+<p>オブジェクにループの要素を取り出すメソッド（<code class="docutils literal notranslate"><span class="pre">&#64;&#64;iterator</span></code>）があるオブジェクトはiterableなオブジェクトです。
+繰り返し処理に対する約束事なので「iterableプロトコル」と呼ばれます。
+このメソッドはイテレータを返します。
+配列は、 <code class="docutils literal notranslate"><span class="pre">&#64;&#64;iterator</span></code> 以外にも、 <code class="docutils literal notranslate"><span class="pre">keys()</span></code> 、 <code class="docutils literal notranslate"><span class="pre">values()</span></code> 、 <code class="docutils literal notranslate"><span class="pre">entries()</span></code> と、イテレータを返すメソッドが合計4つあります。</p>
+<p><code class="docutils literal notranslate"><span class="pre">for...of</span></code>ループなどは、このプロトコルにしたがってループを行います。
+これ以外にも、分割代入や、スプレッド構文など、本特集で紹介した機能がこのiterableプロトコルを土台に提供されています。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Array</span></code>, <code class="docutils literal notranslate"><span class="pre">Set</span></code>, <code class="docutils literal notranslate"><span class="pre">Map</span></code>、<code class="docutils literal notranslate"><span class="pre">String</span></code>　などのオブジェクトがこのプロトコルを提供していますが、将来的に出てくるデータ構造もこのプロトコルをサポートするでしょう。
+また、自作することもできます。</p>
+<p>イテレータはループするときには問題ありませんが、任意の位置の要素へのアクセスなどは不便です。
+イテレータから配列に変換したい場合は <code class="docutils literal notranslate"><span class="pre">Array.from()</span></code> メソッドか、スプレッド構文が使えます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// こうする</span>
+<span class="kr">const</span> <span class="nx">names</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">iterable</span><span class="p">);</span>
+
+<span class="c1">// これもできる</span>
+<span class="kr">const</span> <span class="nx">names</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">iterable</span><span class="p">];</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>イテレータはES2015以降にしか存在しないため、スプレッド構文を使ってイテレータを配列に変換するのは、出力ターゲットがES2015以上でなければなりません。</p>
+<blockquote>
+<div><div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">names</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">iterable</span><span class="p">];</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>オブジェクト<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>オブジェクトは、JavaScriptのコアとなるデータですが、クラスなどを定義しないで、気軽にまとまったデータを扱うときに使います。
+配列は要素へのアクセス方法がインデックス（数値）でしたが、オブジェクトの場合は文字列です。
+キー名が変数などで使える文字だけで構成されている場合は、名前をそのまま記述できますが、空白文字やマイナスなどを含む場合にはダブルクオートやシングルクオートでくくります。
+また、キー名に変数を書く場合は <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code> でくくります。</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">オブジェクト</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 定義はキー、コロン(:)、値を書く。要素間は改行</span>
+<span class="kr">const</span> <span class="nx">key</span> <span class="o">=</span> <span class="s1">&#39;favorite drink&#39;</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">smallAnimal</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;小動物&quot;</span><span class="p">,</span>
+  <span class="nx">favorite</span><span class="o">:</span> <span class="s2">&quot;小籠包&quot;</span><span class="p">,</span>
+  <span class="s1">&#39;home town&#39;</span><span class="o">:</span> <span class="s2">&quot;神奈川県警のいるところ&quot;</span><span class="p">,</span>
+  <span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="o">:</span> <span class="s2">&quot;ストロングゼロ&quot;</span>
+<span class="p">};</span>
+
+<span class="c1">// 参照は `.`+名前、もしくは [名前]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span> <span class="c1">// 小動物</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">smallAnimal</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span> <span class="c1">// ストロングゼロ</span>
+</pre></div>
+</div>
+</div>
+<p>おおきなプログラムをきちんと書く場合には、次の章で紹介するクラスを使うべきですが、次のようなクラスを定義するまでもない場面で出てきます。</p>
+<ul class="simple">
+<li><p>Webサービスのリクエストやレスポンス</p></li>
+<li><p>関数のオプショナルな引数</p></li>
+<li><p>複数の情報を返す関数</p></li>
+<li><p>複数の情報を返す非同期処理</p></li>
+</ul>
+<div class="section" id="json-javascript-object-notation">
+<h3>JSON（JavaScript Object Notation）<a class="headerlink" href="#json-javascript-object-notation" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>オブジェクトがよく出てくる文脈は「JSON」です。JSONというのはデータ交換用フォーマットで、つまりは文字列です。
+プレーンテキストであり、書きやすく読みやすい（XMLやSOAPと比べて）こともありますし、JavaScriptでネイティブで扱えるため、API通信で使われるデータフォーマットとしてはトップシェアを誇ります。</p>
+<p>JSONをパースすると、オブジェクトと配列で階層構造になったデータができあがります。
+通信用のライブラリでは、パース済みの状態でレスポンスが帰ってきたりするため、正確ではないですが、このオブジェクト/配列も便宜上、JSONと呼ぶこともあります。</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">JSONとオブジェクト</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 最初の引数にオブジェクトや配列、文字列などを入れる</span>
+<span class="c1">// 2つめの引数はデータ変換をしたいときの変換関数（ログ出力からパスワードをマスクしたいなど）</span>
+<span class="c1">//   省略可能。通常はnull</span>
+<span class="c1">// 3つめは配列やオブジェクトでインデントするときのインデント幅</span>
+<span class="c1">//   省略可能。省略すると改行なしの1行で出力される</span>
+<span class="kr">const</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringfy</span><span class="p">(</span><span class="nx">smallAnimal</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
+<span class="c1">// これは複製されて出てくるので、元のsmallAnimalとは別物</span>
+<span class="kr">const</span> <span class="nx">smallAnimal2</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p>JSONはJavaScript/TypeScriptのオブジェクト定義よりもルールが厳密です。
+たとえば、キーは必ずダブルクオートでくくらなければなりませんし、配列やオブジェクトの末尾に不要なカンマがあるとエラーになります。
+その場合はJSON.parse()の中で <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> 例外が発生します。
+特に、JSONを便利だからとマスターデータとして使っていて、非プログラマーの人に、編集してもらったりしたときによく発生します。
+あとは、JSONレスポンスを期待しているウェブサービスの時に、サーバー側でエラーが発生して、 <code class="docutils literal notranslate"><span class="pre">Forbidden</span></code> という文字列が帰ってきた場合（403エラー時のボディ）にも発生します。</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">JSONパースのエラー</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SyntaxError: Unexpected token n in JSON at position 1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>オブジェクトからのデータの取り出し<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>オブジェクトの場合も配列同様、分割代入でまとめて取り出せます。
+また、要素がなかったときにデフォルト値を設定したり、指定された要素以外のオブジェクトを抜き出すことが可能です。
+注意点としては、まとめて取り出す場合の変数名は、必ずオブジェクトのキー名になります。
+関数の返値や、後述の<code class="docutils literal notranslate"><span class="pre">Promise</span></code>では、この記法のおかげで気軽に複数の情報をまとめて返せます。</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">オブジェクトの要素の取り出し</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">smallAnimal</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;小動物&quot;</span><span class="p">,</span>
+  <span class="nx">favorite</span><span class="o">:</span> <span class="s2">&quot;小籠包&quot;</span>
+<span class="p">};</span>
+
+<span class="c1">// 旧: 一個ずつ取り出す</span>
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">favorite</span> <span class="o">=</span> <span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">favorite</span><span class="p">;</span>
+<span class="c1">// 旧: 存在しない場合はデフォルト値を設定</span>
+<span class="kd">var</span> <span class="nx">age</span> <span class="o">=</span> <span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">age</span> <span class="o">?</span> <span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">age</span> <span class="o">:</span> <span class="mi">3</span><span class="p">;</span>
+
+<span class="c1">// 新: まとめて取り出し。デフォルト値も設定可能</span>
+<span class="kr">const</span> <span class="p">{</span><span class="nx">name</span><span class="p">,</span> <span class="nx">favorite</span><span class="p">,</span> <span class="nx">age</span><span class="o">=</span><span class="mi">3</span><span class="p">}</span> <span class="o">=</span> <span class="nx">smallAnimal</span><span class="p">;</span>
+<span class="c1">// 新: name以外の要素の取り出し</span>
+<span class="kr">const</span> <span class="p">{</span><span class="nx">name</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span><span class="p">}</span> <span class="o">=</span> <span class="nx">smallAnimal</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>オブジェクトの要素の加工<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>JavaScriptではオブジェクトがリテラルで作成できるデータ構造として気軽に利用されます。
+オブジェクトの加工（コピーや結合）も配列同様にスプレッド構文で簡単にできます。</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">smallAnimal</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;小動物&quot;</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">attributes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">job</span><span class="o">:</span> <span class="s2">&quot;小説家&quot;</span><span class="p">,</span>
+  <span class="nx">nearStation</span><span class="o">:</span> <span class="s2">&quot;小岩駅&quot;</span>
+<span class="p">}</span>
+
+<span class="c1">// 最古: オブジェクトをコピー</span>
+<span class="kd">var</span> <span class="nx">copy</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key1</span> <span class="k">in</span> <span class="nx">smallAnimal</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">if</span> <span class="p">(</span><span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key1</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">copy</span><span class="p">[</span><span class="nx">key1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">smallAnimal</span><span class="p">[</span><span class="nx">key1</span><span class="p">];</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 旧: Object.assign()を使ってコピー</span>
+<span class="kr">const</span> <span class="nx">copy</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">smallAnimal</span><span class="p">);</span>
+
+<span class="c1">// 新: スプレッド構文でコピー</span>
+<span class="kr">const</span> <span class="nx">copy</span> <span class="o">=</span> <span class="p">{...</span><span class="nx">smallAnimal</span><span class="p">};</span>
+
+<span class="c1">// 最古: オブジェクトをマージ</span>
+<span class="kd">var</span> <span class="nx">merged</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key1</span> <span class="k">in</span> <span class="nx">smallAnimal</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">if</span> <span class="p">(</span><span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key1</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">merged</span><span class="p">[</span><span class="nx">key1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">smallAnimal</span><span class="p">[</span><span class="nx">key1</span><span class="p">];</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key2</span> <span class="k">in</span> <span class="nx">attributes</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">if</span> <span class="p">(</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key2</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">merged</span><span class="p">[</span><span class="nx">key2</span><span class="p">]</span> <span class="o">=</span> <span class="nx">attributes</span><span class="p">[</span><span class="nx">key2</span><span class="p">];</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 旧: Object.assign()を使ってオブジェクトをマージ</span>
+<span class="kr">const</span> <span class="nx">merged</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">smallAnimal</span><span class="p">,</span> <span class="nx">attributes</span><span class="p">);</span>
+
+<span class="c1">// 新: スプレッド構文でマージ</span>
+<span class="kr">const</span> <span class="nx">merged</span> <span class="o">=</span> <span class="p">{...</span><span class="nx">smallAnimal</span><span class="p">,</span> <span class="p">...</span><span class="nx">attributes</span><span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="map">
+<h3>辞書用途はオブジェクトではなくて<code class="docutils literal notranslate"><span class="pre">Map</span></code>を使う<a class="headerlink" href="#map" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ES2015では、単なる配列以外にも、<code class="docutils literal notranslate"><span class="pre">Map</span></code>/<code class="docutils literal notranslate"><span class="pre">Set</span></code>などが増えました。これらは子供のデータをフラットにたくさん入れられるデータ構造です。
+これも配列と同じiterableですので、同じ流儀でループできます。
+古のコードはオブジェクトを、他言語の辞書やハッシュのようにつかっていましたが、今時は<code class="docutils literal notranslate"><span class="pre">Map</span></code>を使います。
+他の言語のようにリテラルで簡単に初期化できないのは欠点ですが、キーと値を簡単に取り出してループできるほか、キーだけでループ（<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">(const</span> <span class="pre">key</span> <span class="pre">of</span> <span class="pre">map.keys())</span></code>）, 値だけでループ（<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">(const</span> <span class="pre">value</span> <span class="pre">of</span> <span class="pre">map.values())</span></code>）も使えます。</p>
+<p>辞書用途で見た場合の利点は、オブジェクトはキーの型に文字列しか入れることができませんが、 <code class="docutils literal notranslate"><span class="pre">Map</span></code> や <code class="docutils literal notranslate"><span class="pre">Set</span></code> では <code class="docutils literal notranslate"><span class="pre">number</span></code> なども扱えます。</p>
+<p>オブジェクトは、データベースでいうところのレコード（1つのオブジェクトはいつも固定の名前がある）として使い、 <code class="docutils literal notranslate"><span class="pre">Map</span></code> はキーが可変の連想配列で、値の型が常に一定というケースで使うと良いでしょう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">WeakMap</span></code>や <code class="docutils literal notranslate"><span class="pre">WeakSet</span></code>という弱参照のキャッシュに使えるコレクションもありますし、ブラウザで使えるウェブアクセスの<code class="docutils literal notranslate"><span class="pre">Fetch</span></code>APIの<code class="docutils literal notranslate"><span class="pre">Headers</span></code>クラスも似たAPIを提供しています。
+これらのクラスに慣れておくと、コレクションを扱うコードが自在に扱えるようになるでしょう。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: オブジェクトを辞書代わりに</span>
+<span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;五反田&quot;</span><span class="o">:</span> <span class="s2">&quot;約束の地&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;戸越銀座&quot;</span><span class="o">:</span> <span class="s2">&quot;TGSGNZ&quot;</span>
+<span class="p">};</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">map</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span> <span class="o">+</span> <span class="s2">&quot; : &quot;</span> <span class="o">+</span> <span class="nx">map</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 新: Mapを利用</span>
+<span class="c1">// ``&lt;キーの型、 値の型&gt;`` で明示的に型を指定すると</span>
+<span class="c1">// ``set()`` 時に型違いのデータを入れようとするとチェックできるし、</span>
+<span class="c1">// ループなどで値を取り出しても型情報が維持されます</span>
+<span class="kr">const</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="o">&gt;</span><span class="p">([</span>
+  <span class="p">[</span><span class="s2">&quot;五反田&quot;</span><span class="p">,</span> <span class="s2">&quot;約束の地&quot;</span><span class="p">],</span>
+  <span class="p">[</span><span class="s2">&quot;戸越銀座&quot;</span><span class="p">,</span> <span class="s2">&quot;TGSGNZ&quot;</span><span class="p">]</span>
+<span class="p">]);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="nx">of</span> <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">key</span><span class="si">}</span><span class="sb"> : </span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><code class="docutils literal notranslate"><span class="pre">Map</span></code> 、 <code class="docutils literal notranslate"><span class="pre">Set</span></code> はES2015以降に導入されたクラスであるため、出力ターゲットをこれよりも新しくするか、ライブラリに登録した上でPolyfillを使うしかありません。</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">複合型</a><ul>
+<li><a class="reference internal" href="#id2">配列</a><ul>
+<li><a class="reference internal" href="#id3">タプル</a></li>
+<li><a class="reference internal" href="#id4">配列からのデータの取り出し</a></li>
+<li><a class="reference internal" href="#id5">配列の要素の存在チェック</a></li>
+<li><a class="reference internal" href="#id6">配列の加工</a></li>
+<li><a class="reference internal" href="#for-of">ループは<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">...</span> <span class="pre">of</span></code>を使う</a></li>
+<li><a class="reference internal" href="#iterable">iterableとイテレータ</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">オブジェクト</a><ul>
+<li><a class="reference internal" href="#json-javascript-object-notation">JSON（JavaScript Object Notation）</a></li>
+<li><a class="reference internal" href="#id8">オブジェクトからのデータの取り出し</a></li>
+<li><a class="reference internal" href="#id9">オブジェクトの要素の加工</a></li>
+<li><a class="reference internal" href="#map">辞書用途はオブジェクトではなくて<code class="docutils literal notranslate"><span class="pre">Map</span></code>を使う</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="primitive.html" title="前の章へ">プリミティブ型</a></li>
+      <li>Next: <a href="syntax.html" title="次の章へ">基本的な構文</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/complex.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 4242</li>
+        <li>非アスキー: 4822</li>
+        <li>合計文字数: 9064</li>
+        <li>半角換算: 13886</li>
+        <li>全角換算: 6943.0</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/complex.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

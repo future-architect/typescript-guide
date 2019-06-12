@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>Next.js（React）の環境構築 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="CI（継続的インテグレーション）環境の構築" href="ci.html" />
+    <link rel="prev" title="CLIツール作成のための環境設定" href="clienv.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="next-js-react">
+<h1>Next.js（React）の環境構築<a class="headerlink" href="#next-js-react" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>ウェブフロントエンドが今のJavaScript/TypeScriptの主戦場です。
+本章では、Next.jsについて取り上げます。</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>素のReactとVue.jsとAngular</p>
+<p>Next.jsはReactの上に作られたフレームワークですが、それ以外に人気のフレームワークにVue.jsとAngularがあります。この2つに関しては、手動で環境を作る必要はありません。</p>
+<p>Vue.jsではvueのCLIコマンドを使ってプロジェクトを作成できますが、作成時に最初に聞かれる質問でdefaultのpreset（babelとeslint）ではなく、Manually select featuresを選択してからTypeScriptを選ぶとインストールと設定が完了します。</p>
+<p>コア自体がTypeScriptで作成されているAngularは、実装言語はTypeScript以外が選べません。</p>
+<p>また、Reactそのものも、create-react-appコマンドを使って環境構築を行う場合、 <code class="docutils literal notranslate"><span class="pre">--typescript</span></code> オプションをつけるとTypeScript用のプロジェクトが作成できます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npx create-react-app myapp --typescript
+
+Creating a new React app in /Users/shibukawa/work/myapp.
+
+Installing packages. This might take a couple of minutes.
+Installing react, react-dom, and react-scripts...
+:
+Happy hacking!
+</pre></div>
+</div>
+</div>
+<p>なるべく、いろんなツールとの組み合わせの検証の手間を減らすために、Next.jsをつかいます。
+JavaScriptは組み合わせが多くて流行がすぐに移り変わっていつも環境構築させられる（ように見える）とよく言われますが、組み合わせが増えても検証されてないものを一緒に使うのはなかなか骨の折れる作業で、結局中のコードまで読まないといけなかったりとか、環境構築の難易度ばかりが上がってしまいます。
+特にRouterとかすべてにおいて標準が定まっていないReactはそれが顕著です。</p>
+<p>その中において、CSS in JS、RouterをオールインワンにしてくれているNext.jsは大変助かります。
+issueのところでもアクティブな中の人がガンガン回答してくれていますし、何よりも多種多様なライブラリとの組み合わせをexampleとして公開してくれているのが一番強いです。
+Server Side Renderingもありますが、お仕事でやっていて一番ありがたいのはこの設定周りです。</p>
+<dl class="footnote brackets">
+<dt class="label" id="id1"><span class="brackets">1</span></dt>
+<dd><p><a class="reference external" href="https://github.com/zeit/next.js/tree/canary/examples">https://github.com/zeit/next.js/tree/canary/examples</a></p>
+</dd>
+</dl>
+<div class="section" id="id2">
+<h2>作業フォルダを作る<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Next.jsではpagesフォルダにおいてあるコンポーネントがRouterに自動登録されるので、このフォルダをとりあえず作ります。あとは基本の環境構築と同じです。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir pages
+</pre></div>
+</div>
+<p>ウェブサービスをnpmに公開することはあんまりないと思うので、 <code class="docutils literal notranslate"><span class="pre">.npmignore</span></code> は不要ですが、 <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> の方は、Next.jsのファイル生成先の出力先フォルダを設定しておきます。</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">.gitignore</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.next
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>ビルドのツールのインストールと設定<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Next.jsではnext以外にも、react、react-domをインストールします。他にも必要なものを入れてしまいましょう。ReactのJSXに対応させるために、eslint-plugin-reactを忘れないようにしましょう。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save next react react-dom
+$ npm install --save-dev @types/node @types/next @types/react @types/react-dom
+$ npm install --save-dev typescript prettier
+    eslint @typescript-eslint/eslint-plugin eslint-plugin-prettier
+    eslint-config-prettier eslint-plugin-react npm-run-all
+$ npm install --save-dev jest ts-jest @types/jest
+</pre></div>
+</div>
+<p>Next.jsを快適にするためにTypeScriptと、SCSSを入れます。Next.jsでは、本家が提供しているプラグインを使います。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev @zeit/next-typescript @zeit/next-sass node-sass
+</pre></div>
+</div>
+<p>Next.jsだけでは真っ白なシンプルなHTMLになってしまうので、よくメンテナンスされているMaterial Designのライブラリである、Material UIを入れましょう。ウェブ開発になると急に必要なパッケージが増えますね。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save @material-ui/core @material-ui/icons react-jss
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">`tsconfig.json`</span></code> は今までと少し異なります。後段でBabelが処理してくれる、ということもあって、モジュールタイプはES6 modules形式、ファイルを生成することはせず、Babelに投げるので<code class="docutils literal notranslate"><span class="pre">noEmit:</span> <span class="pre">true</span></code> 。
+ReactもJSX構文をそのまま残す必要があるので&quot;preserve&quot;。
+また、JSで書かれたコードも一部あるので、allowJsも: trueでなければなりません。</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;allowJs&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;allowSyntheticDefaultImports&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;baseUrl&quot;</span><span class="p">:</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;jsx&quot;</span><span class="p">:</span> <span class="s2">&quot;preserve&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;lib&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;dom&quot;</span><span class="p">,</span> <span class="s2">&quot;es2017&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;esnext&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;moduleResolution&quot;</span><span class="p">:</span> <span class="s2">&quot;node&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;noEmit&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;noUnusedLocals&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;noUnusedParameters&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;preserveConstEnums&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;removeComments&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;skipLibCheck&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;sourceMap&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;strict&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;esnext&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Babel側にも設定を足します。</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">.babelrc</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;presets&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;next/babel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;@zeit/next-typescript/babel&quot;</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>TypeScriptと、SCSSのプラグインを有効化します。</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">next.config.js</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">withTypescript</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@zeit/next-typescript&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">withSass</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@zeit/next-sass&quot;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">withTypescript</span><span class="p">(</span>
+  <span class="nx">withSass</span><span class="p">({</span>
+    <span class="nx">webpack</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">config</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p>Next.jsの場合は、nextコマンドがいろいろやってくれるので、やっていることの分量のわりにscriptsがシンプルになります。</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;next&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;next build&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;export&quot;</span><span class="p">:</span> <span class="s2">&quot;next export&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;next start&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;lint&quot;</span><span class="p">:</span> <span class="s2">&quot;eslint .&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fix&quot;</span><span class="p">:</span> <span class="s2">&quot;eslint --fix .&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;jest&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;watch&quot;</span><span class="p">:</span> <span class="s2">&quot;jest --watchAll&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>ESLintはJSX関連の設定や、.tsxや.jsxのコードがあったらJSXとして処理する必要があるため、これも設定に含めます。
+あと、next.config.jsとかで一部Node.jsの機能をそのまま使うところがあって、CommonJSのrequireを有効にしてあげないとエラーになるので、そこも配慮します。</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">.eslintrc</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;plugins&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;prettier&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;extends&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;plugin:@typescript-eslint/recommended&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;plugin:prettier/recommended&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;plugin:react/recommended&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;no-console&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nt">&quot;prettier/prettier&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;@typescript-eslint/no-var-requires&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;@typescript-eslint/indent&quot;</span><span class="p">:</span> <span class="s2">&quot;ingore&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;react/jsx-filename-extension&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nt">&quot;extensions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;.ts&quot;</span><span class="p">,</span> <span class="s2">&quot;.tsx&quot;</span><span class="p">,</span> <span class="s2">&quot;.js&quot;</span><span class="p">,</span> <span class="s2">&quot;.jsx&quot;</span><span class="p">]</span>
+    <span class="p">}]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="next-js-ts">
+<h2>Next.js+TSのソースコード<a class="headerlink" href="#next-js-ts" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>まずMaterial UIを使うときに設定しなければならないコードがあるので、Material UIのサンプルページのsrc/getPageContext.js、 pages/_app.js、pages/_document.jsの3つのファイルをダウンロードして同じように起きます。Material UIのCSS in JSがNext.js標準の方法と違うので、それを有効化してやらないと、サーバーサイドレンダリングのときに表示がおかしくなってしまいます。</p>
+<p>次にページのコンテンツです。Next.jsの規約としては、pages以下のファイルが、export defaultでReactコンポーネントを返すと、それがページとなります。ちょっと長いですが、TypeScriptでページ作成するための方法を色々埋め込んであります。</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">pages/index.tsx</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>import Link from &quot;next/link&quot;;
+import React from &quot;react&quot;;
+
+import { Toolbar } from &quot;@material-ui/core&quot;;
+import AppBar from &quot;@material-ui/core/AppBar&quot;;
+import Button from &quot;@material-ui/core/Button&quot;;
+import Dialog from &quot;@material-ui/core/Dialog&quot;;
+import DialogActions from &quot;@material-ui/core/DialogActions&quot;;
+import DialogContent from &quot;@material-ui/core/DialogContent&quot;;
+import DialogContentText from &quot;@material-ui/core/DialogContentText&quot;;
+import DialogTitle from &quot;@material-ui/core/DialogTitle&quot;;
+import {
+  createStyles,
+  Theme,
+  withStyles,
+  WithStyles
+} from &quot;@material-ui/core/styles&quot;;
+import Typography from &quot;@material-ui/core/Typography&quot;;
+
+function styles(theme: Theme) {
+  return createStyles({
+    root: {
+      paddingTop: theme.spacing.unit * 20
+    }
+  });
+}
+
+interface Props {
+  children?: React.ReactNode;
+}
+
+interface State {
+  openDialog: boolean;
+}
+
+class Index extends React.Component&lt;
+  Props &amp; WithStyles&lt;typeof styles&gt;,
+  State
+&gt; {
+  public state = {
+    openDialog: false
+  };
+
+  constructor(props: Props &amp; WithStyles&lt;typeof styles&gt;) {
+    super(props);
+  }
+
+  public handleCloseDialog = () =&gt; {
+    this.setState({
+      openDialog: false
+    });
+  };
+
+  public handleClickShowDialog = () =&gt; {
+    this.setState({
+      openDialog: true
+    });
+  };
+
+  public render() {
+    const { classes } = this.props;
+    const { openDialog } = this.state;
+
+    return (
+      &lt;div className={classes.root}&gt;
+        &lt;Dialog open={openDialog} onClose={this.handleCloseDialog}&gt;
+          &lt;DialogTitle&gt;Dialog Sample&lt;/DialogTitle&gt;
+          &lt;DialogContent&gt;
+            &lt;DialogContentText&gt;
+              Easy to use Material UI Dialog.
+            &lt;/DialogContentText&gt;
+          &lt;/DialogContent&gt;
+          &lt;DialogActions&gt;
+            &lt;Button
+              color=&quot;primary&quot;
+              onClick={this.handleCloseDialog}
+            &gt;
+                         OK
+                     &lt;/Button&gt;
+                 &lt;/DialogActions&gt;
+             &lt;/Dialog&gt;
+             &lt;AppBar&gt;
+                 &lt;Toolbar&gt;
+                     &lt;Typography variant=&quot;h6&quot; color=&quot;inherit&quot;&gt;
+                         TypeScript + Next.js + Material UI Sample
+                     &lt;/Typography&gt;
+                 &lt;/Toolbar&gt;
+             &lt;/AppBar&gt;
+             &lt;Typography variant=&quot;display1&quot; gutterBottom={true}&gt;
+                 Material-UI
+             &lt;/Typography&gt;
+             &lt;Typography variant=&quot;subheading&quot; gutterBottom={true}&gt;
+                 example project
+             &lt;/Typography&gt;
+             &lt;Typography gutterBottom={true}&gt;
+                 &lt;Link href=&quot;/about&quot;&gt;
+                     &lt;a&gt;Go to the about page&lt;/a&gt;
+                 &lt;/Link&gt;
+             &lt;/Typography&gt;
+             &lt;Button
+                 variant=&quot;contained&quot;
+                 color=&quot;secondary&quot;
+                 onClick={this.handleClickShowDialog}
+             &gt;
+                 Shot Dialog
+             &lt;/Button&gt;
+             &lt;style jsx={true}&gt;{`
+                 .root {
+                     text-align: center;
+                 }
+             `}&lt;/style&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default withStyles(styles)(Index);
+</pre></div>
+</div>
+</div>
+<p>まずは、ReactのコンポーネントをTypeScriptで書くためのPropsやStateの型定義の渡し方ですね。Componentのパラメータとしてtypeを設定します。やっかいなのは、Material UIのスタイル用の機能です。テーマを元に少し手を加えればできる、という仕組みが実現されていますが、TypeScriptでやるには少々骨が折れます。それが <code class="docutils literal notranslate"><span class="pre">styles</span></code> 関数と <code class="docutils literal notranslate"><span class="pre">withStyles(styles)</span></code> の部分です。</p>
+</div>
+<div class="section" id="id4">
+<h2>まとめと、普段の開発<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>これで一通り、Reactを使う環境ができました。BFF側にAPI機能を持たせたいとか、Reduxを使いたい、というのがあればここからまた少し手を加える必要があるでしょう。</p>
+<p>開発はnpm run devで開発サーバーが起動し、ローカルのファイルの変更を見てホットデプロイとリロードを行ってくれます。</p>
+<p>デプロイ時はnpm run buildとすると、.nextフォルダ内にコンテンツが生成されます。npm run buildの後に、npm run exportをすると、静的ファイルを生成することもできます。ただし、いくつか制約があったりしますので、ドキュメントをよくご覧ください。</p>
+<p>Reactも、ここまでくればそんなに難しくないですよ。</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Next.js（React）の環境構築</a><ul>
+<li><a class="reference internal" href="#id2">作業フォルダを作る</a></li>
+<li><a class="reference internal" href="#id3">ビルドのツールのインストールと設定</a></li>
+<li><a class="reference internal" href="#next-js-ts">Next.js+TSのソースコード</a></li>
+<li><a class="reference internal" href="#id4">まとめと、普段の開発</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="clienv.html" title="前の章へ">CLIツール作成のための環境設定</a></li>
+      <li>Next: <a href="ci.html" title="次の章へ">CI（継続的インテグレーション）環境の構築</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/reactenv.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 6308</li>
+        <li>非アスキー: 1856</li>
+        <li>合計文字数: 8164</li>
+        <li>半角換算: 10020</li>
+        <li>全角換算: 5010.0</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/reactenv.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

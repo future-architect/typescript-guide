@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>おすすめのパッケージ &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="prev" title="成果物のデプロイ" href="deploy.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>おすすめのパッケージ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>ぼちぼち追加</p>
+<div class="section" id="id2">
+<h2>開発ツール<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="cash">
+<h3>cash<a class="headerlink" href="#cash" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/cash">cash</a></p></li>
+<li><p>TypeScript型定義:<code class="docutils literal notranslate"><span class="pre">&#64;types/cash</span></code></p></li>
+</ul>
+<p>UnixシェルコマンドをNode.jsで再実装したもの。WindowsのPowerShellがrmなどのエイリアスを提供してしまっている（しかも <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-Force</span> <span class="pre">-Recurse</span></code> のようにオプションが違う）が、cashを使うとクロスプラットフォームで動くファイル操作が行える。npm scriptsでも利用できるが、プログラム中からも使えるらしい。</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="admonition-title">課題</p>
+<p>cashにexportがあるので、cross-envはいらないかも？</p>
+</div>
+</div>
+<div class="section" id="cross-env">
+<h3>cross-env<a class="headerlink" href="#cross-env" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/cross-env">cross-env</a></p></li>
+<li><p>TypeScript型定義: CLIツールなので不要</p></li>
+</ul>
+<p>WindowsとLinux/macOSで環境変数変更を統一的に扱えるパッケージ。</p>
+</div>
+<div class="section" id="typesync">
+<h3>typesync<a class="headerlink" href="#typesync" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/typesync">typesync</a></p></li>
+<li><p>TypeScript型定義: CLIツールなので不要</p></li>
+</ul>
+<p>インストールされているパッケージの型定義パッケージを自動取得してくるCLIツール。</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>コマンドラインツール<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="convict">
+<h3>convict<a class="headerlink" href="#convict" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/convict">convict</a></p></li>
+<li><p>TypeScript型定義: <code class="docutils literal notranslate"><span class="pre">&#64;types/convict</span></code></p></li>
+</ul>
+<p>コマンドライン引数、設定ファイル、環境変数などを統合的に扱える設定情報管理ライブラリ。型情報付きで設定を管理できるし、設定内容のバリデーションもできる。TypeScriptで使うとさらに便利。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>アルゴリズム<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="p-map">
+<h3>p-map<a class="headerlink" href="#p-map" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/p-map">p-map</a></p></li>
+<li><p>TypeScript型定義: 同梱</p></li>
+</ul>
+<p>並列数を制御しながら多数の仕事を平行で処理できる <code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">おすすめのパッケージ</a><ul>
+<li><a class="reference internal" href="#id2">開発ツール</a><ul>
+<li><a class="reference internal" href="#cash">cash</a></li>
+<li><a class="reference internal" href="#cross-env">cross-env</a></li>
+<li><a class="reference internal" href="#typesync">typesync</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">コマンドラインツール</a><ul>
+<li><a class="reference internal" href="#convict">convict</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">アルゴリズム</a><ul>
+<li><a class="reference internal" href="#p-map">p-map</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="deploy.html" title="前の章へ">成果物のデプロイ</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/recommended.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 330</li>
+        <li>非アスキー: 410</li>
+        <li>合計文字数: 740</li>
+        <li>半角換算: 1150</li>
+        <li>全角換算: 575.0</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/recommended.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

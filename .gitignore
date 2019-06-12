@@ -1,0 +1,5 @@
+_build/doctrees
+ext/__pycache__
+node_modules
+_build/latex
+.DS_Store

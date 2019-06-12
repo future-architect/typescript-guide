@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>基本的な構文 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="基本的な型付け" href="typing.html" />
+    <link rel="prev" title="複合型" href="complex.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>基本的な構文<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>TypeScriptを扱ううえで登場する制御構文です。
+JavaScriptと変わりませんし、JavaやC++とかともほぼ変わりません。
+すでに知っている方は飛ばしても問題ありません。</p>
+<div class="section" id="id2">
+<h2>制御構文<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="if">
+<h3><code class="docutils literal notranslate"><span class="pre">if</span></code><a class="headerlink" href="#if" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>一番基本的な条件分岐です。JavaやC++を使ったことがあれば一緒です。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(条件)</span> <span class="pre">ブロック</span></code> です。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">else</span> <span class="pre">if</span> <span class="pre">(条件)</span></code> を追加することで、最初のケースで外れた場合に追加で条件分岐させることができます。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">else</span></code> をつけると、マッチしなかったケースで処理される節を追加できます。</p></li>
+<li><p>ブロックは <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">}</span></code> でくくってもいいですし、1つしか文がないなら <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">}</span></code> を省略することもできます。</p></li>
+</ul>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">task</span> <span class="o">===</span> <span class="s2">&quot;休憩中&quot;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;サーフィンに行く&quot;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">task</span> <span class="o">===</span> <span class="s2">&quot;デスマ中&quot;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;睡眠時間を確保する&quot;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;出勤する&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>なお、昔、よくバグの原因となると有名だった、条件文の中で比較演算子ではなく、間違って代入を書いてしまうことでプログラムの動きがおかしくなってしまう問題ですが、ESLintの推奨設定で有効になる <code class="docutils literal notranslate"><span class="pre">no-cond-assign</span></code> という項目で検出できます。</p>
+</div>
+<div class="section" id="switch">
+<h3><code class="docutils literal notranslate"><span class="pre">switch</span></code><a class="headerlink" href="#switch" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>条件文の中の値と、 <code class="docutils literal notranslate"><span class="pre">case</span></code> で設定されている値を <code class="docutils literal notranslate"><span class="pre">===</span></code> 演算子で前から順番に探索し、最初にマッチした節を実行します。一致した値がなく <code class="docutils literal notranslate"><span class="pre">default</span></code> 節があった場合にはそこが実行されます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">switch</span> <span class="p">(</span><span class="nx">task</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">case</span> <span class="s2">&quot;休憩中&quot;</span><span class="o">:</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;サーフィンに行く&quot;</span><span class="p">);</span>
+  <span class="k">break</span><span class="p">;</span>
+<span class="k">case</span> <span class="s2">&quot;デスマ中&quot;</span><span class="o">:</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;睡眠時間を確保する&quot;</span><span class="p">);</span>
+  <span class="k">break</span><span class="p">;</span>
+<span class="k">default</span><span class="o">:</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;出勤する&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">case</span></code> の条件が重複している <code class="docutils literal notranslate"><span class="pre">case</span></code> はESLintの推奨設定でも有効になる <code class="docutils literal notranslate"><span class="pre">no-duplicate-case</span></code> オプションで検知できます。
+また、 <code class="docutils literal notranslate"><span class="pre">break</span></code> を忘れると、次の <code class="docutils literal notranslate"><span class="pre">case</span></code> が実行されてしまいますが、こちらもESLintの推奨設定で有効になる <code class="docutils literal notranslate"><span class="pre">no-fallthrough</span></code> オプションで検知できます。</p>
+</div>
+<div class="section" id="for">
+<h3><code class="docutils literal notranslate"><span class="pre">for</span></code><a class="headerlink" href="#for" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>一番使うループ構文です。4通りの書き方があります。</p>
+<div class="section" id="c">
+<h4>C言語風のループ変数を使う書き方<a class="headerlink" href="#c" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>フラグの数値をインクリメントしながらループする方式です。昔は <code class="docutils literal notranslate"><span class="pre">var</span></code> を変数宣言に使っていましたが、 <code class="docutils literal notranslate"><span class="pre">let</span></code> が推奨です。
+<code class="docutils literal notranslate"><span class="pre">let</span></code> の変数は、このforの条件式とブロックの中だけで有効になります。</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">C言語風のループ変数を使う方式</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="for-in">
+<h4><code class="docutils literal notranslate"><span class="pre">for..in</span></code><a class="headerlink" href="#for-in" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>オブジェクトのプロパティを列挙するループです。
+プロトタイプまで探索しにいくため、想定外の値がループ変数に代入される可能性があります。
+そのため、 <code class="docutils literal notranslate"><span class="pre">hasOwnProperty()</span></code> メソッドを呼んで、想定外の値が入らないようにブロックする書き方が一般的でした。
+今では使うことはないでしょう。
+次に紹介する <code class="docutils literal notranslate"><span class="pre">for..of</span></code> を使うべきです。</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">for in</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>JavaScript時代との違いは、 <code class="docutils literal notranslate"><span class="pre">let</span></code> で定義された変数の範囲です。その <code class="docutils literal notranslate"><span class="pre">key</span></code> の値も含めて、条件文とボディの中以外から見えることはありません。</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>配列のループに <code class="docutils literal notranslate"><span class="pre">for..in</span></code> を使うことも不可能ではありませんが、現在使われている各種ブラウザでは、通常の <code class="docutils literal notranslate"><span class="pre">for</span></code> ループと比べて50倍から100倍遅くなります。配列のループの手段として使うのはやめましょう。</p>
+</div>
+</div>
+<div class="section" id="for-of">
+<h4><code class="docutils literal notranslate"><span class="pre">for..of</span></code><a class="headerlink" href="#for-of" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">for..in</span></code> より新しい記法です。イテレータという各データ構造がループ用に持っている機能を使うため、想定外の値が入ることはありません。</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">for of</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">value</span> <span class="nx">of</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">of</span></code> の右側には、イテレータプロトコルをサポートする、次のような要素が書けます。</p>
+<ul class="simple">
+<li><p>配列、 <code class="docutils literal notranslate"><span class="pre">Map</span></code> 、 <code class="docutils literal notranslate"><span class="pre">Set</span></code> 、文字列</p></li>
+</ul>
+<p>また、それ以外に、イテレータを返すメソッドや関数があり、これらの呼び出しを右辺に持ってくることもできます。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">array.entries()</span></code> （配列のインデックスと値がセットで返ってくる）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Object.keys(obj)</span></code> （オブジェクトのキーが返ってくる）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Object.values(obj)</span></code> （オブジェクトの値が返ってくる）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Object.entries(obj)</span></code> （オブジェクトのキーと値が返ってくる）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map.keys()</span></code> （ <code class="docutils literal notranslate"><span class="pre">Map</span></code> のキーが返ってくる）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map.values()</span></code> （ <code class="docutils literal notranslate"><span class="pre">Map</span></code> の値が返ってくる）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map.entries()</span></code> （ <code class="docutils literal notranslate"><span class="pre">Map</span></code> のキーと値が返ってくる）</p></li>
+</ul>
+<p>キーと値の両方が帰ってくるメソッドは、分割代入を用いて変数に入れます。</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">for of</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="nx">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">obj</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>なお上記に列挙したものの中では、 <code class="docutils literal notranslate"><span class="pre">Object.keys()</span></code> がES5に入っています。他のものを使うときは、ターゲットバージョンをES2015以上にするか、ターゲットバージョンを低くする代わりにPolyfillを設定する必要があります。</p>
+<p>このイテレータは、配列以外にも、配列のような複数の値を含むデータ構造（シーケンス）が共通で備えるインタフェースです。このインタフェースを実装することで、ユーザークラスでも <code class="docutils literal notranslate"><span class="pre">for..of</span></code> ループと一緒に使えるようになります。現在はそれほどではないですが、言語標準であるため、何かしらの最適化が行われる可能性があります。</p>
+</div>
+<div class="section" id="for-await-of">
+<h4><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">await</span> <span class="pre">of</span></code><a class="headerlink" href="#for-await-of" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>ES2018で導入されました。ループごとに非同期の待ち処理を入れます。
+これに対応するには、 asyncIterator に対応した要素を条件文の右辺に持ってくる必要がありますが、現在サポートしているのは <code class="docutils literal notranslate"><span class="pre">ReadableStream</span></code> ぐらいしかありません。
+このクラスは、 <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> のレスポンスの <code class="docutils literal notranslate"><span class="pre">body</span></code> プロパティぐらいでしか見かけません。
+対応するクラスを自作することもできます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="nx">await</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">body</span> <span class="nx">of</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>並行して処理を投げる場合は、非同期の章で紹介するように <code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> を使い、すべてのリクエストはすべて待たずに投げてしまう方が効率的です。
+<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">await</span> <span class="pre">of</span></code> は同期的な仕事でのみ利用されることを想定しています。</p>
+</div>
+</div>
+<div class="section" id="while-do-while">
+<h3><code class="docutils literal notranslate"><span class="pre">while</span></code> 、 <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">..</span> <span class="pre">while</span></code><a class="headerlink" href="#while-do-while" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>条件にあっている限り回り続けるループです。 <code class="docutils literal notranslate"><span class="pre">while</span></code> はブロックに入る前にチェックが入る方式、 <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">..</span> <span class="pre">while</span></code> はブロックの後でチェックをします。</p>
+<p>以前は、無限ループを実現するために <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">(true)</span></code> と書くこともありましたが、ESLintでは推奨設定で設定される <code class="docutils literal notranslate"><span class="pre">no-constant-condition</span></code> オプションで禁止されます。</p>
+</div>
+<div class="section" id="try-catch">
+<h3><code class="docutils literal notranslate"><span class="pre">try</span> <span class="pre">..</span> <span class="pre">catch</span></code><a class="headerlink" href="#try-catch" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>例外をキャッチする文法です。Javaと違うのは、JavaScriptは型を使って複数の <code class="docutils literal notranslate"><span class="pre">catch</span></code> 節を振り分けることができない、という点です。 <code class="docutils literal notranslate"><span class="pre">catch</span></code> には1つだけ入れ条件文を書きます。
+非同期処理が多いJavaScriptでは、例外でうまくエラーを捕まえられることはまれでしたが、ES2017で導入された <code class="docutils literal notranslate"><span class="pre">async</span></code> 関数は非同期処理の中のエラーを例外として投げるため、再びこの文法の利用価値が高まっています。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
+  <span class="c1">// 処理</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;例外投げる&quot;</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// ここに飛んでくる</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+  <span class="c1">// エラーがあってもなくてもここにはくる</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>式<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>基本的な演算子などは、他の言語と変わらないので省略します。他の言語ユーザーが困りそうなポイントは次の2つぐらいです。</p>
+<ul class="simple">
+<li><p>比較の演算子: <code class="docutils literal notranslate"><span class="pre">===</span></code> と <code class="docutils literal notranslate"><span class="pre">==</span></code> がある（それぞれ否定は <code class="docutils literal notranslate"><span class="pre">!==</span></code> と <code class="docutils literal notranslate"><span class="pre">!=</span></code> ）。前者は一致を厳密に見るが、後者は、文字列に変換してから比較する。なお、配列やオブジェクトで厳密な一致（ <code class="docutils literal notranslate"><span class="pre">===</span></code> ）は、インスタンスが同一かどうか、で判定されます。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">**</span></code> 演算子:  <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">**</span> <span class="pre">y</span></code> で <code class="docutils literal notranslate"><span class="pre">Math.pow(x,</span> <span class="pre">y)</span></code> と同じ累乗計算を行う</p></li>
+</ul>
+<p>いまどきのウェブフレームワークでコードを書く上で大事な式は2つあり、論理積（ <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> ）と、三項演算子ですね。それぞれ、 <code class="docutils literal notranslate"><span class="pre">(条件)</span> <span class="pre">&amp;&amp;</span> <span class="pre">真の時の値</span></code> 、 <code class="docutils literal notranslate"><span class="pre">(条件)</span> <span class="pre">?</span> <span class="pre">真の時の値</span> <span class="pre">:</span> <span class="pre">偽の時の値</span></code> という、条件分岐を1行で書きます。</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">三項演算子（わかりやすくするためにかっこを入れましたが省略可能です）</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">(</span><span class="nx">day</span> <span class="o">===</span> <span class="s2">&quot;金曜日&quot;</span><span class="p">)</span> <span class="o">?</span> <span class="s2">&quot;明日休みなので鳥貴族に行く&quot;</span> <span class="o">:</span> <span class="s2">&quot;大人しく帰る&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<p>とくに、Reactは1行の一筆書き（1つの <code class="docutils literal notranslate"><span class="pre">return</span></code> 文の中で）で、仮想DOMという巨大なJavaScriptのオブジェクトを生成します。このときに条件分岐のコードとして役に立つのが三項演算子というわけです。</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Reactの中の条件分岐</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>render() {
+  return (
+    &lt;div&gt;
+      { this.state.loggedIn ? &lt;p&gt;ようこそ&lt;/p&gt; : &lt;p&gt;ログインが必要です&lt;/p&gt; }
+    &lt;/div&gt;
+  );
+}
+</pre></div>
+</div>
+</div>
+<p>参考までに、ループは配列の <code class="docutils literal notranslate"><span class="pre">map</span></code> メソッドを使うことが多いです。</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Reactの中のループ</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>render() {
+  return (
+    &lt;ul&gt;
+      { this.state.users.map(user =&gt; {
+        &lt;li&gt;{user.name}&lt;/li&gt;
+      })
+    &lt;/ul&gt;
+  );
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>まとめ<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>基本的な部分は他の言語、特にC++やJavaといった傾向の言語を使っている人からすればあまり大きな変化に感じないでしょう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">for</span></code> ループだけはいくつか拡張がされたりしていましたので紹介しました。
+また、今時のウェブフレームワークで使う、1行のコード内で使える条件分岐とループも紹介しました。</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">基本的な構文</a><ul>
+<li><a class="reference internal" href="#id2">制御構文</a><ul>
+<li><a class="reference internal" href="#if"><code class="docutils literal notranslate"><span class="pre">if</span></code></a></li>
+<li><a class="reference internal" href="#switch"><code class="docutils literal notranslate"><span class="pre">switch</span></code></a></li>
+<li><a class="reference internal" href="#for"><code class="docutils literal notranslate"><span class="pre">for</span></code></a><ul>
+<li><a class="reference internal" href="#c">C言語風のループ変数を使う書き方</a></li>
+<li><a class="reference internal" href="#for-in"><code class="docutils literal notranslate"><span class="pre">for..in</span></code></a></li>
+<li><a class="reference internal" href="#for-of"><code class="docutils literal notranslate"><span class="pre">for..of</span></code></a></li>
+<li><a class="reference internal" href="#for-await-of"><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">await</span> <span class="pre">of</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#while-do-while"><code class="docutils literal notranslate"><span class="pre">while</span></code> 、 <code class="docutils literal notranslate"><span class="pre">do</span> <span class="pre">..</span> <span class="pre">while</span></code></a></li>
+<li><a class="reference internal" href="#try-catch"><code class="docutils literal notranslate"><span class="pre">try</span> <span class="pre">..</span> <span class="pre">catch</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">式</a></li>
+<li><a class="reference internal" href="#id4">まとめ</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="complex.html" title="前の章へ">複合型</a></li>
+      <li>Next: <a href="typing.html" title="次の章へ">基本的な型付け</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/syntax.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 1798</li>
+        <li>非アスキー: 2615</li>
+        <li>合計文字数: 4413</li>
+        <li>半角換算: 7028</li>
+        <li>全角換算: 3514.0</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/syntax.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

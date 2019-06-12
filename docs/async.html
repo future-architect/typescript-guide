@@ -1,0 +1,462 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>非同期処理 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="モジュール" href="module.html" />
+    <link rel="prev" title="クラス" href="class.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>非同期処理<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>JavaScriptのエコシステムは伝統的にはスレッドを使わない計算モデルを使い、それの効率をあげる方向で進化してきました。
+例えば、スリープのような、実行を行の途中で止めるような処理は基本的に持っていませんでした。
+10秒間待つ、というタスクがあった場合には、10秒後に実行される関数を登録する、といった具合の処理が提供され、その場で「10秒止める」という処理を書く機能は提供されませんでした。</p>
+<p>JavaScriptは伝統的に、ホストとなる環境（ブラウザ）の中で実行される、アプリケーション言語として使われることが多く、ホスト側のアプリケーションから見て、長時間ブロックされるなどの行儀の悪い動きをすることが忌避されてきたからではないかと思います。
+そのせいかどうかわかりませんが、他の言語とは多少異なる進化を遂げてきました。</p>
+<p>ブラウザでは、数々のHTML側のインタラクション、あるいはタイマーなどのイベントに対して、あらかじめ登録しておいたイベントハンドラの関数が呼ばれる、というモデルを採用しています。
+JavaScriptがメインの処理系となるNode.jsでも、OSが行う、時間のかかる処理を受けるイベントループがあり、OS側の待ち処理に対してコールバック関数をあらかじめ登録しておきます。そして、結果の準備ができたら、それが呼ばれるというモデルです。</p>
+<p>ES2015以降、このコーディングスタイルにも手が入り、土台の仕組みはコールバックではありますが、多数の非同期を効率よく扱う方法が整備されてきました。
+現在、見かける非同期処理の書き方は大きく3種類あります。</p>
+<ul class="simple">
+<li><p>コールバック</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">async</span></code> / <code class="docutils literal notranslate"><span class="pre">await</span></code></p></li>
+</ul>
+<p>本章ではそれらを紹介していきます。</p>
+<div class="section" id="id2">
+<h2>非同期とは何か<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>JavaScriptの処理系には、現在のシステムのUIを担うレイヤーとしてかなりの開発資金が投入されてきました。
+ブラウザ戦争と呼ばれる時期には、各ブラウザが競うようにJavaScriptやウェブブラウザの画面描画の速度向上を喧伝し、他社製のブラウザよりも優れていると比較のベンチマークを出していたりしました。
+その結果としては、スクリプト言語としてはJavaScriptはトップクラスの速度になりました。Just In Timeコンパイラという実行時の最適化が効くと、コンパイル言語に匹敵する速度を出すことすらあります。</p>
+<p>CPU速度が問題になることはあまりないとはいえ、コードで処理するタスクの中には長い時間の待ちを生じさせるものがいくつかあります。
+例えば、タイマーなどもそうですし、外部のサーバーやデータベースへのネットワークアクセス、ローカルのファイルの読み書きなどは往復でミリ秒、場合によっては秒に近い遅延を生じさせます。
+JavaScriptは、そのような時間のかかる処理は基本的に「非同期」という仕組みで処理を行います。
+タイマー呼び出しをする次のコードを見て見ます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;タイマー呼び出し前&quot;</span><span class="p">);</span>
+<span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;時間が来た&quot;</span><span class="p">);</span>
+<span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;タイマー呼び出し後&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>このコードを実行すると次の順序でログが出力されます。</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>タイマー呼び出し前
+タイマー呼び出し後 // 上の行と同時に表示
+時間が来た        // 1秒後に表示
+</pre></div>
+</div>
+<p>JavaScriptでは時間のかかる処理を実行する場合、完了した後に呼び出す処理を処理系に渡すことはあっても、そこで処理を処理を止めることはありません。
+タイマーを設定する <code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code> 関数の実行自体は即座に完了し、その次の行がすぐ呼ばれます。
+そして時間のかかるタイマーの待ちが完了すると、渡してあった関数が実行されます。
+処理が終わるのをじっくり待つ（同期）のではなく、完了したら後から連絡してもらう（非同期）のがJavaScriptのスタイルです。</p>
+<p>昔のJavaScriptのコードでは、時間のかかる処理を行う関数は、かならず引数の最後がコールバック関数でした。
+このコールバック関数の中にコードを書くことで、時間のかかる処理が終わったあとに実行する、というのが表現できました。</p>
+</div>
+<div class="section" id="id3">
+<h2>コールバックは使わない<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>以前はJavaScriptで数多くの非同期処理を実装しようとすると、多数のコールバック関数を扱う必要があり、以前はコールバック地獄と揶揄されていました。</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">非同期の書き方</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: Promise以前</span>
+<span class="nx">func1</span><span class="p">(</span><span class="nx">引数</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">err</span><span class="p">;</span>
+  <span class="nx">func2</span><span class="p">(</span><span class="nx">引数</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">err</span><span class="p">;</span>
+    <span class="nx">func3</span><span class="p">(</span><span class="nx">引数</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 最後に実行されるコードブロック</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<p>その後、<code class="docutils literal notranslate"><span class="pre">Promise</span></code>が登場し、ネストが1段になり、書きやすく、読みやすくなりました。
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code>はその名の通り「重たい仕事が終わったら、あとで呼びに来るからね」という約束です。
+これにより、上記のような、深いネストがされたコードを触れる必要が減ってきました。
+何階層もの待ちが発生しても、1段階のネストで済むようになりました。</p>
+<p>この <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の実装は、文法の進化に頼ることなく、既存のJavaScriptの文法の上で実装されたトリックで実現できました。
+コミュニティベースで実現されたソリューションです。
+この <code class="docutils literal notranslate"><span class="pre">Promise</span></code> は現在も生き続けている方法です。直接書く機会は減ると思いますが、 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> について学んだことは無駄にはなりません。</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">非同期の書き方</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 中: Promise以後</span>
+<span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resp</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">json</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// エラー発生時にここを通過する</span>
+<span class="p">}).</span><span class="k">finally</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// エラーが発生しても、正常終了時もここを通過する</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> の <code class="docutils literal notranslate"><span class="pre">then()</span></code> 節の中に、前の処理が終わった時に呼び出して欲しいコードを書きます。
+また、その <code class="docutils literal notranslate"><span class="pre">then()</span></code> のレスポンスもまた <code class="docutils literal notranslate"><span class="pre">Promise</span></code> なので、連続して書けるというわけです。
+また、この <code class="docutils literal notranslate"><span class="pre">then()</span></code> の中で <code class="docutils literal notranslate"><span class="pre">return</span></code> で返されたものが次の <code class="docutils literal notranslate"><span class="pre">then()</span></code> の入力になります。
+<code class="docutils literal notranslate"><span class="pre">then()</span></code> の中で <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返すと、その返された <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が解決すると、その結果が次の <code class="docutils literal notranslate"><span class="pre">then()</span></code> の入力になります。遅い処理を割り込ませるイメージです。
+<code class="docutils literal notranslate"><span class="pre">catch()</span></code> と <code class="docutils literal notranslate"><span class="pre">finally()</span></code> は通常の例外処理と同じです。 <code class="docutils literal notranslate"><span class="pre">finally()</span></code> はES2018で取り込まれた機能です。</p>
+<p>コールバック地獄では、コードの呼び出し順が上から下ではなく上→下→中と分断されてしまいますが、 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の <code class="docutils literal notranslate"><span class="pre">then()</span></code> 節だけをみれば、上から下に順序良く流れているように見えます。
+初めて見ると面食らうかもしれませんが、慣れてくるとコールバックよりも流れは追いやすいでしょう。</p>
+<p>この <code class="docutils literal notranslate"><span class="pre">Promise</span></code> がJavaScript標準の方法として決定されると、さらなる改善のために<code class="docutils literal notranslate"><span class="pre">await</span></code>という新しいキーワードが導入されました。
+これは <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を使ったコードの、 <code class="docutils literal notranslate"><span class="pre">then()</span></code> 節の中だけを並べたのとほぼ透過になります。
+それにより、さらにフラットに書けるようになりましたし、行数も半分になります。
+内部的には、<code class="docutils literal notranslate"><span class="pre">await</span></code>はまったく新しい機構というわけではなく、<code class="docutils literal notranslate"><span class="pre">Promise</span></code>を扱いやすくする糖衣構文で、<code class="docutils literal notranslate"><span class="pre">then()</span></code>を呼び出し、その引数で渡される値が関数の返り値となるように動作します。
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> 対応のコードを書くのと、 <code class="docutils literal notranslate"><span class="pre">await</span></code> 対応のコードを書くのは差がありません。
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> でない返り値の関数の前に <code class="docutils literal notranslate"><span class="pre">await</span></code> を書いても処理が止まることはありません（エラーになることはありません）。</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">非同期の書き方</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 新: 非同期処理をawaitで待つ（ただし、awaitはasync関数の中でのみ有効）</span>
+<span class="kr">const</span> <span class="nx">resp</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">await</span></code> を扱うには、 <code class="docutils literal notranslate"><span class="pre">async</span></code> をつけて定義された関数でなければなりません。
+TypeScriptでは、 <code class="docutils literal notranslate"><span class="pre">async</span></code> を返す関数の返り値は必ず <code class="docutils literal notranslate"><span class="pre">Promise</span></code> になります。
+ジェネリクスのパラメータとして、返り値の型を設定します。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>async function(): Promise&lt;number&gt; {
+  await 時間のかかる処理();
+  return 10;
+}
+</pre></div>
+</div>
+<p>なお、 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返す関数は、関数の宣言文を見たときに動作が理解しやすくなるので <code class="docutils literal notranslate"><span class="pre">async</span></code> をつけておく方が良いでしょう。ESLintのTypeScriptプラグインでも、推奨設定でこのように書くことを推奨しています<a class="footnote-reference brackets" href="#id5" id="id4">1</a> 。</p>
+<p>TypeScriptの処理系は、この <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の種類と、関数の返り値の型が同一かどうかを判断し、マッチしなければエラーを出してくれます。
+非同期処理の場合、実際に動かしてデバッグしようにも、送る側の値と、受ける側に渡ってくる値が期待通りかどうかを確認するのが簡単ではありません。
+ログを出して見ても、実際に実行されるタイミングがかなりずれていることがありえます。
+TypeScriptを使うメリットには、このように実際に動かすデバッグが難しいケースでも、型情報を使って「失敗するとわかっている実装」を見つけてくれる点にあります。</p>
+<p>比較的新しく作られたライブラリなどは最初から<code class="docutils literal notranslate"><span class="pre">Promise</span></code>を返す実装になっていると思いますが、そうでないコールバック関数方式のコードを扱う時は <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Promise</span></code>を使って<code class="docutils literal notranslate"><span class="pre">Promise</span></code>化します。</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// setTimeoutは最初がコールバックという変態仕様なので仕方なくnew Promise</span>
+<span class="kr">const</span> <span class="nx">sleep</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">(</span><span class="nx">time</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setTimeout</span><span class="p">(()=&gt;</span> <span class="p">{</span>
+      <span class="nx">resolve</span><span class="p">(</span><span class="nx">time</span><span class="p">);</span>
+    <span class="p">},</span> <span class="nx">time</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="nx">await</span> <span class="nx">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>末尾がコールバック、コールバックの先頭の引数はErrorという、2010年代の行儀の良いAPIであれば、<code class="docutils literal notranslate"><span class="pre">Promise</span></code>化してくれるライブラリがあります。
+Node.js標準にもありますし、npmで調べてもたくさんあります。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// Node.js標準ライブラリのpromisifyを使う</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">promisify</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;util&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">readFile</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;fs&quot;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">readFileAsync</span> <span class="o">=</span> <span class="nx">promisify</span><span class="p">(</span><span class="nx">readFile</span><span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">readFileAsync</span><span class="p">(</span><span class="s2">&quot;package.json&quot;</span><span class="p">,</span> <span class="s2">&quot;utf8&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id4">1</a></span></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">&#64;typescript-eslint/promise-function-async</span></code> という設定が該当します。</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id6">
+<h2>非同期と制御構文<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>TypeScriptで提供されている <code class="docutils literal notranslate"><span class="pre">if</span></code> や <code class="docutils literal notranslate"><span class="pre">for</span></code> 、 <code class="docutils literal notranslate"><span class="pre">while</span></code> などは関数呼び出しを伴わないフラットなコードなので<code class="docutils literal notranslate"><span class="pre">await</span></code>とも一緒に使えます。
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> やコールバックを使ったコードで、条件によって非同期処理を1つ追加する、というコードを書くのは大変です。
+試しに、TypeScriptのPlayGroundで下記のコードを変換してみるとどうなるか見て見ると複雑さにひっくり返るでしょう。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// たまに実行される</span>
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">randomRun() {</span>
+<span class="p">}</span>
+
+<span class="c1">// 必ず実行される</span>
+<span class="nx">async</span> <span class="kd">function</span> <span class="k">finally</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">main</span><span class="p">(){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">await</span> <span class="nx">randomRun</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="nx">await</span> <span class="k">finally</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">main</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>これを見ると、 <code class="docutils literal notranslate"><span class="pre">await</span></code> は条件が複雑なケースでも簡単に非同期を含むコードを扱えるのがメリットであることが理解できるでしょう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">await</span></code> を使うと、ループを一回回るたびに重い処理が完了するのを待つことができます。
+同じループでも、配列の <code class="docutils literal notranslate"><span class="pre">forEach()</span></code> を使うと、1要素ごとに <code class="docutils literal notranslate"><span class="pre">await</span></code> で待つことはできませんし、すべてのループの処理が終わったあとに、何かを行わせることもできません。</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// for of, if, while, switchはawaitとの相性も良い</span>
+<span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">iterable</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">await</span> <span class="nx">doSomething</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;この行は全部のループが終わったら実行される&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// このawaitでは待たずにループが終わってしまう</span>
+<span class="nx">iterable</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">async</span> <span class="nx">value</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">await</span> <span class="nx">doSomething</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;この行はループ内の各処理が回る前に即座に実行される&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="promise">
+<h2><code class="docutils literal notranslate"><span class="pre">Promise</span></code> の分岐と待ち合わせの制御<a class="headerlink" href="#promise" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> は「時間がかかる仕事が終わった時に通知するという約束」という説明をしました。
+みなさんは普段の生活で、時間がかかるタスクというのを行ったことがありますよね？
+味噌汁をガスレンジあたためつつ、ご飯を電子レンジで温め、両方終わったらいただきます、という具合です。
+<code class="docutils literal notranslate"><span class="pre">Promise</span></code> および、その完了を待つ <code class="docutils literal notranslate"><span class="pre">await</span></code> を使えば、そのようなタスクも簡単に実装できます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>async function 味噌汁温め(): Promise&lt;味噌汁&gt; {
+  await ガスレンジ();
+  return new 味噌汁();
+}
+
+async function ご飯(): Promise&lt;ご飯&gt; {
+  await 電子レンジ();
+  return new ご飯();
+}
+
+const [a味噌汁, aご飯] = await Promise.all([味噌汁(), ご飯()]);
+いただきます(a味噌汁, aご飯);
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">味噌汁()</span></code> と <code class="docutils literal notranslate"><span class="pre">ご飯()</span></code> は <code class="docutils literal notranslate"><span class="pre">async</span></code> がついた関数です。
+省略可能ですがあえて返り値に <code class="docutils literal notranslate"><span class="pre">Promise</span></code> をつけています。
+これまでの例では、 <code class="docutils literal notranslate"><span class="pre">async</span></code> 関数を呼ぶ時には <code class="docutils literal notranslate"><span class="pre">await</span></code> をつけていました。
+<code class="docutils literal notranslate"><span class="pre">await</span></code> をつけると、待った後の結果（ここでは味噌汁とご飯のインスタンス）が帰ってきます。
+<code class="docutils literal notranslate"><span class="pre">await</span></code> をつけないと、 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> そのものが帰ってきます。</p>
+<p>この <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の配列を受け取り、全部の <code class="docutils literal notranslate"><span class="pre">Promise</span></code> が完了するのを待つのが <code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> です。
+<code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> は、引数のすべての結果が得られると、解決して結果をリストで返す <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を返します。
+<code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> の結果を <code class="docutils literal notranslate"><span class="pre">await</span></code> すると、すべての結果がまとめて得られます。</p>
+<p>この <code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> は、複数のウェブリクエストを同時に並行で行い、全てが出揃ったら画面を描画する、など多くの場面で使えます。
+ループで複数の要素を扱う場合も使えます。</p>
+<p>なお、 <code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> の引数の配列に、 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> 以外の要素があると、即座に完了する <code class="docutils literal notranslate"><span class="pre">Promise</span></code> として扱われます。</p>
+<p>類似の関数で <code class="docutils literal notranslate"><span class="pre">Promise.race()</span></code> というものがあります。
+これは <code class="docutils literal notranslate"><span class="pre">all()</span></code> と似ていますが、全部で揃うと実行されるわけではなく、どれか一つでも完了すると呼ばれます。
+レスポンスの値は、引数のうちのどれか、ということで、結果を受け取る場合は処理が少し複雑になります。
+結果を扱わずに、5秒のアニメーションが完了するか、途中でクリックした場合には画面を更新する、みたいな処理には適しているかもしれません。</p>
+</div>
+<div class="section" id="await">
+<h2>ループの中の <code class="docutils literal notranslate"><span class="pre">await</span></code> に注意<a class="headerlink" href="#await" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">for</span></code> ループと <code class="docutils literal notranslate"><span class="pre">await</span></code> が併用できることはすでに紹介しました。
+しかし、このコード自体は問題があります。</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">iterable</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">await</span> <span class="nx">doSomething</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>この <code class="docutils literal notranslate"><span class="pre">doSomething()</span></code> の中で外部APIを呼び出しているとすると、要素数×アクセスにかかる時間だけ、処理時間がかかります。
+要素数が多い場合、要素数に比例して処理時間が伸びます。
+この <code class="docutils literal notranslate"><span class="pre">await</span></code> を内部にもつループがボトルネックとなり、ユーザーレスポンスが遅れることもありえるかもしれません。
+上記のような例を紹介はしましたが、基本的にループ内の <code class="docutils literal notranslate"><span class="pre">await</span></code> は警戒すべきコードです。</p>
+<p>この場合、 <code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> を使うと、全部の重い処理を同時に投げ、一番遅い最後の処理が終わるまで待つことができます。
+配列の <code class="docutils literal notranslate"><span class="pre">map()</span></code> は、配列の中のすべての要素を、指定の関数に通し、その結果を格納する新しい配列（元の配列と同じ長さ）を作り出して返します。
+詳しくは関数型スタイルのコーディングの紹介で触れますが、このメソッドを使うと、上記の例のような、 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の配列を作ることができます。
+<code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> の引数は、 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の配列ですので、これをそのまま渡すと、全部の処理が終わるのを待つ、という処理が完成します。</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span>
+  <span class="nx">iterable</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span>
+    <span class="nx">async</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">doSomething</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+  <span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>図で見て見ると、この違いは一目瞭然でしょう。</p>
+<div class="figure align-center">
+<img alt="_images/loop.png" src="_images/loop.png" />
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> が適切ではない場面もいくつかあります。</p>
+<p>例えば、外部のAPI呼び出しをする場合、たいてい、秒間あたりのアクセス数が制限されています。
+配列に100個の要素があるからといって100並列でリクエストを投げるとエラーが帰って来て正常に処理が終了しないこともありえます。
+その場合はp-max <a class="footnote-reference brackets" href="#id8" id="id7">2</a> といった、並列数を制御しつつ、 <code class="docutils literal notranslate"><span class="pre">map()</span></code> と同等のことを実現してくれる <code class="docutils literal notranslate"><span class="pre">p-map()</span></code> といったライブラリを活用すると良いでしょう。</p>
+<dl class="footnote brackets">
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id7">2</a></span></dt>
+<dd><p><a class="reference external" href="https://www.npmjs.com/package/p-map">https://www.npmjs.com/package/p-map</a></p>
+</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">for</span></code> ループ内部の <code class="docutils literal notranslate"><span class="pre">await</span></code> のように、順番に処理をするための専用構文もあります。
+<code class="docutils literal notranslate"><span class="pre">asyncIterator</span></code> というプロトコルを実装したオブジェクトでは、<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">await</span> <span class="pre">(const</span> <span class="pre">element</span> <span class="pre">of</span> <span class="pre">obj)</span></code>というES2018で導入された構文も使えるようになります。<code class="docutils literal notranslate"><span class="pre">fetch</span></code> のレスポンスのボディがそれにあたります。
+普段は <code class="docutils literal notranslate"><span class="pre">json()</span></code> メソッドなどで一括で変換結果を受け取ると思いますが、細切れのブロック単位で受信することもできます。
+この構文を使うと、それぞれのブロックごとにループを回す、という処理が行えます。
+ただし、それ以外の用途は今のところ見かけませんし、この用途で使うところも見たことがありませんので、基本的にはループの中の <code class="docutils literal notranslate"><span class="pre">await</span></code> は要注意であることは変わりありません。</p>
+</div>
+<div class="section" id="id9">
+<h2>非同期とエラー処理<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>非同期処理で難しいのがエラー処理でした。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> では <code class="docutils literal notranslate"><span class="pre">then()</span></code> の2つめのコールバック関数でエラー処理が書けるようになりました。
+また、エラー処理の節だけを書く <code class="docutils literal notranslate"><span class="pre">catch()</span></code> 節もあります。
+複数の <code class="docutils literal notranslate"><span class="pre">then()</span></code> 節が連なっていても、1箇所だけエラー処理を書けば大丈夫です。
+なお、一箇所もエラー処理を書かずにいて、エラーが発生すると <code class="docutils literal notranslate"><span class="pre">unhandledRejection</span></code> というエラーがNode.jsのコンソールに表示されることになります。</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Promiseのエラー書き方</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resp</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">json</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;エラー発生!&quot;</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">async</span></code> 関数の場合はもっとシンプルで、何かしらの非同期処理を実行する場合、 <code class="docutils literal notranslate"><span class="pre">await</span></code> していれば、通常の <code class="docutils literal notranslate"><span class="pre">try</span></code> 文でエラーを捕まえることができます。</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">async関数内部のエラー処理の書き方</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">resp</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+  <span class="kr">const</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">Error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;エラー発生!&quot;</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>エラーを発生させるには、　<code class="docutils literal notranslate"><span class="pre">Promise</span></code> 作成時のコールバック関数の2つめの引数の <code class="docutils literal notranslate"><span class="pre">reject()</span></code> コールバック関数にエラーオブジェクトを渡しても良いですし、
+<code class="docutils literal notranslate"><span class="pre">then()</span></code> 節の中で例外をスローしても発生させることができます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">heavyTask</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">()</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// 何かしらの処理</span>
+    <span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+    <span class="c1">// こちらでもPromiseのエラーを発生可能</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> 以前は非同期処理の場合は、コールバック関数の先頭の引数がエラー、という暗黙のルールで実装されていました。
+ただし、1つのコールバックでも <code class="docutils literal notranslate"><span class="pre">return</span></code> を忘れると動作しませんし、通常の例外が発生して <code class="docutils literal notranslate"><span class="pre">return</span></code> されなかったりすると、コールバックの伝搬が中断されてしまいます。</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">原始時代の非同期のエラー処理の書き方</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: Promise以前</span>
+<span class="nx">func1</span><span class="p">(</span><span class="nx">引数</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">err</span><span class="p">;</span>
+  <span class="nx">func2</span><span class="p">(</span><span class="nx">引数</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">err</span><span class="p">;</span>
+    <span class="nx">func3</span><span class="p">(</span><span class="nx">引数</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 最後に実行されるコードブロック</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>まとめ<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> と <code class="docutils literal notranslate"><span class="pre">await</span></code> について紹介しました。
+非同期は本質的に、難しい処理です。
+その難しい処理をなるべく簡単に表現しよう、という試みがむかしから試行錯誤されてきました。
+その1つの成果がこのTypeScriptで扱えるこの2つの要素です。</p>
+<p>上から順番に実行されるわけではありませんし、なかなかイメージが掴みにくいかもしれません。
+最終的には、頭の中で、どの部分が並行で実行されて、どこで待ち合わせをするか、それがイメージができれば、
+非同期処理の記述に強いTypeScriptのパフォーマンスを引き出せるでしょう。</p>
+<p>非同期処理を扱うライブラリとして、より高度な処理を実現するためのrxJSというものがあります。これはリアクティブの章で紹介します。</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">非同期処理</a><ul>
+<li><a class="reference internal" href="#id2">非同期とは何か</a></li>
+<li><a class="reference internal" href="#id3">コールバックは使わない</a></li>
+<li><a class="reference internal" href="#id6">非同期と制御構文</a></li>
+<li><a class="reference internal" href="#promise"><code class="docutils literal notranslate"><span class="pre">Promise</span></code> の分岐と待ち合わせの制御</a></li>
+<li><a class="reference internal" href="#await">ループの中の <code class="docutils literal notranslate"><span class="pre">await</span></code> に注意</a></li>
+<li><a class="reference internal" href="#id9">非同期とエラー処理</a></li>
+<li><a class="reference internal" href="#id10">まとめ</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="class.html" title="前の章へ">クラス</a></li>
+      <li>Next: <a href="module.html" title="次の章へ">モジュール</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/async.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 3894</li>
+        <li>非アスキー: 5952</li>
+        <li>合計文字数: 9846</li>
+        <li>半角換算: 15798</li>
+        <li>全角換算: 7899.0</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/async.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

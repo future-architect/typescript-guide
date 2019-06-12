@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>ライブラリ開発のための環境設定 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="CLIツール作成のための環境設定" href="clienv.html" />
+    <link rel="prev" title="基本の環境構築" href="baseenv.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>ライブラリ開発のための環境設定<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>現在、JavaScript系のものは、コマンドラインのNode.js用であっても、Web用であっても、なんでも一切合切npmjsにライブラリとしてアップロードされます。
+ここでのゴールは可用性の高いライブラリの実現で、具体的には次の3つの目標を達成します。</p>
+<ul class="simple">
+<li><p>特別な環境を用意しないと（ES2015 modules構文使っていて、素のNode.jsでnpm installしただけで）エラーになったりするのは困る</p></li>
+<li><p>npm installしたら、型定義ファイルも一緒に入って欲しい</p></li>
+<li><p>今流行りのTree Shakingに対応しないなんてありえないよね？</p></li>
+</ul>
+<p>今の時代でも、ライブラリはES5形式で出力はまだまだ必要です。
+インターネットの世界で利用するには古いブラウザ対応が必要だったりもします。</p>
+<p>ライブラリのユーザーがブラウザ向けにwebpackとBabelを使うとしても、基本的には自分のアプリケーションコードにしかBabelでの変換は適用しないでしょう。
+よく見かける設定はBabelの設定は次の通りです。
+つまり、配布ライブラリは、古いブラウザなどでも動作する形式でnpmにアップロードしなければならないということです。</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">webpack.config.js</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">rules</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.js$/</span><span class="p">,</span>
+        <span class="nx">use</span><span class="o">:</span> <span class="s2">&quot;babel-loader&quot;</span><span class="p">,</span>
+        <span class="nx">exclude</span><span class="o">:</span> <span class="sr">/node_modules/</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<p>なお、ライブラリの場合は特別な場合を除いてBabelもwebpackもいりません。CommonJS形式で出しておけば、Node.jsで実行するだけなら問題ありませんし、基本的にwebpackとかrollup.jsとかのバンドラーを使って1ファイルにまとめるのは、最終的なアプリケーション作成者の責務となります。特別な場合というのは、Babelプラグインで加工が必要なJSS in JSとかですが、ここでは一旦おいておきます。ただし、JSXはTypeScriptの処理系自身で処理できるので不要です。</p>
+<p>TypeScriptユーザーがライブラリを使う場合、バンドルされていない場合は <code class="docutils literal notranslate"><span class="pre">&#64;types/ライブラリ名</span></code> で型情報だけを追加ダウンロードすることがありますが、npmパッケージにバンドルされていれば、そのような追加作業がなくてもTypeScriptから使えるようになります。
+せっかくTypeScriptでライブラリを書くなら、型情報は自動生成できますし、それをライブラリに添付する方がユーザーの手間を軽減できます。</p>
+<p>Tree Shakingというのは最近のバンドラーに備わっている機能で、 <code class="docutils literal notranslate"><span class="pre">import</span></code> と <code class="docutils literal notranslate"><span class="pre">export</span></code> を解析して、不要なコードを削除し、コードサイズを小さくする機能です。
+webpackやrollup.jsのTree ShakingではES2015 modules形式のライブラリを想定しています。</p>
+<p>一方、Node.jsは--experimental-modulesを使わないとES2015 modulesはまだ使えませんし、その場合は拡張子は <code class="docutils literal notranslate"><span class="pre">.mjs</span></code> でなければなりません。
+一方で、TypeScriptは出力する拡張子を.mjsにできません。
+また、Browserifyを使いたいユーザーもいると思いますのでCommonJS形式も必須です。</p>
+<p>そのため、モジュール方式の違いで2種類のライブラリを出力する必要があります。</p>
+<div class="section" id="id2">
+<h2>ディレクトリの作成<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>前章のディレクトリ作成に追加して、2つのディレクトリを作成します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir dist-cjs
+$ mkdir dist-esm
+</pre></div>
+</div>
+<p>出力フォルダをCommonJSと、ES2015 modules用に2つ作っています。</p>
+<p>これらのファイルはソースコード管理からは外すため、 <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> に入れておきましょう。</p>
+</div>
+<div class="section" id="id3">
+<h2>ビルド設定<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>開発したいパッケージがNode.js環境に依存したものであれば、Node.jsの型定義ファイルをインストールして入れておきます。
+これでコンパイルのエラーがなくなり、コーディング時にコード補完が行われるようになります。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev @types/node
+</pre></div>
+</div>
+<p>共通設定のところで <code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code> を生成したと思いますが、これをライブラリ用に設定しましょう。
+大事、というのは今回の要件の使う側が簡単なように、というのを達成するための.d.tsファイル生成と、出力形式のES5のところと、入力ファイルですね。
+ユーザー環境でデバッグしたときにきちんと表示されるようにsource-mapもついでに設定しました。あとはお好みで設定してください。</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+  &quot;compilerOptions&quot;: {
+    &quot;target&quot;: &quot;es5&quot;,           // 大事
+    &quot;declaration&quot;: true,       // 大事
+    &quot;declarationMap&quot;: true,
+    &quot;sourceMap&quot;: true,         // 大事
+    &quot;lib&quot;: [&quot;dom&quot;, &quot;ES2018&quot;],
+    &quot;strict&quot;: true,
+    &quot;noUnusedLocals&quot;: true,
+    &quot;noUnusedParameters&quot;: true,
+    &quot;noImplicitReturns&quot;: true,
+    &quot;noFallthroughCasesInSwitch&quot;: true,
+    &quot;esModuleInterop&quot;: true,
+    &quot;experimentalDecorators&quot;: true,
+    &quot;emitDecoratorMetadata&quot;: true
+  },
+  &quot;include&quot;: [&quot;src/**/*&quot;]      // 大事
+}
+</pre></div>
+</div>
+</div>
+<p>ここでは <code class="docutils literal notranslate"><span class="pre">lib</span></code> に <code class="docutils literal notranslate"><span class="pre">ES2018</span></code> を指定しています。
+ES5で出力する場合、 <code class="docutils literal notranslate"><span class="pre">Map</span></code> などの新しいクラスや、 <code class="docutils literal notranslate"><span class="pre">Array.entries()</span></code> などのメソッドを使うと、実行時に本当に古いブラウザで起動するとエラーになることがあります。
+Polyfillをライブラリレベルで設定しても良いのですが、最終的にこれを使うアプリケーションで設定するライブラリと重複してコード量が増えてしまうかもしれないので、 <code class="docutils literal notranslate"><span class="pre">README</span></code> に書いておくでも良いかもしれません。</p>
+<p>package.jsonで手を加えるべきは次のところぐらいですね。</p>
+<ul>
+<li><p>つくったライブラリを読み込むときのエントリーポイントをmainで設定</p>
+<p>src/index.tsというコードがあって、それがエントリーポイントになるというのを想定しています。</p>
+</li>
+<li><p>scriptsにbuildでコンパイルする設定を追加</p>
+<p>今回はCommonJS形式とES2015の両方の出力が必要なため、一度のビルドで両方の形式に出力するようにします。</p>
+</li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;dist-cjs/index.js&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;dist-esm/index.js&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;types&quot;</span><span class="p">:</span> <span class="s2">&quot;dist-cjs/index.d.ts&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;npm-run-all -s build:cjs buid:esm&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;build:cjs&quot;</span><span class="p">:</span> <span class="s2">&quot;tsc --project . --module commonjs --outDir ./dist-cjs&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;build:esm&quot;</span><span class="p">:</span> <span class="s2">&quot;tsc --project . --module es2015 --outDir ./dist-esm&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition-todo admonition" id="index-0">
+<p class="admonition-title">課題</p>
+<p>// browser/moduleなど
+// <a class="reference external" href="https://qiita.com/shinout/items/4c9854b00977883e0668">https://qiita.com/shinout/items/4c9854b00977883e0668</a></p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>ライブラリコード<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">...</span> <span class="pre">from</span> <span class="pre">&quot;ライブラリ名&quot;</span></code> のようにアプリケーションや他のライブラリから使われる場合、最初に読み込まれるエントリーポイントは <code class="docutils literal notranslate"><span class="pre">package.json</span></code> で指定していました。</p>
+<p>拡張子の前のファイル名が、TypeScriptのファイルのファイル名となる部分です。前述の例では、 <code class="docutils literal notranslate"><span class="pre">index.js</span></code> や <code class="docutils literal notranslate"><span class="pre">index.d.ts</span></code> が <code class="docutils literal notranslate"><span class="pre">main</span></code> 、 <code class="docutils literal notranslate"><span class="pre">module</span></code> , <code class="docutils literal notranslate"><span class="pre">types</span></code> で設定されていましたので、 <code class="docutils literal notranslate"><span class="pre">index.ts</span></code> というファイルでファイルを作成します。
+<code class="docutils literal notranslate"><span class="pre">main.ts</span></code> に書きたい場合は、 <code class="docutils literal notranslate"><span class="pre">package.json</span></code> の記述を修正します。</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">src/index.ts</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">export</span> <span class="kd">function</span> <span class="nx">hello() {</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello from TypeScript Library&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>ここで <code class="docutils literal notranslate"><span class="pre">export</span></code> したものが、ライブラリユーザーが触れられるものになります。</p>
+</div>
+<div class="section" id="id5">
+<h2>まとめ<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>アルゴリズムなどのロジックのライブラリの場合、webpackなどのバンドラーを使わずに、TypeScriptだけを使えば良いことがわかりました。
+ここにある設定で、次のようなことが達成できました。</p>
+<ul class="simple">
+<li><p>TypeScriptでライブラリのコードを記述する</p></li>
+<li><p>使う人は普段通りrequire/importすれば、特別なツールやライブラリの設定をしなくても適切なファイルがロードされる。</p></li>
+<li><p>使う人は、別途型定義ファイルを自作したり、別パッケージをインストールしなくても、普段通りrequire/importするだけでTypeScriptの処理系やVisual Stuido Codeが型情報を認識する</p></li>
+<li><p>Tree Shakingの恩恵も受けられる</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">package.json</span></code> の <code class="docutils literal notranslate"><span class="pre">scripts</span></code> のところに、開発に必要なタスクがコマンドとして定義されています。npmコマンドを使って行うことができます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ビルドしてパッケージを作成</span>
+$ npm run build
+$ npm pack
+
+<span class="c1"># テスト実行 (VSCodeだと、⌘ R Tでいける）</span>
+$ npm <span class="nb">test</span>
+
+<span class="c1"># 文法チェック</span>
+$ npm run lint
+
+<span class="c1"># フォーマッター実行</span>
+$ npm run fix
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ライブラリ開発のための環境設定</a><ul>
+<li><a class="reference internal" href="#id2">ディレクトリの作成</a></li>
+<li><a class="reference internal" href="#id3">ビルド設定</a></li>
+<li><a class="reference internal" href="#id4">ライブラリコード</a></li>
+<li><a class="reference internal" href="#id5">まとめ</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="baseenv.html" title="前の章へ">基本の環境構築</a></li>
+      <li>Next: <a href="clienv.html" title="次の章へ">CLIツール作成のための環境設定</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/libenv.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 2275</li>
+        <li>非アスキー: 2153</li>
+        <li>合計文字数: 4428</li>
+        <li>半角換算: 6581</li>
+        <li>全角換算: 3290.5</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/libenv.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

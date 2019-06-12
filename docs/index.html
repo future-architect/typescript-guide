@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>仕事ですぐに使えるTypeScript &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="前書き" href="preface.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="typescript">
+<h1>仕事ですぐに使えるTypeScript<a class="headerlink" href="#typescript" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>本ドキュメントは、まだ未完成ですが、ウェブフロントエンドの開発を学ぶときに、JavaScriptを経由せずに、最初からTypeScriptで学んでいく社内向けコンテンツとして作成されはじめました。基本の文法部分以外はまだ執筆されていない章もいくつもあります。書かれている章もまだまだ内容が追加される可能性がありますし、環境の変化で内容の変更が入る可能性もあります。</p>
+</div>
+<p><a href="./typescript-guide.pdf">PDF版をダウンロード</a></p><div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">TypeScriptの世界を知る</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="preface.html">前書き</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#id2">本ドキュメントの位置づけ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#typescript">なぜTypeScriptか?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#javascript">JavaScriptのバージョン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#id3">本書の参考文献など</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#id8">ライセンス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#id12">TypeScriptと互換性</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Node.jsエコシステムを体験しよう</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ecosystem.html#id3">Node.jsのインストール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecosystem.html#pakcage-json-ts-node"><code class="docutils literal notranslate"><span class="pre">pakcage.json</span></code> の作成と <code class="docutils literal notranslate"><span class="pre">ts-node</span></code> のインストール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecosystem.html#id4">プロジェクトフォルダ共有後の環境構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecosystem.html#id5">インストールしたコマンドの実行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecosystem.html#typescript">TypeScriptの環境設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecosystem.html#id6">エディタ環境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecosystem.html#ts-nodetypescript">ts-nodeを使ったTypeScriptのコードの実行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecosystem.html#id7">まとめ</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">TypeScriptの書き方</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variable.html">変数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="variable.html#id2">三種類の宣言構文</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variable.html#id3">変数の型定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variable.html#id4">より柔軟な型定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variable.html#id5">変数の巻き上げ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variable.html#id6">変数のスコープ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variable.html#id7">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="primitive.html">プリミティブ型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="primitive.html#boolean"><code class="docutils literal notranslate"><span class="pre">boolean</span></code> リテラル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="primitive.html#id5">数値型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="primitive.html#string"><code class="docutils literal notranslate"><span class="pre">string</span></code> リテラル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="primitive.html#undefined-null"><code class="docutils literal notranslate"><span class="pre">undefined</span></code> と <code class="docutils literal notranslate"><span class="pre">null</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="primitive.html#id22">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="complex.html">複合型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="complex.html#id2">配列</a></li>
+<li class="toctree-l2"><a class="reference internal" href="complex.html#id7">オブジェクト</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="syntax.html">基本的な構文</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#id2">制御構文</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#id3">式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#id4">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="typing.html">基本的な型付け</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#any">一番手抜きな型付け: <code class="docutils literal notranslate"><span class="pre">any</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#unknown">未知の型: <code class="docutils literal notranslate"><span class="pre">unknown</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#id2">型に名前をつける</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#id3">関数のレスポンスや引数で使うオブジェクトの定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#id4">属性名が可変のオブジェクトを扱う</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#ab">AかつBでなければならない</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#id5">パラメータの値によって必要な属性が変わる柔軟な型定義を行う</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#id8">型ガード</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#id12">インタフェースを使った型定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#id13">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="function.html">関数</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function.html#id2">アロー関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function.html#id3">関数の引数と返り値の型定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function.html#id6">関数を扱う変数の型定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function.html#id7">デフォルト引数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function.html#id8">関数を含むオブジェクトの定義方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function.html#this-1"><code class="docutils literal notranslate"><span class="pre">this</span></code>を操作するコードは書かない（1）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function.html#id9">即時実行関数はもう使わない</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function.html#id10">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="class.html">クラス</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="class.html#id2">用語の整理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#id3">基本のクラス宣言</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#public-protected-private">アクセス制御（<code class="docutils literal notranslate"><span class="pre">public</span></code>/ <code class="docutils literal notranslate"><span class="pre">protected</span></code> / <code class="docutils literal notranslate"><span class="pre">private</span></code>）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#id4">コンストラクタの引数を使ってプロパティを宣言</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#static"><code class="docutils literal notranslate"><span class="pre">static</span></code> メンバー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#id5">インスタンスクラスフィールド</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#readonly">読み込み専用の変数（ <code class="docutils literal notranslate"><span class="pre">readonly</span></code> ）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#id12">アクセッサー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#id13">メンバー定義方法のまとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#id14">継承/インタフェース実装宣言</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#id15">クラスとインタフェースの違い・使い分け</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#id16">抽象クラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#id17">デコレータ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class.html#id20">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="async.html">非同期処理</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="async.html#id2">非同期とは何か</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async.html#id3">コールバックは使わない</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async.html#id6">非同期と制御構文</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async.html#promise"><code class="docutils literal notranslate"><span class="pre">Promise</span></code> の分岐と待ち合わせの制御</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async.html#await">ループの中の <code class="docutils literal notranslate"><span class="pre">await</span></code> に注意</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async.html#id9">非同期とエラー処理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="async.html#id10">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">モジュール</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module.html#id2">用語の整理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module.html#id5">基本文法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module.html#id10">中級向けの機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module.html#id13">ちょっと上級の話題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module.html#id15">まとめ</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">実践編</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="vuesample.html">Vue.jsでアプリケーションを作成してみる</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">中級のテクニック</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generics.html">ジェネリクス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functional.html">関数型志向のプログラミング</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="functional.html#id2">イミュータブル</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reactive.html">リアクティブ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="typedef.html">JavaScriptのライブラリに対する型定義ファイルの作成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advance.html">高度なテクニック</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">TypeScript環境構築</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prodenv.html">ソフトウェア開発の環境を考える</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseenv.html">基本の環境構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="baseenv.html#id2">作業フォルダの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseenv.html#id3">ビルドのツールのインストールと設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseenv.html#id4">テスト</a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseenv.html#visual-studio-code">Visual Studio Codeの設定</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="libenv.html">ライブラリ開発のための環境設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="libenv.html#id2">ディレクトリの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libenv.html#id3">ビルド設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libenv.html#id4">ライブラリコード</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libenv.html#id5">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clienv.html">CLIツール作成のための環境設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clienv.html#id1">作業フォルダを作る</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clienv.html#id2">ビルド設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clienv.html#id3">CLIツールのソースコード</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clienv.html#id4">バンドラーで1つにまとめる</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clienv.html#id7">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reactenv.html">Next.js（React）の環境構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reactenv.html#id2">作業フォルダを作る</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactenv.html#id3">ビルドのツールのインストールと設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactenv.html#next-js-ts">Next.js+TSのソースコード</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactenv.html#id4">まとめと、普段の開発</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">CI（継続的インテグレーション）環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">成果物のデプロイ</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recommended.html">おすすめのパッケージ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="recommended.html#id2">開発ツール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recommended.html#id6">コマンドラインツール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recommended.html#id8">アルゴリズム</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>デコレータを使ってDI。他にある？</p>
+<p><a class="reference external" href="https://github.com/Microsoft/tsyringe">https://github.com/Microsoft/tsyringe</a></p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="advance.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/advance.rst の 4 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>ESLintのTypeScript対応はまだまだ開発途上で厳しそうなのでTSLintに書き戻す？</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="baseenv.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/baseenv.rst の 9 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>lyntのTypeScript対応状況を注視する</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="baseenv.html#index-1"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/baseenv.rst の 41 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>tsdocとかドキュメントツールを紹介</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="baseenv.html#index-2"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/baseenv.rst の 214 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>travis、circle.ci、gitlab-ciの設定を紹介。あとはJenkins？</p>
+<p><a class="reference external" href="https://qiita.com/nju33/items/72992bd4941b96bc4ce5">https://qiita.com/nju33/items/72992bd4941b96bc4ce5</a></p>
+<p><a class="reference external" href="https://qiita.com/naokikimura/items/f1c8903eec86ec1de655">https://qiita.com/naokikimura/items/f1c8903eec86ec1de655</a></p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="ci.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/ci.rst の 4 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>npmパッケージ to npm
+npmパッケージ to nexus
+Dockerイメージ</p>
+<p><a class="reference external" href="https://qiita.com/kannkyo/items/5195069c65350b60edd9">https://qiita.com/kannkyo/items/5195069c65350b60edd9</a></p>
+<p><a class="reference external" href="https://qiita.com/shibukawa/items/fd49f98736045789ffc3#%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E5%91%A8%E3%82%8A%E3%81%AEdocker%E8%A8%AD%E5%AE%9A">https://qiita.com/shibukawa/items/fd49f98736045789ffc3#%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E5%91%A8%E3%82%8A%E3%81%AEdocker%E8%A8%AD%E5%AE%9A</a></p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="deploy.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/deploy.rst の 4 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>あとで書く</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="ecosystem.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/ecosystem.rst の 28 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>// browser/moduleなど
+// <a class="reference external" href="https://qiita.com/shinout/items/4c9854b00977883e0668">https://qiita.com/shinout/items/4c9854b00977883e0668</a></p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="libenv.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/libenv.rst の 131 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>要検証</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="module.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/module.rst の 188 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>ちょっとうまく動いていないので、要調査</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="module.html#index-1"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/module.rst の 311 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>あとで、開発サーバーとかもろもろについて語る</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="prodenv.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/prodenv.rst の 66 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>cashにexportがあるので、cross-envはいらないかも？</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="recommended.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/recommended.rst の 17 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>CommonJSのモジュールの型づけの仕方について紹介する</p>
+<p>TypeScriptの書き方
+<a class="reference external" href="https://qiita.com/karak/items/b7af3cb2843c39fb3949">https://qiita.com/karak/items/b7af3cb2843c39fb3949</a></p>
+<p>// JSDocから型定義ファイルを抽出
+<a class="reference external" href="https://www.npmjs.com/package/tsd-jsdoc">https://www.npmjs.com/package/tsd-jsdoc</a></p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="typedef.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/typedef.rst の 9 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>事例をつける</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="typing.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/typing.rst の 48 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>クラスベースのVueのプロジェクトの作成について説明する</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="vuesample.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/vuesample.rst の 12 行目です)</p>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">索引</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">モジュール索引</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">検索ページ</span></a></p></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">仕事ですぐに使えるTypeScript</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="preface.html" title="次の章へ">前書き</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 302</li>
+        <li>非アスキー: 201</li>
+        <li>合計文字数: 503</li>
+        <li>半角換算: 704</li>
+        <li>全角換算: 352.0</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

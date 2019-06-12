@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>変数 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="プリミティブ型" href="primitive.html" />
+    <link rel="prev" title="Node.jsエコシステムを体験しよう" href="ecosystem.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>変数<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>TypeScriptとJavaScriptの一番の違いは型です。型が登場する場面は主に3つです。</p>
+<ul class="simple">
+<li><p>変数(プロパティも含む)</p></li>
+<li><p>関数の引数</p></li>
+<li><p>関数の返り値</p></li>
+</ul>
+<p>本章ではまず変数について触れ、TypeScriptの型システムの一部を紹介します。</p>
+<p>関数については関数の章で説明します。
+型システムの他の詳細については、オブジェクトの型付け（インタフェースの章）、クラスの型付け（クラスの章）、既存パッケージへの型付けの各章で説明します。</p>
+<div class="section" id="id2">
+<h2>三種類の宣言構文<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>変数宣言には <code class="docutils literal notranslate"><span class="pre">const</span></code> 、 <code class="docutils literal notranslate"><span class="pre">let</span></code>  があります。 <code class="docutils literal notranslate"><span class="pre">const</span></code>をまず使うことを検討してください。
+変数は全部とりあえず<code class="docutils literal notranslate"><span class="pre">const</span></code>で宣言し、再代入がどうしても必要なところだけ<code class="docutils literal notranslate"><span class="pre">let</span></code>にします。
+変わる必要がないものは「もう変わらない」と宣言することで、状態の数が減ってコードの複雑さが減り、理解しやすくなります。
+変数を変更する場合は<code class="docutils literal notranslate"><span class="pre">let</span></code>を使います。
+なお、この<code class="docutils literal notranslate"><span class="pre">const</span></code>は、多くのC/C++経験者を悩ませたオブジェクトの不変性には関与しないため、再代入はできませんが<code class="docutils literal notranslate"><span class="pre">const</span></code>で宣言した変数に格納された配列に要素を追加したり、オブジェクトの属性変更はできます。
+そのため、使える場所はかなり広いです。</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">変数の使い方</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 何はともあれconst</span>
+<span class="kr">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;小動物&quot;</span><span class="p">;</span>
+
+<span class="c1">// 変更がある変数はlet</span>
+<span class="c1">// 三項演算子を使えばconstにもできる</span>
+<span class="kd">let</span> <span class="nx">name</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">mode</span> <span class="o">===</span> <span class="s2">&quot;slack&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;小型犬&quot;</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">mode</span> <span class="o">===</span> <span class="s2">&quot;twitter&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;小動物&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>なお、JavaScriptと異なり、未定義の変数に代入すると、エラーなります。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">undefinedVar</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="c1">// error TS2552: Cannot find name &#39;undefinedVar&#39;.</span>
+</pre></div>
+</div>
+<p>若者であれば記憶力は強いので良いですが、歳をとるとだんだん弱ってくるのです。また、若くても二日酔いの時もあるでしょうし、風邪ひいたり疲れている時もあると思うので、頑張らないで理解できるように常にしておくのは意味があります。</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>昔のJavaScriptは変数宣言で使えるのは<code class="docutils literal notranslate"><span class="pre">var</span></code>のみでした。 <code class="docutils literal notranslate"><span class="pre">var</span></code> はスコープが関数の単位とやや広く、影響範囲が必要以上に広くなります。
+また、宣言文の前にアクセスしてもエラーにならなかったりと、他の宣言よりも安全性が劣ります。
+現在でも使えますが、積極的に使うことはないでしょう。</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">変数の使い方</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 古い書き方</span>
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;小動物&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>変数の型定義<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>TypeScriptは変数に型があります。TypeScriptは変数名の後ろに後置で型を書きます。これはGo、Rust、Python3などでみられます。
+一度定義すると、別の型のデータを入れると、コンパイラがエラーを出します。それによってプログラムのミスが簡単に見つかります。
+また、型が固定されると、Visual Studio Codeなどのエディタでコード補完機能が完璧に利用できます。</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">変数への型の定義</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// nameは文字列型</span>
+<span class="kd">let</span> <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+
+<span class="c1">// 違う型のデータを入れるとエラー</span>
+<span class="c1">// error TS2322: Type &#39;123&#39; is not assignable to type &#39;string&#39;</span>
+<span class="nx">name</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<p>なお、代入の場合には右辺のデータ型が自動で設定されます。これは型推論と呼ばれる機能で、これのおかげで、メソッドの引数や、クラスや構造体のフィールド以外の多くの場所で型を省略できます。</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">推論</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 代入時に代入元のデータから型が類推できる場合は自動設定される</span>
+<span class="c1">// 普遍から文字列とわかるので文字列型</span>
+<span class="kd">let</span> <span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;小説家&quot;</span><span class="p">;</span>
+
+<span class="c1">// 代入もせず、型定義もないと、なんでも入る（推論ができない）any型になります。</span>
+<span class="kd">let</span> <span class="nx">address</span><span class="p">;</span>
+<span class="c1">// 明示的に any を指定することもできる</span>
+<span class="kd">let</span> <span class="nx">address</span>: <span class="kt">any</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<p>型については型の章で取り上げます。
+変数以外にも関数の引数でも同様に型を定義できますが、これについては関数の節で紹介します。</p>
+</div>
+<div class="section" id="id4">
+<h2>より柔軟な型定義<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>TypeScriptは、JavaやC++、Goなどの型付き言語を使ったことがある人からすると、少し違和感を感じるかもしれない柔軟な型システムを持っています。
+これは、型システムが単にプログラミングのサポートの機能しかなく、静的なメモリ配置まで面倒を見るような言語では不正となるようなコードを書いても問題がないからと言えるでしょう。
+2つほど柔軟な機能を紹介します。</p>
+<ul class="simple">
+<li><p>AでもBでも良い、という柔軟な型が定義できる</p></li>
+<li><p>値も型システムで扱える</p></li>
+</ul>
+<p>AでもBでも良い、というのは例えば数値と文字列の両方を受け取れる（が、他のデータは拒否する）という指定です。</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">数字でも文字列でも受け取れる変数</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 生まれの年は数字か文字列</span>
+<span class="kd">let</span> <span class="nx">birthYear</span>: <span class="kt">number</span> <span class="o">|</span> <span class="kt">string</span><span class="p">;</span>
+
+<span class="c1">// 正常</span>
+<span class="nx">birthYear</span> <span class="o">=</span> <span class="mi">1980</span><span class="p">;</span>
+<span class="c1">// これも正常</span>
+<span class="nx">birthYear</span> <span class="o">=</span> <span class="s1">&#39;昭和&#39;</span><span class="p">;</span>
+<span class="c1">// 答えたくないのでnull・・・はエラー</span>
+<span class="nx">birthYear</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="c1">// error TS2322: Type &#39;null&#39; is not assignable to type &#39;string | number&#39;.</span>
+</pre></div>
+</div>
+</div>
+<p>次のコードは、変数に入れられる値を特定の文字列に限定する機能です。
+型は  <code class="docutils literal notranslate"><span class="pre">|</span></code> で複数並べることができる機能を使って、取りうる値を列挙しています。
+この複数の状態を取る型をUnion Typeと呼びます。
+ここで書いていない文字列を代入しようとするとエラーになります。</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">変数に特定の文字列しか設定できないようにする</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">favoriteFood</span><span class="o">:</span> <span class="s2">&quot;北極&quot;</span> <span class="o">|</span> <span class="s2">&quot;冷やし味噌&quot;</span><span class="p">;</span>
+<span class="nx">favoriteFood</span> <span class="o">=</span> <span class="s2">&quot;味噌タンメン&quot;</span>
+<span class="c1">// error TS2322: Type &#39;&quot;味噌タンメン&quot;&#39; is not assignable to</span>
+<span class="c1">//   type &#39;&quot;北極&quot; | &quot;冷やし味噌&quot;&#39;.</span>
+</pre></div>
+</div>
+</div>
+<p>型と値を組み合わせることもできます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 値と型のUnion Type</span>
+<span class="kd">let</span> <span class="nx">birthYear</span>: <span class="kt">number</span> <span class="o">|</span> <span class="s2">&quot;昭和&quot;</span> <span class="o">|</span> <span class="s2">&quot;平成&quot;</span><span class="p">;</span>
+<span class="nx">birthYear</span> <span class="o">=</span> <span class="s2">&quot;昭和&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>変数の巻き上げ<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">var</span></code>、<code class="docutils literal notranslate"><span class="pre">const</span></code>、<code class="docutils literal notranslate"><span class="pre">let</span></code> では変数の巻き上げの挙動が多少異なります。
+<code class="docutils literal notranslate"><span class="pre">var</span></code> はスコープ内で宣言文の前では、変数はあるが初期化はされてない（ <code class="docutils literal notranslate"><span class="pre">undefined</span></code> ）になりますが、他の2つはコンパイルエラーになります。
+宣言前に触るのは行儀が良いとは言えないため、 <code class="docutils literal notranslate"><span class="pre">const</span></code> の挙動の方が適切でしょう。</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">変数の巻き上げ（変数の存在するスコープの宣言行前の挙動）</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: varはundefinedになる</span>
+<span class="kd">function</span> <span class="nx">oldFunction() {</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`巻き上げのテスト </span><span class="si">${</span><span class="nx">v</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">v</span> <span class="o">=</span> <span class="s2">&quot;小公女&quot;</span><span class="p">;</span>
+  <span class="c1">// undefinedが入っている変数がある扱いになり、エラーならず</span>
+<span class="p">}</span>
+<span class="nx">oldFunction</span><span class="p">();</span>
+
+<span class="c1">// 新: let/const</span>
+<span class="kd">function</span> <span class="nx">letFunction() {</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`巻き上げのテスト </span><span class="si">${</span><span class="nx">v</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">v</span> <span class="o">=</span> <span class="s2">&quot;小公女&quot;</span><span class="p">;</span>
+  <span class="c1">// 宣言より前ではエラー</span>
+  <span class="c1">// error TS2448: Block-scoped variable &#39;v&#39; used before its declaration.</span>
+<span class="p">}</span>
+<span class="nx">letFunction</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>変数のスコープ<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>以前は<code class="docutils literal notranslate"><span class="pre">{</span></code>、<code class="docutils literal notranslate"><span class="pre">}</span></code>は制御構文のためのブロックでしかなく、<code class="docutils literal notranslate"><span class="pre">var</span></code>変数は宣言された<code class="docutils literal notranslate"><span class="pre">function</span></code>のどこからでもアクセスできました。
+<code class="docutils literal notranslate"><span class="pre">let</span></code>、<code class="docutils literal notranslate"><span class="pre">const</span></code>で宣言した変数のスコープは宣言されたブロック（<code class="docutils literal notranslate"><span class="pre">if</span></code>、<code class="docutils literal notranslate"><span class="pre">for</span></code>は条件式部分も含む）の中に限定されます。
+スコープが狭くなると、同時に把握すべき状態が減るため、コードが理解しやすくなります。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 古いコード</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// do something</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span> <span class="c1">// -&gt; 10</span>
+
+<span class="c1">// 新しいコード</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// do something</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="c1">// error TS2304: Cannot find name &#39;i&#39;.</span>
+</pre></div>
+</div>
+<p>なお、スコープはかならずしも制御構文である必要はなく、<code class="docutils literal notranslate"><span class="pre">{</span></code>、<code class="docutils literal notranslate"><span class="pre">}</span></code>だけを使うこともできます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">code() {</span>
+  <span class="p">{</span>
+    <span class="c1">//この変数はこの中でのみ有効</span>
+    <span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="s2">&quot;小売店&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>まとめ<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>本章では、TypeScriptの入り口となる変数について紹介しました。
+昔のJavaScriptとはやや趣向が変わっているところもありますが、新しい <code class="docutils literal notranslate"><span class="pre">let</span></code> 、 <code class="docutils literal notranslate"><span class="pre">const</span></code> を使うことで、変数のスコープをせばめ、理解しやすいコードになります。</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">変数</a><ul>
+<li><a class="reference internal" href="#id2">三種類の宣言構文</a></li>
+<li><a class="reference internal" href="#id3">変数の型定義</a></li>
+<li><a class="reference internal" href="#id4">より柔軟な型定義</a></li>
+<li><a class="reference internal" href="#id5">変数の巻き上げ</a></li>
+<li><a class="reference internal" href="#id6">変数のスコープ</a></li>
+<li><a class="reference internal" href="#id7">まとめ</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="ecosystem.html" title="前の章へ">Node.jsエコシステムを体験しよう</a></li>
+      <li>Next: <a href="primitive.html" title="次の章へ">プリミティブ型</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/variable.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 1601</li>
+        <li>非アスキー: 2193</li>
+        <li>合計文字数: 3794</li>
+        <li>半角換算: 5987</li>
+        <li>全角換算: 2993.5</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/variable.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

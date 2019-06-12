@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>ソフトウェア開発の環境を考える &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="基本の環境構築" href="baseenv.html" />
+    <link rel="prev" title="高度なテクニック" href="advance.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>ソフトウェア開発の環境を考える<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>すでに開始しているフロントエンドの開発に加わる場合、まず文法ぐらいが分かって入れば開発に入ることができるでしょう。
+しかし、立ち上げる場合は最低1人は環境構築ができるメンバーが必要になります。
+本章以降はその最低1人を育てるための内容になります。</p>
+<p>近年ではJavaScriptは変換をしてデプロイするのが当たり前になってきている話は紹介しました。
+フロントエンド用途の場合、規模が大きくなってきているため数多くのツールのサポートが必要になってきています。</p>
+<ul>
+<li><p>コンパイラ</p>
+<p>TypeScriptで書かれたコードをJavaScriptに変換するのがコンパイラです。基本的にはTypeScript純正のものを使うことになるでしょう。
+一部のBabelを前提としたシステムではBableプラグインが使われることがあります。これは型定義部分を除外するだけで、変換はBabel本体で行います。
+ネイティブコードにしてからWebAssemblyに変換するAssemblyScriptというものもあったりします。</p>
+<ul class="simple">
+<li><p>TypeScript</p></li>
+<li><p>&#64;babel/plugin-transform-typescript</p></li>
+<li><p>AssemblyScript</p></li>
+</ul>
+</li>
+<li><p>テスティングフレームワーク</p>
+<p>ソフトウェアを、入力と出力を持つ小さい単位に分けて、一つずつ検証するために使います。ブラウザの画面の操作をエミュレートし、結果が正しくなるかを検証するend-to-endテストもあります。</p>
+<ul class="simple">
+<li><p>Jest</p></li>
+<li><p>Ava</p></li>
+<li><p>Mocha</p></li>
+<li><p>Jasmine</p></li>
+</ul>
+</li>
+<li><p>静的チェックツール</p>
+<p>近年のプログラミング言語は、他の言語の良いところを積極的に取り入れたりして機能拡張を積極的に行なっています。それにより、古い書き方と、より良い書き方のいくつかの選択肢がある場合があります。間違いやすい古い書き方をしている箇所を見つけて、警告を出すのが静的チェックツールです。TSLintが今まで多く使われていましたが、Microsoftが、TSLintでは構造的にパフォーマンスが出しにくいとのことで、ESLintをバックアップしていくという発表しました。そのため、選択肢としては現在はこれ一択です。</p>
+<ul class="simple">
+<li><p>eslint</p></li>
+</ul>
+</li>
+<li><p>コードフォーマッター</p>
+<p>JavaScriptの世界では、以前は静的チェックツールの1機能として行われることが多かったのですが、最近では、役割を分けて別のツールとなっています。</p>
+<ul class="simple">
+<li><p>Prettier</p></li>
+<li><p>TypeScript Formatter</p></li>
+<li><p>gts</p></li>
+</ul>
+</li>
+<li><p>タスクランナー</p>
+<p>ソフトウェア開発ではたくさんのツールを組み合わせる必要がありますが、その組み合わせを定義したり、効率よく実行するのがタスクランナーです。色々なツールがでてきましたが、現在は実行自体はnpmで行い、変更があったファイルだけを効率よくビルドするのはバンドラー側で行うと、役割分担が変わってきています。
+npm scriptsは標準機能ですが、少し機能が弱いため、 <code class="docutils literal notranslate"><span class="pre">npm-run-all</span></code> を組み合わせて少し強化して使うことがあります。
+本ドキュメントでもそのようにします。</p>
+<ul class="simple">
+<li><p>npm scripts</p></li>
+<li><p>gulp</p></li>
+<li><p>grunt</p></li>
+</ul>
+</li>
+<li><p>バンドラー</p>
+<p>コンパイラが変換したファイルを最終的に結合したり、動的ロードを有効にするのがバンドラーです。次のようなものがあります。
+なお、ライブラリなど、バンドラーは行わず、コンパイラだけ実行した状態で配布することもできます。</p>
+<ul class="simple">
+<li><p>webpack</p></li>
+<li><p>parcel</p></li>
+<li><p>rollup</p></li>
+<li><p>Browserify</p></li>
+</ul>
+</li>
+</ul>
+<p>さらに規模が大きくなり、ビルドしてリロードして起動、というステップに時間がかかるようになってくると、ビルドサーバーを前面にたてて開発にかかる待ち時間を減らすことも当たり前のように行われます。。</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="admonition-title">課題</p>
+<p>あとで、開発サーバーとかもろもろについて語る</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="advance.html" title="前の章へ">高度なテクニック</a></li>
+      <li>Next: <a href="baseenv.html" title="次の章へ">基本の環境構築</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/prodenv.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 328</li>
+        <li>非アスキー: 1241</li>
+        <li>合計文字数: 1569</li>
+        <li>半角換算: 2810</li>
+        <li>全角換算: 1405.0</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/prodenv.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

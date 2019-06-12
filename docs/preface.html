@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>前書き &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="Node.jsエコシステムを体験しよう" href="ecosystem.html" />
+    <link rel="prev" title="仕事ですぐに使えるTypeScript" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>前書き<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>本ドキュメントの位置づけ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>本ドキュメントは、まだ未完成ですが、ウェブフロントエンドの開発を学ぶときに、JavaScriptを経由せずに、最初からTypeScriptで学んでいくコンテンツとして作成されはじめました。TypeScriptは基本的にJavaScriptの上位互換であり、JavaScriptには歴史的経緯で古い書き方も数多くあります。そのため、文法を学ぶだけではなくよりモダンな書き方をきちんと学べることを目指しています。</p>
+<p>現在、B2B企業であっても、B2C企業であっても、どこの企業もウェブのフロントエンドの求人が足りないという話をしています。</p>
+<p>以前は、企業システムのフロントエンドというと、一覧のテーブルがあって、各行のCRUD（Create: 作成、Read: 読み込み、Update: 更新、Delete: 削除）の操作を作る、といったようにハンコを押すように量産するものでした。また、画面はテンプレートを使ってサーバーで作成して返すものでした。</p>
+<p>しかし、ユーザーがプライベートで触れるウェブの体験というものもリッチになり、それに呼応するようにフロントエンドのフレームワークやら開発技術も複雑化しました。よりリアルタイムに近い応答を返す、画面の切り替えを高速にする、動的に変化する画面で効率よく情報を提供する、といったことが普通に行われるようになりました。</p>
+<p>コンシューマー向けのリッチなウェブになれたユーザーが、1日の大半を過ごす仕事で触れるシステムが時代遅れなUIというのは良いものではありません。UIに関するコモンセンスから外れれば外れるほど、ユーザーの期待から外れれば外れるほど、「使いにくい」システムとなり、ストレスを与えてしまいます。</p>
+<p>近年、React、Vue.js、Angularといった最新のフレームワークの導入は、企業システムであっても現在は積極的に行われるようになってきています。しかし、フロントエンド側での実装の手間暇が多くかかりますし、BootstrapとjQuery時代のように、ボタンを押した処理だけ書く、というのと比べると分量がかなり増えます。分量が増える分、モジュール分割の仕方を工夫したり、きちんと階層に分離したアーキテクチャを採用したり、きちんとした設計が求められるようになります。</p>
+<p>フューチャーアーキテクトおよびフューチャーでは開発の方法論を定めて効率よく開発を行うことを実現してきており、典型的なサーバー側で処理を多く行うアプリケーションの場合は数多くの成功を納めてきています。一方で、前述のようにフロントエンド側の比重が高まると、当然のことながらプロジェクトに占めるフロントエンドの開発者の割合を高める必要があります。フューチャーではコンピューターを専門で学んできた学生以外にも多様な学生を受け入れて研修を行なっています。新卒教育の時間は限られているため、あまり多くのことを学んでもらうのは困難です。現在はサーバー側の知識を中心に学んでいます。</p>
+<p>サーバーサイドJavaやSQLなどはほぼすべての社員が身につけていますが、フロントエンド側の開発を行なってもらうには新たな学習の機会の提供が必要です。趣味の時間で勝手に勉強しておいてね、というのは企業活動の中では認められません（趣味でやることを止めるものではありません）。業務遂行のために必要なリソース、知識は業務時間中に得られる体制を整えなければなりません。これまでは、お客様のニーズ的に高度なフロントエンドが必要な案件では、一部の趣味でやっていたメンバーやら、キャリア入社のメンバー、あるいは現場でそれぞれ独自に学んだりといったゲリラ戦で戦ってきましたが、お客様の期待にもっと答えられる体制を築くには、きちんと学べるコンテンツや教育体制の構築が必要ということが、フューチャーの技術リーダー陣の共通見解となっています。</p>
+<p>フロントエンド開発の難しい点は、コードを書くのよりも環境構築の難易度が高く、また、その環境構築を行わないとコードが書き始められないという点にあります。また、型定義ファイルが足りないときに、それを整備するというのも初心者がいきなり手を出すのは厳しいものがあります。近年、コードジェネレータなどが整備されてきているため、 <code class="docutils literal notranslate"><span class="pre">Vue.js</span></code> や <code class="docutils literal notranslate"><span class="pre">React</span></code> 、 <code class="docutils literal notranslate"><span class="pre">Angular</span></code> といった人気のフレームワークと一緒に利用するのはさほど難しくなくなってきていますが、その部分はチームでシニアなメンバーが行うものとして、まずは書き方にフォーカスし、次に型定義ファイル作成、最後に環境構築というステップで説明を行い、必要な場所をつまみ食いしてもらえるようにすることを目指しています。</p>
+</div>
+<div class="section" id="typescript">
+<h2>なぜTypeScriptか?<a class="headerlink" href="#typescript" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>フロントエンドの開発がリッチになってきていると同時に、開発におけるムーブメントもあります。それはブラウザで動作するJavaScriptを直接書かなくなっているということです。
+JavaScriptは2015年より前は保守的なアップデートがおこなわれていました。Netscape社(現Mozilla)が開発し、企業間のコンソーシアムで当初仕様が策定されていました。クラスを導入するという大規模アップデートを一度は目指したものの(ECMAScript 4)、その時は頓挫しました。しかし、ECMAScript 2015時点でクラス大幅なアップデートが加えられ、よりオープンなコミュニティ、EC39で議論されるようになりました。</p>
+<p>しかし、ブラウザの組み込み言語である以上、サーバーアプリケーションのJavaやPythonのようにランタイムをアプリケーションに合わせて維持したり更新するといったことはできません。そのため、高度な文法を備える言語でコードを書き、トラディショナルなJavaScriptに変換するというアプローチが好まれるようになりました。CoffeeScriptなどが一時広く使われたものの、現在よく利用されているのはBabelとTypeScriptです。</p>
+<p>Babel（旧名6to5）はオープンソースで開発されている処理系で、ECMAScriptの最新の文法を解釈し、古いJavaScript環境でも動作するように変換します。プラグインを使うことで、まだ規格に正式に取り入れられていない実験的な文法を有効にすることもできます。実際、言語の仕様策定の場でも参考実装として活発に使われています。TypeScriptはMicrosoft社が開発した言語で、ECMAScriptを土台にして、型情報を付与できるようにしたものです。一部例外はありますが、TypeScriptのコードから型情報を外すとほぼそのままJavaScriptになります。言語仕様の策定においても、参考実装の1つとして扱われています。</p>
+<p>大規模になってくると、型があるとコーディングが楽になります。型を書く文の手間は多少増えますが、昔の静的型付き言語と異なり、TypeScriptは「明示的に型がわかる場面」では型を省略して書くことができます。また、動的なオブジェクトなど、JavaScriptでよく登場する型もうまく扱えるように設計されています。そのような使い勝手の良さもあり、現在は採用数が伸びています。有名なOSSも実装をTypeScriptに置き換えたり、企業でも積極的な活用が進んでいます。</p>
+<p>Babelにも、プラグインを追加して型情報を追加できるflowtypeというFacebook製の拡張文法がありますが、ライブラリに型情報をつけるのは、手作業で整備していかなければならず、シェアが高いほど型情報が手に入りやすく、開発の準備のために型定義ファイルを作る時間をかけなくて済みます。現時点で型定義ファイルの充実度が高いのはTypeScriptです。</p>
+<p>本ドキュメントでは、大規模化するフロントエンド開発の難易度を下げ、バグが入り込みにくくなるTypeScriptを使いこなせるように、文法や環境構築などを紹介していきます。</p>
+</div>
+<div class="section" id="javascript">
+<h2>JavaScriptのバージョン<a class="headerlink" href="#javascript" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>最近ではJavaScriptの仕様はコミュニティで議論されています。TC39というECMA内部のTechnical Committeeがそれにあたります。
+クラスなどの大幅な機能追加が行われたES6は、正式リリース時にECMAScript 2015という正式名称になり、それ以降は年次でバージョンアップを行なっています。</p>
+<p>議論の結果や現在上がっている提案はすべてGitHub上で見ることができます。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/tc39/proposals">https://github.com/tc39/proposals</a></p></li>
+</ul>
+<p>機能単位で提案が行われます。
+最初はstage 0から始まり、stage 1、stage 2とステップがあがっていきます。最初はアイディアでも、徐々にきちんとした仕様やデモ、参考実装など動くようにすることが求められていきます。stage 1が提案、stage 2がドラフト、stage 3がリリース候補、stage 4がECMAScript標準への組み込みになります。
+1月ぐらいにstage 4へ格上げになる機能が決定され、6月に新しいバージョンがリリースされます。</p>
+<p>TypeScriptも基本的には型がついたECMAScriptとして、ECMAScriptの機能は積極的に取り込んでいます。また、いくつかstage 2やstage 3の機能も取り込まれていたりします。</p>
+<p>本ドキュメントはTypeScriptファーストで説明していきますが、JavaScriptとの差異があるところは適宜補足します。</p>
+</div>
+<div class="section" id="id3">
+<h2>本書の参考文献など<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ECMAScriptの仕様および、MDN、TypeScriptの仕様などは一番のリファレンスとしています。</p>
+<ul class="simple">
+<li><p>ECMAScript規格: <a class="reference external" href="https://www.ecma-international.org/publications/standards/Ecma-262.htm">https://www.ecma-international.org/publications/standards/Ecma-262.htm</a></p></li>
+<li><p>MDN: <a class="reference external" href="https://developer.mozilla.org/ja/docs/Glossary/JavaScript">https://developer.mozilla.org/ja/docs/Glossary/JavaScript</a></p></li>
+<li><p>本家サイト: <a class="reference external" href="http://www.typescriptlang.org/">http://www.typescriptlang.org/</a></p></li>
+</ul>
+<p>下記のサイトは最近まではCompiler Internalなどが書いてあるサイトとしてしか思っていなくて、詳しくは見ていませんでしたが、現在ではかなり充実してきています。現時点では参考にはしてませんでしたが、今後は参考にする可能性があります。</p>
+<ul class="simple">
+<li><p>TypeScript Deep Dive: <a class="reference external" href="https://basarat.gitbooks.io/typescript/">https://basarat.gitbooks.io/typescript/</a></p></li>
+<li><p>TypeScript Deep Dive日本語版: <a class="reference external" href="https://typescript-jp.gitbook.io/deep-dive/">https://typescript-jp.gitbook.io/deep-dive/</a></p></li>
+</ul>
+<p>本書のベースとなっているのは、本原稿を執筆した渋川がQiitaに書いたエントリーの <a class="reference external" href="https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9">イマドキのJavaScriptの書き方2018</a> <a class="footnote-reference brackets" href="#id6" id="id4">1</a> と、それを元にして書いた <a class="reference external" href="https://gihyo.jp/magazine/SD/archive/2019/201903">Software Design 2019年3月号</a> のJavaScript特集です。それ以外に、状況別のTypeScriptの環境構築について書いた <a class="reference external" href="https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1">2019年版: 脱Babel!フロント/JS開発をTypeScriptに移行するための環境整備マニュアル</a> <a class="footnote-reference brackets" href="#id7" id="id5">2</a> も内包していますし、他のエントリーも細々と引用しています。</p>
+<p>これらの執筆においてもそうですが、本書自体の執筆でも、ウェブ上で多くの議論をしてくれた人たちとの交流によって得られた知識ふんだんに盛り込まれていますので、ここに感謝申し上げたいと思います。</p>
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id4">1</a></span></dt>
+<dd><p><a class="reference external" href="https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9">https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9</a></p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id5">2</a></span></dt>
+<dd><p><a class="reference external" href="https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1">https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1</a></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id8">
+<h2>ライセンス<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<img alt="_images/by-sa.png" src="_images/by-sa.png" />
+<p>本ドキュメントは <a class="reference external" href="http://creativecommons.org/licenses/by-sa/4.0/deed.ja">クリエイティブ・コモンズ4.0の表示 - 継承</a> （CC BY-SA 4.0） <a class="footnote-reference brackets" href="#id11" id="id10">3</a> の元で公開します。修正や足したいコンテンツはPull Requestを出していただけるとうれしいのですが、改変の制約はありませんのでフォークしていただくことも可能です。また、商用利用の制限もありません。</p>
+<p>著作権者名は「フューチャー株式会社（Future Corporation）」でお願いします。</p>
+<p>なお、LICENSEファイルは <a class="reference external" href="https://github.com/idleberg/Creative-Commons-Markdown/blob/master/4.0/by-sa.markdown">Creative Commons Markdown</a> から引用させていただきました。</p>
+<dl class="footnote brackets">
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id10">3</a></span></dt>
+<dd><p><a class="reference external" href="http://creativecommons.org/licenses/by-sa/4.0/deed.ja">http://creativecommons.org/licenses/by-sa/4.0/deed.ja</a></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id12">
+<h2>TypeScriptと互換性<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>インターネット上ですべてのユーザーが見られるサイトを作る場合、現在の機能的な下限はInternet Explorer 11 <a class="footnote-reference brackets" href="#id18" id="id13">4</a> です。
+Googleの検索エンジンのボットもこれとほぼ同等機能（<code class="docutils literal notranslate"><span class="pre">const</span></code>、 <code class="docutils literal notranslate"><span class="pre">let</span></code>ありのクラスなし）のChrome 41で固定されています <a class="footnote-reference brackets" href="#id19" id="id14">5</a> 。
+それ以外には、バージョンアップがもう提供されていないiOSやAndroidのスマートフォンの場合に最新の機能が使えないことがあります。
+ブラウザ以外ではGoogle Apps ScriptがECMAScript3にしか対応していません。</p>
+<p>100%のブラウザとの互換性を維持するのは開発リソースがいくらあっても足りないため、捻出できる工数と相談しながら、サポート範囲を決めます。
+ブラウザのバージョンごとにどの機能が対応しているかはECMAScript Compatibility Table<a class="footnote-reference brackets" href="#id20" id="id15">6</a>のサイトで調べられます。</p>
+<p>新しいブラウザのみに限定できるイントラネットのサービスや、Node.js以外は、Babelなり、TypeScriptなりのコンパイラを使い、変換後の出力として古いブラウザ向けのJavaScriptコードに変換して出力するのが現在では一般的です。Lambda、Cloud Functions、Google App Engineなどは、場合によっては少し古いバージョンのNode.jsを対象にしなければならないため、これも変換が必要になるかもしれません <a class="footnote-reference brackets" href="#id21" id="id16">7</a> 。</p>
+<p>TypeScriptの場合はほぼ最新のECMAScriptの文法に型をつけて記述できますが、コンパイル時に出力するコードのバージョンを決めることができます。
+デフォルトではES3ですが、ES5、ES2015からES2018、ESNEXTとあわせて、合計7通りの選択肢が取れます。一部の記述はターゲットが古い場合にはオプションが必要になることもあります。最低限、ES5であれば、新旧問わずどのブラウザでも問題になることはないでしょう。</p>
+<p>ただし、TypeScriptが面倒を見てくれるのは文法の部分だけです。たとえば、 <code class="docutils literal notranslate"><span class="pre">Map</span></code> や <code class="docutils literal notranslate"><span class="pre">Set</span></code> といったクラスはES5にはありませんし、イテレータを伴う <code class="docutils literal notranslate"><span class="pre">Array</span></code> のメソッドもありません。</p>
+<p>TypeScriptには <code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code> というコンパイラの動作を決定する定義ファイルがあります。ブラウザの可搬性を維持しつつ、これらの新しい要素を使いたい場合には別途そこをサポートするものを入れる必要があります。現在、その足りないクラスやメソッドを追加するもの（Polyfillと呼ばれる）で、一番利用されるのが <code class="docutils literal notranslate"><span class="pre">core-js</span></code> <a class="footnote-reference brackets" href="#id22" id="id17">8</a> で、Babelからも使われているようです。</p>
+<p>出力ターゲットを古くすると、利用できるクラスなども一緒に古くなってしまうため、対策が必要です、まずは、ES2017やES2018などのバージョンのうち、必要なクラスを定義しているバージョンがどれかを探してきます。どのバージョンがどの機能をサポートしているかは、前述の compat-table が参考になります。</p>
+<p>ターゲットに <code class="docutils literal notranslate"><span class="pre">es5</span></code> を選ぶと、には <code class="docutils literal notranslate"><span class="pre">[&quot;DOM&quot;,</span> <span class="pre">&quot;ScriptHost&quot;,</span> <span class="pre">&quot;ES5&quot;]</span></code> が定義されます。 <code class="docutils literal notranslate"><span class="pre">lib</span></code> は使えるクラスとかメソッド、その時の型などが定義されているもので、これを増やしたからといってできることが増えたりはしませんが、「これはないよ」というコンパイラがエラーを出力するための情報源として使われます。この <code class="docutils literal notranslate"><span class="pre">&quot;ES5&quot;</span></code> には、そのバージョンで利用できるクラスとメソッドしかないため、次のように <code class="docutils literal notranslate"><span class="pre">ES2017</span></code> に置き換えます。</p>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;es5&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;lib&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;DOM&quot;</span><span class="p">,</span> <span class="s2">&quot;ScriptHost&quot;</span><span class="p">,</span> <span class="s2">&quot;ES2017&quot;</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>こうすると、 <code class="docutils literal notranslate"><span class="pre">Map</span></code> などを使ってもTypeScriptのエラーにはならなくなりますが、変換されるソースコードには <code class="docutils literal notranslate"><span class="pre">Map</span></code> が最初からあるものとして出力されてしまいます。
+あとは、その <code class="docutils literal notranslate"><span class="pre">Map</span></code> を利用している場所に、 <code class="docutils literal notranslate"><span class="pre">import</span></code> を追加すると、その機能がない環境でも動作するようになります。
+core-jsのオプションが知りたい場合は、core-jsのサイトのREADMEに詳しく書かれています。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="s2">&quot;core-js/es6/map&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id13">4</a></span></dt>
+<dd><p>Microsoft社がEdgeがChromiumベースにすることが発表され、現在ベータ版が配布されています。これまでのEdgeと異なり、Windows 7以降のすべてのWindowsで提供されるようになります。IEモードも搭載されてIEとのリプレースも行えるようになるため、IE基準で考える必要はなくなっていく予定です。</p>
+</dd>
+<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id14">5</a></span></dt>
+<dd><p>Google I/O 2019で、これが現時点の最新版と同じChrome 74に更新されることが発表されています。</p>
+</dd>
+<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id15">6</a></span></dt>
+<dd><p><a class="reference external" href="http://kangax.github.io/compat-table/es6/">http://kangax.github.io/compat-table/es6/</a></p>
+</dd>
+<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id16">7</a></span></dt>
+<dd><p>Lambdaは長らくNode.js 6というかなり古いバージョンを使っていましたが10が提供されて6はサポート終了になり、Node.js 6ベースのタスクの新規作成と更新ができなくなりました。</p>
+</dd>
+<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id17">8</a></span></dt>
+<dd><p><a class="reference external" href="https://www.npmjs.com/package/core-js">https://www.npmjs.com/package/core-js</a></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">前書き</a><ul>
+<li><a class="reference internal" href="#id2">本ドキュメントの位置づけ</a></li>
+<li><a class="reference internal" href="#typescript">なぜTypeScriptか?</a></li>
+<li><a class="reference internal" href="#javascript">JavaScriptのバージョン</a></li>
+<li><a class="reference internal" href="#id3">本書の参考文献など</a></li>
+<li><a class="reference internal" href="#id8">ライセンス</a></li>
+<li><a class="reference internal" href="#id12">TypeScriptと互換性</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="前の章へ">仕事ですぐに使えるTypeScript</a></li>
+      <li>Next: <a href="ecosystem.html" title="次の章へ">Node.jsエコシステムを体験しよう</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/preface.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 2167</li>
+        <li>非アスキー: 5282</li>
+        <li>合計文字数: 7449</li>
+        <li>半角換算: 12731</li>
+        <li>全角換算: 6365.5</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/preface.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

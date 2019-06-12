@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>Node.jsエコシステムを体験しよう &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="変数" href="variable.html" />
+    <link rel="prev" title="前書き" href="preface.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="node-js">
+<h1>Node.jsエコシステムを体験しよう<a class="headerlink" href="#node-js" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>TypeScriptはJavaScriptへの変換を目的として作られた言語です。公式の処理系がありますが、それで変換すると、JavaScriptが生成されます。勉強目的で実行するには、現在のところ、いくつかのオプションがあります。
+このなかで、とりあえず安定して使えて、比較的簡単なのはts-nodeですね。</p>
+<ul class="simple">
+<li><p>TypeScriptのウェブサイトのplayground <a class="footnote-reference brackets" href="#id2" id="id1">1</a>: 公式のコンパイラで変換してブラウザで実行</p></li>
+<li><p>tsc + Node.js: 公式のコンパイラで変換してからNode.jsで実行</p></li>
+<li><p>babel + ts-loader + Node.js: Babel経由で公式のコンパイラで変換してからNode.jsで実行</p></li>
+<li><p>babel + &#64;babel/preset-typescript + Node.js: Babelで型情報だけを落として簡易的に変換してNode.jsで実行</p></li>
+<li><p>ts-node: TypeScriptを変換してそのままNode.jsで実行する処理系</p></li>
+<li><p>deno: TypeScriptをネイティブサポートした処理系（まだまだアルファ）</p></li>
+</ul>
+<p>Node.jsはJavaScriptにファイル入出力やウェブサーバー作成に必要なAPIなどを足した処理系です。
+本章では、TypeScriptの環境整備をするとともに、Node.jsを核としたエコシステムの概要を説明します。
+プログラミング言語を学んで書き始める場合、言語の知識だけではどうにもなりません。どこにソースコードを書き、どのようにビルドツールを動かし、どのように処理系を起動し、どのようにテストを行うかなど、言語周辺のエコシステムを学ばないと、どこから手をつけて良いかわかりません。</p>
+<p>まずはNode.jsをインストールしてnpmコマンドを使えるようにしてください。
+なお、本章ではゼロから環境を構築していきますが、ハンズオンのチーム教育などで、構築済みの環境をシェアする場合には次の節は飛ばしてください。コードを書くスキルに対して、環境構築に必要なスキルは数倍難易度が高いです。エコシステムを完全に理解してツール間の連携を把握する必要があります。ただし、そのために必要な知識はコードを書いていくうちに学びます。どうしても難易度が高い作業が最初に来てしまい、苦手意識を広げてしまう原因になってしまいます。環境構築は、本章と、5章以降で取り扱うので、必要になったら戻って来てください。</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://www.typescriptlang.org/play/index.html">https://www.typescriptlang.org/play/index.html</a></p>
+</dd>
+</dl>
+<div class="section" id="id3">
+<h2>Node.jsのインストール<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Node.jsは公式の <a class="reference external" href="https://nodejs.org">https://nodejs.org</a> からダウンロードしてください。あるいは、chocolateyやHomebrew、macportsなどのパッケージマネージャなどを使ってインストールすることも可能です。もし、複数のバージョンを切り替えて検証する場合にはnvmが利用できます。ただし、フロントエンド開発においては、コードは変換してから他の環境（ブラウザやらクラウドのサービス）上で実行されますし、基本的に後方互換性は高く、バージョン間の差もそこまでないため、最新のLTSをとりあえず入れておけば問題ないでしょう（ただし、AWS Lambdaなどの特定の環境での動作を確認したい場合はのぞく）。</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="admonition-title">課題</p>
+<p>あとで書く</p>
+</div>
+<p>Node.jsをインストールすると、標準のパッケージマネージャの npm もインストールされます。もしかしたらパッケージマネージャの種類によってはインストールされない場合もあるので、その場合は追加インストールしてください。</p>
+<p>npmコマンドはパッケージのダウンロードのためにインターネットアクセスをします。もし、社内プロキシなどがある場合はnpmのインストール後に設定しておくのをおすすめします。</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">プロキシの設定</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>npm config <span class="nb">set</span> proxy http://アカウント名:パスワード@プロキシーのURL
+npm config <span class="nb">set</span> https-proxy http://アカウント名:パスワード@プロキシーのURL
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pakcage-json-ts-node">
+<h2><code class="docutils literal notranslate"><span class="pre">pakcage.json</span></code> の作成と <code class="docutils literal notranslate"><span class="pre">ts-node</span></code> のインストール<a class="headerlink" href="#pakcage-json-ts-node" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>最初に作業フォルダを作り、 <code class="docutils literal notranslate"><span class="pre">package.json</span></code> を作成します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir try_ts
+$ <span class="nb">cd</span> try_ts
+$ npm init -y
+<span class="o">{</span>
+  <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;env&quot;</span>,
+  <span class="s2">&quot;version&quot;</span>: <span class="s2">&quot;1.0.0&quot;</span>,
+  <span class="s2">&quot;description&quot;</span>: <span class="s2">&quot;&quot;</span>,
+  <span class="s2">&quot;main&quot;</span>: <span class="s2">&quot;index.js&quot;</span>,
+  <span class="s2">&quot;scripts&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;test&quot;</span>: <span class="s2">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span>
+  <span class="o">}</span>,
+  <span class="s2">&quot;keywords&quot;</span>: <span class="o">[]</span>,
+  <span class="s2">&quot;author&quot;</span>: <span class="s2">&quot;&quot;</span>,
+  <span class="s2">&quot;license&quot;</span>: <span class="s2">&quot;ISC&quot;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">package.json</span></code> はNode.jsを使ったプロジェクトの核となるファイルです。
+次のような情報が入ります。</p>
+<ul class="simple">
+<li><p>プロジェクト自身のさまざまな情報</p></li>
+<li><p>プロジェクトが依存する(実行で必要、もしくは開発に必要)ライブラリの情報</p></li>
+<li><p>プロジェクトのビルドやテスト実行など、プロジェクト開発に必要なタスクの実行</p></li>
+</ul>
+<p>他の人が行なっているプロジェクトのコードを見るときも、まずは <code class="docutils literal notranslate"><span class="pre">package.json</span></code> を起点に解析していくと効率よく探すことができます。
+この <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">init</span></code> コマンドで作成される <code class="docutils literal notranslate"><span class="pre">package.json</span></code> は、とりあえずフォルダ名から付与された名前、固定のバージョン(1.0.0)、空の説明が入っています。
+このファイルはパッケージのリポジトリであるnpmjs.orgにアップロードする際に必要な情報もすべて入ります。
+仕事のコードやハンズオンのプロジェクトを間違って公開しないように(することもないと思いますが)、 <code class="docutils literal notranslate"><span class="pre">&quot;private&quot;:</span> <span class="pre">true</span></code> を書き足しておきましょう。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;env&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;private&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">:</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>次に必要なツールをインストールします。npm installで、ts-nodeとtypescriptを入れます。 <code class="docutils literal notranslate"><span class="pre">--save-dev</span></code> をつけると、開発に必要だが、リリースにはいらないという意味になります。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev ts-node typescript
+</pre></div>
+</div>
+<p>もし、本番環境でもts-nodeを使ってビルドしたい、ということがあれば <code class="docutils literal notranslate"><span class="pre">--save-dev</span></code> の代わりに <code class="docutils literal notranslate"><span class="pre">--save</span></code> をつけます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save ts-node
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">package.json</span></code> を見ると、項目が追加されているのがわかりますね。また、 <code class="docutils literal notranslate"><span class="pre">package-lock.json</span></code> という、環境を構築したときの全ライブラリのバージョン情報が入ったファイルも生成されます。このファイルを手で修正することはありません。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;ts-node&quot;</span><span class="p">:</span> <span class="s2">&quot;^8.0.2&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;typescript&quot;</span><span class="p">:</span> <span class="s2">&quot;^3.3.1&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>また、 <code class="docutils literal notranslate"><span class="pre">node_modules</span></code> フォルダができて必要なライブラリなどがインストールされていることがわかります。他の言語と異なり、基本的にNode.jsは現在いるフォルダ以外のところにインストールすることはありません（キャッシュはありますが）。複数プロジェクト掛け持ちしているときも、プロジェクト間でインストールするライブラリやツールのバージョンがずれることを心配する必要はありません。</p>
+<p>プロジェクトをチーム間で共有するときは、この <code class="docutils literal notranslate"><span class="pre">package.json</span></code> があるフォルダをバージョン管理にシステムに入れます。ただし、 <code class="docutils literal notranslate"><span class="pre">node_modules</span></code> は配布する必要はありません。 <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> などに名前を入れておくと良いでしょう。</p>
+</div>
+<div class="section" id="id4">
+<h2>プロジェクトフォルダ共有後の環境構築<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>チーム内では、gitなどでプロジェクトのソースコードを共有します。JavaScript系のプロジェクトでは、その中に <code class="docutils literal notranslate"><span class="pre">package.json</span></code> と <code class="docutils literal notranslate"><span class="pre">package-lock.json</span></code> があり、デプロイ時に環境を作ったり、共有された人は環境を手元で再現したりするのが簡単にできます。</p>
+<table class="colwidths-given docutils align-center">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code></p></th>
+<th class="head"><p>dependenciesとdevDependenciesの両方をインストールする。</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span> <span class="pre">--prod</span></code></p></td>
+<td><p>dependenciesのみをインストールする。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">ci</span></code></p></td>
+<td><p>dependenciesとdevDependenciesの両方をインストールする。package-lock.jsonは更新しない。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">ci</span> <span class="pre">--prod</span></code></p></td>
+<td><p>dependenciesのみをインストールする。package-lock.jsonは更新しない。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id5">
+<h2>インストールしたコマンドの実行<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>npmコマンドでインストールするパッケージは、プログラムから使うライブラリ以外に実行できるコマンドを含むものがあります。先ほどインストールしたtypescriptとts-nodeは両方ともこれを含みます。コマンドは、node_modules/.bin以下にインストールされています。これを直接相対パスで指定しても良いのですが、専用のコマンドもあります。</p>
+<p>ts-nodeを気軽に試すREPL（1行ごとに実行されるインタプリタ）の実行もできます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm ts-node
+&gt; console.log<span class="o">(</span><span class="s1">&#39;hello world&#39;</span><span class="o">)</span>
+hello world
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">package.json</span></code> のscriptsのセクションに登録すると、npmコマンドを使って実行できます。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>&quot;scripts&quot;: {
+  &quot;start&quot;: &quot;ts-node&quot;
+}
+</pre></div>
+</div>
+<p>&quot;scripts&quot;にはオブジェクトを書き、その中にはコマンドが定義できます。ここではrunコマンドを定義しています。コマンドが実行されたときに実行されるコードを書けます。ここではnode_modules/.bin以下のコードをパスを設定せずに書くことができます。npm runに続いてコマンド名を書くと、それが実行されます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm run start
+&gt; console.log<span class="o">(</span><span class="s1">&#39;hello world&#39;</span><span class="o">)</span>
+hello world
+</pre></div>
+</div>
+<p>だいたい、次のようなコマンドを定義することが多いです。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">start</span></code> / <code class="docutils literal notranslate"><span class="pre">serve</span></code>: パッケージがウェブアプリケーションを含む場合はこれを起動</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test</span></code>: テストを実行</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lint</span></code>: コードの品質チェックを行う</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build</span></code>: ビルドが必要なライブラリではビルドを実行して配布できるようにする</p></li>
+</ul>
+<p>ビルドツールや処理系、テスティングフレームワークなどは、プロジェクトによって千差万別ですが、このscriptsセクションを読むと、どのようにソースコードを処理したり、テストしたりしているかがわかります。これは、プロジェクトのコードを読むための強い武器になります。</p>
+</div>
+<div class="section" id="typescript">
+<h2>TypeScriptの環境設定<a class="headerlink" href="#typescript" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>TypeScriptを使うには、いくつか設定が必要です。JavaScript系のツールのビルどは大きく分けて、2つのフェーズがあります。</p>
+<ul class="simple">
+<li><p>コンパイル: TypeScriptや最新のJavaScript文法で書かれたコードを、実行環境にあわせたJavaScriptに変換</p></li>
+<li><p>バンドル: ソースコードは通常、整理しやすいクラスごと、コンポーネントごとといった単位で分けて記述します。配布時には1ファイルにまとめてダウンロードの高速化、無駄な使われてないコードの排除が行われます。</p></li>
+</ul>
+<p>前者のツールとしては、TypeScriptやBabelを使います。後者は、webpack、Browserify、Rollup、Parcelなどがあります。ただし、後者は大規模なアプリケーションでなければ必要ありませんので、5章以降で紹介します。</p>
+<p>何も設定せずとも、TypeScriptのコンパイルは可能ですが、入力フォルダを設定したい、出力形式を調整したい、いくつかのデフォルトでオフになっている新しい機能を使いたいなどの場合は設定ファイル <code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code> を作成します。
+このファイルの雛形はTypeScriptの処理系を使って生成できます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npx tsc --init
+message TS6071: Successfully created a tsconfig.json file.
+</pre></div>
+</div>
+<p>あとはこのJSONファイルを編集すれば、コンパイラの動作を調整できます。
+TypeScriptをNode.jsで実行するだけであれば細かい設定は不要ですが、4章ではオプションを使わないといけない文法にもついても紹介します。</p>
+</div>
+<div class="section" id="id6">
+<h2>エディタ環境<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>現在、一番簡単に設定できて、一番精度の高い補完・コードチェックが自動で行われるのがVisual Studio Codeです。Windowsユーザーも、Linuxユーザーも、macOSユーザーも、これをダウンロードしてインストールしておけば間違いありません。
+何も拡張を入れなくても動作します。</p>
+<p>プロジェクトごとの共通の設定も、.vscodeフォルダに設定を書いてリポジトリに入れるだけで簡単にシェアできる点も、プロジェクトで使うのに適しています。よりアドバンスな設定やツールに関しては環境構築の章で紹介します。</p>
+</div>
+<div class="section" id="ts-nodetypescript">
+<h2>ts-nodeを使ったTypeScriptのコードの実行<a class="headerlink" href="#ts-nodetypescript" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>それでは適当なコードを書いて実行してみましょう。
+本来はこのコードはJavaScriptと完全互換で書けるのですが（次章で解説します）、あえて型を定義して、通常のNode.jsではエラーとなるようにしています。</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">最初のサンプルコード(first.ts)</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">personName</span>: <span class="kt">string</span> <span class="o">=</span> <span class="s1">&#39;小心者&#39;</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Hello </span><span class="si">${</span><span class="nx">personName</span><span class="si">}</span><span class="sb">!`</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p>実行するにはnpx経由でts-nodeコマンドを実行します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npx ts-node test.ts
+Hello 小心者!
+</pre></div>
+</div>
+<p>今後のチュートリアルでは基本的にこのスタイルで実行します。</p>
+</div>
+<div class="section" id="id7">
+<h2>まとめ<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>本章では次のようなことを学んで来ました。</p>
+<ul class="simple">
+<li><p>JavaScriptのエコシステムとpackage.json</p></li>
+<li><p>サンプルを動かすための最低限の環境設定</p></li>
+</ul>
+<p>次章からはさっそくコーディングの仕方を学んで行きます。</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Node.jsエコシステムを体験しよう</a><ul>
+<li><a class="reference internal" href="#id3">Node.jsのインストール</a></li>
+<li><a class="reference internal" href="#pakcage-json-ts-node"><code class="docutils literal notranslate"><span class="pre">pakcage.json</span></code> の作成と <code class="docutils literal notranslate"><span class="pre">ts-node</span></code> のインストール</a></li>
+<li><a class="reference internal" href="#id4">プロジェクトフォルダ共有後の環境構築</a></li>
+<li><a class="reference internal" href="#id5">インストールしたコマンドの実行</a></li>
+<li><a class="reference internal" href="#typescript">TypeScriptの環境設定</a></li>
+<li><a class="reference internal" href="#id6">エディタ環境</a></li>
+<li><a class="reference internal" href="#ts-nodetypescript">ts-nodeを使ったTypeScriptのコードの実行</a></li>
+<li><a class="reference internal" href="#id7">まとめ</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="preface.html" title="前の章へ">前書き</a></li>
+      <li>Next: <a href="variable.html" title="次の章へ">変数</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ecosystem.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 2271</li>
+        <li>非アスキー: 3720</li>
+        <li>合計文字数: 5991</li>
+        <li>半角換算: 9711</li>
+        <li>全角換算: 4855.5</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/ecosystem.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
