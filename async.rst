@@ -232,15 +232,15 @@ TypeScriptで提供されている ``if`` や ``for`` 、 ``while`` などは関
      return new 味噌汁();
    }
 
-   async function ご飯(): Promise<ご飯> {
+   async function ご飯温め(): Promise<ご飯> {
      await 電子レンジ();
      return new ご飯();
    }
 
-   const [a味噌汁, aご飯] = await Promise.all([味噌汁(), ご飯()]);
+   const [a味噌汁, aご飯] = await Promise.all([味噌汁温め(), ご飯温め()]);
    いただきます(a味噌汁, aご飯);
 
-``味噌汁()`` と ``ご飯()`` は ``async`` がついた関数です。
+``味噌汁温め()`` と ``ご飯温め()`` は ``async`` がついた関数です。
 省略可能ですがあえて返り値に ``Promise`` をつけています。
 これまでの例では、 ``async`` 関数を呼ぶ時には ``await`` をつけていました。
 ``await`` をつけると、待った後の結果（ここでは味噌汁とご飯のインスタンス）が帰ってきます。
