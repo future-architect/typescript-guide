@@ -138,7 +138,7 @@ ts-nodeを気軽に試すREPL（1行ごとに実行されるインタプリタ�
 
 .. code-block:: bash
 
-   $ npm ts-node
+   $ npx ts-node
    > console.log('hello world')
    hello world
 
