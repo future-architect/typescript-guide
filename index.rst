@@ -37,6 +37,7 @@
    function
    class
    async
+   exception
    module
 
 .. toctree::

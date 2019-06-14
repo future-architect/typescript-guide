@@ -177,7 +177,8 @@ JavaScriptと変わりませんし、JavaやC++とかともほぼ変わりませ
 <div class="section" id="try-catch">
 <h3><code class="docutils literal notranslate"><span class="pre">try</span> <span class="pre">..</span> <span class="pre">catch</span></code><a class="headerlink" href="#try-catch" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>例外をキャッチする文法です。Javaと違うのは、JavaScriptは型を使って複数の <code class="docutils literal notranslate"><span class="pre">catch</span></code> 節を振り分けることができない、という点です。 <code class="docutils literal notranslate"><span class="pre">catch</span></code> には1つだけ入れ条件文を書きます。
-非同期処理が多いJavaScriptでは、例外でうまくエラーを捕まえられることはまれでしたが、ES2017で導入された <code class="docutils literal notranslate"><span class="pre">async</span></code> 関数は非同期処理の中のエラーを例外として投げるため、再びこの文法の利用価値が高まっています。</p>
+非同期処理が多いJavaScriptでは、例外でうまくエラーを捕まえられることはまれでしたが、ES2017で導入された <code class="docutils literal notranslate"><span class="pre">async</span></code> 関数は非同期処理の中のエラーを例外として投げるため、再びこの文法の利用価値が高まっています。
+例外に関しては特別に章を分けて説明します。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
   <span class="c1">// 処理</span>
   <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;例外投げる&quot;</span><span class="p">)</span>
@@ -290,11 +291,11 @@ JavaScriptと変わりませんし、JavaやC++とかともほぼ変わりませ
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 1798</li>
-        <li>非アスキー: 2615</li>
-        <li>合計文字数: 4413</li>
-        <li>半角換算: 7028</li>
-        <li>全角換算: 3514.0</li>
+        <li>英数記号: 1799</li>
+        <li>非アスキー: 2636</li>
+        <li>合計文字数: 4435</li>
+        <li>半角換算: 7071</li>
+        <li>全角換算: 3535.5</li>
     </ul>
     </p>
 </div>

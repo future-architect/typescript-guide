@@ -18,7 +18,7 @@ ES2015以降、このコーディングスタイルにも手が入り、土台�
 * ``Promise``
 * ``async`` / ``await``
 
-本章ではそれらを紹介していきます。
+本章ではそれらを紹介していきます。なお、非同期処理の例外処理については、例外処理の章で扱います。
 
 非同期とは何か
 ------------------------------
@@ -307,73 +307,6 @@ TypeScriptで提供されている ``if`` や ``for`` 、 ``while`` などは関
 普段は ``json()`` メソッドなどで一括で変換結果を受け取ると思いますが、細切れのブロック単位で受信することもできます。
 この構文を使うと、それぞれのブロックごとにループを回す、という処理が行えます。
 ただし、それ以外の用途は今のところ見かけませんし、この用途で使うところも見たことがありませんので、基本的にはループの中の ``await`` は要注意であることは変わりありません。
-
-非同期とエラー処理
------------------------------
-
-非同期処理で難しいのがエラー処理でした。
-
-``Promise`` では ``then()`` の2つめのコールバック関数でエラー処理が書けるようになりました。
-また、エラー処理の節だけを書く ``catch()`` 節もあります。
-複数の ``then()`` 節が連なっていても、1箇所だけエラー処理を書けば大丈夫です。
-なお、一箇所もエラー処理を書かずにいて、エラーが発生すると ``unhandledRejection`` というエラーがNode.jsのコンソールに表示されることになります。
-
-.. code-block:: js
-   :caption: Promiseのエラー書き方
-
-   fetch(url).then(resp => {
-     return resp.json();
-   }).then(json => {
-     console.log(json);
-   }).catch(e => {
-     console.log("エラー発生!");
-     console.log(e);
-   });
-
-``async`` 関数の場合はもっとシンプルで、何かしらの非同期処理を実行する場合、 ``await`` していれば、通常の ``try`` 文でエラーを捕まえることができます。
-
-.. code-block:: ts
-   :caption: async関数内部のエラー処理の書き方
-
-   try {
-     const resp = await fetch(url);
-     const json = await resp.json();
-     console.log(json);
-   } catch (e: Error) {
-     console.log("エラー発生!");
-     console.log(e);
-   }
-
-エラーを発生させるには、　``Promise`` 作成時のコールバック関数の2つめの引数の ``reject()`` コールバック関数にエラーオブジェクトを渡しても良いですし、
-``then()`` 節の中で例外をスローしても発生させることができます。
-
-.. code-block:: ts
-
-   const heavyTask = async (): Promise<number> => {
-     return new Promise<number>((resolve, reject) => {
-       // 何かしらの処理
-       reject(error);
-       // こちらでもPromiseのエラーを発生可能
-       throw new Error();
-     });
-   };
-
-``Promise`` 以前は非同期処理の場合は、コールバック関数の先頭の引数がエラー、という暗黙のルールで実装されていました。
-ただし、1つのコールバックでも ``return`` を忘れると動作しませんし、通常の例外が発生して ``return`` されなかったりすると、コールバックの伝搬が中断されてしまいます。
-
-.. code-block:: js
-   :caption: 原始時代の非同期のエラー処理の書き方
-
-   // 旧: Promise以前
-   func1(引数, function(err, value) {
-     if (err) return err;
-     func2(引数, function(err, value) {
-       if (err) return err;
-       func3(引数, function(err, value) {
-  　      // 最後に実行されるコードブロック
-       });
-     });
-   });
 
 まとめ
 -------------
