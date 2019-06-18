@@ -149,7 +149,7 @@ TypeScript固有の書き方になりますが、コンストラクタ関数に�
    const miniatureDachshund = new SmallDog("フリスビー");
 
    // 掘り出した
-   console.log(miniatureDachshund.dig()); // 骨
+   console.log(miniatureDachshund.dig()); // フリスビー
 
 ``static`` メンバー
 --------------------------
