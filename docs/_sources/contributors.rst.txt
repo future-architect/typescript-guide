@@ -16,5 +16,5 @@ Pull Requestをくださった方々
 フィードバックをくださった方々
 ------------------------------------
 
-* `@shun_shushu <https://twitter.com/shun_shushu>_
+* `@shun_shushu <https://twitter.com/shun_shushu>`_
 
