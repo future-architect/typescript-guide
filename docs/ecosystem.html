@@ -47,7 +47,24 @@
 </ul>
 <p>Node.jsはJavaScriptにファイル入出力やウェブサーバー作成に必要なAPIなどを足した処理系です。
 本章では、TypeScriptの環境整備をするとともに、Node.jsを核としたエコシステムの概要を説明します。
-プログラミング言語を学んで書き始める場合、言語の知識だけではどうにもなりません。どこにソースコードを書き、どのようにビルドツールを動かし、どのように処理系を起動し、どのようにテストを行うかなど、言語周辺のエコシステムを学ばないと、どこから手をつけて良いかわかりません。</p>
+プログラミング言語を学んで書き始める場合、言語の知識だけではどうにもなりません。どこにソースコードを書き、どのようにビルドツールを動かし、どのように処理系を起動し、どのようにテストを行うかなど、言語周辺のエコシステムを学ばないと、どこから手をつけて良いかわかりません。本章で紹介するエコシステムの周辺ツールや設定ファイルは以下の通りです。</p>
+<ul class="simple">
+<li><p>Node.js: 処理系</p></li>
+<li><p>npmコマンド: パッケージマネージャ</p></li>
+<li><p>package.json: プロジェクトファイル</p>
+<ul>
+<li><p>依存パッケージの管理</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scripts</span></code> で開発用のタスクのランチャーとして利用</p></li>
+</ul>
+</li>
+<li><p>npxコマンド: Node.js用のnpmパッケージで提供されているツールの実行</p></li>
+<li><p>TypeScript関連のパッケージ</p>
+<ul>
+<li><p>tsc: TypeScriptのコンパイラ（プロジェクト用のTypeScriptの設定ファイルの作成）</p></li>
+<li><p>ts-node: TypeScript変換しながら実行する、Node.jsのラッパーコマンド</p></li>
+</ul>
+</li>
+</ul>
 <p>まずはNode.jsをインストールしてnpmコマンドを使えるようにしてください。
 なお、本章ではゼロから環境を構築していきますが、ハンズオンのチーム教育などで、構築済みの環境をシェアする場合には次の節は飛ばしてください。コードを書くスキルに対して、環境構築に必要なスキルは数倍難易度が高いです。エコシステムを完全に理解してツール間の連携を把握する必要があります。ただし、そのために必要な知識はコードを書いていくうちに学びます。どうしても難易度が高い作業が最初に来てしまい、苦手意識を広げてしまう原因になってしまいます。環境構築は、本章と、5章以降で取り扱うので、必要になったら戻って来てください。</p>
 <dl class="footnote brackets">
@@ -72,14 +89,14 @@ npm config <span class="nb">set</span> https-proxy http://アカウント名:パ
 </div>
 </div>
 </div>
-<div class="section" id="pakcage-json-ts-node">
-<h2><code class="docutils literal notranslate"><span class="pre">pakcage.json</span></code> の作成と <code class="docutils literal notranslate"><span class="pre">ts-node</span></code> のインストール<a class="headerlink" href="#pakcage-json-ts-node" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="package-json-ts-node">
+<h2><code class="docutils literal notranslate"><span class="pre">package.json</span></code> の作成と <code class="docutils literal notranslate"><span class="pre">ts-node</span></code> のインストール<a class="headerlink" href="#package-json-ts-node" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>最初に作業フォルダを作り、 <code class="docutils literal notranslate"><span class="pre">package.json</span></code> を作成します。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir try_ts
 $ <span class="nb">cd</span> try_ts
 $ npm init -y
 <span class="o">{</span>
-  <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;env&quot;</span>,
+  <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;try_ts&quot;</span>,
   <span class="s2">&quot;version&quot;</span>: <span class="s2">&quot;1.0.0&quot;</span>,
   <span class="s2">&quot;description&quot;</span>: <span class="s2">&quot;&quot;</span>,
   <span class="s2">&quot;main&quot;</span>: <span class="s2">&quot;index.js&quot;</span>,
@@ -175,7 +192,7 @@ hello world
 }
 </pre></div>
 </div>
-<p>&quot;scripts&quot;にはオブジェクトを書き、その中にはコマンドが定義できます。ここではrunコマンドを定義しています。コマンドが実行されたときに実行されるコードを書けます。ここではnode_modules/.bin以下のコードをパスを設定せずに書くことができます。npm runに続いてコマンド名を書くと、それが実行されます。</p>
+<p>&quot;scripts&quot;にはオブジェクトを書き、その中にはコマンドが定義できます。ここでは <code class="docutils literal notranslate"><span class="pre">start</span></code> コマンドを定義しています。コマンドが実行されたときに実行されるコードを書けます。ここではnode_modules/.bin以下のコードをパスを設定せずに書くことができます。 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">[コマンド名]</span></code> とシェルで実行すると、この <code class="docutils literal notranslate"><span class="pre">scripts</span></code> セクションのコマンドが実行されます。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm run start
 &gt; console.log<span class="o">(</span><span class="s1">&#39;hello world&#39;</span><span class="o">)</span>
 hello world
@@ -188,7 +205,8 @@ hello world
 <li><p><code class="docutils literal notranslate"><span class="pre">lint</span></code>: コードの品質チェックを行う</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">build</span></code>: ビルドが必要なライブラリではビルドを実行して配布できるようにする</p></li>
 </ul>
-<p>ビルドツールや処理系、テスティングフレームワークなどは、プロジェクトによって千差万別ですが、このscriptsセクションを読むと、どのようにソースコードを処理したり、テストしたりしているかがわかります。これは、プロジェクトのコードを読むための強い武器になります。</p>
+<p>ビルドツールや処理系、テスティングフレームワークなどは、プロジェクトによって千差万別ですが、この <code class="docutils literal notranslate"><span class="pre">scripts</span></code> セクションを読むと、どのようにソースコードを処理したり、テストしたりしているかがわかります。これは、プロジェクトのコードを読むための強い武器になります。</p>
+<p>また、このコマンド実行まではWindowsだろうが、Linuxだろうが、macOSだろうが、どれでもポータブルに動作します。Node.jsとnpmコマンドさえあれば、開発機（Windows、macOS）、CIサーバー（Linux）、本番環境（Linux）で動作します。もちろん、中で動作させるプログラムに、Node.js以外のOSのコマンドを書くとそこのポータビリティは下がりますが、それに関してはおすすめパッケージの中でポータブルな <code class="docutils literal notranslate"><span class="pre">scripts</span></code> セクションを書くのに使えるパッケージを紹介します。</p>
 </div>
 <div class="section" id="typescript">
 <h2>TypeScriptの環境設定<a class="headerlink" href="#typescript" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -226,7 +244,7 @@ TypeScriptをNode.jsで実行するだけであれば細かい設定は不要で
 </div>
 </div>
 <p>実行するにはnpx経由でts-nodeコマンドを実行します。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npx ts-node test.ts
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npx ts-node first.ts
 Hello 小心者!
 </pre></div>
 </div>
@@ -254,7 +272,7 @@ Hello 小心者!
   <ul>
 <li><a class="reference internal" href="#">Node.jsエコシステムを体験しよう</a><ul>
 <li><a class="reference internal" href="#id3">Node.jsのインストール</a></li>
-<li><a class="reference internal" href="#pakcage-json-ts-node"><code class="docutils literal notranslate"><span class="pre">pakcage.json</span></code> の作成と <code class="docutils literal notranslate"><span class="pre">ts-node</span></code> のインストール</a></li>
+<li><a class="reference internal" href="#package-json-ts-node"><code class="docutils literal notranslate"><span class="pre">package.json</span></code> の作成と <code class="docutils literal notranslate"><span class="pre">ts-node</span></code> のインストール</a></li>
 <li><a class="reference internal" href="#id4">プロジェクトフォルダ共有後の環境構築</a></li>
 <li><a class="reference internal" href="#id5">インストールしたコマンドの実行</a></li>
 <li><a class="reference internal" href="#typescript">TypeScriptの環境設定</a></li>
@@ -283,11 +301,11 @@ Hello 小心者!
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 2271</li>
-        <li>非アスキー: 3720</li>
-        <li>合計文字数: 5991</li>
-        <li>半角換算: 9711</li>
-        <li>全角換算: 4855.5</li>
+        <li>英数記号: 2476</li>
+        <li>非アスキー: 4084</li>
+        <li>合計文字数: 6560</li>
+        <li>半角換算: 10644</li>
+        <li>全角換算: 5322.0</li>
     </ul>
     </p>
 </div>

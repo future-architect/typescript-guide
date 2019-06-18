@@ -36,14 +36,11 @@
    console.log(Number(flag));    // 1, 0になる
 
    // 他のデータ型をtrue/falseに変換
-   const notEmpty = Boolean("test string");
-   // 'true'の文字をtrueにするなら
-   const flag = flagStr === 'true';
-   // true/false反転するが演算子一つで変換可能/
-   const str = "not empty string";
-   const isEmpty = !str;
-   // もう1つ使うと反転せずにboolean型に
-   const notEmpty = !!str;
+   const notEmpty = Boolean("test string"); // 変換ルールは後述
+   const flag = flagStr === 'true';         // 'true'の文字をtrueにするなら
+   const str = "not empty string";          // true/false反転するが演算子一つで変換可能
+   const isEmpty = !str;                    // 反転すると!Boolean()と同じ
+   const notEmpty = !!str;                  // もう1つ使うと反転せずにboolean型に
 
 TypeScriptでは、数字のゼロ（負も含む）、空文字列、 ``null`` 、 ``undefined`` 、 ``NaN`` を変換すると ``false`` 、それ以外を変換すると ``true`` になります \ [#]_\ 。
 

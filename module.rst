@@ -296,7 +296,7 @@ pathsを使ったパスの読み替えを設定すると、各パッケージで
    }
 
 .. code-block:: json
-   :caption: pakcages/app/tsconfig.json
+   :caption: packages/app/tsconfig.json
 
    {
      "extends": "../../tsconfig.base",

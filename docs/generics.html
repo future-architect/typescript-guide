@@ -35,6 +35,68 @@
             
   <div class="section" id="id1">
 <h1>ジェネリクス<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>書き書け</p>
+</div>
+<p>ジェネリクスは、使われるまで型が決まらないような機能を作るときに使います。ジェネリクスは日本語で総称型と呼ばれることもあります。</p>
+<div class="section" id="any-unknown">
+<h2><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> との違い<a class="headerlink" href="#any-unknown" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>型が未知の場合というと、 <code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> が思いつくでしょう。</p>
+<p>これらの変数に値を設定してしまうと、型情報がリセットされます。取り出すときに、適切な型を宣言してあげないと、その後のエラーチェックが無効になったり、エディタの補完ができません。</p>
+<p>次の関数は、初回だけ指定の関数を読んで値を取って来るが、2回目以降は保存した値をそのまま返す関数です。初回アクセスまで初期化を遅延させます。</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">any版の遅延初期化関数</span><a class="headerlink" href="#id2" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">lazyInit</span><span class="p">(</span><span class="nx">init</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">any</span><span class="p">)</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">any</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">cache</span>: <span class="kt">any</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">isInit</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">()</span><span class="o">:</span> <span class="nx">any</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isInit</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">cache</span> <span class="o">=</span> <span class="nx">init</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">cache</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">any</span></code> 版を使って見たのが次のコードです。</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">非ジェネリック版の使い方</span><a class="headerlink" href="#id3" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">getter</span> <span class="o">=</span> <span class="nx">lazyInit</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="s2">&quot;initialized&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">getter</span><span class="p">();</span>
+<span class="c1">// valueはany型なので、上記のvalueの後ろで.をタイプしてもメソッド候補はでてこない</span>
+</pre></div>
+</div>
+</div>
+<p>この場合、 <code class="docutils literal notranslate"><span class="pre">cache</span></code> ローカル変数に入っているのは文字列ですし、 <code class="docutils literal notranslate"><span class="pre">value</span></code> にも文字列が格納されます。
+しかし、TypeScriptの処理系は <code class="docutils literal notranslate"><span class="pre">any</span></code> に入るだけで補完をあきらめてしまいます。</p>
+<p>次のジェネリクス版を紹介します。型を関数の引数のように記述します。場所は関数、インタエース、クラスの名前の前に付きます。 この <code class="docutils literal notranslate"><span class="pre">T</span></code> には型が入ります。
+<code class="docutils literal notranslate"><span class="pre">T</span></code> は実際に使うときに、全て同じ型名がここに入ります。 <code class="docutils literal notranslate"><span class="pre">string</span></code> などを入れることができます。</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">any版の遅延初期化関数</span><a class="headerlink" href="#id4" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="nx">lazyInit</span><span class="p">(</span><span class="nx">init</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">T</span><span class="p">)</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">T</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">cache</span>: <span class="kt">T</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">isInit</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">()</span><span class="o">:</span> <span class="nx">T</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isInit</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">cache</span> <span class="o">=</span> <span class="nx">init</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">cache</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">ジェネリック版の使い方</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">getter</span> <span class="o">=</span> <span class="nx">lazyInit</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="s2">&quot;initialized&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">getter</span><span class="p">();</span>
+<span class="c1">// valueはany型なので、上記のvalueの後ろで.をタイプしてもメソッド候補はでてこない</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -43,7 +105,15 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ジェネリクス</a><ul>
+<li><a class="reference internal" href="#any-unknown"><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> との違い</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
@@ -62,11 +132,11 @@
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 0</li>
-        <li>非アスキー: 6</li>
-        <li>合計文字数: 6</li>
-        <li>半角換算: 12</li>
-        <li>全角換算: 6</li>
+        <li>英数記号: 630</li>
+        <li>非アスキー: 559</li>
+        <li>合計文字数: 1189</li>
+        <li>半角換算: 1748</li>
+        <li>全角換算: 874.0</li>
     </ul>
     </p>
 </div>

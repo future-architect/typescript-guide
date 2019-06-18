@@ -65,14 +65,11 @@
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">flag</span><span class="p">));</span>    <span class="c1">// 1, 0になる</span>
 
 <span class="c1">// 他のデータ型をtrue/falseに変換</span>
-<span class="kr">const</span> <span class="nx">notEmpty</span> <span class="o">=</span> <span class="nb">Boolean</span><span class="p">(</span><span class="s2">&quot;test string&quot;</span><span class="p">);</span>
-<span class="c1">// &#39;true&#39;の文字をtrueにするなら</span>
-<span class="kr">const</span> <span class="nx">flag</span> <span class="o">=</span> <span class="nx">flagStr</span> <span class="o">===</span> <span class="s1">&#39;true&#39;</span><span class="p">;</span>
-<span class="c1">// true/false反転するが演算子一つで変換可能/</span>
-<span class="kr">const</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;not empty string&quot;</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">isEmpty</span> <span class="o">=</span> <span class="o">!</span><span class="nx">str</span><span class="p">;</span>
-<span class="c1">// もう1つ使うと反転せずにboolean型に</span>
-<span class="kr">const</span> <span class="nx">notEmpty</span> <span class="o">=</span> <span class="o">!!</span><span class="nx">str</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">notEmpty</span> <span class="o">=</span> <span class="nb">Boolean</span><span class="p">(</span><span class="s2">&quot;test string&quot;</span><span class="p">);</span> <span class="c1">// 変換ルールは後述</span>
+<span class="kr">const</span> <span class="nx">flag</span> <span class="o">=</span> <span class="nx">flagStr</span> <span class="o">===</span> <span class="s1">&#39;true&#39;</span><span class="p">;</span>         <span class="c1">// &#39;true&#39;の文字をtrueにするなら</span>
+<span class="kr">const</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;not empty string&quot;</span><span class="p">;</span>          <span class="c1">// true/false反転するが演算子一つで変換可能</span>
+<span class="kr">const</span> <span class="nx">isEmpty</span> <span class="o">=</span> <span class="o">!</span><span class="nx">str</span><span class="p">;</span>                    <span class="c1">// 反転すると!Boolean()と同じ</span>
+<span class="kr">const</span> <span class="nx">notEmpty</span> <span class="o">=</span> <span class="o">!!</span><span class="nx">str</span><span class="p">;</span>                  <span class="c1">// もう1つ使うと反転せずにboolean型に</span>
 </pre></div>
 </div>
 <p>TypeScriptでは、数字のゼロ（負も含む）、空文字列、 <code class="docutils literal notranslate"><span class="pre">null</span></code> 、 <code class="docutils literal notranslate"><span class="pre">undefined</span></code> 、 <code class="docutils literal notranslate"><span class="pre">NaN</span></code> を変換すると <code class="docutils literal notranslate"><span class="pre">false</span></code> 、それ以外を変換すると <code class="docutils literal notranslate"><span class="pre">true</span></code> になります <a class="footnote-reference brackets" href="#id3" id="id2">1</a> 。</p>
@@ -656,11 +653,11 @@ TypeScriptでは「これは無効な値をとる可能性がありますよ」�
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 5785</li>
-        <li>非アスキー: 6937</li>
-        <li>合計文字数: 12722</li>
-        <li>半角換算: 19659</li>
-        <li>全角換算: 9829.5</li>
+        <li>英数記号: 5855</li>
+        <li>非アスキー: 6953</li>
+        <li>合計文字数: 12808</li>
+        <li>半角換算: 19761</li>
+        <li>全角換算: 9880.5</li>
     </ul>
     </p>
 </div>

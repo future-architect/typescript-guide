@@ -49,16 +49,17 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="preface.html">前書き</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="preface.html#id2">本ドキュメントの位置づけ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="preface.html#typescript">なぜTypeScriptか?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#typescript">TypeScriptのウェブ開発における位置づけ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#id3">TypeScriptを選んで開発すべき理由</a></li>
 <li class="toctree-l2"><a class="reference internal" href="preface.html#javascript">JavaScriptのバージョン</a></li>
-<li class="toctree-l2"><a class="reference internal" href="preface.html#id3">本書の参考文献など</a></li>
-<li class="toctree-l2"><a class="reference internal" href="preface.html#id8">ライセンス</a></li>
-<li class="toctree-l2"><a class="reference internal" href="preface.html#id12">TypeScriptと互換性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#id4">本書の参考文献など</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#id9">ライセンス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preface.html#id13">TypeScriptと互換性</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Node.jsエコシステムを体験しよう</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ecosystem.html#id3">Node.jsのインストール</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecosystem.html#pakcage-json-ts-node"><code class="docutils literal notranslate"><span class="pre">pakcage.json</span></code> の作成と <code class="docutils literal notranslate"><span class="pre">ts-node</span></code> のインストール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecosystem.html#package-json-ts-node"><code class="docutils literal notranslate"><span class="pre">package.json</span></code> の作成と <code class="docutils literal notranslate"><span class="pre">ts-node</span></code> のインストール</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ecosystem.html#id4">プロジェクトフォルダ共有後の環境構築</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ecosystem.html#id5">インストールしたコマンドの実行</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ecosystem.html#typescript">TypeScriptの環境設定</a></li>
@@ -180,7 +181,10 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">中級のテクニック</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="generics.html">ジェネリクス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generics.html">ジェネリクス</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generics.html#any-unknown"><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> との違い</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="functional.html">関数型志向のプログラミング</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="functional.html#id2">イミュータブル</a></li>
 </ul>
@@ -230,14 +234,16 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Appendix</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="recommended.html">おすすめのパッケージ</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="recommended.html#id2">開発ツール</a></li>
-<li class="toctree-l2"><a class="reference internal" href="recommended.html#id6">コマンドラインツール</a></li>
-<li class="toctree-l2"><a class="reference internal" href="recommended.html#id8">アルゴリズム</a></li>
+<li class="toctree-l1"><a class="reference internal" href="recommended.html">おすすめのパッケージ・ツール</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="recommended.html#typescript-playgournd">TypeScript Playgournd各種</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recommended.html#id2">ビルド補助ツール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recommended.html#id6">コマンドラインツール用ライブラリ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recommended.html#id8">アルゴリズム関連のライブラリ</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributors.html">貢献者</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="contributors.html#pull-request">Pull Requestをくださった方々</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributors.html#id2">フィードバックをくださった方々</a></li>
 </ul>
 </li>
 </ul>
@@ -272,24 +278,9 @@ Dockerイメージ</p>
 <p class="todo-source">(<a class="reference internal" href="libenv.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/libenv.rst の 131 行目です)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">課題</p>
-<p>要検証</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="module.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/module.rst の 188 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>ちょっとうまく動いていないので、要調査</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="module.html#index-1"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/module.rst の 311 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
 <p>あとで、開発サーバーとかもろもろについて語る</p>
 </div>
 <p class="todo-source">(<a class="reference internal" href="prodenv.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/prodenv.rst の 66 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>cashにexportがあるので、cross-envはいらないかも？</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="recommended.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/recommended.rst の 17 行目です)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">課題</p>
 <p>CommonJSのモジュールの型づけの仕方について紹介する</p>
@@ -328,7 +319,22 @@ Dockerイメージ</p>
 <p class="admonition-title">課題</p>
 <p>あとで書く</p>
 </div>
-<p class="todo-source">(<a class="reference internal" href="ecosystem.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/ecosystem.rst の 28 行目です)</p>
+<p class="todo-source">(<a class="reference internal" href="ecosystem.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/ecosystem.rst の 41 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>要検証</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="module.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/module.rst の 188 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>ちょっとうまく動いていないので、要調査</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="module.html#index-1"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/module.rst の 311 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>cashにexportがあるので、cross-envはいらないかも？</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="recommended.html#index-0"><em>元のエントリ</em></a> は、 /Users/shibukawa/books/typescript-guide/recommended.rst の 45 行目です)</p>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="このヘッドラインへのパーマリンク">¶</a></h1>

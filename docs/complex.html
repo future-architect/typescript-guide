@@ -140,11 +140,14 @@
 
 <span class="c1">// 旧: 3番目の要素を削除して、1つの要素を追加しつつ、他の配列と結合</span>
 <span class="nx">smalls</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;小心者&quot;</span><span class="p">);</span>
+<span class="c1">// [ &#39;小動物&#39;, &#39;小型車&#39;, &#39;小心者&#39; ]</span>
 <span class="kd">var</span> <span class="nx">newSmalls</span> <span class="o">=</span> <span class="nx">smalls</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">others</span><span class="p">);</span>
+<span class="c1">// [ &#39;小動物&#39;, &#39;小型車&#39;, &#39;小心者&#39;, &#39;小市民&#39;, &#39;小田急&#39; ]</span>
 
 <span class="c1">// 新: スプレッド構文で同じ操作をする</span>
 <span class="c1">//     先頭要素の削除の場合、分割代入を使えばslice()も消せます</span>
 <span class="kr">const</span> <span class="nx">newSmalls</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">smalls</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s2">&quot;小心者&quot;</span><span class="p">,</span> <span class="p">...</span><span class="nx">others</span><span class="p">]</span>
+<span class="c1">// [ &#39;小動物&#39;, &#39;小型車&#39;, &#39;小心者&#39;, &#39;小市民&#39;, &#39;小田急&#39; ]</span>
 
 <span class="c1">// 旧: 配列のコピー</span>
 <span class="kd">var</span> <span class="nx">copy</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">smalls</span><span class="p">);</span>
@@ -467,11 +470,11 @@ C言語由来のループは昔からあるものですがループ変数が必�
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 4242</li>
-        <li>非アスキー: 4821</li>
-        <li>合計文字数: 9063</li>
-        <li>半角換算: 13884</li>
-        <li>全角換算: 6942.0</li>
+        <li>英数記号: 4312</li>
+        <li>非アスキー: 4860</li>
+        <li>合計文字数: 9172</li>
+        <li>半角換算: 14032</li>
+        <li>全角換算: 7016.0</li>
     </ul>
     </p>
 </div>
