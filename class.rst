@@ -305,7 +305,7 @@ JavaScriptではまだStage 3の機能ですが、TypeScriptですでに使え�
 .. code-block:: ts
    :caption: アクセッサー
 
-   class BankAccount
+   class BankAccount {
      private _money: number;
 
      get money(): number {
