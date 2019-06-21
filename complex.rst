@@ -63,7 +63,7 @@ Javaなどの配列は要素のすべての型は同じです。TypeScriptでは
    var other = smalls.slice(1);
 
    // 新: まとめて取り出し
-   const [smallCar, smallDog] = smalls;
+   const [smallAnimal, smallCar, essay] = smalls;
    // 新: 2番目以降の要素の取り出し
    const [, ...other] = smalls;
 
