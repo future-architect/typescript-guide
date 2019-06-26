@@ -86,7 +86,7 @@ TypeScript（というか、その下で動作しているJavaScript）は64ビ�
    console.log(128);
    console.log(0b11); // 0bから始まると2進数
    console.log(0777); // 0, 0oから始まると8進数
-   console.log(0xf7); // 0, 0xから始まると16進数
+   console.log(0xf7); // 0xから始まると16進数
 
    // 変数に代入。変数の型名はnumber
    const year: number = 2019;
