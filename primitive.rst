@@ -86,7 +86,7 @@ TypeScript（というか、その下で動作しているJavaScript）は64ビ�
    console.log(128);
    console.log(0b11); // 0bから始まると2進数
    console.log(0777); // 0, 0oから始まると8進数
-   console.log(0xf7); // 0, 0xから始まると16進数
+   console.log(0xf7); // 0xから始まると16進数
 
    // 変数に代入。変数の型名はnumber
    const year: number = 2019;
@@ -101,7 +101,7 @@ TypeScript（というか、その下で動作しているJavaScript）は64ビ�
    console.log(parseInt("010", 8));  // →8 2つめの数値で何進数として処理するか決められる
    console.log(Number(true));        // boolean型はNumber関数で0/1になる
 
-変換の処理は、方法によって結果が変わります。10進数を期待するものはradix無しの ``parseInt()`` で使っておけば間違いありませ。
+変換の処理は、方法によって結果が変わります。10進数を期待するものはradix無しの ``parseInt()`` で使っておけば間違いありません。
 
 .. list-table:: 文字列から数値の変換
 
