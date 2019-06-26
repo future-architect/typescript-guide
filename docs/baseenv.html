@@ -38,7 +38,7 @@
 <p>環境構築の共通部分を紹介しておきます。
 プロジェクトでのコーディングであれば、誰が書いても同じスタイルになるなど、コード品質の統一が大切になりますので、単なる個人用の設定ではなく、それをシェアできるというのも目的として説明していきます。
 ここでは、基本的にすべてのプロジェクトでJest、ESLint、Prettierなどを選択しています。まあ、どれも相性問題が出にくい、数年前から安定して存在している、公式で推奨といった保守的な理由ですね。きちんと選べば、「JSはいつも変わっている」とは距離を置くことができます。</p>
-<div class="admonition-todo admonition" id="index-0">
+<div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">課題</p>
 <p>ESLintのTypeScript対応はまだまだ開発途上で厳しそうなのでTSLintに書き戻す？</p>
 </div>
@@ -69,12 +69,12 @@
 <p>TypeScript対応の環境で、最小設定ですぐに使い始められるのはVisual Studio Codeです。しかも、必要な拡張機能をプロジェクトファイルで指定して、チーム内で統一した環境を用意しやすいので、推奨環境として最適です。EclipseなどのIDEの時代とは異なり、フォーマッターなどはコマンドラインでも使えるものを起動するケースが多いため、腕に覚えのある人はVimでもEmacsでもなんでも利用は可能です。</p>
 </li>
 </ul>
-<div class="admonition-todo admonition" id="index-1">
+<div class="admonition-todo admonition" id="id3">
 <p class="admonition-title">課題</p>
 <p>lyntのTypeScript対応状況を注視する</p>
 </div>
-<div class="section" id="id2">
-<h2>作業フォルダの作成<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h2>作業フォルダの作成<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>出力先フォルダの作成はプロジェクト構成ごとに変わってくるため、入力側だけをここでは説明します。
 プロジェクトごとにフォルダを作成します。
 ウェブだろうがライブラリだろうが、 <code class="docutils literal notranslate"><span class="pre">package.json</span></code> が必要なツールのインストールなど、すべてに必要になるため、 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">init</span></code> でファイルを作成します。</p>
@@ -87,8 +87,8 @@ $ mkdir __tests__
 </div>
 <p>外部に公開しないパッケージの場合には、 <code class="docutils literal notranslate"><span class="pre">&quot;private&quot;:</span> <span class="pre">true</span></code> という設定を忘れずにいれましょう。</p>
 <p>srcフォルダ以下に.tsファイルを入れて、出力先のフォルダ以下にビルド済みファイルが入るイメージです。仮にこれを <code class="docutils literal notranslate"><span class="pre">dist</span></code> とすると、これはGitでは管理しませんので <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> に入れておきます。</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">.gitignore</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">.gitignore</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dist
 .DS_Store
 Thumbds.db
@@ -96,8 +96,8 @@ Thumbds.db
 </div>
 </div>
 <p>もし成果物を配布したい場合は、それとは逆に、配布対象はdistとルートのREADMEとかだけですので、不要なファイルは配布物に入らないように除外しておきましょう。これから作るTypeScriptの設定ファイル類も外して起きましょう。</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">.npmignore</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">.npmignore</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dist
 .DS_Store
 Thumbds.db
@@ -113,11 +113,11 @@ jest.config.json
 </div>
 </div>
 </div>
-<div class="section" id="id3">
-<h2>ビルドのツールのインストールと設定<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id5">
+<h2>ビルドのツールのインストールと設定<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>まず、最低限、インデントとかの統一はしたいので、editorconfigの設定をします。editorconfigを使えばVisual Studio、vimなど複数の環境があってもコードの最低限のスタイルが統一されます（ただし、各環境で拡張機能は必要）。また、これから設定するprettierもこのファイルを読んでくれます。</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">.editorconfig</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">.editorconfig</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">root</span> <span class="o">=</span> <span class="s">true</span>
 
 <span class="k">[*]</span>
@@ -143,8 +143,8 @@ jest.config.json
 </pre></div>
 </div>
 <p>ESLintの設定も作ります。Prettierと連携するようにします。</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">.eslintrc</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">.eslintrc</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;plugin&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;prettier&quot;</span>
@@ -166,8 +166,8 @@ jest.config.json
 </div>
 <p>ESLintを起動するタスクを <code class="docutils literal notranslate"><span class="pre">package.json</span></code> に追加しましょう。
 これで、 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">lint</span></code> や <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">fix</span></code> でコードチェックをしたり、スタイル修正が行えます。</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span>&quot;scripts&quot;: {
   &quot;lint&quot;: &quot;eslint .&quot;,
   &quot;fix&quot;: &quot;eslint --fix .&quot;
@@ -176,15 +176,15 @@ jest.config.json
 </div>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>テスト<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h2>テスト<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ユニットテスト環境も作ります。TypeScriptを事前に全部ビルドしてからJasmineとかも見かけますが、公式でTypeScriptを説明しているJestにしてみます。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev jest ts-jest @types/jest
 </pre></div>
 </div>
 <p>scripts/testと、jestの設定を追加します。古い資料だと、transformの値がnode_modules/ts-jest等になっているのがありますが、今はts-jestだけでいけます。</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;jest&quot;</span>
@@ -193,8 +193,8 @@ jest.config.json
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">jest.config.js</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">jest.config.js</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">transform</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;^.+\\.tsx?$&quot;</span><span class="o">:</span> <span class="s2">&quot;ts-jest&quot;</span>
@@ -214,8 +214,8 @@ jest.config.json
 <div class="section" id="visual-studio-code">
 <h2>Visual Studio Codeの設定<a class="headerlink" href="#visual-studio-code" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Visual Stuido Codeでフォルダを開いたときに、eslintの拡張と、editorconfigの拡張がインストールされるようにします。</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">.vscode/extensions.json</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">.vscode/extensions.json</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;recommendations&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;dbaeumer.vscode-eslint&quot;</span><span class="p">,</span>
@@ -226,8 +226,8 @@ jest.config.json
 </div>
 </div>
 <p>ファイル保存時にeslint --fixが自動実行されるように設定しておきましょう。これでVisual Studio Codeを使う限り、誰がプロジェクトを開いてもコードスタイルが保たれます。eslintプラグインのautoFixOnSaveは、files.autoSaveがoffのときにしか効かないので、それも設定しておきます。</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">.vscode/settings.json</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">.vscode/settings.json</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;eslint.autoFixOnSave&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="nt">&quot;files.autoSave&quot;</span><span class="p">:</span> <span class="s2">&quot;off&quot;</span>
@@ -235,7 +235,7 @@ jest.config.json
 </pre></div>
 </div>
 </div>
-<div class="admonition-todo admonition" id="index-2">
+<div class="admonition-todo admonition" id="id7">
 <p class="admonition-title">課題</p>
 <p>tsdocとかドキュメントツールを紹介</p>
 </div>
@@ -252,9 +252,9 @@ jest.config.json
   <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">基本の環境構築</a><ul>
-<li><a class="reference internal" href="#id2">作業フォルダの作成</a></li>
-<li><a class="reference internal" href="#id3">ビルドのツールのインストールと設定</a></li>
-<li><a class="reference internal" href="#id4">テスト</a></li>
+<li><a class="reference internal" href="#id4">作業フォルダの作成</a></li>
+<li><a class="reference internal" href="#id5">ビルドのツールのインストールと設定</a></li>
+<li><a class="reference internal" href="#id6">テスト</a></li>
 <li><a class="reference internal" href="#visual-studio-code">Visual Studio Codeの設定</a></li>
 </ul>
 </li>
@@ -287,10 +287,10 @@ jest.config.json
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>クイック検索</h3>
+  <h3 id="searchlabel">クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -304,7 +304,7 @@ jest.config.json
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

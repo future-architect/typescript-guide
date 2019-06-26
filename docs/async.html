@@ -72,7 +72,7 @@ JavaScriptは、そのような時間のかかる処理は基本的に「非同�
 時間が来た        // 1秒後に表示
 </pre></div>
 </div>
-<p>JavaScriptでは時間のかかる処理を実行する場合、完了した後に呼び出す処理を処理系に渡すことはあっても、そこで処理を処理を止めることはありません。
+<p>JavaScriptでは時間のかかる処理を実行する場合、完了した後に呼び出す処理を処理系に渡すことはあっても、そこで処理を止めることはありません。
 タイマーを設定する <code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code> 関数の実行自体は即座に完了し、その次の行がすぐ呼ばれます。
 そして時間のかかるタイマーの待ちが完了すると、渡してあった関数が実行されます。
 処理が終わるのをじっくり待つ（同期）のではなく、完了したら後から連絡してもらう（非同期）のがJavaScriptのスタイルです。</p>
@@ -287,7 +287,7 @@ const [a味噌汁, aご飯] = await Promise.all([味噌汁温め(), ご飯温め
 </pre></div>
 </div>
 <p>図で見て見ると、この違いは一目瞭然でしょう。</p>
-<div class="figure align-center">
+<div class="figure align-default">
 <img alt="_images/loop.png" src="_images/loop.png" />
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> が適切ではない場面もいくつかあります。</p>
@@ -357,18 +357,18 @@ const [a味噌汁, aご飯] = await Promise.all([味噌汁温め(), ご飯温め
     <p>
     <ul>
         <li>英数記号: 3087</li>
-        <li>非アスキー: 5459</li>
-        <li>合計文字数: 8546</li>
-        <li>半角換算: 14005</li>
-        <li>全角換算: 7002.5</li>
+        <li>非アスキー: 5456</li>
+        <li>合計文字数: 8543</li>
+        <li>半角換算: 13999</li>
+        <li>全角換算: 6999.5</li>
     </ul>
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>クイック検索</h3>
+  <h3 id="searchlabel">クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -382,7 +382,7 @@ const [a味噌汁, aご飯] = await Promise.all([味噌汁温め(), ご飯温め
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

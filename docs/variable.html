@@ -108,7 +108,7 @@
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text">推論</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 代入時に代入元のデータから型が類推できる場合は自動設定される</span>
-<span class="c1">// 普遍から文字列とわかるので文字列型</span>
+<span class="c1">// 右辺から文字列とわかるので文字列型</span>
 <span class="kd">let</span> <span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;小説家&quot;</span><span class="p">;</span>
 
 <span class="c1">// 代入もせず、型定義もないと、なんでも入る（推論ができない）any型になります。</span>
@@ -276,10 +276,10 @@
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>クイック検索</h3>
+  <h3 id="searchlabel">クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -293,7 +293,7 @@
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

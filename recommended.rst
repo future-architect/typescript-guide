@@ -1,7 +1,7 @@
 おすすめのパッケージ・ツール
 =================================
 
-ぼちぼち追加
+ぼちぼち追加。まだ実戦投入していないものも多数あります。
 
 TypeScript Playgournd各種
 -------------------------------
@@ -34,6 +34,30 @@ TypeScriptのコンパイラのバージョンを切り替えたり、標準よ�
 ビルド補助ツール
 --------------------
 
+Rush
+~~~~~~~~~~~~~~~~~~~~~~
+
+* npmパッケージ: `@microsoft/api-extractor <https://www.npmjs.com/package/@microsoft/rush>`_
+* TypeScript型定義: CLIツールなので不要
+* URL: https://rushjs.io/
+
+ひとつのGitリポジトリの中に、多数のTypeScriptベースのパッケージを入れて管理するための補助ツール。次のサンプルを見ると、このツールを使った結果がわかります。
+
+https://github.com/microsoft/web-build-tools
+
+* appsフォルダ: ウェブアプリケーションが格納される
+* librariesフォルダ: npm installで使うライブラリが格納される
+* toolsフォルダ: npm installで使うコマンドラインツールが格納される
+
+API extractor
+~~~~~~~~~~~~~~~~~~~~~~
+
+* npmパッケージ: `@microsoft/api-extractor <https://www.npmjs.com/package/@microsoft/api-extractor>`_
+* TypeScript型定義: CLIツールなので不要
+* URL: https://api-extractor.com/pages/overview/demo_docs/
+
+ドキュメントジェネレータ。パッケージのリファレンスマニュアルが作れる。
+
 cash
 ~~~~~~~~~~~~~
 
@@ -43,6 +67,7 @@ cash
 UnixシェルコマンドをNode.jsで再実装したもの。WindowsのPowerShellがrmなどのエイリアスを提供してしまっている（しかも ``rm -Force -Recurse`` のようにオプションが違う）が、cashを使うとクロスプラットフォームで動くファイル操作が行える。npm scriptsでも利用できるが、プログラム中からも使えるらしい。
 
 .. todo:: cashにexportがあるので、cross-envはいらないかも？
+
 
 cross-env
 ~~~~~~~~~~~~~~~
@@ -60,6 +85,7 @@ typesync
 
 インストールされているパッケージの型定義パッケージを自動取得してくるCLIツール。
 
+
 コマンドラインツール用ライブラリ
 ---------------------------------------
 
@@ -70,6 +96,14 @@ convict
 * TypeScript型定義: ``@types/convict``
 
 コマンドライン引数、設定ファイル、環境変数などを統合的に扱える設定情報管理ライブラリ。型情報付きで設定を管理できるし、設定内容のバリデーションもできる。TypeScriptで使うとさらに便利。
+
+@microsoft/ts-command-line
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* npmパッケージ: `@microsoft/ts-command-line <https://www.npmjs.com/@microsoft/ts-command-line>`_
+* TypeScript型定義: 内蔵
+
+TypeScript用のコマンドライン引数ライブラリです。Microsoft社純正。
 
 アルゴリズム関連のライブラリ
 -------------------------------------

@@ -60,8 +60,8 @@
 <p>最初はコンストラクタ関数を作り、その <code class="docutils literal notranslate"><span class="pre">prototype</span></code> 属性を操作してクラスのようなものを作っていました。
 今時の書き方は次のような<code class="docutils literal notranslate"><span class="pre">class</span></code>を使った書き方になり、他の言語を使っている人からも親しみやすくなりました。</p>
 <p>なお、JavaScriptでは不要ですが、TypeScriptではプロパティの定義をクラス宣言の中で行う必要があります。定義していないプロパティアクセスはエラーになります。</p>
-<div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text">クラスの表現</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">クラスの表現</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 新しいクラス表現</span>
 <span class="kr">class</span> <span class="nx">SmallAnimal</span> <span class="p">{</span>
     <span class="c1">// プロパティは名前: 型</span>
@@ -84,8 +84,8 @@
 </div>
 </div>
 <p>以前の書き方は次の通りです。</p>
-<div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text">旧来のクラスのようなものの表現</span><a class="headerlink" href="#id22" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">旧来のクラスのようなものの表現</span><a class="headerlink" href="#id20" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 古いクラスの表現</span>
 <span class="c1">// 関数だけどコンストラクタ</span>
 <span class="kd">function</span> <span class="nx">SmallAnimal</span><span class="p">()</span> <span class="p">{</span>
@@ -106,10 +106,10 @@
 <h2>アクセス制御（<code class="docutils literal notranslate"><span class="pre">public</span></code>/ <code class="docutils literal notranslate"><span class="pre">protected</span></code> / <code class="docutils literal notranslate"><span class="pre">private</span></code>）<a class="headerlink" href="#public-protected-private" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>TypeScriptにはC++やJavaのような <code class="docutils literal notranslate"><span class="pre">private</span></code> と <code class="docutils literal notranslate"><span class="pre">protected</span></code> 、 <code class="docutils literal notranslate"><span class="pre">public</span></code> 装飾子があります。
 メンバー定義の時の <code class="docutils literal notranslate"><span class="pre">public</span></code> 装飾子は基本的につけてもつけなくても結果は変わりませんので、コメントのようなものです。
-権限の考え方も同じで、 <code class="docutils literal notranslate"><span class="pre">private</span></code> は定義があるクラス以外からの操作を禁止、 <code class="docutils literal notranslate"><span class="pre">protected</span></code> は定義のあるクラスと子クラスからの操作を禁止、 <code class="docutils literal notranslate"><span class="pre">public</span></code> は内外問わず、すべての操作を許可、です。
+権限の考え方も同じで、 <code class="docutils literal notranslate"><span class="pre">private</span></code> は定義があるクラス以外からの操作を禁止、 <code class="docutils literal notranslate"><span class="pre">protected</span></code> は定義のあるクラスと子クラス以外からの操作を禁止、 <code class="docutils literal notranslate"><span class="pre">public</span></code> は内外問わず、すべての操作を許可、です。
 オブジェクト指向言語だとRubyがやや特殊で、 <code class="docutils literal notranslate"><span class="pre">private</span></code> は「同一インスタンスからの操作のみを許可」ですが、これとは違う動作になります。</p>
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">アクセス制御</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">アクセス制御</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 小型犬</span>
 <span class="kr">class</span> <span class="nx">SmallDog</span> <span class="p">{</span>
   <span class="c1">// 小型犬は宝物を秘密の場所に埋める</span>
@@ -149,8 +149,8 @@
 <h2>コンストラクタの引数を使ってプロパティを宣言<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>TypeScript固有の書き方になりますが、コンストラクタ関数にアクセス制御の装飾子をつけると、それがそのままプロパティになります。
 コンストラクタの引数をそのまま同名のプロパティに代入します。</p>
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">プロパティ定義をコンストラクタ変数に</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">プロパティ定義をコンストラクタ変数に</span><a class="headerlink" href="#id22" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 小型犬</span>
 <span class="kr">class</span> <span class="nx">SmallDog</span> <span class="p">{</span>
   <span class="kr">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">secretPlace</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
@@ -180,8 +180,8 @@
 <h2><code class="docutils literal notranslate"><span class="pre">static</span></code> メンバー<a class="headerlink" href="#static" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>オブジェクトの要素はみな、基本的に <code class="docutils literal notranslate"><span class="pre">new</span></code> をして作られるインスタンスごとにデータを保持します。メソッドも <code class="docutils literal notranslate"><span class="pre">this</span></code> は現在実行中のインスタンスを指します。
 <code class="docutils literal notranslate"><span class="pre">static</span></code> をつけたプロパティは、インスタンスではなくてクラスという1つだけの要素に保存されます。 <code class="docutils literal notranslate"><span class="pre">static</span></code> メソッドも、インスタンスではなくてクラス側に属します。</p>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">プロパティ定義をコンストラクタ変数に</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">プロパティ定義をコンストラクタ変数に</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">StaticSample</span> <span class="p">{</span>
   <span class="c1">// 静的なプロパティ</span>
   <span class="kr">static</span> <span class="nx">staticVariable</span>: <span class="kt">number</span><span class="p">;</span>
@@ -314,50 +314,13 @@
 </div>
 </div>
 <div class="section" id="id12">
-<h2>アクセッサー<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>プロパティのように見えるけど、実際には裏でメソッド呼び出しが行われ、ちょっとした気の利いたをできるようにすることをするのがアクセッサーです。
-<code class="docutils literal notranslate"><span class="pre">get</span></code> だけを設定すれば取得のみができる読み込み専用とかもできます。</p>
-<p>例えば、金額を入れたら、入り口と出口でビット演算で難読化（と言えないような雑な処理ですが）をする銀行口座クラスは次のようになります。</p>
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">アクセッサー</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">BankAccount</span>
-  <span class="kr">private</span> <span class="nx">_money</span>: <span class="kt">number</span><span class="p">;</span>
-
-  <span class="nx">get</span> <span class="nx">money</span><span class="p">()</span><span class="o">:</span> <span class="kt">number</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_money</span> <span class="o">^</span> <span class="mh">0x4567</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="nx">set</span> <span class="nx">money</span><span class="p">(</span><span class="nx">money</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_money</span> <span class="o">=</span> <span class="nx">money</span> <span class="o">^</span> <span class="mh">0x4567</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kr">const</span> <span class="nx">account</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BankAccount</span><span class="p">()</span>
-
-<span class="c1">// 1000円入れた！</span>
-<span class="nx">account</span><span class="p">.</span><span class="nx">money</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
-
-<span class="c1">// 表示すると...</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">account</span><span class="p">);</span>
-<span class="c1">//   BankAccount { _money: 18063 }</span>
-
-<span class="c1">// 金額を参照すると正しく出力</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">account</span><span class="p">.</span><span class="nx">money</span><span class="p">);</span>
-<span class="c1">// 1000</span>
-</pre></div>
-</div>
-</div>
-<p>Javaとかでよく使われるユースケースは、 <code class="docutils literal notranslate"><span class="pre">private</span></code> でメンバー変数を用意し、それに対する <code class="docutils literal notranslate"><span class="pre">public</span></code> なアクセッサーを用意するというものです。
-ですが、JavaScriptの世界では「すべてを変更しない、読み込み専用オブジェクトとみなして実装していく」という流れが強くなっていますし、もともと昔のJavaScriptでは定義するのが面倒だったり、IDEサポートがなかったためか、Javaのオブジェクト指向的なこの手のアクセッサーを逐一実装する、ということはあまり行われません。
-属性が作られた時から変更がないことが確実に分かっているなら <code class="docutils literal notranslate"><span class="pre">readonly</span></code> の方が良いでしょう。</p>
-</div>
-<div class="section" id="id13">
-<h2>メンバー定義方法のまとめ<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2>メンバー定義方法のまとめ<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>外からプロパティ、メソッドに見えるものの定義の種類がたくさんありました。
 それぞれ、メリットがありますので、用途に応じて使い分けると良いでしょう。
 また既存のコードを読むときに、メンバーの定義のコードを確認する場合はこれのどの方法で定義されているのかを確認する必要があります。</p>
-<table class="colwidths-given docutils align-center" id="id27">
-<caption><span class="caption-text">メンバーの定義方法</span><a class="headerlink" href="#id27" title="このテーブルへのパーマリンク">¶</a></caption>
+<p>これ以外にも、アクセッサがあります。これについては <a class="reference internal" href="class2.html"><span class="doc">クラス上級編</span></a> で紹介します。</p>
+<table class="colwidths-given docutils align-default" id="id24">
+<caption><span class="caption-text">メンバーの定義方法</span><a class="headerlink" href="#id24" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 34%" />
 <col style="width: 10%" />
@@ -389,23 +352,7 @@
 <td><p>○</p></td>
 <td><p>一番シンプルで、継承やインタフェース機能との相性が良い。</p></td>
 </tr>
-<tr class="row-odd"><td><div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// アクセッサ: getter</span>
-<span class="nx">get</span> <span class="nx">secretPlace() {</span>
-  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_secretPlace</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="c1">// アクセッサ: setter</span>
-<span class="nx">set</span> <span class="nx">secretPlace</span><span class="p">(</span><span class="nx">secretPlace</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">_secretPlace</span> <span class="o">=</span> <span class="nx">secretPlace</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</td>
-<td></td>
-<td><p>○</p></td>
-<td><p>○</p></td>
-<td><p>代入時に複雑な処理をすることが可能。読みだけ、書きだけの定義もできる</p></td>
-</tr>
-<tr class="row-even"><td><div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// コンストラクタ引数</span>
+<tr class="row-odd"><td><div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// コンストラクタ引数</span>
 <span class="kr">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">secretPlace</span>: <span class="kt">string</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -415,7 +362,7 @@
 <td></td>
 <td><p>コンストラクタで外から定義する口とメンバーの宣言が1箇所で済む。初期値の設定が可能</p></td>
 </tr>
-<tr class="row-odd"><td><div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// インスタンスクラスフィールド</span>
+<tr class="row-even"><td><div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// インスタンスクラスフィールド</span>
 <span class="kr">private</span> <span class="nx">secretPlace</span> <span class="o">=</span> <span class="s2">&quot;フリスビー&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -428,8 +375,8 @@
 </tbody>
 </table>
 </div>
-<div class="section" id="id14">
-<h2>継承/インタフェース実装宣言<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id13">
+<h2>継承/インタフェース実装宣言<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>作られたクラスを元に機能拡張する方法がいくつかあります。そのうちの1つが継承です。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">SmallAnimal</span> <span class="p">{</span>
   <span class="nx">eat() {</span>
@@ -466,8 +413,8 @@
 </pre></div>
 </div>
 <p>今、この <code class="docutils literal notranslate"><span class="pre">eat()</span></code> メソッドには返り値が定義されていません。もしコンパイルオプションが <code class="docutils literal notranslate"><span class="pre">compilerOptions.noImplicitAny</span></code> の場合、ここでエラーが発生します。</p>
-<div class="literal-block-wrapper docutils container" id="id28">
-<div class="code-block-caption"><span class="caption-text">インタフェースの返り値の型を省略すると・・・</span><a class="headerlink" href="#id28" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">インタフェースの返り値の型を省略すると・・・</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">interface</span> <span class="nx">Animal</span> <span class="p">{</span>
   <span class="nx">eat</span><span class="p">();</span>
 <span class="p">}</span>
@@ -477,8 +424,8 @@
 </div>
 </div>
 <p>明示的に <code class="docutils literal notranslate"><span class="pre">void</span></code> をつけたり、型情報をつけるとエラーは解消されます。</p>
-<div class="literal-block-wrapper docutils container" id="id29">
-<div class="code-block-caption"><span class="caption-text">返り値を返さない関数にはvoidをつける</span><a class="headerlink" href="#id29" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">返り値を返さない関数にはvoidをつける</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">interface</span> <span class="nx">Animal</span> <span class="p">{</span>
   <span class="nx">eat</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span><span class="p">;</span>
 <span class="p">}</span>
@@ -491,8 +438,8 @@
 <code class="docutils literal notranslate"><span class="pre">noImplicitAny</span></code> というオプションを使うとこの穴を塞げます。
 そのため、「何も返さない」という型も含め、手動で型をつける必要があります。</p>
 </div>
-<div class="section" id="id15">
-<h2>クラスとインタフェースの違い・使い分け<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id14">
+<h2>クラスとインタフェースの違い・使い分け<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>クラスとインタフェースは宣言は似ています。</p>
 <p>違いがある点は以下の通りです。</p>
 <ul class="simple">
@@ -510,41 +457,9 @@
 TypeScriptのように、フレームワーク側もTypeScriptで、実装コードもTypeScriptというケースでなければ利用しにくいことが多々あります。
 特に、ライブラリ側がJavaScriptで実装されている場合はクラスを使って継承、という使い方になります。</p>
 </div>
-<div class="section" id="id16">
-<h2>抽象クラス<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>インタフェースとクラスの間ぐらいの特性を持つのが抽象クラスです。
-インタフェースとは異なり実装を持つことができます。
-メソッドに <code class="docutils literal notranslate"><span class="pre">abstract</span></code> というキーワードをつけることで、子クラスで継承しなければならないメソッドを決めることができます。
-子クラスで、このメソッドを実装しないとエラーになります。
-<code class="docutils literal notranslate"><span class="pre">abstract</span></code> メソッドを定義するには、クラスの宣言の前にも <code class="docutils literal notranslate"><span class="pre">abstract</span></code> が必要です。</p>
-<div class="literal-block-wrapper docutils container" id="id30">
-<div class="code-block-caption"><span class="caption-text">抽象クラスは実装も渡せるインタフェース</span><a class="headerlink" href="#id30" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">abstract</span> <span class="kr">class</span> <span class="nx">Living</span> <span class="p">{</span>
-  <span class="kr">abstract</span> <span class="nx">doMorningTask</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span><span class="p">;</span>
-  <span class="nx">doNightTask() {</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;寝る&quot;</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kr">class</span> <span class="nx">SalaryMan</span> <span class="kr">extends</span> <span class="nx">Living</span> <span class="p">{</span>
-  <span class="nx">doMorningTask() {</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;山手線に乗って出勤する&quot;</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kr">class</span> <span class="nx">Dog</span> <span class="kr">extends</span> <span class="nx">Living</span> <span class="p">{</span>
-  <span class="nx">doMorningTask() {</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;散歩する&quot;</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<p>Javaではおなじみの機能ですが、TypeScriptで使うことはほぼないでしょう。</p>
-</div>
-<div class="section" id="id17">
-<h2>デコレータ<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>これもStage 2の機能<a class="footnote-reference brackets" href="#id19" id="id18">4</a>ですが、これもすでに多くのライブラリやフレームワークで利用されています。
+<div class="section" id="id15">
+<h2>デコレータ<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>これもStage 2の機能<a class="footnote-reference brackets" href="#id17" id="id16">4</a>ですが、これもすでに多くのライブラリやフレームワークで利用されています。
 TypeScriptではtsconfig.jsonの<code class="docutils literal notranslate"><span class="pre">compilerOptions.experimentalDecorators</span></code>に<code class="docutils literal notranslate"><span class="pre">true</span></code>設定すると使えます。
 使い方から内部の動きまでPython 2.5で導入されたデコレータと似ています。
 決まった引数とレスポンスを持つ関数を作り、<code class="docutils literal notranslate"><span class="pre">&#64;</span></code> の記号をつけて、クラスなどの前に付与すると、宣言が完了したオブジェクトなどが引数に入ってこの関数が呼ばれます。
@@ -553,8 +468,8 @@ TypeScriptではtsconfig.jsonの<code class="docutils literal notranslate"><span
 また、複数のデコレータを設定したりもできます。</p>
 <p>次のコードは引数のないクラスデコレータの例です。
 クラスに付与するもの、属性に付与するもの、それぞれ引数を持つものと持たないものがあるので、書き方が4通りありますが、詳細は割愛します。</p>
-<div class="literal-block-wrapper docutils container" id="id31">
-<div class="code-block-caption"><span class="caption-text">デコレータでクラスにメソッドを追加する</span><a class="headerlink" href="#id31" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">デコレータでクラスにメソッドを追加する</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span>function StrongZero(target) {
   target.prototype.drink = function() {
     console.log(&quot;ストロングゼロを飲んだ&quot;);
@@ -572,13 +487,13 @@ sa.drink();
 </div>
 </div>
 <dl class="footnote brackets">
-<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id18">4</a></span></dt>
+<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id16">4</a></span></dt>
 <dd><p>Babelでは&#64;babel/plugin-proposal-decoratorsプラグインが必要です。</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="id20">
-<h2>まとめ<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id18">
+<h2>まとめ<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>クラスにまつわる数々の機能を取り上げて来ました。
 昔のJavaScriptをやっていたプログラマーから見ると、一番変化と進歩を感じるところがこのクラスでしょう。
 一般的なクラスの機能を備えた上で、型チェックも行われ、さらにデコレータなど追加機能なども含まれました。
@@ -595,7 +510,6 @@ TypeScriptの場合は、エディタによるコード補完の正答率が大�
 </ul>
 <p>次のものは覚えておいても損はないでしょう。</p>
 <ul class="simple">
-<li><p>アクセッサー</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">static</span></code> メンバー</p></li>
 <li><p>コンストラクタの引数を使ってプロパティを宣言</p></li>
 <li><p>読み込み専用の変数（ <code class="docutils literal notranslate"><span class="pre">readonly</span></code> ）</p></li>
@@ -612,6 +526,11 @@ TypeScriptの場合は、エディタによるコード補完の正答率が大�
 <ul class="simple">
 <li><p>アクセス制御（ <code class="docutils literal notranslate"><span class="pre">protected</span></code> ）</p></li>
 <li><p>継承</p></li>
+</ul>
+<p>アプリケーション開発者は使わないが、ライブラリ・フレームワーク実装者は使うかもしれない機能は、上級編として、 <a class="reference internal" href="class2.html"><span class="doc">クラス上級編</span></a> の章で紹介します。
+次の要素について紹介します。</p>
+<ul class="simple">
+<li><p>アクセッサ</p></li>
 <li><p>抽象クラス</p></li>
 </ul>
 </div>
@@ -634,13 +553,11 @@ TypeScriptの場合は、エディタによるコード補完の正答率が大�
 <li><a class="reference internal" href="#static"><code class="docutils literal notranslate"><span class="pre">static</span></code> メンバー</a></li>
 <li><a class="reference internal" href="#id5">インスタンスクラスフィールド</a></li>
 <li><a class="reference internal" href="#readonly">読み込み専用の変数（ <code class="docutils literal notranslate"><span class="pre">readonly</span></code> ）</a></li>
-<li><a class="reference internal" href="#id12">アクセッサー</a></li>
-<li><a class="reference internal" href="#id13">メンバー定義方法のまとめ</a></li>
-<li><a class="reference internal" href="#id14">継承/インタフェース実装宣言</a></li>
-<li><a class="reference internal" href="#id15">クラスとインタフェースの違い・使い分け</a></li>
-<li><a class="reference internal" href="#id16">抽象クラス</a></li>
-<li><a class="reference internal" href="#id17">デコレータ</a></li>
-<li><a class="reference internal" href="#id20">まとめ</a></li>
+<li><a class="reference internal" href="#id12">メンバー定義方法のまとめ</a></li>
+<li><a class="reference internal" href="#id13">継承/インタフェース実装宣言</a></li>
+<li><a class="reference internal" href="#id14">クラスとインタフェースの違い・使い分け</a></li>
+<li><a class="reference internal" href="#id15">デコレータ</a></li>
+<li><a class="reference internal" href="#id18">まとめ</a></li>
 </ul>
 </li>
 </ul>
@@ -663,19 +580,19 @@ TypeScriptの場合は、エディタによるコード補完の正答率が大�
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 5831</li>
-        <li>非アスキー: 6785</li>
-        <li>合計文字数: 12616</li>
-        <li>半角換算: 19401</li>
-        <li>全角換算: 9700.5</li>
+        <li>英数記号: 4968</li>
+        <li>非アスキー: 6194</li>
+        <li>合計文字数: 11162</li>
+        <li>半角換算: 17356</li>
+        <li>全角換算: 8678.0</li>
     </ul>
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>クイック検索</h3>
+  <h3 id="searchlabel">クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -689,7 +606,7 @@ TypeScriptの場合は、エディタによるコード補完の正答率が大�
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

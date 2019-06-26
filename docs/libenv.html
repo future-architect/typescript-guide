@@ -47,8 +47,8 @@
 <p>ライブラリのユーザーがブラウザ向けにwebpackとBabelを使うとしても、基本的には自分のアプリケーションコードにしかBabelでの変換は適用しないでしょう。
 よく見かける設定はBabelの設定は次の通りです。
 つまり、配布ライブラリは、古いブラウザなどでも動作する形式でnpmにアップロードしなければならないということです。</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">webpack.config.js</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">webpack.config.js</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">rules</span><span class="o">:</span> <span class="p">[</span>
@@ -92,8 +92,8 @@ $ mkdir dist-esm
 <p>共通設定のところで <code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code> を生成したと思いますが、これをライブラリ用に設定しましょう。
 大事、というのは今回の要件の使う側が簡単なように、というのを達成するための.d.tsファイル生成と、出力形式のES5のところと、入力ファイルですね。
 ユーザー環境でデバッグしたときにきちんと表示されるようにsource-mapもついでに設定しました。あとはお好みで設定してください。</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
   &quot;compilerOptions&quot;: {
     &quot;target&quot;: &quot;es5&quot;,           // 大事
@@ -127,8 +127,8 @@ Polyfillをライブラリレベルで設定しても良いのですが、最終
 <p>今回はCommonJS形式とES2015の両方の出力が必要なため、一度のビルドで両方の形式に出力するようにします。</p>
 </li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;dist-cjs/index.js&quot;</span><span class="p">,</span>
   <span class="nt">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;dist-esm/index.js&quot;</span><span class="p">,</span>
@@ -142,19 +142,19 @@ Polyfillをライブラリレベルで設定しても良いのですが、最終
 </pre></div>
 </div>
 </div>
-<div class="admonition-todo admonition" id="index-0">
+<div class="admonition-todo admonition" id="id4">
 <p class="admonition-title">課題</p>
 <p>// browser/moduleなど
 // <a class="reference external" href="https://qiita.com/shinout/items/4c9854b00977883e0668">https://qiita.com/shinout/items/4c9854b00977883e0668</a></p>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>ライブラリコード<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id5">
+<h2>ライブラリコード<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">...</span> <span class="pre">from</span> <span class="pre">&quot;ライブラリ名&quot;</span></code> のようにアプリケーションや他のライブラリから使われる場合、最初に読み込まれるエントリーポイントは <code class="docutils literal notranslate"><span class="pre">package.json</span></code> で指定していました。</p>
 <p>拡張子の前のファイル名が、TypeScriptのファイルのファイル名となる部分です。前述の例では、 <code class="docutils literal notranslate"><span class="pre">index.js</span></code> や <code class="docutils literal notranslate"><span class="pre">index.d.ts</span></code> が <code class="docutils literal notranslate"><span class="pre">main</span></code> 、 <code class="docutils literal notranslate"><span class="pre">module</span></code> , <code class="docutils literal notranslate"><span class="pre">types</span></code> で設定されていましたので、 <code class="docutils literal notranslate"><span class="pre">index.ts</span></code> というファイルでファイルを作成します。
 <code class="docutils literal notranslate"><span class="pre">main.ts</span></code> に書きたい場合は、 <code class="docutils literal notranslate"><span class="pre">package.json</span></code> の記述を修正します。</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">src/index.ts</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">src/index.ts</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">export</span> <span class="kd">function</span> <span class="nx">hello() {</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello from TypeScript Library&quot;</span><span class="p">);</span>
 <span class="p">}</span>
@@ -163,8 +163,8 @@ Polyfillをライブラリレベルで設定しても良いのですが、最終
 </div>
 <p>ここで <code class="docutils literal notranslate"><span class="pre">export</span></code> したものが、ライブラリユーザーが触れられるものになります。</p>
 </div>
-<div class="section" id="id5">
-<h2>まとめ<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h2>まとめ<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>アルゴリズムなどのロジックのライブラリの場合、webpackなどのバンドラーを使わずに、TypeScriptだけを使えば良いことがわかりました。
 ここにある設定で、次のようなことが達成できました。</p>
 <ul class="simple">
@@ -203,8 +203,8 @@ $ npm run fix
 <li><a class="reference internal" href="#">ライブラリ開発のための環境設定</a><ul>
 <li><a class="reference internal" href="#id2">ディレクトリの作成</a></li>
 <li><a class="reference internal" href="#id3">ビルド設定</a></li>
-<li><a class="reference internal" href="#id4">ライブラリコード</a></li>
-<li><a class="reference internal" href="#id5">まとめ</a></li>
+<li><a class="reference internal" href="#id5">ライブラリコード</a></li>
+<li><a class="reference internal" href="#id6">まとめ</a></li>
 </ul>
 </li>
 </ul>
@@ -236,10 +236,10 @@ $ npm run fix
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>クイック検索</h3>
+  <h3 id="searchlabel">クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -253,7 +253,7 @@ $ npm run fix
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

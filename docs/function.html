@@ -41,8 +41,8 @@
 <p>JavaScriptでは、やっかいなのが<code class="docutils literal notranslate"><span class="pre">this</span></code>です。無名関数をコールバック関数に渡そうとすると、<code class="docutils literal notranslate"><span class="pre">this</span></code>がわからなくなってしまう問題があります。
 アロー関数を使うと、その関数が定義された場所の<code class="docutils literal notranslate"><span class="pre">this</span></code>の保持までセットで行いますので、無名関数の<code class="docutils literal notranslate"><span class="pre">this</span></code>由来の問題をかなり軽減できます。
 表記も短いため、コードの幅も短くなり、コールバックを多用するところで <code class="docutils literal notranslate"><span class="pre">function</span></code> という長いキーワードが頻出するのを減らすことができます。</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">アロー関数</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">アロー関数</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// アロー関数ならその外のthisが維持される。</span>
 <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">walkTo</span><span class="p">(</span><span class="s2">&quot;タコ公園&quot;</span><span class="p">);</span>
@@ -53,8 +53,8 @@
 <p>アロー関数にはいくつかの記法があります。
 引数が1つの場合は引数のカッコを、式の結果をそのまま <code class="docutils literal notranslate"><span class="pre">return</span></code> する場合は式のカッコを省略できます。
 ただし、引数の場所に型をつけたい場合は省略するとエラーになります。</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">アロー関数の表記方法のバリエーション</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">アロー関数の表記方法のバリエーション</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 基本形</span>
 <span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="cm">/* 式 */</span> <span class="p">};</span>
 
@@ -77,8 +77,8 @@
 </div>
 <p>以前は、 <code class="docutils literal notranslate"><span class="pre">this</span></code> がなくなってしまうため、 <code class="docutils literal notranslate"><span class="pre">bind()</span></code> を使って束縛したり、別の名前（ここでは <code class="docutils literal notranslate"><span class="pre">self</span></code> ）に退避する必要がありました。
 そのため、 <code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">self</span> <span class="pre">=</span> <span class="pre">this;</span></code> と他の変数に退避するコードがバッドノウハウとして有名でした。</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">this消失を避ける古い書き方</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">this消失を避ける古い書き方</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: 無名関数のイベントハンドラではその関数が宣言されたところのthisにアクセスできない</span>
 <span class="kd">var</span> <span class="nx">self</span><span class="o">=</span><span class="k">this</span><span class="p">;</span>
 <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -98,8 +98,8 @@
 <p>TypeScriptでは関数やクラスのメソッドでは引数や返り値に型を定義できます。
 元となるJavaScriptで利用できる、すべての書き方に対応しています。</p>
 <p>なお、Javaなどとは異なり、同名のメソッドで、引数違いのバリエーションを定義するオーバーロードは使えません。</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">関数への型付け</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">関数への型付け</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 昔からあるfunctionの引数に型付け。書く引数の後ろに型を書く。</span>
 <span class="c1">// 返り値は引数リストの () の後に書く。</span>
 <span class="kd">function</span> <span class="nx">checkFlag</span><span class="p">(</span><span class="nx">flag</span>: <span class="kt">boolean</span><span class="p">)</span><span class="o">:</span> <span class="kt">string</span> <span class="p">{</span>
@@ -115,8 +115,8 @@
 </div>
 </div>
 <p>変数の宣言のときと同じように、型が明確な場合には省略が可能です。</p>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">関数への型付け</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">関数への型付け</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 文字列のtoLowerCase()メソッドの返り値は文字列なので</span>
 <span class="c1">// 省略してもstringが設定されたと見なされる</span>
 <span class="kr">const</span> <span class="nx">normalize</span> <span class="o">=</span> <span class="p">(</span><span class="nx">input</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -139,9 +139,9 @@
 </div>
 </div>
 <p>関数が何も返さない場合は、 <code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">void</span></code> をつけることで明示的に表現できます。
-実装したコードで何も返していなければ、自動で <code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">void</span></code> がついているとみなされますが、これから先で紹介するインタフェースや抽象クラスなどで、関数の形だけ定義して実装を書かないケースでは、どのように判断すればいいのか材料がありません。 <code class="docutils literal notranslate"><span class="pre">compilerOptons.noImplicitAny</span></code> オプションが <code class="docutils literal notranslate"><span class="pre">true</span></code> の場合には、このようなケースで <a href="#id4"><span class="problematic" id="id5">``</span></a>: void``を書かないとエラーになりますので、忘れずに書くようにしましょう。</p>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">何も返さない時はvoid</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+実装したコードで何も返していなければ、自動で <code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">void</span></code> がついているとみなされますが、これから先で紹介するインタフェースや抽象クラスなどで、関数の形だけ定義して実装を書かないケースでは、どのように判断すればいいのか材料がありません。 <code class="docutils literal notranslate"><span class="pre">compilerOptons.noImplicitAny</span></code> オプションが <code class="docutils literal notranslate"><span class="pre">true</span></code> の場合には、このようなケースで <code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">void</span></code> を書かないとエラーになりますので、忘れずに書くようにしましょう。</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">何も返さない時はvoid</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">hello</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;ごきげんよう&quot;</span><span class="p">);</span>
 <span class="p">}</span>
@@ -177,8 +177,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>関数を扱う変数の型定義<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h2>関数を扱う変数の型定義<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>関数に型をつけることはできるようになりました。
 次は、その関数を代入できる変数の型を定義して見ましょう。</p>
 <p>例えば、文字列と数値を受け取り、booleanを返す関数を扱いたいとします。その関数は <code class="docutils literal notranslate"><span class="pre">check</span></code> という変数に入れます。
@@ -201,8 +201,8 @@
 <p>まず、変換関数を通しながら、 <code class="docutils literal notranslate"><span class="pre">[オリジナル,</span> <span class="pre">比較用に変換した文字列]</span></code> という配列を作ります。
 その後、後半の変換済みの文字列を使ってソートを行います。
 最後に、そのソートされた配列を使い、オリジナルの配列に含まれていた要素だけの配列を再び作成しています。</p>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">一度だけ変換するソート</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">一度だけ変換するソート</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">sort</span><span class="p">(</span><span class="nx">a</span>: <span class="kt">string</span><span class="p">[],</span> <span class="nx">conv</span><span class="o">:</span> <span class="p">(</span><span class="nx">value</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">entries</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="nx">value</span><span class="p">,</span> <span class="nx">conv</span><span class="p">(</span><span class="nx">value</span><span class="p">)])</span>
   <span class="nx">entries</span><span class="p">.</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -223,8 +223,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="id7">
-<h2>デフォルト引数<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id5">
+<h2>デフォルト引数<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>TypeScriptは、他の言語と同じように関数宣言のところに引数のデフォルト値を簡単に書くことができます。
 また、TypeScriptは型定義通りに呼び出さないとエラーになるため、引数不足や引数が過剰になる、というエラーチェックも不要です。</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 新しいデフォルト引数</span>
@@ -239,7 +239,7 @@
 今時であれば、完全省略時でもデフォルト値が設定されるし、部分的に設定も可能みたいな引数が次のように書けます。</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 分割代入を使って配列やオブジェクトを変数に展開＆デフォルト値も設定</span>
 <span class="c1">// 最後の={}がないとエラーになるので注意</span>
-<span class="kd">function</span> <span class="nx">f</span><span class="p">({</span><span class="nx">name</span><span class="o">=</span><span class="s2">&quot;小動物&quot;</span><span class="p">,</span> <span class="nx">favorite</span><span class="o">=</span><span class="s2">&quot;小豆餅&quot;</span><span class="p">}</span><span class="o">=</span><span class="p">{})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nx">f</span><span class="p">({</span><span class="nx">name</span><span class="o">=</span><span class="s2">&quot;小動物&quot;</span><span class="p">,</span> <span class="nx">favorite</span><span class="o">=</span><span class="s2">&quot;小豆餅&quot;</span><span class="p">}</span><span class="o">=</span><span class="p">{})</span> <span class="p">{</span>
     <span class="o">:</span>
 <span class="p">}</span>
 </pre></div>
@@ -266,13 +266,13 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id8">
-<h2>関数を含むオブジェクトの定義方法<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h2>関数を含むオブジェクトの定義方法<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ES2015以降、関数や定義の方法が増えました。
 JavaScriptではクラスを作るまでもない場合は、オブジェクトを作って関数をメンバーとして入れることがありますが、それが簡単にできるようになりました。
 setter/getterの宣言も簡単に行えるようになりました。</p>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">関数を含むオブジェクトの定義方法</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">関数を含むオブジェクトの定義方法</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: オブジェクトの関数</span>
 <span class="kd">var</span> <span class="nx">smallAnimal</span> <span class="o">=</span> <span class="p">{</span>
    <span class="nx">getName</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -350,16 +350,16 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 </pre></div>
 </div>
 <p>ただし、jQueryなどのライブラリでは、 <code class="docutils literal notranslate"><span class="pre">this</span></code> がカレントのオブジェクトを指すのではなく、選択されているカレントノードを表すという別解釈を行います。
-使っているフレームワークが特定の流儀を期待しているそれに従う必要があります。</p>
+使っているフレームワークが特定の流儀を期待している場合はそれに従う必要があります。</p>
 <p><code class="docutils literal notranslate"><span class="pre">bind()</span></code> の排除はクラスの中で紹介します。</p>
 </div>
-<div class="section" id="id9">
-<h2>即時実行関数はもう使わない<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id7">
+<h2>即時実行関数はもう使わない<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>関数を作ってその場で実行することで、スコープ外に非公開にしたい変数などが見えないようにするテクニックがかつてありました。即時実行関数と呼びます。
 <code class="docutils literal notranslate"><span class="pre">function(){}</span></code>をかっこでくくって、その末尾に関数呼び出しのための<code class="docutils literal notranslate"><span class="pre">()</span></code>がさらに付いています。これで、エクスポートしたい特定の変数だけを<code class="docutils literal notranslate"><span class="pre">return</span></code>で返して公開をしていました。
 今時であれば、公開したい要素に明示的に<code class="docutils literal notranslate"><span class="pre">export</span></code>をつけると、webpackなどのツールがそれ以外の変数をファイル単位のスコープで隠してくれます。</p>
-<div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">古いテクニックである即時実行関数</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">古いテクニックである即時実行関数</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">lib</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">libBody</span> <span class="o">=</span> <span class="p">{};</span>
   <span class="kd">var</span> <span class="nx">localVariable</span><span class="p">;</span>
@@ -373,8 +373,8 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 </div>
 </div>
 </div>
-<div class="section" id="id10">
-<h2>まとめ<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id8">
+<h2>まとめ<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>関数についてさまざまなことを紹介してきました。</p>
 <ul class="simple">
 <li><p>アロー関数</p></li>
@@ -405,12 +405,12 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 <li><a class="reference internal" href="#">関数</a><ul>
 <li><a class="reference internal" href="#id2">アロー関数</a></li>
 <li><a class="reference internal" href="#id3">関数の引数と返り値の型定義</a></li>
-<li><a class="reference internal" href="#id6">関数を扱う変数の型定義</a></li>
-<li><a class="reference internal" href="#id7">デフォルト引数</a></li>
-<li><a class="reference internal" href="#id8">関数を含むオブジェクトの定義方法</a></li>
+<li><a class="reference internal" href="#id4">関数を扱う変数の型定義</a></li>
+<li><a class="reference internal" href="#id5">デフォルト引数</a></li>
+<li><a class="reference internal" href="#id6">関数を含むオブジェクトの定義方法</a></li>
 <li><a class="reference internal" href="#this-1"><code class="docutils literal notranslate"><span class="pre">this</span></code>を操作するコードは書かない（1）</a></li>
-<li><a class="reference internal" href="#id9">即時実行関数はもう使わない</a></li>
-<li><a class="reference internal" href="#id10">まとめ</a></li>
+<li><a class="reference internal" href="#id7">即時実行関数はもう使わない</a></li>
+<li><a class="reference internal" href="#id8">まとめ</a></li>
 </ul>
 </li>
 </ul>
@@ -433,19 +433,19 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 4052</li>
-        <li>非アスキー: 4101</li>
-        <li>合計文字数: 8153</li>
+        <li>英数記号: 4046</li>
+        <li>非アスキー: 4104</li>
+        <li>合計文字数: 8150</li>
         <li>半角換算: 12254</li>
         <li>全角換算: 6127.0</li>
     </ul>
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>クイック検索</h3>
+  <h3 id="searchlabel">クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -459,7 +459,7 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

@@ -35,7 +35,7 @@
             
   <div class="section" id="id1">
 <h1>おすすめのパッケージ・ツール<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>ぼちぼち追加</p>
+<p>ぼちぼち追加。まだ実戦投入していないものも多数あります。</p>
 <div class="section" id="typescript-playgournd">
 <h2>TypeScript Playgournd各種<a class="headerlink" href="#typescript-playgournd" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ブラウザでTypeScriptが試せるPlaygroundにも何種類かあります。</p>
@@ -64,6 +64,30 @@ TypeScriptのコンパイラのバージョンを切り替えたり、標準よ�
 </div>
 <div class="section" id="id2">
 <h2>ビルド補助ツール<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="rush">
+<h3>Rush<a class="headerlink" href="#rush" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/&#64;microsoft/rush">&#64;microsoft/api-extractor</a></p></li>
+<li><p>TypeScript型定義: CLIツールなので不要</p></li>
+<li><p>URL: <a class="reference external" href="https://rushjs.io/">https://rushjs.io/</a></p></li>
+</ul>
+<p>ひとつのGitリポジトリの中に、多数のTypeScriptベースのパッケージを入れて管理するための補助ツール。次のサンプルを見ると、このツールを使った結果がわかります。</p>
+<p><a class="reference external" href="https://github.com/microsoft/web-build-tools">https://github.com/microsoft/web-build-tools</a></p>
+<ul class="simple">
+<li><p>appsフォルダ: ウェブアプリケーションが格納される</p></li>
+<li><p>librariesフォルダ: npm installで使うライブラリが格納される</p></li>
+<li><p>toolsフォルダ: npm installで使うコマンドラインツールが格納される</p></li>
+</ul>
+</div>
+<div class="section" id="api-extractor">
+<h3>API extractor<a class="headerlink" href="#api-extractor" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/&#64;microsoft/api-extractor">&#64;microsoft/api-extractor</a></p></li>
+<li><p>TypeScript型定義: CLIツールなので不要</p></li>
+<li><p>URL: <a class="reference external" href="https://api-extractor.com/pages/overview/demo_docs/">https://api-extractor.com/pages/overview/demo_docs/</a></p></li>
+</ul>
+<p>ドキュメントジェネレータ。パッケージのリファレンスマニュアルが作れる。</p>
+</div>
 <div class="section" id="cash">
 <h3>cash<a class="headerlink" href="#cash" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
@@ -71,7 +95,7 @@ TypeScriptのコンパイラのバージョンを切り替えたり、標準よ�
 <li><p>TypeScript型定義:<code class="docutils literal notranslate"><span class="pre">&#64;types/cash</span></code></p></li>
 </ul>
 <p>UnixシェルコマンドをNode.jsで再実装したもの。WindowsのPowerShellがrmなどのエイリアスを提供してしまっている（しかも <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-Force</span> <span class="pre">-Recurse</span></code> のようにオプションが違う）が、cashを使うとクロスプラットフォームで動くファイル操作が行える。npm scriptsでも利用できるが、プログラム中からも使えるらしい。</p>
-<div class="admonition-todo admonition" id="index-0">
+<div class="admonition-todo admonition" id="id5">
 <p class="admonition-title">課題</p>
 <p>cashにexportがあるので、cross-envはいらないかも？</p>
 </div>
@@ -93,8 +117,8 @@ TypeScriptのコンパイラのバージョンを切り替えたり、標準よ�
 <p>インストールされているパッケージの型定義パッケージを自動取得してくるCLIツール。</p>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>コマンドラインツール用ライブラリ<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id8">
+<h2>コマンドラインツール用ライブラリ<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="section" id="convict">
 <h3>convict<a class="headerlink" href="#convict" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
@@ -103,9 +127,17 @@ TypeScriptのコンパイラのバージョンを切り替えたり、標準よ�
 </ul>
 <p>コマンドライン引数、設定ファイル、環境変数などを統合的に扱える設定情報管理ライブラリ。型情報付きで設定を管理できるし、設定内容のバリデーションもできる。TypeScriptで使うとさらに便利。</p>
 </div>
+<div class="section" id="microsoft-ts-command-line">
+<h3>&#64;microsoft/ts-command-line<a class="headerlink" href="#microsoft-ts-command-line" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/&#64;microsoft/ts-command-line">&#64;microsoft/ts-command-line</a></p></li>
+<li><p>TypeScript型定義: 内蔵</p></li>
+</ul>
+<p>TypeScript用のコマンドライン引数ライブラリです。Microsoft社純正。</p>
 </div>
-<div class="section" id="id8">
-<h2>アルゴリズム関連のライブラリ<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</div>
+<div class="section" id="id11">
+<h2>アルゴリズム関連のライブラリ<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="section" id="p-map">
 <h3>p-map<a class="headerlink" href="#p-map" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <ul class="simple">
@@ -133,16 +165,19 @@ TypeScriptのコンパイラのバージョンを切り替えたり、標準よ�
 </ul>
 </li>
 <li><a class="reference internal" href="#id2">ビルド補助ツール</a><ul>
+<li><a class="reference internal" href="#rush">Rush</a></li>
+<li><a class="reference internal" href="#api-extractor">API extractor</a></li>
 <li><a class="reference internal" href="#cash">cash</a></li>
 <li><a class="reference internal" href="#cross-env">cross-env</a></li>
 <li><a class="reference internal" href="#typesync">typesync</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id6">コマンドラインツール用ライブラリ</a><ul>
+<li><a class="reference internal" href="#id8">コマンドラインツール用ライブラリ</a><ul>
 <li><a class="reference internal" href="#convict">convict</a></li>
+<li><a class="reference internal" href="#microsoft-ts-command-line">&#64;microsoft/ts-command-line</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id8">アルゴリズム関連のライブラリ</a><ul>
+<li><a class="reference internal" href="#id11">アルゴリズム関連のライブラリ</a><ul>
 <li><a class="reference internal" href="#p-map">p-map</a></li>
 </ul>
 </li>
@@ -168,19 +203,19 @@ TypeScriptのコンパイラのバージョンを切り替えたり、標準よ�
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 548</li>
-        <li>非アスキー: 788</li>
-        <li>合計文字数: 1336</li>
-        <li>半角換算: 2124</li>
-        <li>全角換算: 1062.0</li>
+        <li>英数記号: 923</li>
+        <li>非アスキー: 1043</li>
+        <li>合計文字数: 1966</li>
+        <li>半角換算: 3009</li>
+        <li>全角換算: 1504.5</li>
     </ul>
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>クイック検索</h3>
+  <h3 id="searchlabel">クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -194,7 +229,7 @@ TypeScriptのコンパイラのバージョンを切り替えたり、標準よ�
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

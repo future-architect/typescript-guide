@@ -69,7 +69,7 @@
 <h3>配列からのデータの取り出し<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以前のJavaScriptは、配列やオブジェクトの中身を変数に取り出すには一つずつ取り出すしかありませんでした。
 現在のJavaScriptとTypeScriptは、分割代入（<code class="docutils literal notranslate"><span class="pre">=</span></code>の左に配列を書く記法）を使って複数の要素をまとめて取り出すことができます。
-<code class="docutils literal notranslate"><span class="pre">slice()</span></code>を使わずに、新しいスプレッド構文（<code class="docutils literal notranslate"><span class="pre">...`</span></code>）を使って、複数の要素をまとめて取り出すことができます。</p>
+<code class="docutils literal notranslate"><span class="pre">slice()</span></code>を使わずに、新しいスプレッド構文（<code class="docutils literal notranslate"><span class="pre">...</span></code>）を使って、複数の要素をまとめて取り出すことができます。</p>
 <p>スプレッド構文は省略記号のようにピリオドを3つ書く構文で、あたかも複数の要素がそこにあるかのように振る舞います。
 スプレッド構文は取り出し以外にも、配列やオブジェクトの加工、関数呼び出しの引数リストに対しても使える強力な構文です。
 ここでは、2つめ以降のすべての要素を<code class="docutils literal notranslate"><span class="pre">other</span></code>に格納しています。</p>
@@ -87,7 +87,7 @@
 <span class="kd">var</span> <span class="nx">other</span> <span class="o">=</span> <span class="nx">smalls</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
 <span class="c1">// 新: まとめて取り出し</span>
-<span class="kr">const</span> <span class="p">[</span><span class="nx">smallCar</span><span class="p">,</span> <span class="nx">smallDog</span><span class="p">]</span> <span class="o">=</span> <span class="nx">smalls</span><span class="p">;</span>
+<span class="kr">const</span> <span class="p">[</span><span class="nx">smallAnimal</span><span class="p">,</span> <span class="nx">smallCar</span><span class="p">,</span> <span class="nx">essay</span><span class="p">]</span> <span class="o">=</span> <span class="nx">smalls</span><span class="p">;</span>
 <span class="c1">// 新: 2番目以降の要素の取り出し</span>
 <span class="kr">const</span> <span class="p">[,</span> <span class="p">...</span><span class="nx">other</span><span class="p">]</span> <span class="o">=</span> <span class="nx">smalls</span><span class="p">;</span>
 </pre></div>
@@ -470,19 +470,19 @@ C言語由来のループは昔からあるものですがループ変数が必�
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 4312</li>
+        <li>英数記号: 4321</li>
         <li>非アスキー: 4860</li>
-        <li>合計文字数: 9172</li>
-        <li>半角換算: 14032</li>
-        <li>全角換算: 7016.0</li>
+        <li>合計文字数: 9181</li>
+        <li>半角換算: 14041</li>
+        <li>全角換算: 7020.5</li>
     </ul>
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>クイック検索</h3>
+  <h3 id="searchlabel">クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -496,7 +496,7 @@ C言語由来のループは昔からあるものですがループ変数が必�
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

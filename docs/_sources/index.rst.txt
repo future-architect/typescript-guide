@@ -52,6 +52,7 @@
 
    generics
    functional
+   class2
    reactive
    typedef
    advance

@@ -372,7 +372,7 @@ JavaScriptでは1つしか書くことができません。型の種類による
 <div class="section" id="id8">
 <h2>まとめ<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>例外についての文法の説明、組み込みのエラー型、エラー型を自作する方法、非同期処理の例外処理などを説明してきました。
-例外の設計も、一種のアーキテクチャ設計だるため、ちょっとした経験が必要になるかもしれません。</p>
+例外の設計も、一種のアーキテクチャ設計であるため、ちょっとした経験が必要になるかもしれません。</p>
 <p>TypeScript、特にフロントエンドの場合、例外を無視することはユーザーの使い勝手を悪くします。どのようなことが発生し、どのケースではどのようにリカバリーするか、というのをあらかじめ決めておくと実装は楽になるでしょう。</p>
 </div>
 </div>
@@ -425,18 +425,18 @@ JavaScriptでは1つしか書くことができません。型の種類による
     <p>
     <ul>
         <li>英数記号: 3790</li>
-        <li>非アスキー: 5332</li>
-        <li>合計文字数: 9122</li>
-        <li>半角換算: 14454</li>
-        <li>全角換算: 7227.0</li>
+        <li>非アスキー: 5333</li>
+        <li>合計文字数: 9123</li>
+        <li>半角換算: 14456</li>
+        <li>全角換算: 7228.0</li>
     </ul>
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>クイック検索</h3>
+  <h3 id="searchlabel">クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -450,7 +450,7 @@ JavaScriptでは1つしか書くことができません。型の種類による
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
