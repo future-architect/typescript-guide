@@ -42,13 +42,13 @@
 この場合、 ``cache`` ローカル変数に入っているのは文字列ですし、 ``value`` にも文字列が格納されます。
 しかし、TypeScriptの処理系は ``any`` に入るだけで補完をあきらめてしまいます。
 
-次のジェネリクス版を紹介します。型を関数の引数のように記述します。場所は関数、インタエース、クラスの名前の前に付きます。 この ``T`` には型が入ります。
+次のジェネリクス版を紹介します。型を関数の引数のように記述します。場所は関数、インタエース、クラスの名前の後ろに付きます。 この ``T`` には型が入ります。
 ``T`` は実際に使うときに、全て同じ型名がここに入ります。 ``string`` などを入れることができます。
 
 .. code-block:: ts
    :caption: any版の遅延初期化関数
 
-   function <T>lazyInit(init: () => T): () => T {
+   function lazyInit<T>(init: () => T): () => T {
      let cache: T;
      let isInit = false;
      return function(): T {
@@ -64,4 +64,4 @@
 
    const getter = lazyInit<string>(() => "initialized");
    const value = getter();
-   // valueはany型なので、上記のvalueの後ろで.をタイプしてもメソッド候補はでてこない
+   // valueはstring型なので、上記のvalueの後ろで.をタイプするとメソッド候補が出てくる
