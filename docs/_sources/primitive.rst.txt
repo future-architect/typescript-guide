@@ -101,7 +101,7 @@ TypeScript（というか、その下で動作しているJavaScript）は64ビ�
    console.log(parseInt("010", 8));  // →8 2つめの数値で何進数として処理するか決められる
    console.log(Number(true));        // boolean型はNumber関数で0/1になる
 
-変換の処理は、方法によって結果が変わります。10進数を期待するものはradix無しの ``parseInt()`` で使っておけば間違いありませ。
+変換の処理は、方法によって結果が変わります。10進数を期待するものはradix無しの ``parseInt()`` で使っておけば間違いありません。
 
 .. list-table:: 文字列から数値の変換
 
