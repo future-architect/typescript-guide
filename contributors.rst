@@ -19,6 +19,10 @@ Pull Requestをくださった方々
 * `@kensuke <https://github.com/kensuke>`_
 * `@ebiiim <https://github.com/ebiiim>`_
 * `@yinm <https://github.com/yinm>`_
+* `@hidaruma <https://github.com/hidaruma>`_
+* `@7ma7X <https://github.com/7ma7X>`_
+* `@isuzuki <https://github.com/isuzuki>`_
+* `@taiyooooooooooo <https://github.com/taiyooooooooooo>`_
 
 フィードバックをくださった方々
 ------------------------------------

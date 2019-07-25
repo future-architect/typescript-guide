@@ -1,5 +1,6 @@
 _build/doctrees
 ext/__pycache__
 node_modules
+docs/.doctrees
 _build/latex
 .DS_Store
