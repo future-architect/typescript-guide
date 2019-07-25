@@ -15,7 +15,7 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="next" title="関数型志向のプログラミング" href="functional.html" />
+    <link rel="next" title="関数型指向のプログラミング" href="functional.html" />
     <link rel="prev" title="Vue.jsでアプリケーションを作成してみる" href="vuesample.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -35,18 +35,211 @@
             
   <div class="section" id="id1">
 <h1>ジェネリクス<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<div class="admonition note">
-<p class="admonition-title">注釈</p>
-<p>書き書け</p>
+<p>ジェネリクスは、使われるまで型が決まらないようないろいろな型の値を受け入れられる機能を作るときに使います。ジェネリクスは日本語で総称型と呼ばれることもあります。</p>
+<p>ジェネリクスは、ライブラリを作る人のための機能です。画面を量産する時とかには基本的には出てこないでしょう。実装していて「これはどんな子要素の型が来ても利用できる汎用的な処理だ」といったことがあればそこで初めて登場します。</p>
+<div class="section" id="id2">
+<h2>ジェネリクスの書き方<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ジェネリクスは、関数、インタフェース、クラスなどと一緒に利用できます。</p>
+<p>次の関数は指定された第一引数の値を、第二引数の数だけ含む配列を作って返すコードのサンプルです。</p>
+<p>ジェネリクスの場合は名前の直後、関数の場合は引数リストの直前に、ジェネリクスの型パラメータを関数の引数のように（ただし、対になる不等号でくくる）記述します。下記のコードでは <code class="docutils literal notranslate"><span class="pre">T</span></code> がそれにあたります。
+関数の宣言の場合は入出力の引数や関数本体の定義時に、Tがなんらかの型であるかのように利用できます。インタフェースやクラスの場合はメンバーのメソッドの宣言、クラスであればメンバーのフィールドやメソッドの実装の中で利用できます。</p>
+<p>どの型が入ってくるかどうかは利用されるまではわかりませんが、 <code class="docutils literal notranslate"><span class="pre">T</span></code> は実際に使うときに、全て同じ型名がここに入ります。</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">ジェネリクスの関数宣言</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">multiply</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">value</span>: <span class="kt">T</span><span class="p">,</span> <span class="nx">n</span>: <span class="kt">number</span><span class="p">)</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">result</span>: <span class="kt">Array</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="nx">result</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="nx">n</span><span class="p">;</span>
+    <span class="nx">result</span><span class="p">.</span><span class="nx">fill</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 </div>
-<p>ジェネリクスは、使われるまで型が決まらないような機能を作るときに使います。ジェネリクスは日本語で総称型と呼ばれることもあります。</p>
-<div class="section" id="any-unknown">
-<h2><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> との違い<a class="headerlink" href="#any-unknown" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>型が未知の場合というと、 <code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> が思いつくでしょう。</p>
-<p>これらの変数に値を設定してしまうと、型情報がリセットされます。取り出すときに、適切な型を宣言してあげないと、その後のエラーチェックが無効になったり、エディタの補完ができません。</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">T</span></code> には <code class="docutils literal notranslate"><span class="pre">string</span></code> など、利用時に自由に型を入れることができます。宣言文と同じように <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">&gt;</span></code> で括られている中に型名を明示的に書くことで指定できます。
+また、型推論も可能なので、引数の型から明示的に導き出せる場合には、型パラメータを省略することができます。</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">ジェネリクスの利用</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// -1が10個入った配列を作る</span>
+<span class="kr">const</span> <span class="nx">values</span> <span class="o">=</span> <span class="nx">multiply</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+<span class="c1">// ジェネリクスの型も推論ができるので、引数から明示的にわかる場合は省略可能</span>
+<span class="kr">const</span> <span class="nx">values</span> <span class="o">=</span> <span class="nx">multiply</span><span class="p">(</span><span class="s2">&quot;すごい！&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>ジェネリクスの引数名<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ジェネリクスでは、型のパラメータとしては <code class="docutils literal notranslate"><span class="pre">T</span></code> 、 <code class="docutils literal notranslate"><span class="pre">U</span></code> 、 <code class="docutils literal notranslate"><span class="pre">V</span></code> などの大文字の文字が一般的に使われます。あるいは <code class="docutils literal notranslate"><span class="pre">T1</span></code> 、 <code class="docutils literal notranslate"><span class="pre">T2</span></code> などでもいいでしょう。
+一般に、インスタンス名（変数名）は小文字スタートの識別子が、クラスやインタフェースは大文字の識別子が使われてきたので、呼んだ時にも直感的に理解しやすいでしょう。
+これはC++やJavaなどでも使われてきた慣習ですので、他の言語のユーザーも慣れた方法であります。</p>
+<p>基本的な型付けの最後の方で触れたMapped Typeの場合は、オブジェクトのキーをパラメータのように扱っていました。これは <code class="docutils literal notranslate"><span class="pre">K</span></code> が使われることが多いようです。</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>ジェネリクスの型パラメータに制約をつける<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ジェネリクスの型パラメータは列挙するだけの場合はどんな型の引数も受け入れるという意味になります。しかし、何かしらの特別な型のみを受け入れたいということがあるでしょう。
+ジェネリクスは動的に型が決まるといっても、デフォルトでは <code class="docutils literal notranslate"><span class="pre">unknown</span></code> と同じように解釈されます。関数の本体の中で型パラメータのプロパティにアクセスするとエラーになります。</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">型パラメータもコンパイル時にチェックされる</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">isTodayBirthday</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">person</span>: <span class="kt">T</span><span class="p">)</span><span class="o">:</span> <span class="kr">boolean</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">today</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+    <span class="c1">// personの型は未知なのでgetBirthDay()メソッドがあるかどうか未定でエラーになる</span>
+    <span class="kr">const</span> <span class="nx">birthDay</span> <span class="o">=</span> <span class="nx">person</span><span class="p">.</span><span class="nx">getBirthDay</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nx">today</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">===</span> <span class="nx">birthDay</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">today</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span> <span class="o">===</span> <span class="nx">birthDay</span><span class="p">.</span><span class="nx">getDate</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>ここでは、 <code class="docutils literal notranslate"><span class="pre">getBirthDay()</span></code> メソッドを持っている型ならなんでも受け入れられるようにしたいですよね？そのようなときは、 <code class="docutils literal notranslate"><span class="pre">extends</span></code> を使ってTはこのインタフェースを満たす型でなければならないということを指定できます。</p>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">extendsで型パラメータに制約を与える</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span> <span class="nx">type</span> <span class="nx">Person</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="nx">getBirthDay</span><span class="p">()</span><span class="o">:</span> <span class="nb">Date</span><span class="p">;</span>
+ <span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">isTodayBirthday</span><span class="o">&lt;</span><span class="nx">T</span> <span class="kr">extends</span> <span class="nx">Person</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">person</span>: <span class="kt">T</span><span class="p">)</span><span class="o">:</span> <span class="kr">boolean</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">today</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+    <span class="c1">// personの型は少なくともPersonを満たす型なのでgetBirthDay()メソッドが利用可能</span>
+    <span class="kr">const</span> <span class="nx">birthDay</span> <span class="o">=</span> <span class="nx">person</span><span class="p">.</span><span class="nx">getBirthDay</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nx">today</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">===</span> <span class="nx">birthDay</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">today</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span> <span class="o">===</span> <span class="nx">birthDay</span><span class="p">.</span><span class="nx">getDate</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>このように書くことで、関数定義の実装時にエラーとなることはありません。また、利用時にも、この制約を満たさない場合にはエラーになります。</p>
+<p>文字列などのUnion Typeも <code class="docutils literal notranslate"><span class="pre">extends</span> <span class="pre">string</span></code> で設定できます。これで何かしらの文字列のみを型パラメータに指定できます。 <code class="docutils literal notranslate"><span class="pre">number</span></code> にすれば数値も扱えます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 何かしらの文字列とそのUnion Typeだけを受け付ける</span>
+<span class="kd">function</span> <span class="nx">action</span><span class="o">&lt;</span><span class="nx">T</span> <span class="kr">extends</span> <span class="kt">string</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">actionName</span>: <span class="kt">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">:</span>
+<span class="p">}</span>
+
+<span class="nx">action</span><span class="o">&lt;</span><span class="nx">keyof</span> <span class="nx">ActionList</span><span class="o">&gt;</span><span class="p">(</span><span class="s2">&quot;register&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">extends</span></code> にUnion Typeを設定すればさらに特定の文字列だけに限定できます。</p>
+</div>
+<div class="section" id="id5">
+<h2>型パラメータの自動解決<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>TypeScriptの処理系は入力値の型などから型パラメータを推論しようとします。すべての型が解決可能であれば、型パラメータの指定を省略できます。また、型パラメータ同士で影響を与え合う（制約を与え合う）ような型パラメータの制約も書くことができます。その場合も、お互いの情報や引数の情報を元に、お互いに推論できるところから推論していって、自動解決できるものを解決していきます。</p>
+<p>次の <code class="docutils literal notranslate"><span class="pre">setValue</span></code> は何やら不思議な型定義になっています。このうち、 <code class="docutils literal notranslate"><span class="pre">T</span></code> はオブジェクトの型、 <code class="docutils literal notranslate"><span class="pre">K</span></code> はオブジェクトのプロパティ名のUnion Typeで、 <code class="docutils literal notranslate"><span class="pre">U</span></code> はオブジェクトのプロパティの方の型を表しています。やっていることは、オブジェクトの型にマッチした代入をするだけのなんの変哲も無い（役に立たない）コードです。</p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">値の設定を大げさに書く</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">setValue</span><span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span> <span class="nx">K</span> <span class="kr">extends</span> <span class="nx">keyof</span> <span class="nx">T</span><span class="p">,</span> <span class="nx">U</span> <span class="kr">extends</span> <span class="nx">T</span><span class="p">[</span><span class="nx">K</span><span class="p">]</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">obj</span>: <span class="kt">T</span><span class="p">,</span> <span class="nx">key</span>: <span class="kt">K</span><span class="p">,</span> <span class="nx">value</span>: <span class="kt">U</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Visual Studio CodeやTypeScriptのPlaygroundのページで次の <code class="docutils literal notranslate"><span class="pre">setValue</span></code> 呼び出しを書いてみてください。まず、最初の引数に <code class="docutils literal notranslate"><span class="pre">park</span></code> をタイプすると、型 <code class="docutils literal notranslate"><span class="pre">T</span></code> が決まります。
+そうなると、ポップアップする引数 <code class="docutils literal notranslate"><span class="pre">key</span></code> の型は <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span> <span class="pre">|</span> <span class="pre">&quot;hasTako&quot;</span></code> に、 <code class="docutils literal notranslate"><span class="pre">value</span></code> の型は <code class="docutils literal notranslate"><span class="pre">string</span> <span class="pre">|</span> <span class="pre">boolean</span></code> になります。
+次に、二つ目の引数に <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span></code> をタイプすると、 <code class="docutils literal notranslate"><span class="pre">value</span></code> の型は <code class="docutils literal notranslate"><span class="pre">string</span></code> となります。
+このように連鎖的にパズルを解くようにTypeScriptの処理系は型の制約を解決していきます。</p>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">エディタの補完を試してみよう</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">park</span>: <span class="kt">ParkForm</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;恵比寿東&quot;</span><span class="p">,</span>
+  <span class="nx">hasTako</span>: <span class="kt">true</span>
+<span class="p">};</span>
+
+<span class="nx">setValue</span><span class="p">(</span><span class="nx">park</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;神明児童遊園&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p>ただし、型パラメータで設定することを期待しているのか、それとも引数だけからすべてを解決していけるように設計されているのかは一目見て理解するのは難しいので、どういった意図のコードになっているのかはドキュメントやサンプルコードで伝えるようにしたほうが良いでしょう。</p>
+</div>
+<div class="section" id="id6">
+<h2>ジェネリクスの文法でできること、できないこと<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ジェネリクスでできることを一言で言えば、利用する側の手間を減らしつつ、型チェックをより厳しくすることです。
+ジェネリクスを使うと、引数の型によって返り値の型が変わるとか、最初の引数の型によって、別の引数の型が変わるとか、そういったことが実現できます。
+また完全に自由にするのではなく、特定の条件を満たす型パラメータのみを受け取ることも指定できましたよね。</p>
+<p>一方でできないこともあります。C++のテンプレートのように、指定された型によってロジックを切り替えるといったことはできません。
+例えば、要素の型とで、要素数が型パラメータで設定できる固定長配列などはジェネリクスやテンプレートで簡単に実現できます。
+C++の場合は、例えば要素が32ビットの数値で要素数が4の場合だけSIMDを使って足し算を高速化するといった「特殊化」ができますが、ジェネリクスではそのようなことはできません。</p>
+<p>また、即値の数値を型パラメータに入れることもC++ではできましたし、それの演算もできます。C++では特殊化と組み合わせて、次のような数学の漸化式のような型定義もできます。
+これにより、4次元配列でも5次元配列でも簡単に作り出すことがC++では可能ですし、これを駆使したテンプレートメタプログラミングという技法も編み出されましたが、これもTypeScriptには不可能です。</p>
+<ul class="simple">
+<li><p>n次元配列はn-1次元配列の配列</p></li>
+<li><p>1次元配列は普通の配列（特殊化）</p></li>
+</ul>
+<p>TypeScriptの文法のうち、型宣言などのJavaScriptから追加されたものは、基本、そのまま切り落とせば単なるJavaScriptになる、というのが原則としてありました。
+ジェネリクスについても同様ですので、型で実装を分岐というJavaScriptにないことはできません。</p>
+</div>
+<div class="section" id="id7">
+<h2>型変換のためのユーティリティ型<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>TypeScriptでは組み込みの型変換のためのジェネリクスのユーティリティ型を提供しています。詳細なリファレンスは <a class="reference external" href="https://www.typescriptlang.org/docs/handbook/utility-types.html">本家のハンドブックの中のUtility Typesにあります</a> 。</p>
+<div class="section" id="id8">
+<h3>オブジェクトに対するユーティリティ型<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">T</span></code> に定義済みのオブジェクトを指定することで、特定の変更を加えた新しいオブジェクトの型が定義されます。</p>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">オブジェクトに対するユーティリティ型の使い方。</span><a class="headerlink" href="#id20" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">userDiff</span>: <span class="kt">Partial</span><span class="o">&lt;</span><span class="nx">User</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">organization</span><span class="o">:</span> <span class="s2">&quot;Future Corporation&quot;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Partial&lt;T&gt;</span></code>: 要素が省略可能になった型</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Readonly&lt;T&gt;</span></code>: 要素が読み込み専用になった型</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Required&lt;T&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">Partial&lt;T&gt;</span></code> とは逆に、すべての省略可能な要素を必須に直した型</p></li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h3>オブジェクトと属性名に対するユーティリティ型<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>次の3つの型は <code class="docutils literal notranslate"><span class="pre">T</span></code> 以外に、 <code class="docutils literal notranslate"><span class="pre">K</span></code> としてプロパティの文字列のUnion Typeを持ち、新しいオブジェクトの型を作ります。</p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">オブジェクトと属性名に対するユーティリティ型の使い方。</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">viewItems</span>: <span class="kt">Pick</span><span class="o">&lt;</span><span class="nx">User</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span> <span class="o">|</span> <span class="s2">&quot;gender&quot;</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Yoshiki Shibukawa&quot;</span><span class="p">,</span>
+  <span class="nx">gender</span><span class="o">:</span> <span class="s2">&quot;male&quot;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Record&lt;K,T&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code> を子供の要素に持つ <code class="docutils literal notranslate"><span class="pre">Map</span></code> 型のようなデータ型（Kがキー）を作成。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pick&lt;T,K&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code> の中の特定のキー <code class="docutils literal notranslate"><span class="pre">K</span></code> だけを持つ型を作成</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Omit&lt;T,K&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code> の中の特定のキー <code class="docutils literal notranslate"><span class="pre">K</span></code> だけを持たない型を作成</p></li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3>型の集合演算のユーティリティ型<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>次の3つの型は、 <code class="docutils literal notranslate"><span class="pre">T</span></code> と <code class="docutils literal notranslate"><span class="pre">U</span></code> （ <code class="docutils literal notranslate"><span class="pre">NonNullable&lt;T&gt;</span></code> 以外）として、Union Typeをパラメータとして受け、新しいUnion Typeを作り出します。</p>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">型の集合演算のユーティリティ型の使い方。</span><a class="headerlink" href="#id22" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">year</span>: <span class="kt">NonNullable</span><span class="o">&lt;</span><span class="kt">string</span> <span class="o">|</span> <span class="kt">number</span> <span class="o">|</span> <span class="kc">undefined</span><span class="o">&gt;</span> <span class="o">=</span> <span class="s2">&quot;昭和&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Exclude&lt;T,U&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code> のUnion Typeから、 <code class="docutils literal notranslate"><span class="pre">U</span></code> のUnion Typeの構成要素を除外したUnion Typeを作る型</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Extract&lt;T,U&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code> のUnion Typeと、 <code class="docutils literal notranslate"><span class="pre">U</span></code> のUnion Typeの両方に含まれるUnion Typeを作る型</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NonNullable&lt;T&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code> のUnion Typeから、 <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を抜いたUnion Typeを作る型</p></li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h3>関数のユーティリティ型<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>関数を渡すと、その返り値の型を返すユーティリティ型です。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ReturnType&lt;T&gt;</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h3>クラスに対するユーティリティ型<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クラスに対するユーティリティ型です。あまり使うことはないと思われます。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ThisType&lt;T&gt;</span></code>: JavaScript時代のコードは <code class="docutils literal notranslate"><span class="pre">this</span></code> が何を表すのかを外挿できましたのでそれを表現するユーティリティ型です。新しい型は作りません。 <code class="docutils literal notranslate"><span class="pre">--noImplicitThis</span></code> がないと動かないとのこと。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">InstanceType&lt;T&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">InstanceType&lt;typeof</span> <span class="pre">C&gt;</span></code> が <code class="docutils literal notranslate"><span class="pre">C</span></code> を返すとドキュメントに書かれていますが用途はよくわかりません。</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="any-unknown-union-type">
+<h2><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> 、Union Typeとの違い<a class="headerlink" href="#any-unknown-union-type" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>未知の型というと、 <code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> が思いつくでしょう。また、複数の型を受け付けるというと、Union Typeもあります。これらとジェネリクスの違いについて説明します。</p>
+<p><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> の変数に値を設定してしまうと、型情報がリセットされます。取り出すときに、適切な型を宣言してあげないと、その後のエラーチェックが無効になったり、エディタの補完ができません。</p>
 <p>次の関数は、初回だけ指定の関数を読んで値を取って来るが、2回目以降は保存した値をそのまま返す関数です。初回アクセスまで初期化を遅延させます。</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">any版の遅延初期化関数</span><a class="headerlink" href="#id2" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">any版の遅延初期化関数</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">lazyInit</span><span class="p">(</span><span class="nx">init</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">any</span><span class="p">)</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">any</span> <span class="p">{</span>
   <span class="kd">let</span> <span class="nx">cache</span>: <span class="kt">any</span><span class="p">;</span>
   <span class="kd">let</span> <span class="nx">isInit</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
@@ -61,8 +254,8 @@
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">any</span></code> 版を使って見たのが次のコードです。</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">非ジェネリック版の使い方</span><a class="headerlink" href="#id3" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">非ジェネリック版の使い方</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">getter</span> <span class="o">=</span> <span class="nx">lazyInit</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="s2">&quot;initialized&quot;</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">getter</span><span class="p">();</span>
 <span class="c1">// valueはany型なので、上記のvalueの後ろで.をタイプしてもメソッド候補はでてこない</span>
@@ -71,11 +264,10 @@
 </div>
 <p>この場合、 <code class="docutils literal notranslate"><span class="pre">cache</span></code> ローカル変数に入っているのは文字列ですし、 <code class="docutils literal notranslate"><span class="pre">value</span></code> にも文字列が格納されます。
 しかし、TypeScriptの処理系は <code class="docutils literal notranslate"><span class="pre">any</span></code> に入るだけで補完をあきらめてしまいます。</p>
-<p>次のジェネリクス版を紹介します。型を関数の引数のように記述します。場所は関数、インタエース、クラスの名前の前に付きます。 この <code class="docutils literal notranslate"><span class="pre">T</span></code> には型が入ります。
-<code class="docutils literal notranslate"><span class="pre">T</span></code> は実際に使うときに、全て同じ型名がここに入ります。 <code class="docutils literal notranslate"><span class="pre">string</span></code> などを入れることができます。</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">any版の遅延初期化関数</span><a class="headerlink" href="#id4" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="nx">lazyInit</span><span class="p">(</span><span class="nx">init</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">T</span><span class="p">)</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">T</span> <span class="p">{</span>
+<p>次のジェネリクス版を紹介します。ジェネリクス版は入力された引数の情報から返り値の型が正しく推論されるため、返り値の型を使うときに正しく補完できます。</p>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">any版の遅延初期化関数</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">lazyInit</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">init</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">T</span><span class="p">)</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">T</span> <span class="p">{</span>
   <span class="kd">let</span> <span class="nx">cache</span>: <span class="kt">T</span><span class="p">;</span>
   <span class="kd">let</span> <span class="nx">isInit</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
   <span class="k">return</span> <span class="kd">function</span><span class="p">()</span><span class="o">:</span> <span class="nx">T</span> <span class="p">{</span>
@@ -88,15 +280,23 @@
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">ジェネリック版の使い方</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">getter</span> <span class="o">=</span> <span class="nx">lazyInit</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="s2">&quot;initialized&quot;</span><span class="p">);</span>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">ジェネリック版の使い方</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">getter</span> <span class="o">=</span> <span class="nx">lazyInit</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="s2">&quot;initialized&quot;</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">getter</span><span class="p">();</span>
-<span class="c1">// valueはany型なので、上記のvalueの後ろで.をタイプしてもメソッド候補はでてこない</span>
+<span class="c1">// valueはstring型なので、上記のvalueの後ろで.をタイプするとメソッド候補が出てくる</span>
 </pre></div>
 </div>
 </div>
+<p>Union Typeについても、型の補完時に余計な型情報がまざってしまうため、型ガードで必要な型である保証が必要です。また、ジェネリクスには2つの引数があって両方の型が同じ、という保証もしやすいメリットがあります。</p>
 </div>
+</div>
+<div class="section" id="id13">
+<h1>まとめ<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>ジェネリクスについて紹介しました。</p>
+<p>基本的に、画面を量産するという仕事ではなく、共通ライブラリを作り出すとか、そういったタスクで活躍する中級向けの機能です。
+作り込めば作り込むほど、使う人にやさしく、間違った情報が入れにくい関数やクラス、インタフェースが作れます。</p>
+<p>一方で、型情報の作り込みは読みにくいコードに直結します。書いているときには良いのですが数日後にいじるのが少し難しいコードになりがちです。凝った正規表現に近いものがあると思います。</p>
 </div>
 
 
@@ -109,16 +309,32 @@
   <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">ジェネリクス</a><ul>
-<li><a class="reference internal" href="#any-unknown"><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> との違い</a></li>
+<li><a class="reference internal" href="#id2">ジェネリクスの書き方</a><ul>
+<li><a class="reference internal" href="#id3">ジェネリクスの引数名</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id4">ジェネリクスの型パラメータに制約をつける</a></li>
+<li><a class="reference internal" href="#id5">型パラメータの自動解決</a></li>
+<li><a class="reference internal" href="#id6">ジェネリクスの文法でできること、できないこと</a></li>
+<li><a class="reference internal" href="#id7">型変換のためのユーティリティ型</a><ul>
+<li><a class="reference internal" href="#id8">オブジェクトに対するユーティリティ型</a></li>
+<li><a class="reference internal" href="#id9">オブジェクトと属性名に対するユーティリティ型</a></li>
+<li><a class="reference internal" href="#id10">型の集合演算のユーティリティ型</a></li>
+<li><a class="reference internal" href="#id11">関数のユーティリティ型</a></li>
+<li><a class="reference internal" href="#id12">クラスに対するユーティリティ型</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#any-unknown-union-type"><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> 、Union Typeとの違い</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id13">まとめ</a></li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="vuesample.html" title="前の章へ">Vue.jsでアプリケーションを作成してみる</a></li>
-      <li>Next: <a href="functional.html" title="次の章へ">関数型志向のプログラミング</a></li>
+      <li>Next: <a href="functional.html" title="次の章へ">関数型指向のプログラミング</a></li>
   </ul></li>
 </ul>
 </div>
@@ -132,19 +348,19 @@
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 630</li>
-        <li>非アスキー: 559</li>
-        <li>合計文字数: 1189</li>
-        <li>半角換算: 1748</li>
-        <li>全角換算: 874.0</li>
+        <li>英数記号: 2851</li>
+        <li>非アスキー: 4324</li>
+        <li>合計文字数: 7175</li>
+        <li>半角換算: 11499</li>
+        <li>全角換算: 5749.5</li>
     </ul>
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">クイック検索</h3>
+  <h3>クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -158,7 +374,7 @@
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

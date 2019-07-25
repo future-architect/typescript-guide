@@ -149,13 +149,19 @@
 <p>次のコードは、変数に入れられる値を特定の文字列に限定する機能です。
 型は  <code class="docutils literal notranslate"><span class="pre">|</span></code> で複数並べることができる機能を使って、取りうる値を列挙しています。
 この複数の状態を取る型をUnion Typeと呼びます。
-ここで書いていない文字列を代入しようとするとエラーになります。</p>
+ここで書いていない文字列を代入しようとするとエラーになります。
+数値にも使えます。</p>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text">変数に特定の文字列しか設定できないようにする</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">favoriteFood</span><span class="o">:</span> <span class="s2">&quot;北極&quot;</span> <span class="o">|</span> <span class="s2">&quot;冷やし味噌&quot;</span><span class="p">;</span>
 <span class="nx">favoriteFood</span> <span class="o">=</span> <span class="s2">&quot;味噌タンメン&quot;</span>
 <span class="c1">// error TS2322: Type &#39;&quot;味噌タンメン&quot;&#39; is not assignable to</span>
 <span class="c1">//   type &#39;&quot;北極&quot; | &quot;冷やし味噌&quot;&#39;.</span>
+
+<span class="c1">// 数値も設定可能</span>
+<span class="nx">type</span> <span class="nx">PointRate</span> <span class="o">=</span> <span class="mi">8</span> <span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="mi">20</span><span class="p">;</span>
+<span class="c1">// これもエラーに</span>
+<span class="kd">let</span> <span class="nx">point</span>: <span class="kt">PointRate</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -267,19 +273,19 @@
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 1601</li>
-        <li>非アスキー: 2193</li>
-        <li>合計文字数: 3794</li>
-        <li>半角換算: 5987</li>
-        <li>全角換算: 2993.5</li>
+        <li>英数記号: 1668</li>
+        <li>非アスキー: 2216</li>
+        <li>合計文字数: 3884</li>
+        <li>半角換算: 6100</li>
+        <li>全角換算: 3050.0</li>
     </ul>
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">クイック検索</h3>
+  <h3>クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -293,7 +299,7 @@
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

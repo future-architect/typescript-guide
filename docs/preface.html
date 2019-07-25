@@ -66,7 +66,7 @@ JavaScriptは2015年より前は保守的なアップデートがおこなわれ
 <div class="section" id="id3">
 <h2>TypeScriptを選んで開発すべき理由<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>「型情報を省くとほぼJavaScript」なのに、なぜわざわざ別のツールを導入してまでTypeScriptを使うのでしょうか？</p>
-<p>型情報が得られることで開発が加速される、というので十分に元はとれますが。また、最初から書くTypeScriptをメリットとしては、JavaScriptのライブラリをコンパイルして作る際に、型定義ファイルも同時生成できて、無駄がない点にあります。最初から書くことでTypeScript資産がたまり、さらにTypeScriptの開発が楽になります。</p>
+<p>型情報が得られることで開発が加速される、というので十分に元はとれます。また、最初からTypeScriptを書くメリットとしては、JavaScriptのライブラリをコンパイルして作る際に、型定義ファイルも同時生成できて、無駄がない点にあります。最初から書くことでTypeScript資産がたまり、さらにTypeScriptの開発が楽になります。</p>
 <p>また、JavaScriptは極めて柔軟な言語です。関数の引数の型もどんなものでも受け付けるとか、引数によって内部の動作が大きく切り替わるようなコード（メソッド・オーバーロード）も書こうと思えば書けます。またTypeScriptの機能を駆使して、そのような関数に型情報を付与することもできます。しかし、TypeScriptで最初から書けば、そのような型付けに苦労するような、トリッキーな書き方がしにくくなります。結果として型定義のメンテナンスに時間を取られることが減ります。</p>
 <p>それ以外にも、型情報が分かった上で変換を行うため、ループ構文など、いくつかのコードを変換するときに、Babelよりも実行効率の良いJavaScriptコードを生成することもわかっています。</p>
 <p>本ドキュメントでは、大規模化するフロントエンド開発の難易度を下げ、バグが入り込みにくくなるTypeScriptを使いこなせるように、文法や環境構築などを紹介していきます。</p>
@@ -122,22 +122,28 @@ JavaScriptは2015年より前は保守的なアップデートがおこなわれ
 </dl>
 </div>
 <div class="section" id="id13">
-<h2>TypeScriptと互換性<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>インターネット上ですべてのユーザーが見られるサイトを作る場合、現在の機能的な下限はInternet Explorer 11 <a class="footnote-reference brackets" href="#id19" id="id14">4</a> です。
-Googleの検索エンジンのボットもこれとほぼ同等機能（<code class="docutils literal notranslate"><span class="pre">const</span></code>、 <code class="docutils literal notranslate"><span class="pre">let</span></code>ありのクラスなし）のChrome 41で固定されています <a class="footnote-reference brackets" href="#id20" id="id15">5</a> 。
+<h2>本書で扱わないこと<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>本書はTypeScriptのエコシステムまで含めたすべてを説明しようとするものではありません。</p>
+<p>例えば、既存のJavaScriptのライブラリのための型定義ファイルを作成する方法については紹介しません。時間が経てば有名ライブラリについてはほぼ網羅されることを期待していますし、自作していくときはゼロからTypeScriptでいけば、型定義ファイルは自動生成されるので不要です。</p>
+<p>また、ジェネリクスや型システムの複雑な機能には深入りはしません。TypeScriptも、少しずつ着実にバージョンアップを重ねています。一般的に開発者がよく利用するようなケースにおいては、すでに書きやすくなるようにデザインされています。また、今現在は簡単に定義できないようなものがあったとしても将来バージョンで改善されて簡単に書けるようになると期待されるからです。</p>
+</div>
+<div class="section" id="id14">
+<h2>TypeScriptと互換性<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>インターネット上ですべてのユーザーが見られるサイトを作る場合、現在の機能的な下限はInternet Explorer 11 <a class="footnote-reference brackets" href="#id20" id="id15">4</a> です。
+Googleの検索エンジンのボットもこれとほぼ同等機能（<code class="docutils literal notranslate"><span class="pre">const</span></code>、 <code class="docutils literal notranslate"><span class="pre">let</span></code>ありのクラスなし）のChrome 41で固定されています <a class="footnote-reference brackets" href="#id21" id="id16">5</a> 。
 それ以外には、バージョンアップがもう提供されていないiOSやAndroidのスマートフォンの場合に最新の機能が使えないことがあります。
 ブラウザ以外ではGoogle Apps ScriptがECMAScript3にしか対応していません。</p>
 <p>100%のブラウザとの互換性を維持するのは開発リソースがいくらあっても足りないため、捻出できる工数と相談しながら、サポート範囲を決めます。
-ブラウザのバージョンごとにどの機能が対応しているかはECMAScript Compatibility Table<a class="footnote-reference brackets" href="#id21" id="id16">6</a>のサイトで調べられます。</p>
-<p>新しいブラウザのみに限定できるイントラネットのサービスや、Node.js以外は、Babelなり、TypeScriptなりのコンパイラを使い、変換後の出力として古いブラウザ向けのJavaScriptコードに変換して出力するのが現在では一般的です。Lambda、Cloud Functions、Google App Engineなどは、場合によっては少し古いバージョンのNode.jsを対象にしなければならないため、これも変換が必要になるかもしれません <a class="footnote-reference brackets" href="#id22" id="id17">7</a> 。</p>
+ブラウザのバージョンごとにどの機能が対応しているかはECMAScript Compatibility Table<a class="footnote-reference brackets" href="#id22" id="id17">6</a>のサイトで調べられます。</p>
+<p>新しいブラウザのみに限定できるイントラネットのサービスや、Node.js以外は、Babelなり、TypeScriptなりのコンパイラを使い、変換後の出力として古いブラウザ向けのJavaScriptコードに変換して出力するのが現在では一般的です。Lambda、Cloud Functions、Google App Engineなどは、場合によっては少し古いバージョンのNode.jsを対象にしなければならないため、これも変換が必要になるかもしれません <a class="footnote-reference brackets" href="#id23" id="id18">7</a> 。</p>
 <p>TypeScriptの場合はほぼ最新のECMAScriptの文法に型をつけて記述できますが、コンパイル時に出力するコードのバージョンを決めることができます。
 デフォルトではES3ですが、ES5、ES2015からES2018、ESNEXTとあわせて、合計7通りの選択肢が取れます。一部の記述はターゲットが古い場合にはオプションが必要になることもあります。最低限、ES5であれば、新旧問わずどのブラウザでも問題になることはないでしょう。</p>
 <p>ただし、TypeScriptが面倒を見てくれるのは文法の部分だけです。たとえば、 <code class="docutils literal notranslate"><span class="pre">Map</span></code> や <code class="docutils literal notranslate"><span class="pre">Set</span></code> といったクラスはES5にはありませんし、イテレータを伴う <code class="docutils literal notranslate"><span class="pre">Array</span></code> のメソッドもありません。</p>
-<p>TypeScriptには <code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code> というコンパイラの動作を決定する定義ファイルがあります。ブラウザの可搬性を維持しつつ、これらの新しい要素を使いたい場合には別途そこをサポートするものを入れる必要があります。現在、その足りないクラスやメソッドを追加するもの（Polyfillと呼ばれる）で、一番利用されるのが <code class="docutils literal notranslate"><span class="pre">core-js</span></code> <a class="footnote-reference brackets" href="#id23" id="id18">8</a> で、Babelからも使われているようです。</p>
+<p>TypeScriptには <code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code> というコンパイラの動作を決定する定義ファイルがあります。ブラウザの可搬性を維持しつつ、これらの新しい要素を使いたい場合には別途そこをサポートするものを入れる必要があります。現在、その足りないクラスやメソッドを追加するもの（Polyfillと呼ばれる）で、一番利用されるのが <code class="docutils literal notranslate"><span class="pre">core-js</span></code> <a class="footnote-reference brackets" href="#id24" id="id19">8</a> で、Babelからも使われているようです。</p>
 <p>出力ターゲットを古くすると、利用できるクラスなども一緒に古くなってしまうため、対策が必要です、まずは、ES2017やES2018などのバージョンのうち、必要なクラスを定義しているバージョンがどれかを探してきます。どのバージョンがどの機能をサポートしているかは、前述の compat-table が参考になります。</p>
 <p>ターゲットに <code class="docutils literal notranslate"><span class="pre">es5</span></code> を選ぶと、 <code class="docutils literal notranslate"><span class="pre">lib</span></code> には <code class="docutils literal notranslate"><span class="pre">[&quot;DOM&quot;,</span> <span class="pre">&quot;ScriptHost&quot;,</span> <span class="pre">&quot;ES5&quot;]</span></code> が定義されます。 <code class="docutils literal notranslate"><span class="pre">lib</span></code> は使えるクラスとかメソッド、その時の型などが定義されているもので、これを増やしたからといってできることが増えたりはしませんが、「これはないよ」というコンパイラがエラーを出力するための情報源として使われます。この <code class="docutils literal notranslate"><span class="pre">&quot;ES5&quot;</span></code> には、そのバージョンで利用できるクラスとメソッドしかないため、次のように <code class="docutils literal notranslate"><span class="pre">ES2017</span></code> に置き換えます。</p>
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;es5&quot;</span><span class="p">,</span>
@@ -154,19 +160,19 @@ core-jsのオプションが知りたい場合は、core-jsのサイトのREADME
 </pre></div>
 </div>
 <dl class="footnote brackets">
-<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id14">4</a></span></dt>
+<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id15">4</a></span></dt>
 <dd><p>Microsoft社がEdgeがChromiumベースにすることが発表され、現在ベータ版が配布されています。これまでのEdgeと異なり、Windows 7以降のすべてのWindowsで提供されるようになります。IEモードも搭載されてIEとのリプレースも行えるようになるため、IE基準で考える必要はなくなっていく予定です。</p>
 </dd>
-<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id15">5</a></span></dt>
+<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id16">5</a></span></dt>
 <dd><p>Google I/O 2019で、これが現時点の最新版と同じChrome 74に更新されることが発表されています。</p>
 </dd>
-<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id16">6</a></span></dt>
+<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id17">6</a></span></dt>
 <dd><p><a class="reference external" href="http://kangax.github.io/compat-table/es6/">http://kangax.github.io/compat-table/es6/</a></p>
 </dd>
-<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id17">7</a></span></dt>
+<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id18">7</a></span></dt>
 <dd><p>Lambdaは長らくNode.js 6というかなり古いバージョンを使っていましたが10が提供されて6はサポート終了になり、Node.js 6ベースのタスクの新規作成と更新ができなくなりました。</p>
 </dd>
-<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id18">8</a></span></dt>
+<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id19">8</a></span></dt>
 <dd><p><a class="reference external" href="https://www.npmjs.com/package/core-js">https://www.npmjs.com/package/core-js</a></p>
 </dd>
 </dl>
@@ -189,7 +195,8 @@ core-jsのオプションが知りたい場合は、core-jsのサイトのREADME
 <li><a class="reference internal" href="#javascript">JavaScriptのバージョン</a></li>
 <li><a class="reference internal" href="#id4">本書の参考文献など</a></li>
 <li><a class="reference internal" href="#id9">ライセンス</a></li>
-<li><a class="reference internal" href="#id13">TypeScriptと互換性</a></li>
+<li><a class="reference internal" href="#id13">本書で扱わないこと</a></li>
+<li><a class="reference internal" href="#id14">TypeScriptと互換性</a></li>
 </ul>
 </li>
 </ul>
@@ -212,19 +219,19 @@ core-jsのオプションが知りたい場合は、core-jsのサイトのREADME
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 2345</li>
-        <li>非アスキー: 5940</li>
-        <li>合計文字数: 8285</li>
-        <li>半角換算: 14225</li>
-        <li>全角換算: 7112.5</li>
+        <li>英数記号: 2385</li>
+        <li>非アスキー: 6276</li>
+        <li>合計文字数: 8661</li>
+        <li>半角換算: 14937</li>
+        <li>全角換算: 7468.5</li>
     </ul>
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">クイック検索</h3>
+  <h3>クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -238,7 +245,7 @@ core-jsのオプションが知りたい場合は、core-jsのサイトのREADME
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

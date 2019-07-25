@@ -73,8 +73,8 @@
 <p>スプレッド構文は省略記号のようにピリオドを3つ書く構文で、あたかも複数の要素がそこにあるかのように振る舞います。
 スプレッド構文は取り出し以外にも、配列やオブジェクトの加工、関数呼び出しの引数リストに対しても使える強力な構文です。
 ここでは、2つめ以降のすべての要素を<code class="docutils literal notranslate"><span class="pre">other</span></code>に格納しています。</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">配列の要素の取り出し</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">配列の要素の取り出し</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">smalls</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">&quot;小動物&quot;</span><span class="p">,</span>
   <span class="s2">&quot;小型車&quot;</span><span class="p">,</span>
@@ -97,8 +97,8 @@
 <div class="section" id="id5">
 <h3>配列の要素の存在チェック<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以前は、要素のインデックス値を見て判断していましたが、配列に要素が入っているかどうかをbooleanで返す<code class="docutils literal notranslate"><span class="pre">includes()</span></code>メソッドが入ったので、積極的にこれを使っていきましょう。</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">要素の存在チェック</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">要素の存在チェック</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">places</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;小岩駅&quot;</span><span class="p">,</span> <span class="s2">&quot;小浜市&quot;</span><span class="p">,</span> <span class="s2">&quot;小倉駅&quot;</span><span class="p">];</span>
 
 <span class="c1">// 旧: indexOfを利用</span>
@@ -125,8 +125,8 @@
 その1つが、配列やオブジェクトを加工していくのではなく、値が変更されたコピーを別に作って、最後にリプレースするという方法です。
 <code class="docutils literal notranslate"><span class="pre">splice()</span></code>は対象の配列を変更してしまいますが、スプレッド構文を使うと、この方針に沿ったコーディングがしやすくなります。
 配列のコピーも簡単にできます。</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">配列の加工</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">配列の加工</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">smalls</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">&quot;小動物&quot;</span><span class="p">,</span>
   <span class="s2">&quot;小型車&quot;</span><span class="p">,</span>
@@ -195,6 +195,8 @@ C言語由来のループは昔からあるものですがループ変数が必�
 </div>
 <p>Polyfillを使うことで対処もできますが、Polyfillを使わない対処方法としては、 <code class="docutils literal notranslate"><span class="pre">forEach()</span></code> を使う（2つめの引数がインデックス）、旧来のループを使うしかありません。</p>
 </div>
+<p>速度の面で言えば、旧来の <code class="docutils literal notranslate"><span class="pre">for</span></code> ループが最速です。 <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">...</span> <span class="pre">of</span></code> や <code class="docutils literal notranslate"><span class="pre">forEach()</span></code> は、ループ1周ごとに関数呼び出しが挟まるため、実行コストが多少上乗せされます。
+といっても、ゲームの座標計算で1フレームごとに数万要素のループを回さなければならない、といったケース以外ではほぼ気にする必要はないでしょう。</p>
 </div>
 <div class="section" id="iterable">
 <h3>iterableとイテレータ<a class="headerlink" href="#iterable" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -239,6 +241,12 @@ C言語由来のループは昔からあるものですがループ変数が必�
 </div></blockquote>
 </div>
 </div>
+<div class="section" id="typescript">
+<h3>TypeScriptと配列<a class="headerlink" href="#typescript" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">...</span> <span class="pre">of</span></code> には速度のペナルティがあるということを紹介しました。しかし、TypeScriptを使っている場合には少し恩恵があります。</p>
+<p>TypeScriptを使っていると、ES5への出力の場合型情報を見て、 <code class="docutils literal notranslate"><span class="pre">Array</span></code> 型の <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">...</span> <span class="pre">of</span></code> ループの場合、旧来の最速の <code class="docutils literal notranslate"><span class="pre">for</span></code> ループのJavaScriptコードが生成されますので、速度上のペナルティがまったくない状態で、最新の構文が使えるメリットがあります。また、ChromeなどのJavaScriptエンジンの場合は、同一の型の要素だけを含む配列の場合、特別な最適化を行います。</p>
+<p>TypeScriptを使うと、型情報がついて実装が簡単になるだけではなく、速度のメリットもあります。</p>
+</div>
 </div>
 <div class="section" id="id7">
 <h2>オブジェクト<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -246,8 +254,8 @@ C言語由来のループは昔からあるものですがループ変数が必�
 配列は要素へのアクセス方法がインデックス（数値）でしたが、オブジェクトの場合は文字列です。
 キー名が変数などで使える文字だけで構成されている場合は、名前をそのまま記述できますが、空白文字やマイナスなどを含む場合にはダブルクオートやシングルクオートでくくります。
 また、キー名に変数を書く場合は <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code> でくくります。</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">オブジェクト</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">オブジェクト</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 定義はキー、コロン(:)、値を書く。要素間は改行</span>
 <span class="kr">const</span> <span class="nx">key</span> <span class="o">=</span> <span class="s1">&#39;favorite drink&#39;</span><span class="p">;</span>
 
@@ -277,8 +285,8 @@ C言語由来のループは昔からあるものですがループ変数が必�
 プレーンテキストであり、書きやすく読みやすい（XMLやSOAPと比べて）こともありますし、JavaScriptでネイティブで扱えるため、API通信で使われるデータフォーマットとしてはトップシェアを誇ります。</p>
 <p>JSONをパースすると、オブジェクトと配列で階層構造になったデータができあがります。
 通信用のライブラリでは、パース済みの状態でレスポンスが帰ってきたりするため、正確ではないですが、このオブジェクト/配列も便宜上、JSONと呼ぶこともあります。</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">JSONとオブジェクト</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">JSONとオブジェクト</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 最初の引数にオブジェクトや配列、文字列などを入れる</span>
 <span class="c1">// 2つめの引数はデータ変換をしたいときの変換関数（ログ出力からパスワードをマスクしたいなど）</span>
 <span class="c1">//   省略可能。通常はnull</span>
@@ -296,8 +304,8 @@ C言語由来のループは昔からあるものですがループ変数が必�
 その場合はJSON.parse()の中で <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> 例外が発生します。
 特に、JSONを便利だからとマスターデータとして使っていて、非プログラマーの人に、編集してもらったりしたときによく発生します。
 あとは、JSONレスポンスを期待しているウェブサービスの時に、サーバー側でエラーが発生して、 <code class="docutils literal notranslate"><span class="pre">Forbidden</span></code> という文字列が帰ってきた場合（403エラー時のボディ）にも発生します。</p>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">JSONパースのエラー</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">JSONパースのエラー</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SyntaxError: Unexpected token n in JSON at position 1
 </pre></div>
 </div>
@@ -309,8 +317,8 @@ C言語由来のループは昔からあるものですがループ変数が必�
 また、要素がなかったときにデフォルト値を設定したり、指定された要素以外のオブジェクトを抜き出すことが可能です。
 注意点としては、まとめて取り出す場合の変数名は、必ずオブジェクトのキー名になります。
 関数の返値や、後述の<code class="docutils literal notranslate"><span class="pre">Promise</span></code>では、この記法のおかげで気軽に複数の情報をまとめて返せます。</p>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">オブジェクトの要素の取り出し</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">オブジェクトの要素の取り出し</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">smallAnimal</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;小動物&quot;</span><span class="p">,</span>
   <span class="nx">favorite</span><span class="o">:</span> <span class="s2">&quot;小籠包&quot;</span>
@@ -419,6 +427,17 @@ C言語由来のループは昔からあるものですがループ変数が必�
 <p><code class="docutils literal notranslate"><span class="pre">Map</span></code> 、 <code class="docutils literal notranslate"><span class="pre">Set</span></code> はES2015以降に導入されたクラスであるため、出力ターゲットをこれよりも新しくするか、ライブラリに登録した上でPolyfillを使うしかありません。</p>
 </div>
 </div>
+<div class="section" id="id10">
+<h3>TypeScriptとオブジェクト<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>オブジェクトは、プロトタイプ指向というJavaScriptの柔軟性をささえる重要な部品です。
+一方、TypeScriptはなるべく静的に型をつけて行く事で、コンパイル時にさまざまなチェックが行えるようになり不具合を見つけることができます。オブジェクトの型の定義については次の次の章で紹介します。</p>
+<p>型定義をすると、プロパティの名前のスペルミスであったり、違う型を入れてしまうことが減ります。エラーチェックのコードを実装する手間も減るでしょう。</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>まとめ<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>JavaScriptの2大複合型の配列とオブジェクトを紹介しました。また、オブジェクトの関連のデータ構造として <code class="docutils literal notranslate"><span class="pre">Map</span></code> や <code class="docutils literal notranslate"><span class="pre">Set</span></code> も紹介しました。</p>
+<p>Javaと比べると、TypeScriptで実装する場合、同じようなものを実装する場合にもクラス定義の数は減るでしょう。ちょっとしたデータを格納するデータ構造などは、これらの型を使って定義なしで使うことが多いからです。Javaからやってくると、これらの型を乱用しているように見えて不安になるかもしれません。しかし、TypeScriptを使えば、型推論やインラインでの明示的な型定義によって、これらの型でもきちんとしたチェックが行われるようになります。不安はあるかもしれませんが、安全にコーディングができます。</p>
 </div>
 </div>
 
@@ -439,6 +458,7 @@ C言語由来のループは昔からあるものですがループ変数が必�
 <li><a class="reference internal" href="#id6">配列の加工</a></li>
 <li><a class="reference internal" href="#for-of">ループは<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">...</span> <span class="pre">of</span></code>を使う</a></li>
 <li><a class="reference internal" href="#iterable">iterableとイテレータ</a></li>
+<li><a class="reference internal" href="#typescript">TypeScriptと配列</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#id7">オブジェクト</a><ul>
@@ -446,8 +466,10 @@ C言語由来のループは昔からあるものですがループ変数が必�
 <li><a class="reference internal" href="#id8">オブジェクトからのデータの取り出し</a></li>
 <li><a class="reference internal" href="#id9">オブジェクトの要素の加工</a></li>
 <li><a class="reference internal" href="#map">辞書用途はオブジェクトではなくて<code class="docutils literal notranslate"><span class="pre">Map</span></code>を使う</a></li>
+<li><a class="reference internal" href="#id10">TypeScriptとオブジェクト</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id11">まとめ</a></li>
 </ul>
 </li>
 </ul>
@@ -470,19 +492,19 @@ C言語由来のループは昔からあるものですがループ変数が必�
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 4321</li>
-        <li>非アスキー: 4860</li>
-        <li>合計文字数: 9181</li>
-        <li>半角換算: 14041</li>
-        <li>全角換算: 7020.5</li>
+        <li>英数記号: 4536</li>
+        <li>非アスキー: 5706</li>
+        <li>合計文字数: 10242</li>
+        <li>半角換算: 15948</li>
+        <li>全角換算: 7974.0</li>
     </ul>
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">クイック検索</h3>
+  <h3>クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -496,7 +518,7 @@ C言語由来のループは昔からあるものですがループ変数が必�
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

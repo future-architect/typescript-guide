@@ -17,7 +17,7 @@ JavaScriptは動的言語の中でも、いろいろ制約がゆるく、無名�
    // 型はUnion Typeで複数列挙できる
    let birthYear: number | string;
 
-   // 型には値も設定できる
+   // 型には文字列や数値の値も設定できる
    let favoriteFood: "北極" | "冷やし味噌";
 
 一番手抜きな型付け: ``any``
@@ -411,6 +411,76 @@ TypeScriptではキャスト（型アサーション）もいちおうありま�
    const page: any = { name: "profile page" };
    // any型からはasでどんな型にも変換できる
    const name: string = page as string;
+
+``keyof`` とMapped Type: オブジェクトのキーの文字列のみを許容する動的な型宣言
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+この項目は中級者向けの項目になります。一般的にはジェネリクスと一緒に使うことが多い機能です。
+
+JavaScriptは動的なオブジェクトを駆使してプログラミングをしてきました。そのオブジェクトが他の言語でいう構造体、あるいはレコード型のように特定の属性を持つことが分かっている用途でのみ使われるのであれば今まで説明してきた機能だけで十分に利用できます。
+
+一方、 ``Map`` のように、何かしらの識別子をキーにして子供として要素を持つデータ構造として使われているケースなどもあります。例えばフォームのIDとその値をオブジェクトとして表現する場合は、フォームごとに項目が変わります。
+そのような用途では、「このキーがある」「このキーのみを対象としたい」「このキーの型情報」みたいな型宣言がしたくなります。 ``keyof`` を使うとこのようなケースでの柔軟性があがります。
+
+.. code-block:: ts
+
+   type Park = {
+     name: string;
+     hasTako: boolean;
+   };
+
+   // Parkのキーである、 "name" | "hasTako"が割り当てられる
+   type Key = keyof Park;
+   // 指定されたキー以外はエラーになる
+   const key: Key = "name";
+   // 1行でも書ける
+   const key: keyof Park = "hasTako";
+
+   // 値の方の型も取れる(stringになる)
+   type ParkName = Park["name"];
+
+   // 指定されたキー以外はエラーになる
+   const key: keyof Park = "name";
+
+また、オブジェクトのキー全部に対して型定義をすることもできます。構造としては次のように書きます。
+オブジェクトのキーは ``[ ]`` でくくることで式を書くことができました。それの文法と似た書き方になっています。
+Kというのがキー名の変数で、 ``in`` によるループの要素が1つずつ入るイメージです。
+
+.. code-block:: ts
+
+   // 基本の書き方
+   {[K in keyof Object]: プロパティの型}
+
+   // 入力のObjectとキーは同じだがバリデーション結果を返す（値はすべてboolean）
+   {readonly [K in keyof Object]: boolean}
+
+   // 入力のObjectとまったく同じものをこの記法で書いたもの
+   {[K in keyof Object]: Object[K]}
+
+   // 入力のObjectとまったく同じだが読み込み専用
+   {readonly [K in keyof Object]: Object[K]}
+
+なお、 ``readonly`` を付与するのはジェネリクスなユーティリティ型 ``Readonly<T>`` というものがあるので実際にこのコードを書くことはないでしょう。
+
+以下のコードが読み込み専用の型定義になります。
+
+.. code-block:: ts
+
+   type ParkForm = {
+     name: string;
+     hasTako: boolean;
+   };
+
+   // 値を全て読み込み専用にした型
+   type FrozenParkForm = {readonly [K in keyof ParkForm]: ParkForm[K]};
+
+   const form: FrozenParkForm = {
+     name: "恵比寿東",
+     hasTako: true
+   };
+
+   // 読み込み専用なのでエラーになる
+   form.name = "和布刈公園"
 
 インタフェースを使った型定義
 ----------------------------

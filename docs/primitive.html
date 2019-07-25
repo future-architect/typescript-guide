@@ -82,8 +82,8 @@
 <h3>ド・モルガンの法則<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">if</span></code> 文の条件式が複雑なときに、それを簡単にするのにごくたまに役立つのがド・モルガンの法則です。
 次のような法則でNOTとANDとORの組みを変換できます。</p>
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">ド・モルガンの法則</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">ド・モルガンの法則</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="p">(</span><span class="nx">P</span> <span class="o">||</span> <span class="nx">Q</span><span class="p">)</span> <span class="o">==</span> <span class="o">!</span><span class="nx">P</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">Q</span>
 <span class="o">!</span><span class="p">(</span><span class="nx">P</span> <span class="o">&amp;&amp;</span> <span class="nx">Q</span><span class="p">)</span> <span class="o">==</span> <span class="o">!</span><span class="nx">P</span> <span class="o">||</span> <span class="o">!</span><span class="nx">Q</span>
 </pre></div>
@@ -101,9 +101,9 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <div class="section" id="number">
 <h3><code class="docutils literal notranslate"><span class="pre">number</span></code><a class="headerlink" href="#number" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>TypeScript（というか、その下で動作しているJavaScript）は64ビットの浮動小数点数で扱います。これはどのCPUを使っても基本的に同じ精度を持ちます <a class="footnote-reference brackets" href="#id7" id="id6">2</a> 。整数をロスなく格納できるのは53ビット(-1)までなので、±約9007兆までの整数を扱えます。それ以上の数値を入れると、末尾が誤差としてカットされたりして、整数を期待して扱うと問題が生じる可能性があります。正確な上限と下限は <code class="docutils literal notranslate"><span class="pre">Number.MAX_SAFE_INTEGER</span></code> 、 <code class="docutils literal notranslate"><span class="pre">Number.MIN_SAFE_INTEGER</span></code> という定数で見ることができます。また、 <code class="docutils literal notranslate"><span class="pre">Number.isSafeInteger(数値)</span></code> という関数で、その範囲内に収まっているかどうかを確認できます。</p>
-<div class="figure align-default" id="id24">
+<div class="figure align-center" id="id25">
 <img alt="_images/double.png" src="_images/double.png" />
-<p class="caption"><span class="caption-text">The memory format of an IEEE 754 double floating point value. by Codekaizen (CC 4.0 BY-SA)</span><a class="headerlink" href="#id24" title="この画像へのパーマリンク">¶</a></p>
+<p class="caption"><span class="caption-text">The memory format of an IEEE 754 double floating point value. by Codekaizen (CC 4.0 BY-SA)</span><a class="headerlink" href="#id25" title="この画像へのパーマリンク">¶</a></p>
 </div>
 <dl class="footnote brackets">
 <dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id6">2</a></span></dt>
@@ -115,7 +115,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">128</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">0</span><span class="nx">b11</span><span class="p">);</span> <span class="c1">// 0bから始まると2進数</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">0777</span><span class="p">);</span> <span class="c1">// 0, 0oから始まると8進数</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mh">0xf7</span><span class="p">);</span> <span class="c1">// 0, 0xから始まると16進数</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mh">0xf7</span><span class="p">);</span> <span class="c1">// 0xから始まると16進数</span>
 
 <span class="c1">// 変数に代入。変数の型名はnumber</span>
 <span class="kr">const</span> <span class="nx">year</span>: <span class="kt">number</span> <span class="o">=</span> <span class="mi">2019</span><span class="p">;</span>
@@ -131,9 +131,9 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span>        <span class="c1">// boolean型はNumber関数で0/1になる</span>
 </pre></div>
 </div>
-<p>変換の処理は、方法によって結果が変わります。10進数を期待するものはradix無しの <code class="docutils literal notranslate"><span class="pre">parseInt()</span></code> で使っておけば間違いありませ。</p>
-<table class="docutils align-default" id="id25">
-<caption><span class="caption-text">文字列から数値の変換</span><a class="headerlink" href="#id25" title="このテーブルへのパーマリンク">¶</a></caption>
+<p>変換の処理は、方法によって結果が変わります。10進数を期待するものはradix無しの <code class="docutils literal notranslate"><span class="pre">parseInt()</span></code> で使っておけば間違いありません。</p>
+<table class="docutils align-center" id="id26">
+<caption><span class="caption-text">文字列から数値の変換</span><a class="headerlink" href="#id26" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 20%" />
@@ -197,11 +197,11 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">number</span></code> 型は多くのケースではベストな選択になります。特に浮動小数点数を使うのであればこちらしかありません。
 それ以外に、±2^53-1までであれば整数として表現されるので情報が減ったりはしません。また、これらの範囲では一番高速に演算できます。</p>
-<p><code class="docutils literal notranslate"><span class="pre">bitint</span></code> 型は整数しか表現できませんが、桁数の制限はありません。ただし、現時点では <code class="docutils literal notranslate"><span class="pre">&quot;target&quot;:</span> <span class="pre">&quot;esnext&quot;</span></code> と設定しないと使えません。
+<p><code class="docutils literal notranslate"><span class="pre">bigint</span></code> 型は整数しか表現できませんが、桁数の制限はありません。ただし、現時点では <code class="docutils literal notranslate"><span class="pre">&quot;target&quot;:</span> <span class="pre">&quot;esnext&quot;</span></code> と設定しないと使えません。
 使える場面はかなり限られるでしょう。本ドキュメントでは詳しく扱いません。</p>
 <p><code class="docutils literal notranslate"><span class="pre">number</span></code> は2進数で表した数値表現なので、 0.2 + 0.1などのようなきれいに2進数で表現できない数値は誤差が出てしまいます。金額計算など、多少遅くても正確な計算が必要な場合はdecimal.js <a class="footnote-reference brackets" href="#id10" id="id9">3</a> などの外部ライブラリを使います。</p>
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">numberの誤差</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">numberの誤差</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">;</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">);</span>
@@ -217,10 +217,10 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </div>
 <div class="section" id="id11">
 <h3>演算子<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">+</span></code> 、 <code class="docutils literal notranslate"><span class="pre">-</span></code> 、 <code class="docutils literal notranslate"><span class="pre">*</span></code> 、 <code class="docutils literal notranslate"><span class="pre">/</span></code> 、 <code class="docutils literal notranslate"><span class="pre">%</span></code> （剰余）のよくある数値計算用の演算子が使えます。これ以外に、 <code class="docutils literal notranslate"><span class="pre">**</span></code> というベキ乗の演算子がES2016で追加されています <a class="footnote-reference brackets" href="#id14" id="id12">4</a> 。</p>
-<p>また、 <code class="docutils literal notranslate"><span class="pre">number</span></code> は整数としても扱えますのでビット演算も可能です。ビット演算は2進数として表現した表を使って、計算するイメージを持ってもらえると良いでしょう。コンピュータの内部はビット単位での処理になるため、高速なロジックの実装で使われることがよくあります <a class="footnote-reference brackets" href="#id15" id="id13">5</a> 。</p>
+<p><code class="docutils literal notranslate"><span class="pre">+</span></code> 、 <code class="docutils literal notranslate"><span class="pre">-</span></code> 、 <code class="docutils literal notranslate"><span class="pre">*</span></code> 、 <code class="docutils literal notranslate"><span class="pre">/</span></code> 、 <code class="docutils literal notranslate"><span class="pre">%</span></code> （剰余）のよくある数値計算用の演算子が使えます。これ以外に、 <code class="docutils literal notranslate"><span class="pre">**</span></code> というベキ乗の演算子がES2016で追加されています <a class="footnote-reference brackets" href="#id15" id="id12">4</a> 。</p>
+<p>また、 <code class="docutils literal notranslate"><span class="pre">number</span></code> は整数としても扱えますのでビット演算も可能です。ビット演算は2進数として表現した表を使って、計算するイメージを持ってもらえると良いでしょう。コンピュータの内部はビット単位での処理になるため、高速なロジックの実装で使われることがよくあります <a class="footnote-reference brackets" href="#id16" id="id13">5</a> 。</p>
 <p>ただし、ビット演算時には精度は32ビット整数にまで丸められてから行われるため、その点は要注意です。</p>
-<table class="colwidths-given docutils align-default">
+<table class="colwidths-given docutils align-center">
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 28%" />
@@ -259,25 +259,25 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </tr>
 </tbody>
 </table>
-<p>なお、トリッキーな方法としては、次のビット演算を利用して、小数値を整数にする方法があります。なぜ整数になるかはぜひ考えて見てください [#]_。これらの方法、とくに後者の方は小数値を整数にする最速の方法として知られているため、ちょっと込み入った計算ロジックのコードを読むと出てくるかもしれません。</p>
+<p>なお、トリッキーな方法としては、次のビット演算を利用して、小数値を整数にする方法があります。なぜ整数になるかはぜひ考えて見てください <a class="footnote-reference brackets" href="#id17" id="id14">6</a>  。これらの方法、とくに後者の方は小数値を整数にする最速の方法として知られているため、ちょっと込み入った計算ロジックのコードを読むと出てくるかもしれません。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">~~</span></code> を先頭につける</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">|0</span></code> を末尾につける</p></li>
 </ul>
 <dl class="footnote brackets">
-<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id12">4</a></span></dt>
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id12">4</a></span></dt>
 <dd><p>以前は <code class="docutils literal notranslate"><span class="pre">Math.pow(x,</span> <span class="pre">y)</span></code> という関数を使っていました。</p>
 </dd>
-<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id13">5</a></span></dt>
+<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id13">5</a></span></dt>
 <dd><p>ビット演算を多用する用途としては、遺伝子情報を高速に計算するのに使うFM-Indexといったアルゴリズムの裏で使われる簡潔データ構造と呼ばれるデータ構造があります。</p>
 </dd>
-<dt class="label" id="id16"><span class="brackets">6</span></dt>
+<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id14">6</a></span></dt>
 <dd><p>ただし、ビット演算なので、本来扱えるよりもかなり小さい数字でしか正常に動作しません。</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="id17">
-<h3>特殊な数値<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id18">
+<h3>特殊な数値<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>数値計算の途中で、正常な数値として扱えない数値が出てくることがあります。業務システムでハンドリングすることはあまりないと思います。もし意図せず登場することがあればロジックの不具合の可能性が高いでしょう。</p>
 <ul class="simple">
 <li><p>無限大: <code class="docutils literal notranslate"><span class="pre">Infinity</span></code></p></li>
@@ -287,8 +287,8 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <div class="section" id="math">
 <h3><code class="docutils literal notranslate"><span class="pre">Math</span></code> オブジェクト<a class="headerlink" href="#math" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>TypeScriptで数値計算を行う場合、 <code class="docutils literal notranslate"><span class="pre">Math</span></code> オブジェクトの関数や定数を使います。</p>
-<table class="colwidths-given docutils align-default" id="id27">
-<caption><span class="caption-text">数値の最大値、最小値</span><a class="headerlink" href="#id27" title="このテーブルへのパーマリンク">¶</a></caption>
+<table class="colwidths-given docutils align-center" id="id28">
+<caption><span class="caption-text">数値の最大値、最小値</span><a class="headerlink" href="#id28" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -308,8 +308,8 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </tbody>
 </table>
 <p>乱数生成の関数もここに含まれます。0から1未満の数値を返します。例えば0-9の整数が必要な場合は、10倍して <code class="docutils literal notranslate"><span class="pre">Math.floor()</span></code> などを使うと良いでしょう。</p>
-<table class="colwidths-given docutils align-default" id="id28">
-<caption><span class="caption-text">乱数</span><a class="headerlink" href="#id28" title="このテーブルへのパーマリンク">¶</a></caption>
+<table class="colwidths-given docutils align-center" id="id29">
+<caption><span class="caption-text">乱数</span><a class="headerlink" href="#id29" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -326,8 +326,8 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </tbody>
 </table>
 <p>整数に変換する関数はたくさんあります。一見、似たような関数が複数あります。例えば、 <code class="docutils literal notranslate"><span class="pre">Math.floor()</span></code> と <code class="docutils literal notranslate"><span class="pre">Math.trunc()</span></code> は似ていますが、負の値を入れた時に、前者は数値が低くなる方向に（-1.5なら-2）丸めますが、後者は0に近く方向に丸めるといった違いがあります。</p>
-<table class="colwidths-given docutils align-default" id="id29">
-<caption><span class="caption-text">整数変換</span><a class="headerlink" href="#id29" title="このテーブルへのパーマリンク">¶</a></caption>
+<table class="colwidths-given docutils align-center" id="id30">
+<caption><span class="caption-text">整数変換</span><a class="headerlink" href="#id30" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -362,8 +362,8 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </tbody>
 </table>
 <p>整数演算の補助関数もいくつかあります。ビット演算と一緒に使うことが多いと思われます。</p>
-<table class="colwidths-given docutils align-default" id="id30">
-<caption><span class="caption-text">32ビット整数</span><a class="headerlink" href="#id30" title="このテーブルへのパーマリンク">¶</a></caption>
+<table class="colwidths-given docutils align-center" id="id31">
+<caption><span class="caption-text">32ビット整数</span><a class="headerlink" href="#id31" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -383,8 +383,8 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </tbody>
 </table>
 <p>平方根などに関する関数もあります。</p>
-<table class="colwidths-given docutils align-default" id="id31">
-<caption><span class="caption-text">ルート</span><a class="headerlink" href="#id31" title="このテーブルへのパーマリンク">¶</a></caption>
+<table class="colwidths-given docutils align-center" id="id32">
+<caption><span class="caption-text">ルート</span><a class="headerlink" href="#id32" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -413,8 +413,8 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </tbody>
 </table>
 <p>対数関係の関数です。</p>
-<table class="colwidths-given docutils align-default" id="id32">
-<caption><span class="caption-text">対数</span><a class="headerlink" href="#id32" title="このテーブルへのパーマリンク">¶</a></caption>
+<table class="colwidths-given docutils align-center" id="id33">
+<caption><span class="caption-text">対数</span><a class="headerlink" href="#id33" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -496,13 +496,13 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </pre></div>
 </div>
 <p>JavaScriptはUTF-16という文字コードを採用しています。Javaと同じです。絵文字など、一部の文字列は1文字分のデータでは再現できずに、2文字使って1文字を表現することがあります。これをサロゲートペアと呼びます。範囲アクセスなどで文字列の一部を扱おうとすると、絵文字の一部だけを拾ってしまう可能性がある点には要注意です。何かしらの文字列のロジックのテストをする場合には、絵文字も入れるようにすると良いでしょう。</p>
-<div class="section" id="id18">
-<h3>文字列のメソッド<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id19">
+<h3>文字列のメソッド<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>文字列には、その内部で持っている文字列を加工したり、一部を取り出したりするメソッドがいくつもあります。
 かなり古いJavaScriptの紹介だと、HTMLタグをつけるためのメソッドが紹介されていたりもします、TypeScriptの型定義ファイルにも未だに存在はしますが、それらのメソッドは言語標準ではないためここでは説明しません。</p>
 </div>
-<div class="section" id="id19">
-<h3>文字コードの正規化<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id20">
+<h3>文字コードの正規化<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>ユニコードには、同じ意味だけどコードポイントが異なり、字形が似ているけど少し異なる文字というものが存在します。たとえば、全角のアルファベットのＡと、半角アルファベットのAがこれにあたります。
 それらを統一してきれいにするのが正規化です。文字列の <code class="docutils literal notranslate"><span class="pre">normalize(&quot;NFKC&quot;)</span></code> というメソッド呼び出しをすると、これがすべてきれいになります。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="s2">&quot;ＡＢＣｱｲｳｴｵ㍻&quot;</span><span class="p">.</span><span class="nx">normalize</span><span class="p">(</span><span class="s2">&quot;NFKC&quot;</span><span class="p">)</span>
@@ -520,8 +520,8 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <p>正規化をこのルールに従って行うと、ユーザーに「全角数字で入力する」ことを強いるような、かっこ悪いUIをなくすことができます。ユーザーの入力はすべてバリデーションの手前で正規化すると良いでしょう。</p>
 <p>ただし、長音、ハイフンとマイナス、漢数字の１、横罫線など、字形が似ているものの意味としても違うものはこの正規化でも歯が立たないので、別途対処が必要です。</p>
 </div>
-<div class="section" id="id20">
-<h3>文字列の結合<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id21">
+<h3>文字列の結合<a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>従来のJavaScriptは他の言語でいうprintf系の関数がなく、文字列を<code class="docutils literal notranslate"><span class="pre">+</span></code>で結合したり、配列に入れて<code class="docutils literal notranslate"><span class="pre">.join()</span></code>で結合したりしましたが、いまどきは文字列テンプレートリテラルがありますので、ちょっとした結合は簡単に扱えます。
 printfのような数値の変換などのフォーマットはなく、あくまでも文字列結合をスマートにやるためのものですが、複数行のテキストを表現できますし、プレースホルダ内には自由に式が書けます。
 もちろん、数が決まらない配列などは従来どおり<code class="docutils literal notranslate"><span class="pre">.join()</span></code>を使います。</p>
@@ -535,14 +535,14 @@ printfのような数値の変換などのフォーマットはなく、あく�
 <p>このバッククオートを使う場合は、関数を前置することで、文字列を加工することができます。
 国際化でメッセージを置き換える場面などで利用されます。</p>
 </div>
-<div class="section" id="id21">
-<h3>文字列の事前処理<a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id22">
+<h3>文字列の事前処理<a class="headerlink" href="#id22" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>テンプレートリテラルに関数を指定すると（タグ付きテンプレートリテラル）、文字列を加工する処理を挟めます。よく使われるケースは翻訳などでしょう。
 テンプレートリテラルの前に置かれた関数は、最初に文字列の配列がきて、その後はプレースホルダの数だけ引数が付く構造になっています。
 文字列の配列は、プレースホルダに挟まれた部分のテキストになります。
 自作する機会は多くないかもしれませんが、コード理解のために覚えておいて損はないでしょう。</p>
-<div class="literal-block-wrapper docutils container" id="id33">
-<div class="code-block-caption"><span class="caption-text">タグ付きテンプレートリテラル</span><a class="headerlink" href="#id33" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id34">
+<div class="code-block-caption"><span class="caption-text">タグ付きテンプレートリテラル</span><a class="headerlink" href="#id34" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">i18n</span><span class="p">(</span><span class="nx">texts</span><span class="p">,</span> <span class="p">...</span><span class="nx">placeholders</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// texts = [&#39;小動物は&#39;, &#39;が好きです&#39;]</span>
   <span class="c1">// placeholders = [&#39;小旅行&#39;]</span>
@@ -582,8 +582,8 @@ TypeScriptでは「これは無効な値をとる可能性がありますよ」�
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">undefined</span></code> と <code class="docutils literal notranslate"><span class="pre">null</span></code> は別のものなので、コンパイラオプションで <code class="docutils literal notranslate"><span class="pre">compilerOptions.strict:</span> <span class="pre">true</span></code> もしくは、 <code class="docutils literal notranslate"><span class="pre">compilerOptions.strictNullChecks:</span> <span class="pre">true</span></code> の場合は、 <code class="docutils literal notranslate"><span class="pre">null</span></code> 型の変数に <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を入れようとしたり、その逆をするとエラーになります。
 これらのオプションを両方とも <code class="docutils literal notranslate"><span class="pre">false</span></code> にすれば、エラーにはならなくなりますが、副作用が大きいため、これらのオプションは有効にして、普段から正しくコードを書く方が健全です。</p>
-<div class="literal-block-wrapper docutils container" id="id34">
-<div class="code-block-caption"><span class="caption-text">nullとundefinedは別物</span><a class="headerlink" href="#id34" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id35">
+<div class="code-block-caption"><span class="caption-text">nullとundefinedは別物</span><a class="headerlink" href="#id35" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">a</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kc">null</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
 <span class="c1">// error TS2322: Type &#39;undefined&#39; is not assignable to type &#39;string | null&#39;.</span>
 
@@ -593,8 +593,8 @@ TypeScriptでは「これは無効な値をとる可能性がありますよ」�
 </div>
 </div>
 </div>
-<div class="section" id="id22">
-<h2>まとめ<a class="headerlink" href="#id22" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id23">
+<h2>まとめ<a class="headerlink" href="#id23" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>TypeScript（とJavaScript）で登場する、プリミティブ型を紹介してきました。
 これらはプログラムを構成する上でのネジやクギとなるデータです。</p>
 </div>
@@ -618,19 +618,19 @@ TypeScriptでは「これは無効な値をとる可能性がありますよ」�
 <li><a class="reference internal" href="#number"><code class="docutils literal notranslate"><span class="pre">number</span></code></a></li>
 <li><a class="reference internal" href="#id8">数値型の使い分け</a></li>
 <li><a class="reference internal" href="#id11">演算子</a></li>
-<li><a class="reference internal" href="#id17">特殊な数値</a></li>
+<li><a class="reference internal" href="#id18">特殊な数値</a></li>
 <li><a class="reference internal" href="#math"><code class="docutils literal notranslate"><span class="pre">Math</span></code> オブジェクト</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#string"><code class="docutils literal notranslate"><span class="pre">string</span></code> リテラル</a><ul>
-<li><a class="reference internal" href="#id18">文字列のメソッド</a></li>
-<li><a class="reference internal" href="#id19">文字コードの正規化</a></li>
-<li><a class="reference internal" href="#id20">文字列の結合</a></li>
-<li><a class="reference internal" href="#id21">文字列の事前処理</a></li>
+<li><a class="reference internal" href="#id19">文字列のメソッド</a></li>
+<li><a class="reference internal" href="#id20">文字コードの正規化</a></li>
+<li><a class="reference internal" href="#id21">文字列の結合</a></li>
+<li><a class="reference internal" href="#id22">文字列の事前処理</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#undefined-null"><code class="docutils literal notranslate"><span class="pre">undefined</span></code> と <code class="docutils literal notranslate"><span class="pre">null</span></code></a></li>
-<li><a class="reference internal" href="#id22">まとめ</a></li>
+<li><a class="reference internal" href="#id23">まとめ</a></li>
 </ul>
 </li>
 </ul>
@@ -653,19 +653,19 @@ TypeScriptでは「これは無効な値をとる可能性がありますよ」�
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 5855</li>
-        <li>非アスキー: 6950</li>
-        <li>合計文字数: 12805</li>
-        <li>半角換算: 19755</li>
-        <li>全角換算: 9877.5</li>
+        <li>英数記号: 5851</li>
+        <li>非アスキー: 6951</li>
+        <li>合計文字数: 12802</li>
+        <li>半角換算: 19753</li>
+        <li>全角換算: 9876.5</li>
     </ul>
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">クイック検索</h3>
+  <h3>クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -679,7 +679,7 @@ TypeScriptでは「これは無効な値をとる可能性がありますよ」�
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
