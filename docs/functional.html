@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
   <head>
     <meta charset="utf-8" />
-    <title>関数型志向のプログラミング &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <title>関数型指向のプログラミング &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="next" title="リアクティブ" href="reactive.html" />
+    <link rel="next" title="クラス上級編" href="class2.html" />
     <link rel="prev" title="ジェネリクス" href="generics.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -34,13 +34,13 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>関数型志向のプログラミング<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<h1>関数型指向のプログラミング<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>JavaScriptの世界には長らく、クラスはありませんでした。プロトタイプを使ったクラスのようなものはありましたが、Javaなどに慣れた人からは不満を持たれていました。
 プロトタイプが分かっていれば、インスタンス作成能力には問題はなく、親を継承したオブジェクトも作れるため、能力が劣っていたわけではありませんでしたが、オブジェクト指向としては使いにくい。
 そんなふうに言われることも多々ありました。</p>
 <p>一方で昔からJavaScriptで関数型プログラミングを行おう、という一派はそれなりにいました。</p>
 <p>JavaScriptの出自からして、Schemerという関数型が好きだったブレンダン・アイクです。
-開発時の会社の方針でJava風の文法を備え、Javaに影響を受けた言語にはなっていますが、Javaのような静的型付けのオブジェクト指向のコンパイル言語とはやや遠い、プロトタイプ志向のインタプリタになっています。
+開発時の会社の方針でJava風の文法を備え、Javaに影響を受けた言語にはなっていますが、Javaのような静的型付けのオブジェクト指向のコンパイル言語とはやや遠い、プロトタイプ指向のインタプリタになっています。
 関数もオブジェクトとして、変数に入れたり自由に呼び出したりできる一級関数ですし、無名関数を気軽に作ったり、その関数が作られた場所の変数を束縛するクロージャとしても使えたり、関数型言語の要素も数多く備えています。</p>
 <p>おそらく、jQueryも関数型の思想で作られたのではないかと思います。
 オライリーからも、2013年に『JavaScriptで学ぶ関数型プログラミング』の原著が出ています。</p>
@@ -76,7 +76,7 @@ JavaScriptで実現できる関数型プログラミングのテクニックは�
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">関数型志向のプログラミング</a><ul>
+<li><a class="reference internal" href="#">関数型指向のプログラミング</a><ul>
 <li><a class="reference internal" href="#id2">イミュータブル</a></li>
 </ul>
 </li>
@@ -86,7 +86,7 @@ JavaScriptで実現できる関数型プログラミングのテクニックは�
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="generics.html" title="前の章へ">ジェネリクス</a></li>
-      <li>Next: <a href="reactive.html" title="次の章へ">リアクティブ</a></li>
+      <li>Next: <a href="class2.html" title="次の章へ">クラス上級編</a></li>
   </ul></li>
 </ul>
 </div>
@@ -126,7 +126,7 @@ JavaScriptで実現できる関数型プログラミングのテクニックは�
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

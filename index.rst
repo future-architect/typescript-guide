@@ -68,6 +68,7 @@
    reactenv
    ci
    deploy
+   version
 
 .. toctree::
    :maxdepth: 2

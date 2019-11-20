@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>使用ライブラリのバージョン管理 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="おすすめのパッケージ・ツール" href="recommended.html" />
+    <link rel="prev" title="成果物のデプロイ" href="deploy.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>使用ライブラリのバージョン管理<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>現代のソフトウェア開発では多くのライブラリに依存して開発を行います。大抵、システムの開発開始時には、その時点での新しいライブラリを使うと思いますが、長期的な運用を考えると、使用するライブラリやパッケージの更新というのは避けて通れない話です。本章ではそのあたりについて紹介します。</p>
+<p>前半では技術的な説明ですが、後半はソフトウェア開発に詳しくない人向けに説明する時に参考用の啓蒙的な内容になっています。コストをかけてバージョン更新をしなければならない理由がわかっている方は前半だけ読んでおけば良いです。</p>
+<div class="section" id="id2">
+<h2>バージョンとは<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>現在提供されているシステムの多くは3つの数字を並べたバージョンを使っています。</p>
+<ul class="simple">
+<li><p>x.y.z</p></li>
+</ul>
+<p>xをメジャーバージョン、yをマイナーバージョン、zをパッチバージョンと呼んだりします。例えば、12.0.4とか、3.7.3とかそういうやつです。</p>
+<p>Windowsは商品名としては95とか2000とか10とかつけたりもしますが、内部的には2つの数字の列になっています。18362.175とかそういうやつです。</p>
+<p>数字付けのルールは各システムが勝手につけることが多いので、全部のシステムで統一的なルールというのは、大きい数字ほど新しい、ぐらいのものです。昔はxが偶数が安定板、yが奇数が開発版みたいなのがよく使われたりもしていましたが、マーケティングの都合でいきなりxが大幅にジャンプしたりとかあります。xが上がると後方互換性がないバージョンアップだが、yの更新は後方互換性があるとかもよく見かけます（セマンティックバージョニング）が、気分でxをあげるシステムもあります（Linuxとか）。</p>
+<p>フロントエンド開発でよく出てくるルールがセマンティックバージョニングです。この3桁でバージョン間の大小を一意に定めます。これにより、「古い」「新しい」が判断できるようになります。</p>
+<p>細かいルールはもっといろいろあり、例えば、1.0.0よりも1.0.0-alphaの方が古い、というルールもあります。詳しくは次のページを参照してください。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://semver.org/lang/ja/">セマンティック バージョニング 2.0.0</a></p></li>
+</ul>
+<div class="section" id="id4">
+<h3>バージョンのサポートの考え方<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>サポートの考え方は大きく3種類ぐらいですね。</p>
+<ul class="simple">
+<li><p>最新メジャーバージョンのみサポート</p></li>
+<li><p>最新のいくつかのメジャーバージョンのみサポート</p></li>
+<li><p>最新のメジャーバージョンと、特定の不連続なメジャーバージョン（LTS）のみサポート</p></li>
+</ul>
+<p>たいてい、メジャーバージョンごとにサポート期間を設定することがほとんどです。開発リソースの多いプロジェクトでは、複数メジャーバージョンを同時サポートします。小さいプロジェクトや個人プロジェクトでは最新バージョンのみサポートというケースがほとんどです。また、変化の早いブラウザも最新バージョンのみです。</p>
+<p>最新のいくつかのメジャーバージョンというのは、例えばOracle社製のデータベースは最新2バージョンのみサポートとかそういうやつです。ただ、ウェブのフロントエンド開発ではあまりみないかもしれません。</p>
+<p>よく見るのがLTS（ロングタームサポート）という長期サポートバージョンを定めているライブラリとかツールです。</p>
+<p>Node.jsは、現在の半年ごとにメジャーバージョンアップします。最新のメジャーバージョンのものはcurrent扱いです。奇数バージョンはcurrentでなくなってすぐにサポートが終わりますが、1年に一回出る偶数バージョンは、currentでなくなると（次のバージョンが出ると)LTSになり、2年半サポートされます。現在の最新は12ですが、これはまだLTSではなくて、13が出ると12がLTSになる、というのは要注意です。12はメジャーバージョンアップですが、現在も活発に機能追加が行われていますので、LTSにはなっていません。</p>
+<p>ライブラリではAngularがすでにLTSを含む運用をしており、現在最新の8は、次の9が出るとLTSになって、その後1年サポートされます。Vue.jsも、[3.xが出たら2.xの最終盤がLTSとして18ヶ月サポートされる](<a class="reference external" href="https://jp.vuejs.org/2018/10/01/plans-for-the-next-iteration-of-vue-js/">https://jp.vuejs.org/2018/10/01/plans-for-the-next-iteration-of-vue-js/</a>)と宣言されています。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>バージョン選びの作戦<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Node.jsやアプリケーションで使うパッケージのバージョン選びの戦略は主に3つあります。バージョンアップ作業には時間がかかります。バージョン更新そのものに加えて、確認の工数もかかります。その分、新機能開発の工数は削減されます。時間がかかるということはそれに対して費用も発生します。どこの費用を使ってやるか、どこに請求するか、稟議をどう投げるかの考慮が必要です。なので、それをどこで消化するかを決めるのがバージョン選びの大切なところです。「そんなの決めなくてもなんとかなるよ」というのは、チーム内の誰かの善意（やる気）に甘えているだけなので要注意です。</p>
+<p>いくつか考えられる作戦を列挙してみます。どれか一つを選ぶというよりかは、状況に応じて複数のパターンを利用すると良いでしょう。</p>
+<div class="section" id="id6">
+<h3>1. 最新バージョンを積極的に選ぶ<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>常に最新バージョンを取り込んでいくスタイルです。バージョンアップタスクの分散化です。日々最新のものを取り込むスタイルです。例外としてはiOSのモバイル開発で、最新iOSのGMが出てから、ユーザーの手に最新のOSが渡り始める1-2週間で動くものを作って提出しなければなりません。あと、Reactとか、安定版などなく、最新版のみが更新されていくライブラリがコアとなると必然的にこうなります。</p>
+<p>新しいバージョンを試してその知見を公開するだけでもありがたがられるというメリットもあります。バグ報告とかでそのソフトウェアに貢献もできるかもしれません。類似パターンとしては、ベータ版も試すパターン、最新のmasterのバージョンも試すパターンもあります。</p>
+<p>ただ、現在は複数のライブラリを組み合わせて行うため、新しすぎるバージョンでは他の連動して動くライブラリの準備ができていないケースもあり、予想外に時間が取られることがありえます。特に、Babelなどの影響の大きなライブラリのバージョンには要注意です。以前、Next.jsが、Babel 7 beta42だかの中途半端なバージョンに依存して、いろいろ食い合わせが悪くて苦労した思い出。</p>
+</div>
+<div class="section" id="lts">
+<h3>2. LTSを中心に組み立てる<a class="headerlink" href="#lts" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>メインの部分（Node.jsとかAngularとか）をLTSで固め、その周りをそれに準拠する形で固めていきます。メリットとしては、スケジュールが見えているので、あらかじめバージョンアップのタイミングを計画に折り込みやすい（年間予算の計画が立てやすい、稟議にかけやすい）というものがあります。LTSのリリースの前には安定化のための期間が置かれており、比較的問題が起きにくいでしょう。</p>
+<p>ただ、LTSが提供されているものならこれでいけますが、現状、LTSを提供しているコアのライブラリはあんまりないので、現状はAngularを使っている場合のみしか適用できません。Vueはそのうち始まりますね。Reactの場合は、LTSはないが、きちんと検証された組み合わせであることを期待して、Next.jsのメジャーバージョンアップに淡々とついていく、という方法はあります。</p>
+<p>LTSを使う場合も、LTSの範囲内で最新のものを積極的に使うか、固定化するかみたいな細かい作戦の差はあります。</p>
+</div>
+<div class="section" id="id7">
+<h3>3. セキュリティの脆弱性が検知されたものを更新する<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ライブラリのセキュリティの診断はここ数年でいくつもの手法が利用可能になっています。数年ぐらい前は <a class="reference external" href="https://snyk.io/">snyk</a> にユーザー登録をしてsnykコマンドを実行して検知していました。現在はnpmコマンドを使ってnpm installするだけでも脆弱性のあるパッケージが検知できます。また、GitHubにソースコードをアップロードすると、GitHubが検知してくれます。</p>
+<p>脆弱性のあるパッケージは自分が直接インストールしたもので発生するだけではなく、そのパッケージが利用している別のパッケージのさらに依存しているパッケージが・・・みたいな依存の深いところで起きがちです。特にウェブフロントエンド開発をしていると、依存パッケージ数が簡単に4桁とかいってしまうので、すべてを目視で確認するのは難しいです。自動検知を活用しましょう。</p>
+<p>なお、検知されたすべてを修正しないといけないかというと、そんなことはありません。例えばnode-sassはrequestという外部ネットアクセスのライブラリに依存しており、これが更新されなくて脆弱性が検知されたことがありました。node-sassはCSSを書きやすくしてくれるユーティリティで、実行時には動作しません。ビルド前のCSSの中で外部リソースに依存していないのであればこのライブラリは使われないはずで、「これは検知されたが影響はありません」というように、説明がつけばOKです。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>バージョンアップの方法<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>npmコマンドにはバージョンアップを支援するサブコマンドがいくつかあります。</p>
+<p>まずは、現在のバージョンを知るための、 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">outdated</span></code> コマンドです。これを実行すると、現在インストールされているバージョン、現在のバージョン指定でインストールされる最新バージョン、リリースされている最新バージョンが表示されます。</p>
+<div class="figure align-default" id="id20">
+<img alt="_images/outdated.png" src="_images/outdated.png" />
+<p class="caption"><span class="caption-text">npm outdatedの実行結果</span><a class="headerlink" href="#id20" title="この画像へのパーマリンク">¶</a></p>
+</div>
+<p>npmでインストールするときは、最新のバージョンがインストールされますが、package.json上はその時のバージョンが固定されているわけではありません。 <code class="docutils literal notranslate"><span class="pre">&quot;browserify&quot;:</span> <span class="pre">&quot;^16.2.0&quot;</span></code> のように、 <code class="docutils literal notranslate"><span class="pre">^</span></code> や <code class="docutils literal notranslate"><span class="pre">~</span></code> が先頭に付与されています。 <code class="docutils literal notranslate"><span class="pre">^</span></code> であれば <code class="docutils literal notranslate"><span class="pre">16.3.0</span></code> があればそれも利用する、 <code class="docutils literal notranslate"><span class="pre">~</span></code> であれば <code class="docutils literal notranslate"><span class="pre">16.2.1</span></code> であれば利用するなど、マイナーバージョンやパッチバージョンの変更は吸収する意思がありますよ、という表示になっています。「現在のバージョン指定でインストールされる最新バージョン」というのは、変更可能な範囲での最新という意味です。</p>
+<p>更新する場合は、 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">update</span></code> コマンドを使用します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># まとめて更新</span>
+$ npm update
+
+<span class="c1"># 一部だけ更新</span>
+$ npm update express
+</pre></div>
+</div>
+<div class="figure align-default" id="id21">
+<img alt="_images/after-update.png" src="_images/after-update.png" />
+<p class="caption"><span class="caption-text">npm updateを実行し、CurrentがWantedになった</span><a class="headerlink" href="#id21" title="この画像へのパーマリンク">¶</a></p>
+</div>
+<p>この場合、メジャーバージョンアップしたライブラリは更新されません。その場合は手動でインストールします。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install ava@2.4.0
+</pre></div>
+</div>
+<div class="section" id="id9">
+<h3>セキュリティ目的の自動バージョンアップ<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>GitHub上、あるいは開発環境でのsnykコマンドや、npm install時に脆弱性診断が行われます。また、インストールを行わなくても、 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">audit</span></code> コマンドを実行しても脆弱性が報告されたパッケージがあると検知されます。何かしらを検知したら次のコマンドで可能なものを修正します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm audit fix
+</pre></div>
+</div>
+<p>これだけでちょっとした修正は完了できるはずです。メンテナンスがあまりされていないパッケージの場合は、脆弱性ありで修正がないまま放置されていたりします。あるいは、脆弱性ありのバージョンに依存したまま、ということもあります。こうなると <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">audit</span> <span class="pre">fix</span></code> をしても脆弱性があるモジュールでも修正できなくなってきます。それをトリガーにして一部のパッケージのメジャーバージョンアップが必要となります。もちろん、他の戦略をとっていても重大なセキュリティの場合には応急処置せざるを得ない可能性があります。まあ、セキュリティの緊急度が高いほど、いろんなメジャーバージョンに対してパッチが発行されることもあり、逆に簡単かもしれません。</p>
+<p>あまりにも脆弱性が放置されているライブラリがある場合は、バージョンアップではなくて、類似の別のライブラリに置き換える、というのも選択に入ります。</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>バージョンアップ時のトラブルを減らす<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>バージョンアップでのトラブルを完全にゼロにはできません。ただ、日頃からの心がけで少し楽にすることはできます。</p>
+<div class="section" id="ci">
+<h3>CIをしておく<a class="headerlink" href="#ci" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>普段からCIをしておくことで、いざバージョンアップ時の確認の補助に使えますし、最近は、利用されているモジュールの中に脆弱性のある古いバージョンが紛れていないかの自動検知が行えるようになってきています。</p>
+<p>JavaScriptと比べたTypeScriptの場合、一番有利なのがここですね。ライブラリのAPIが変わってビルドができない、というのが検知できるのがメリットです。もちろん、ロジックなどが正しく動くかどうかというテストもあるに越したことはありません。</p>
+</div>
+<div class="section" id="id11">
+<h3>こまめにバージョンアップ<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>セキュリティのバージョンアップ、パッチバージョンアップなど、小さい修正はこまめにやっておけば、いざというときにあげるバージョンの差が小さくなります。例えば、1.6.5から1.6.6で、0.0.1だけあげたら問題が起きた、と分かれば、エラーの原因の追求、問題の報告が極めて簡単になります。</p>
+</div>
+<div class="section" id="id12">
+<h3>人気のある安定しているライブラリを利用する<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>身もふたもないのですが、APIのbreaking changeが頻繁に行われないライブラリを選べば楽になります。後方互換性やサポートポリシーについて言及があるライブラリが良いです。あと、人気があるライブラリであれば、バージョンアップで困ったときに情報が入手しやすくなります。</p>
+</div>
+<div class="section" id="id13">
+<h3>ライブラリやフレームワークを浅く使う<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ライブラリやフレームワークを使う場合、メジャーな一般的な使い方からなるべく外さないようにします。間違ってもライブラリをラップして完全なオレオレフレームワークを作るとかすると、バージョンアップ時の作業が多くなります。また、メジャーな使い方に近づけておけば、ネットで情報を調べるときにも問題が発見しやすくなりますし、チームメンバーが途中から入ったとしても、実は最初から使い方を知っている、ということも期待できるかもしれません。</p>
+</div>
+<div class="section" id="id14">
+<h3>（参考）式年遷宮<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>近年のウェブフロントエンドは、たくさんの小さなツールやライブラリを組み合わせて使うことが多いです。ライブラリの数が多ければ多いほど組み合わせの数は爆発していきます。世界であまり多くの人が試していないバージョンの組み合わせでやらざるを得なくて・・・ということも起きるかもしれません。</p>
+<p>複雑化するにつれて、プロジェクトの新規作成を手助けするツールが提供されることが増えてきました。特にVue.jsのCLIはきちんと作り込まれています。いっそのこと、バージョンアップ作業をするのではなく、CLIツールを最新化して、それでプロジェクトを新規に作り、それに既存のコードを持ってくるという方法もありかもしれません。</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h2>なぜバージョンを管理する必要があるのか<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>なぜライブラリのバージョンの管理が必要なのでしょうか？バージョン固定じゃダメなのでしょうか？</p>
+<p>プログラムを開発するときは、他のツールやライブラリを当たり前に使います。これは今に始まったことではなく、はるか昔からそうですね。OS組み込みの機能だけで開発するとしても、OSベンダーの提供する開発ツール、OSの機能を使うライブラリ（API）は最低限使います。</p>
+<p>例えば、Javaで開発する場合、Javaの言語、言語組み込みのライブラリは使いますし、Gradleみたいな別なビルドツールやらも使います。SpringBootみたいなライブラリも使います。それぞれ、どのバージョンを使うかというのをスタート時に決めますし、メンテ期間等で見直しをする必要がでてきます。</p>
+<p>なぜ固定ではダメかというと、主に2つの理由があります。</p>
+<div class="section" id="id16">
+<h3>機能的な問題<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>それぞれのツールやライブラリは、それぞれの開発元が考えるライフサイクルで更新されていきます。そのタイミングで、機能が追加されることもあれば、過去のバージョンで提供されていた機能が削られたり、挙動が変わったり、というのがありえます。その過去のバージョンがもう手に入らない、ということもありえます。</p>
+<p>ウェブの場合だと、アプリケーション側でコントロールできないものにブラウザバージョンがあります。ある程度は使用バージョンを固定するなども業務システムではありますが、古いブラウザでしか動かないとかはダサいですよね。</p>
+<p>例えばFlashを使っていると、もう動かすことはできません。実装していた機能を取り除いて、その互換実装に置き換える、という作業が発生します。</p>
+<p>もっと小さい例でいえば非推奨になっているReactの特定のライフサイクルメソッドの関数（ <code class="docutils literal notranslate"><span class="pre">componentWillMount</span></code> ）を使っていたら、React 17が出るとそのアプリケーションは動かなくなってしまいます。これはReactのバージョンを固定してしまえばなんとかなるのかもしれませんが、追加の機能を入れようとして別のライブラリを入れようとしたときに、それがReact 16では動かなくて、React 17しかサポートしていないと、そのライブラリが使えないということになります。4Kブルーレイを見たいけど、うちの古いブラウン管テレビにはHDMI端子がなくてプレイヤー繋げられないわー、みたいな感じのことが起きます。</p>
+<p>時間が経てば経つほどそのようなものが多くなってきます。</p>
+</div>
+<div class="section" id="id17">
+<h3>セキュリティ的な問題<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>インターネットがなかった時代・接続しない時代は良かったんですが、今ではネットワーク前提のシステムが大幅に増えています。それにより、今までよりもセキュリティのリスクにさらされる機会は増えています。また、ネットワークに直接アクセスしないシステムであっても、USBメモリ経由でやってきたワームの攻撃を受けるなどがあります。</p>
+<p>セキュリティに関しては存在（＆攻撃方法）が報告されているセキュリティホールを放置して、システムを危険にさらされると、システムの提供元や開発元が責任を追求されることになります。「無能で説明できることに悪意を見出してはいけない」という格言があります。ただ、これらは「悪意」を持っていると誤解する人が多いからこそこういう言葉が生まれたのだと思います。あと、僕個人としては「時間不足で説明できることに無能を見出してはいけない」という持論があります。組み合わせると、忙しくて直せなかったとしても、「悪意があってユーザーを危険にさらしたのだ」と批判される恐れがあるということです。加害者になってしまうのです。</p>
+<p>現代のシステムは数多くの部品で組み上げられています。ゼロからすべてのコードを自分で書くことはありません（ほとんど）。脆弱性に対する防御は社会的な仕組みが構築されています。特定のライブラリやツールに脆弱性があると、その攻撃手法などを報告する窓口があります。また、そこから開発元にこっそり連絡がいき（対策されていない時点での存在発表はそれ自体が加害行為になる）、脆弱性が修正されたバージョンのリリースと同時に公表、という流れです。</p>
+<p>同時といっても、大きな問題は発表されたら即座に対策を取らないと、加害者になりかねません。そのためには、最新の修正済みのバージョンを入れる必要が出てきます。</p>
+<p>問題はすごく古いバージョンのサポートまでは行われない点です。だいたい、大きめのOSSや商用のミドルウェアやライブラリを出しているベンダーであれば、きちんとサポートポリシーを定義して、バージョンごとのサポート期限を定めています。ただし、そこから外れてしまうと、よっぽど大きな問題でない限りは更新が提供されないことがあります。そのため、普段から更新を心がけていないと、必要な修正の入ったバージョンへの更新が遠すぎて、なかなか適用できないということもありえます。</p>
+</div>
+<div class="section" id="id18">
+<h3>バージョン管理をしなかった場合のデメリットまとめ<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>既存機能が動かなくなる</p></li>
+<li><p>世間一般では普通の新規機能の追加が困難になっていく</p></li>
+<li><p>セキュリティの修正が提供されずに、システムに穴が開いたままになりかねない</p></li>
+<li><p>いざ、おおきなインシデントが発生したときに、その変更を取り込むのが困難になる</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id19">
+<h2>まとめ<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>なぜバージョンアップが必要なのか、そのための方法などについて紹介してきました。</p>
+<p>常に更新しつづけるシステムであっても、バージョンの更新がおろそかになってしまうことがよくあります。バージョンアップは自社サービスであってもそうでなくても、保守として工数を確保して行う必要があります。影響を考慮してタイミングを見極めて行ったり、セキュリティ上必要であれば他の作業を止めてでも更新してデプロイなどスケジュールにも影響がありえる話になってきます。</p>
+<p>適切にコントロールすれば痛みを減らせる分野でもありますので、本性の内容を頭の片隅に置いといてもらえると幸いです。</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">使用ライブラリのバージョン管理</a><ul>
+<li><a class="reference internal" href="#id2">バージョンとは</a><ul>
+<li><a class="reference internal" href="#id4">バージョンのサポートの考え方</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">バージョン選びの作戦</a><ul>
+<li><a class="reference internal" href="#id6">1. 最新バージョンを積極的に選ぶ</a></li>
+<li><a class="reference internal" href="#lts">2. LTSを中心に組み立てる</a></li>
+<li><a class="reference internal" href="#id7">3. セキュリティの脆弱性が検知されたものを更新する</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">バージョンアップの方法</a><ul>
+<li><a class="reference internal" href="#id9">セキュリティ目的の自動バージョンアップ</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id10">バージョンアップ時のトラブルを減らす</a><ul>
+<li><a class="reference internal" href="#ci">CIをしておく</a></li>
+<li><a class="reference internal" href="#id11">こまめにバージョンアップ</a></li>
+<li><a class="reference internal" href="#id12">人気のある安定しているライブラリを利用する</a></li>
+<li><a class="reference internal" href="#id13">ライブラリやフレームワークを浅く使う</a></li>
+<li><a class="reference internal" href="#id14">（参考）式年遷宮</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id15">なぜバージョンを管理する必要があるのか</a><ul>
+<li><a class="reference internal" href="#id16">機能的な問題</a></li>
+<li><a class="reference internal" href="#id17">セキュリティ的な問題</a></li>
+<li><a class="reference internal" href="#id18">バージョン管理をしなかった場合のデメリットまとめ</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id19">まとめ</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="deploy.html" title="前の章へ">成果物のデプロイ</a></li>
+      <li>Next: <a href="recommended.html" title="次の章へ">おすすめのパッケージ・ツール</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/version.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 884</li>
+        <li>非アスキー: 7639</li>
+        <li>合計文字数: 8523</li>
+        <li>半角換算: 16162</li>
+        <li>全角換算: 8081.0</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/version.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

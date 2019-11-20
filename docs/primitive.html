@@ -101,7 +101,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <div class="section" id="number">
 <h3><code class="docutils literal notranslate"><span class="pre">number</span></code><a class="headerlink" href="#number" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>TypeScript（というか、その下で動作しているJavaScript）は64ビットの浮動小数点数で扱います。これはどのCPUを使っても基本的に同じ精度を持ちます <a class="footnote-reference brackets" href="#id7" id="id6">2</a> 。整数をロスなく格納できるのは53ビット(-1)までなので、±約9007兆までの整数を扱えます。それ以上の数値を入れると、末尾が誤差としてカットされたりして、整数を期待して扱うと問題が生じる可能性があります。正確な上限と下限は <code class="docutils literal notranslate"><span class="pre">Number.MAX_SAFE_INTEGER</span></code> 、 <code class="docutils literal notranslate"><span class="pre">Number.MIN_SAFE_INTEGER</span></code> という定数で見ることができます。また、 <code class="docutils literal notranslate"><span class="pre">Number.isSafeInteger(数値)</span></code> という関数で、その範囲内に収まっているかどうかを確認できます。</p>
-<div class="figure align-center" id="id25">
+<div class="figure align-default" id="id25">
 <img alt="_images/double.png" src="_images/double.png" />
 <p class="caption"><span class="caption-text">The memory format of an IEEE 754 double floating point value. by Codekaizen (CC 4.0 BY-SA)</span><a class="headerlink" href="#id25" title="この画像へのパーマリンク">¶</a></p>
 </div>
@@ -132,7 +132,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </pre></div>
 </div>
 <p>変換の処理は、方法によって結果が変わります。10進数を期待するものはradix無しの <code class="docutils literal notranslate"><span class="pre">parseInt()</span></code> で使っておけば間違いありません。</p>
-<table class="docutils align-center" id="id26">
+<table class="docutils align-default" id="id26">
 <caption><span class="caption-text">文字列から数値の変換</span><a class="headerlink" href="#id26" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
@@ -220,7 +220,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <p><code class="docutils literal notranslate"><span class="pre">+</span></code> 、 <code class="docutils literal notranslate"><span class="pre">-</span></code> 、 <code class="docutils literal notranslate"><span class="pre">*</span></code> 、 <code class="docutils literal notranslate"><span class="pre">/</span></code> 、 <code class="docutils literal notranslate"><span class="pre">%</span></code> （剰余）のよくある数値計算用の演算子が使えます。これ以外に、 <code class="docutils literal notranslate"><span class="pre">**</span></code> というベキ乗の演算子がES2016で追加されています <a class="footnote-reference brackets" href="#id15" id="id12">4</a> 。</p>
 <p>また、 <code class="docutils literal notranslate"><span class="pre">number</span></code> は整数としても扱えますのでビット演算も可能です。ビット演算は2進数として表現した表を使って、計算するイメージを持ってもらえると良いでしょう。コンピュータの内部はビット単位での処理になるため、高速なロジックの実装で使われることがよくあります <a class="footnote-reference brackets" href="#id16" id="id13">5</a> 。</p>
 <p>ただし、ビット演算時には精度は32ビット整数にまで丸められてから行われるため、その点は要注意です。</p>
-<table class="colwidths-given docutils align-center">
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 28%" />
@@ -287,7 +287,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <div class="section" id="math">
 <h3><code class="docutils literal notranslate"><span class="pre">Math</span></code> オブジェクト<a class="headerlink" href="#math" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>TypeScriptで数値計算を行う場合、 <code class="docutils literal notranslate"><span class="pre">Math</span></code> オブジェクトの関数や定数を使います。</p>
-<table class="colwidths-given docutils align-center" id="id28">
+<table class="colwidths-given docutils align-default" id="id28">
 <caption><span class="caption-text">数値の最大値、最小値</span><a class="headerlink" href="#id28" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
@@ -303,12 +303,12 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <td><p>複数の値の中で最大の値を返す。配列内の数値の最大値を取得したい場合は <code class="docutils literal notranslate"><span class="pre">Math.max(...array)</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Math.min(x,</span> <span class="pre">y,</span> <span class="pre">…)</span></code></p></td>
-<td><p>複数の値の中で最小の値を返す。配列内の数値の最大値を取得したい場合は <code class="docutils literal notranslate"><span class="pre">Math.min(...array)</span></code></p></td>
+<td><p>複数の値の中で最小の値を返す。配列内の数値の最小値を取得したい場合は <code class="docutils literal notranslate"><span class="pre">Math.min(...array)</span></code></p></td>
 </tr>
 </tbody>
 </table>
 <p>乱数生成の関数もここに含まれます。0から1未満の数値を返します。例えば0-9の整数が必要な場合は、10倍して <code class="docutils literal notranslate"><span class="pre">Math.floor()</span></code> などを使うと良いでしょう。</p>
-<table class="colwidths-given docutils align-center" id="id29">
+<table class="colwidths-given docutils align-default" id="id29">
 <caption><span class="caption-text">乱数</span><a class="headerlink" href="#id29" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
@@ -326,7 +326,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </tbody>
 </table>
 <p>整数に変換する関数はたくさんあります。一見、似たような関数が複数あります。例えば、 <code class="docutils literal notranslate"><span class="pre">Math.floor()</span></code> と <code class="docutils literal notranslate"><span class="pre">Math.trunc()</span></code> は似ていますが、負の値を入れた時に、前者は数値が低くなる方向に（-1.5なら-2）丸めますが、後者は0に近く方向に丸めるといった違いがあります。</p>
-<table class="colwidths-given docutils align-center" id="id30">
+<table class="colwidths-given docutils align-default" id="id30">
 <caption><span class="caption-text">整数変換</span><a class="headerlink" href="#id30" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
@@ -362,7 +362,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </tbody>
 </table>
 <p>整数演算の補助関数もいくつかあります。ビット演算と一緒に使うことが多いと思われます。</p>
-<table class="colwidths-given docutils align-center" id="id31">
+<table class="colwidths-given docutils align-default" id="id31">
 <caption><span class="caption-text">32ビット整数</span><a class="headerlink" href="#id31" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
@@ -383,7 +383,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </tbody>
 </table>
 <p>平方根などに関する関数もあります。</p>
-<table class="colwidths-given docutils align-center" id="id32">
+<table class="colwidths-given docutils align-default" id="id32">
 <caption><span class="caption-text">ルート</span><a class="headerlink" href="#id32" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
@@ -413,7 +413,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </tbody>
 </table>
 <p>対数関係の関数です。</p>
-<table class="colwidths-given docutils align-center" id="id33">
+<table class="colwidths-given docutils align-default" id="id33">
 <caption><span class="caption-text">対数</span><a class="headerlink" href="#id33" title="このテーブルへのパーマリンク">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
@@ -662,10 +662,10 @@ TypeScriptでは「これは無効な値をとる可能性がありますよ」�
     </p>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>クイック検索</h3>
+  <h3 id="searchlabel">クイック検索</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="検索" />
     </form>
     </div>
@@ -679,7 +679,7 @@ TypeScriptでは「これは無効な値をとる可能性がありますよ」�
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
