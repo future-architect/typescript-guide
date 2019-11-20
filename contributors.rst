@@ -23,6 +23,9 @@ Pull Requestをくださった方々
 * `@7ma7X <https://github.com/7ma7X>`_
 * `@isuzuki <https://github.com/isuzuki>`_
 * `@taiyooooooooooo <https://github.com/taiyooooooooooo>`_
+* `@yaegassy <https://github.com/yaegassy>`_
+* `@tmitz <https://github.com/tmitz>`_
+* `@ichikawa-hiroki <https://github.com/ichikawa-hiroki>`_
 
 フィードバックをくださった方々
 ------------------------------------
