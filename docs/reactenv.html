@@ -56,8 +56,7 @@ Happy hacking!
 </div>
 </div>
 <p>なるべく、いろんなツールとの組み合わせの検証の手間を減らすために、Next.jsを使います。
-JavaScriptは組み合わせが多くて流行がすぐに移り変わっていつも環境構築させられる（ように見える）とよく言われますが、組み合わせが増えても検証されてないものを一緒に使うのはなかなか骨の折れる作業で、結局中のコードまで読まないといけなかったりとか、環境構築の難易度ばかりが上がってしまいます。
-特にRouterとかすべてにおいて標準が定まっていないReactはそれが顕著です。</p>
+JavaScriptは組み合わせが多くて流行がすぐに移り変わっていつも環境構築させられる（ように見える）とよく言われますが、組み合わせが増えても検証されてないものを一緒に使うのはなかなか骨の折れる作業で、結局中のコードまで読まないといけなかったりとか、環境構築の難易度ばかりが上がってしまいます。特にRouterとかすべてにおいて標準が定まっていないReactはそれが顕著です。</p>
 <p>その中において、CSS in JS、RouterをオールインワンにしてくれているNext.jsは大変助かります。
 issueのところでもアクティブな中の人がガンガン回答してくれていますし、何よりも多種多様なライブラリとの組み合わせをexampleとして公開してくれているのが一番強いです。
 Server Side Renderingもありますが、お仕事でやっていて一番ありがたいのはこの設定周りです。</p>
@@ -66,6 +65,14 @@ Server Side Renderingもありますが、お仕事でやっていて一番あ�
 <dd><p><a class="reference external" href="https://github.com/zeit/next.js/tree/canary/examples">https://github.com/zeit/next.js/tree/canary/examples</a></p>
 </dd>
 </dl>
+<div class="section" id="next-js">
+<h2>Next.jsとは<a class="headerlink" href="#next-js" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>まず、Next.jsとは何かについて説明します。Next.jsはZeit社が開発しているReactのオールインワンパッケージです。<code class="docutils literal notranslate"><span class="pre">next</span></code>コマンドでプロジェクトを作成すると、多くの必要な開発環境整備が完了した環境が一発で作成できます。</p>
+<p>この開発環境はWebPackのビルド環境の整備も完了しています。ビルド環境は素早くコンパイルして確認が行えるビルドサーバーも設定されています。TypeScriptも設定済みです。何より、自分で設定すると相当難易度の高いサーバーサイドレンダリングが最初から得られます。</p>
+<p>Next.jsを使うからといって、オールインワンですべて付いてくる状態でしか動かせないわけではなく、デプロイする方式によって自由に使い分けることができます。</p>
+<p>デフォルトではサーバーサイドレンダリングを行うフロントエンド機能のみですが、カスタムサーバー機能を使えば、Express.jsなどのNode.jsのAPIサーバーにサーバーサイドレンダリング機能などを乗せることができます。Express.jsへの薄いラッパーになりますので、Express.jsの知識を利用して、APIサーバー機能も同一のサーバー上に追加できます。また、サーバーサイドレンダリングを使わずに静的なHTMLとJavaScriptコードを生成することも可能です。</p>
+<p>出発点としては十分なケースが多いと思われます。</p>
+</div>
 <div class="section" id="id2">
 <h2>作業フォルダを作る<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Next.jsではpagesフォルダにおいてあるコンポーネントがRouterに自動登録されるので、このフォルダをとりあえず作ります。あとは基本の環境構築と同じです。</p>
@@ -347,6 +354,7 @@ export default withStyles(styles)(Index);
   <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Next.js（React）の環境構築</a><ul>
+<li><a class="reference internal" href="#next-js">Next.jsとは</a></li>
 <li><a class="reference internal" href="#id2">作業フォルダを作る</a></li>
 <li><a class="reference internal" href="#id3">ビルドのツールのインストールと設定</a></li>
 <li><a class="reference internal" href="#next-js-ts">Next.js+TSのソースコード</a></li>
@@ -373,11 +381,11 @@ export default withStyles(styles)(Index);
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 6308</li>
-        <li>非アスキー: 1855</li>
-        <li>合計文字数: 8163</li>
-        <li>半角換算: 10018</li>
-        <li>全角換算: 5009.0</li>
+        <li>英数記号: 6422</li>
+        <li>非アスキー: 2337</li>
+        <li>合計文字数: 8759</li>
+        <li>半角換算: 11096</li>
+        <li>全角換算: 5548.0</li>
     </ul>
     </p>
 </div>

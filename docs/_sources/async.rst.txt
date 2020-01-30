@@ -184,14 +184,14 @@ TypeScriptで提供されている ``if`` や ``for`` 、 ``while`` などは関
    }
 
    // 必ず実行される
-   async function finally() {
+   async function finallyFunc() {
    }
 
    async function main(){
      if (Date.now() % 2 === 1) {
        await randomRun();
      }
-     await finally();
+     await finallyFunc();
    }
 
    main();

@@ -195,14 +195,14 @@ Node.js標準にもありますし、npmで調べてもたくさんあります�
 <span class="p">}</span>
 
 <span class="c1">// 必ず実行される</span>
-<span class="nx">async</span> <span class="kd">function</span> <span class="k">finally</span><span class="p">()</span> <span class="p">{</span>
+<span class="nx">async</span> <span class="kd">function</span> <span class="nx">finallyFunc() {</span>
 <span class="p">}</span>
 
 <span class="nx">async</span> <span class="kd">function</span> <span class="nx">main</span><span class="p">(){</span>
   <span class="k">if</span> <span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">await</span> <span class="nx">randomRun</span><span class="p">();</span>
   <span class="p">}</span>
-  <span class="nx">await</span> <span class="k">finally</span><span class="p">();</span>
+  <span class="nx">await</span> <span class="nx">finallyFunc</span><span class="p">();</span>
 <span class="p">}</span>
 
 <span class="nx">main</span><span class="p">();</span>
@@ -356,11 +356,11 @@ const [a味噌汁, aご飯] = await Promise.all([味噌汁温め(), ご飯温め
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 3087</li>
+        <li>英数記号: 3095</li>
         <li>非アスキー: 5456</li>
-        <li>合計文字数: 8543</li>
-        <li>半角換算: 13999</li>
-        <li>全角換算: 6999.5</li>
+        <li>合計文字数: 8551</li>
+        <li>半角換算: 14007</li>
+        <li>全角換算: 7003.5</li>
     </ul>
     </p>
 </div>

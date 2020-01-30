@@ -122,7 +122,7 @@ JavaScriptと変わりませんし、JavaやC++とかともほぼ変わりませ
 <p><code class="docutils literal notranslate"><span class="pre">for..in</span></code> より新しい記法です。イテレータという各データ構造がループ用に持っている機能を使うため、想定外の値が入ることはありません。</p>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">for of</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">value</span> <span class="nx">of</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
@@ -145,7 +145,7 @@ JavaScriptと変わりませんし、JavaやC++とかともほぼ変わりませ
 <p>キーと値の両方が帰ってくるメソッドは、分割代入を用いて変数に入れます。</p>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">for of</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="nx">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">obj</span><span class="p">))</span> <span class="p">{</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="k">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">obj</span><span class="p">))</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
@@ -160,7 +160,7 @@ JavaScriptと変わりませんし、JavaやC++とかともほぼ変わりませ
 これに対応するには、 asyncIterator に対応した要素を条件文の右辺に持ってくる必要がありますが、現在サポートしているのは <code class="docutils literal notranslate"><span class="pre">ReadableStream</span></code> ぐらいしかありません。
 このクラスは、 <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> のレスポンスの <code class="docutils literal notranslate"><span class="pre">body</span></code> プロパティぐらいでしか見かけません。
 対応するクラスを自作することもできます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="nx">await</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">body</span> <span class="nx">of</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="nx">await</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">body</span> <span class="k">of</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
