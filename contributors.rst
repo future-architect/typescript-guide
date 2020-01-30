@@ -26,6 +26,7 @@ Pull Requestをくださった方々
 * `@yaegassy <https://github.com/yaegassy>`_
 * `@tmitz <https://github.com/tmitz>`_
 * `@ichikawa-hiroki <https://github.com/ichikawa-hiroki>`_
+* `@eduidl <https://github.com/eduidl>`_
 
 フィードバックをくださった方々
 ------------------------------------
