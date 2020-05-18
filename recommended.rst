@@ -3,7 +3,7 @@
 
 ぼちぼち追加。まだ実戦投入していないものも多数あります。
 
-TypeScript Playgournd各種
+TypeScript Playground各種
 -------------------------------
 
 ブラウザでTypeScriptが試せるPlaygroundにも何種類かあります。
