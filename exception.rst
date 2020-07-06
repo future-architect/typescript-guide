@@ -39,7 +39,7 @@ A → B → Cと順番にタスクをこなすプログラムがあったとし�
 
    try {
      // 
-   } catch (e: Error) {
+   } catch (e) {
      throw e; // 再度投げる
    }
 
@@ -54,7 +54,7 @@ JavaScriptでは1つしか書くことができません。型の種類による
 
    try {
      // 何かしらの処理
-   } catch (e: Error) {
+   } catch (e) {
      // instanceofを使ってエラーの種類を判別していく
      if (e instanceof NoNetworkError) {
        // NoNetworkErrorの場合
@@ -110,7 +110,7 @@ JavaScriptの言語の標準に含まれていない、処理系独自の機能�
    let json: any;
    try {
      json = JSON.parse(jsonString);
-   } catch (e: Error) {
+   } catch (e) {
      json = null;
    }
 
@@ -153,7 +153,7 @@ JavaScriptの言語の標準に含まれていない、処理系独自の機能�
      logicC();
      logicD();
      logicE();
-   } catch (e: Error) {
+   } catch (e) {
      // エラー処理
    }
 
@@ -166,7 +166,7 @@ JavaScriptの言語の標準に含まれていない、処理系独自の機能�
    logicB();
    try {
      logicC();
-   } catch (e: Error) {
+   } catch (e) {
      // エラー処理
    }
    logicD();
@@ -187,7 +187,7 @@ JavaScriptの言語の標準に含まれていない、処理系独自の機能�
 
    try {
      :
-   } catch (e: Error) {
+   } catch (e) {
      // e.とタイプすると、name, messageなどがサジェストされる
      console.log(e.name);
    }
@@ -228,7 +228,7 @@ JavaScriptの言語の標準に含まれていない、処理系独自の機能�
 
    try {
      await getUser();
-   } catch (e: Error) {
+   } catch (e) {
      if (e instanceof NoNetworkError) {
        alert("ネットワークがありません");
      } else if (e instanceof NetworkAccessError) {
@@ -297,7 +297,7 @@ JavaScriptの言語の標準に含まれていない、処理系独自の機能�
      const resp = await fetch(url);
      const json = await resp.json();
      console.log(json);
-   } catch (e: Error) {
+   } catch (e) {
      console.log("エラー発生!");
      console.log(e);
    }
