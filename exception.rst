@@ -26,7 +26,7 @@ A → B → Cと順番にタスクをこなすプログラムがあったとし�
      const data = await getData();
      const modified = modify(data);
      await sendData(modified);
-   } catch (e) {
+   } catch (e: Error) {
      console.log(`エラー発生 ${e}`);
    } finally {
      // 最後に必ず呼ばれる
