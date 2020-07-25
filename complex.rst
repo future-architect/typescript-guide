@@ -28,14 +28,37 @@
 ~~~~~~~~~~~~~
 
 Javaなどの配列は要素のすべての型は同じです。TypeScriptでは、配列の要素ごとに型が違う「タプル」というデータ型も定義できます。
+裏のデータ型は配列ですが、コンパイラが特殊なモードの配列として扱います。
 この場合違う型を入れようとするとエラーになります。
-配列のインデックスごとに何を入れるか、名前をつけることはできないため、積極的に使うことはないでしょう。
+後述の\ ``readonly``\ を使うことで読み込み専用のタプルを作ることもできますが、デフォルトは変更可能です。
+
+配列のインデックスごとに何を入れるか、名前をつけることはできないため、積極的に使うことはないでしょう\ [#]_\ 。
 
 .. code-block:: ts
 
    const movie: [string, number] = ['Gozilla', 1954];
    // error TS2322: Type 'number' is not assignable to type 'string'.
    movie[0] = 2019;
+
+固定長の配列を表現する手段としても利用できます。
+
+.. code-block:: ts
+
+   const r = 10;
+   const t = Math.PI * 0.5;
+   const pos: [number, number] = [r * Math.cos(r), r * Math.sin(r)];
+   // Tuple type '[number, number]' of length '2' has no element at index '2'.
+
+``[string, ...string[]]``\ と書けば、1つは必ず要素があり、2つ以上の要素が格納できるタプル、というのも表現できますが、「これよりも少ない」は表現できません。
+
+
+.. note::
+
+   Pythonにもタプルはあります。これは要素の変更が不可能で、辞書のキーに使えたりするということで、配列とはかなり性質が異なっていて、言語にとっては重要な要素となっています。
+
+   一方、通常のデータ型として使うにはやはりインデックスアクセスしかできないため、可読性が劣り、インデックスとデータの種類の対応付けを人間が覚えるのはストレスがあるため、かなり初期から\ ``namedtuple``\ （名前付きタプル）と呼ばれるクラスが提供されています。これは名前で要素アクセスができる、タプルと可換なデータ構造です。
+
+   TypeScriptの場合はリテラルで簡単にオブジェクトが作れますし、多くのタプルはオブジェクトで代替可能でしょう。
 
 配列からのデータの取り出し
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -227,6 +250,55 @@ iterableとイテレータ
     .. code-block:: ts
 
        const names = [...iterable];
+
+読み込み専用の配列
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TypeScriptの「\ ``const``\ 」は変数の再代入をさせない、というガードにはなりますが、C++のように、「変更不可」にはできません。TypeScriptにはこれには別のキーワード、\ ``readonly``\ が提供されています。型の定義の前に\ ``readonly``\ を付与すれば
+
+.. code-block:: ts
+
+   const a: readonly number[] = [1, 2, 3];
+   a[0] = 1;
+   // Index signature in type 'readonly number[]' only permits reading.
+
+読み込み専用の配列は普通の変更可能な配列よりは厳しい制約となります。変更可能な配列は、readonlyな配列の変数や引数には渡すことができます。逆に読み込み専用の配列を変更可能な配列の変数に格納したり関数の引数に渡したりしようとするとエラーになります。
+
+.. code-block:: ts
+
+   const readonlyArray: readonly number[] = [1, 2, 3];
+   const mutableArray: number[] = [1, 2, 3];
+
+   function acceptReadonlyArray(a: readonly number[]) {
+   }
+
+   function acceptMutableArray(a: number[]) {
+   }
+
+   // OK
+   const readonlyVar: readonly number[] = mutableArray;
+
+   // NG
+   const mutableVar: number[] = readonlyArray;
+   // The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.
+
+   // OK
+   acceptReadonlyArray(mutableArray);
+
+   // NG
+   acceptMutableArray(readonlyArray);
+   // Argument of type 'readonly number[]' is not assignable to parameter of type 'number[]'.
+   // The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.
+
+内部的には同じ配列ではありますので、型アサーションで\ ``readonly``\ なしのものにキャストすれば格納したり呼び出し時に渡したりは可能です。しかし、C/C++ではいわゆる「const外し」はプログラムの安全性を脅かす邪悪な行為として忌み嫌われます。C/C++の場合は組み込み聞きで、読み込みしかできないメモリ領域にデータがおかれることもあり、動作が未定義で不正な挙動がおきうる、という意味ではTypeScriptよりもはるかに危険な行為ではありますが、「不変だと思っていた」変数がいつの間にかに書き換わっていたりして、開発者を混乱させる点では同じです。
+
+この\ ``readonly``\ を無理やり外したりせずに自然と使うためには、上から下までコード全体で\ ``readonly``\ を使うように徹底するか、あるいは、まったく使わないかの二者択一になります。利用しているライブラリが\ ``readonly``\ を使っているかというと、使っていないことが多いので、外部ライブラリとの接点では必ず\ ``readonly``\ 外しが必要になるかもしれません。ここはプロジェクト全体での意思統一が必要になる場面となります。
+
+.. code-block:: ts
+
+   const mutableVar: number[] = readonlyArray as number[];
+   acceptMutableArray(readonlyArray as number[]);
+
 
 TypeScriptと配列
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -429,9 +501,27 @@ TypeScriptとオブジェクト
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 オブジェクトは、プロトタイプ指向というJavaScriptの柔軟性をささえる重要な部品です。
-一方、TypeScriptはなるべく静的に型をつけて行く事で、コンパイル時にさまざまなチェックが行えるようになり不具合を見つけることができます。オブジェクトの型の定義については次の次の章で紹介します。
+一方、TypeScriptはなるべく静的に型をつけて行く事で、コンパイル時にさまざまなチェックが行えるようになり不具合を見つけることができます。オブジェクトの型の定義については\ :doc:`typing`\ の章で紹介します。
 
 型定義をすると、プロパティの名前のスペルミスであったり、違う型を入れてしまうことが減ります。エラーチェックのコードを実装する手間も減るでしょう。
+
+読み込み専用のオブジェクト
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+配列は\ ``readonly``\ をつけて読み込み専用にできましたが、オブジェクトも同様のことができます。ただし、\ ``readonly``\ キーワードではできず、型ユーティリティの\ ``ReadOnly<>``\ を使います。これには、型を定義しておく必要があります。これ以外にも、フィールドごとに\ ``readonly``\ を付与することもで可能です。前節でも触れましたが、これも詳しくは\ :doc:`typing`\ の章で紹介します。
+
+.. code-block:: ts
+
+   type User = {
+       name: string;
+       age:  number;
+   };
+
+   const u: Readonly<User> = {name: "shibukawa", age: 39};
+
+   // NG
+   u.age = 17;
+   // Cannot assign to 'age' because it is a read-only property.
 
 まとめ
 ----------------
