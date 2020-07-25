@@ -382,7 +382,7 @@ JSONはJavaScript/TypeScriptのオブジェクト定義よりもルールが厳�
 注意点としては、まとめて取り出す場合の変数名は、必ずオブジェクトのキー名になります。
 関数の返値や、後述の\ ``Promise``\ では、この記法のおかげで気軽に複数の情報をまとめて返せます。
 
-.. code-block:: js
+.. code-block:: ts
    :caption: オブジェクトの要素の取り出し
 
    const smallAnimal = {
@@ -400,6 +400,25 @@ JSONはJavaScript/TypeScriptのオブジェクト定義よりもルールが厳�
    const {name, favorite, age=3} = smallAnimal;
    // 新: name以外の要素の取り出し
    const {name, ...other} = smallAnimal;
+
+ES2020で追加された機能として、オプショナルチェイニングがあります。TypeScriptでも3.7から導入されました。TypeScriptでは、変数の型として、文字列だけでなく、場合によっては無効な値として\ ``null``\ や\ ``undefined``\ が入る可能性がある、といったバリエーションを持たせることができます。型定義の話は\ :doc:`typing`\ で触れるので、先行した説明になりますが、例えば次の定義は\ ``smallAnimal``\ 自身がオブジェクト、もしくは\ ``null``\ が取り得ますし、\ ``favorite``\ というメンバーも\ ``undefined``\ になりえるという意味になります。
+
+この場合、深い階層にアクセスする場合は、一つずつ、\ ``null``\ や\ ``undefined``\ になりえるところでチェックを行っていました。\ ``&&``\ 演算子が、一つでも途中にfalseyな値があると評価を止める、そうでなければ最後の値を返すという挙動を持っているため、それを活用したコーディングが行われていました。
+
+オプショナルチェイニングは同じことを実現する演算子として\ ``.?``\ が導入されました。途中でnullish（\ ``null``\ か\ ``undefined``\ ）な値があると、式全体の評価結果が\ ``undefined``\ になります。
+
+.. code-block:: ts
+
+   const smallAnimal: {name: string, favorite?: string} | null = {
+     name: "小動物",
+     favorite: "小籠包"
+   };
+
+   // 旧: 一個ずつ確認してアクセスし、大文字の好物を取得
+   var favorite = smallAnimal && smallAnimal.favorite && smallAnimal.favorite.toUpperCase()
+
+   // 新: 一個ずつ確認してアクセスし、大文字の好物を取得
+   const favorite = smallAnimal?.favorite?.toUpperCase()
 
 オブジェクトの要素の加工
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
