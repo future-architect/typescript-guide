@@ -1,0 +1,84 @@
+最小限のtsconfig
+型とは何か、typescriptはコンパイル時にチェックする
+ランタイムのエラーは検知できない
+unknownになることはない
+リテラル型
+→TypeScriptでは型といいつつ値まで固定してコンパイラが取得する可能性がある
+bigint
+symbol
+object型はanyと大差ない
+const objはその中の属性のリテラル型までは推論しない。constは再代入を禁止するだけで、属性の書き換えは自由なので
+インデックスシグネチャ
+
+return　文がunionになる
+タプル
+配列にreadonlyをつけることが可能
+voidとnever
+
+引数は推論しない
+デフォルト値から推論はできる
+レストパラメータ
+thisの型つけ:説明しない
+call/apply/bind: 説明しない
+
+map/forEachの中の分割代入（柏木さん）
+
+iterable/iterator
+
+オーバーロードされた型シグネチャは扱わない
+ジェネリックのバインド
+　→呼び出し時、明示的
+Promiseの推論は今のところうまくいかない
+
+ジェネリックに製薬をあたえる
+ function a<T extends U>()
+
+関数呼び出し規約のフォーマルな書き方
+
+ES2020なprivate
+
+abstractなメソッド
+
+return typeにthisを使う
+
+インタフェースは複数箇所で宣言できる。マージされる。
+
+TSは属性が同じなら可換とみなす。定義が別で合っても。
+
+new コンストラクタシグネチャ。
+
+でコレータは型を拡張しない前提
+
+privateコンストラクタ
+
+TypeScript安全ではない。コーディングのしやすさとのバランス。
+
+マップ型
+Record<Keys, Values>
+Keys 型のキーと Values 型の値を持つオブジェクト。
+Partial<Object> Object内のすべてのフィールドを省略可能と指定します。
+Required<Object> Object内のすべてのフィールドを必須(省略不可)と指定します。
+Readonly<Object> Object内のすべてのフィールドを読み取り専用と指定します。
+Pick<Object, Keys>
+指定された Keysだけを持つ、Objectのサブタイプを返します。
+
+型と値は直行した名前空間
+
+done: タプル
+条件型
+
+オーバーロード
+
+on(文字列)なマッピング
+→確かにチェックはきくが、エラ〜メッセージはわかりにくいものになりそう。メソッドを分けて定義すべき。
+
+esModuleInterオプション
+import React from 'react'
+
+TypeScript
+->期待する属性に足りているか
+→余計な属性を渡していないか
+
+名前空間
+
+importHelperフラグ

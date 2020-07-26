@@ -1,18 +1,19 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<html lang="ja">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>プリミティブ型 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/translations.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="複合型" href="complex.html" />
@@ -36,7 +37,7 @@
   <div class="section" id="id1">
 <h1>プリミティブ型<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>プログラムの解説にはよく、リテラルという言葉がでてきます。
-リテラルというのは、ソースコード中に直接記述できるデータのことです。TypeScriptには何種類かあります。</p>
+リテラルというのは、専用の文法を持ち、ソースコード中に直接記述できるデータのことです。TypeScriptには何種類かあります。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code> 型</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">number</span></code> 型</p></li>
@@ -49,6 +50,7 @@
 </ul>
 <p>このうち、それ以上分解できないシンプルなデータを「プリミティブ型」と呼びます。
 ここでは、よく出てくるプリミティブ型を紹介します。</p>
+<p>配列とオブジェクトは次章の<a class="reference internal" href="complex.html"><span class="doc">複合型</span></a>で、関数は<a class="reference internal" href="function.html"><span class="doc">関数</span></a>で紹介します。</p>
 <div class="section" id="boolean">
 <h2><code class="docutils literal notranslate"><span class="pre">boolean</span></code> リテラル<a class="headerlink" href="#boolean" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">boolean</span></code>型は <code class="docutils literal notranslate"><span class="pre">true</span></code>/<code class="docutils literal notranslate"><span class="pre">false</span></code> の2つの真偽値を取るデータ型です。 <code class="docutils literal notranslate"><span class="pre">if</span></code> 文、<code class="docutils literal notranslate"><span class="pre">while</span></code> ループなどの制御構文や、三項演算子などを使ってプログラムの挙動をコントロールするために大切な型です。</p>
@@ -574,7 +576,7 @@ TypeScriptでは数が合わないとエラーになりますが、 <code class=
 </pre></div>
 </div>
 <p>意図せずうっかりな「未定義」が <code class="docutils literal notranslate"><span class="pre">undefined</span></code> であれば、意図をもって「これは無効な値だ」と設定するのが <code class="docutils literal notranslate"><span class="pre">null</span></code> です。
-ただし、Javaと違って、気軽に <code class="docutils literal notranslate"><span class="pre">null</span></code> を入れることはできません。共用体（union）型定義という、「AもしくはB」という型宣言ができるので、これをつかって <code class="docutils literal notranslate"><span class="pre">null</span></code> を代入します。
+ただし、Javaと違って、気軽に <code class="docutils literal notranslate"><span class="pre">null</span></code> を入れることはできません。 変数の章でも紹介した、「AもしくはBのデータが格納できる」という合併型（Union Type）の型宣言ができるので、これをつかって <code class="docutils literal notranslate"><span class="pre">null</span></code> を代入します。
 TypeScriptでは「これは無効な値をとる可能性がありますよ」というのは意識して許可してあげなければなりません。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// stringかnullを入れられるという宣言をしてnullを入れる</span>
 <span class="kd">let</span> <span class="nx">favaoriteGame</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kc">null</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
@@ -653,11 +655,11 @@ TypeScriptでは「これは無効な値をとる可能性がありますよ」�
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 5851</li>
-        <li>非アスキー: 6951</li>
-        <li>合計文字数: 12802</li>
-        <li>半角換算: 19753</li>
-        <li>全角換算: 9876.5</li>
+        <li>英数記号: 5857</li>
+        <li>非アスキー: 7005</li>
+        <li>合計文字数: 12862</li>
+        <li>半角換算: 19867</li>
+        <li>全角換算: 9933.5</li>
     </ul>
     </p>
 </div>
@@ -670,7 +672,7 @@ TypeScriptでは「これは無効な値をとる可能性がありますよ」�
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -679,7 +681,7 @@ TypeScriptでは「これは無効な値をとる可能性がありますよ」�
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

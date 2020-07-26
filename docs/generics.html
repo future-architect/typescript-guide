@@ -1,18 +1,19 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<html lang="ja">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ジェネリクス &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/translations.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="関数型指向のプログラミング" href="functional.html" />
@@ -107,8 +108,8 @@
 </div>
 </div>
 <p>このように書くことで、関数定義の実装時にエラーとなることはありません。また、利用時にも、この制約を満たさない場合にはエラーになります。</p>
-<p>文字列などのUnion Typeも <code class="docutils literal notranslate"><span class="pre">extends</span> <span class="pre">string</span></code> で設定できます。これで何かしらの文字列のみを型パラメータに指定できます。 <code class="docutils literal notranslate"><span class="pre">number</span></code> にすれば数値も扱えます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 何かしらの文字列とそのUnion Typeだけを受け付ける</span>
+<p>文字列などの合併型も <code class="docutils literal notranslate"><span class="pre">extends</span> <span class="pre">string</span></code> で設定できます。これで何かしらの文字列のみを型パラメータに指定できます。 <code class="docutils literal notranslate"><span class="pre">number</span></code> にすれば数値も扱えます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 何かしらの文字列とその合併型だけを受け付ける</span>
 <span class="kd">function</span> <span class="nx">action</span><span class="o">&lt;</span><span class="nx">T</span> <span class="kr">extends</span> <span class="kt">string</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">actionName</span>: <span class="kt">T</span><span class="p">)</span> <span class="p">{</span>
     <span class="o">:</span>
 <span class="p">}</span>
@@ -116,12 +117,12 @@
 <span class="nx">action</span><span class="o">&lt;</span><span class="nx">keyof</span> <span class="nx">ActionList</span><span class="o">&gt;</span><span class="p">(</span><span class="s2">&quot;register&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">extends</span></code> にUnion Typeを設定すればさらに特定の文字列だけに限定できます。</p>
+<p><code class="docutils literal notranslate"><span class="pre">extends</span></code> に合併型を設定すればさらに特定の文字列だけに限定できます。</p>
 </div>
 <div class="section" id="id5">
 <h2>型パラメータの自動解決<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>TypeScriptの処理系は入力値の型などから型パラメータを推論しようとします。すべての型が解決可能であれば、型パラメータの指定を省略できます。また、型パラメータ同士で影響を与え合う（制約を与え合う）ような型パラメータの制約も書くことができます。その場合も、お互いの情報や引数の情報を元に、お互いに推論できるところから推論していって、自動解決できるものを解決していきます。</p>
-<p>次の <code class="docutils literal notranslate"><span class="pre">setValue</span></code> は何やら不思議な型定義になっています。このうち、 <code class="docutils literal notranslate"><span class="pre">T</span></code> はオブジェクトの型、 <code class="docutils literal notranslate"><span class="pre">K</span></code> はオブジェクトのプロパティ名のUnion Typeで、 <code class="docutils literal notranslate"><span class="pre">U</span></code> はオブジェクトのプロパティの方の型を表しています。やっていることは、オブジェクトの型にマッチした代入をするだけのなんの変哲も無い（役に立たない）コードです。</p>
+<p>次の <code class="docutils literal notranslate"><span class="pre">setValue</span></code> は何やら不思議な型定義になっています。このうち、 <code class="docutils literal notranslate"><span class="pre">T</span></code> はオブジェクトの型、 <code class="docutils literal notranslate"><span class="pre">K</span></code> はオブジェクトのプロパティ名の合併型で、 <code class="docutils literal notranslate"><span class="pre">U</span></code> はオブジェクトのプロパティの方の型を表しています。やっていることは、オブジェクトの型にマッチした代入をするだけのなんの変哲も無い（役に立たない）コードです。</p>
 <div class="literal-block-wrapper docutils container" id="id18">
 <div class="code-block-caption"><span class="caption-text">値の設定を大げさに書く</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">setValue</span><span class="o">&lt;</span><span class="nx">T</span><span class="p">,</span> <span class="nx">K</span> <span class="kr">extends</span> <span class="nx">keyof</span> <span class="nx">T</span><span class="p">,</span> <span class="nx">U</span> <span class="kr">extends</span> <span class="nx">T</span><span class="p">[</span><span class="nx">K</span><span class="p">]</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">obj</span>: <span class="kt">T</span><span class="p">,</span> <span class="nx">key</span>: <span class="kt">K</span><span class="p">,</span> <span class="nx">value</span>: <span class="kt">U</span><span class="p">)</span> <span class="p">{</span>
@@ -186,7 +187,7 @@ C++の場合は、例えば要素が32ビットの数値で要素数が4の場�
 </div>
 <div class="section" id="id9">
 <h3>オブジェクトと属性名に対するユーティリティ型<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>次の3つの型は <code class="docutils literal notranslate"><span class="pre">T</span></code> 以外に、 <code class="docutils literal notranslate"><span class="pre">K</span></code> としてプロパティの文字列のUnion Typeを持ち、新しいオブジェクトの型を作ります。</p>
+<p>次の3つの型は <code class="docutils literal notranslate"><span class="pre">T</span></code> 以外に、 <code class="docutils literal notranslate"><span class="pre">K</span></code> としてプロパティの文字列の合併型を持ち、新しいオブジェクトの型を作ります。</p>
 <div class="literal-block-wrapper docutils container" id="id21">
 <div class="code-block-caption"><span class="caption-text">オブジェクトと属性名に対するユーティリティ型の使い方。</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">viewItems</span>: <span class="kt">Pick</span><span class="o">&lt;</span><span class="nx">User</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span> <span class="o">|</span> <span class="s2">&quot;gender&quot;</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
@@ -204,7 +205,7 @@ C++の場合は、例えば要素が32ビットの数値で要素数が4の場�
 </div>
 <div class="section" id="id10">
 <h3>型の集合演算のユーティリティ型<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>次の3つの型は、 <code class="docutils literal notranslate"><span class="pre">T</span></code> と <code class="docutils literal notranslate"><span class="pre">U</span></code> （ <code class="docutils literal notranslate"><span class="pre">NonNullable&lt;T&gt;</span></code> 以外）として、Union Typeをパラメータとして受け、新しいUnion Typeを作り出します。</p>
+<p>次の3つの型は、 <code class="docutils literal notranslate"><span class="pre">T</span></code> と <code class="docutils literal notranslate"><span class="pre">U</span></code> （ <code class="docutils literal notranslate"><span class="pre">NonNullable&lt;T&gt;</span></code> 以外）として、合併型をパラメータとして受け、新しい合併型を作り出します。</p>
 <div class="literal-block-wrapper docutils container" id="id22">
 <div class="code-block-caption"><span class="caption-text">型の集合演算のユーティリティ型の使い方。</span><a class="headerlink" href="#id22" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">year</span>: <span class="kt">NonNullable</span><span class="o">&lt;</span><span class="kt">string</span> <span class="o">|</span> <span class="kt">number</span> <span class="o">|</span> <span class="kc">undefined</span><span class="o">&gt;</span> <span class="o">=</span> <span class="s2">&quot;昭和&quot;</span><span class="p">;</span>
@@ -212,9 +213,9 @@ C++の場合は、例えば要素が32ビットの数値で要素数が4の場�
 </div>
 </div>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Exclude&lt;T,U&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code> のUnion Typeから、 <code class="docutils literal notranslate"><span class="pre">U</span></code> のUnion Typeの構成要素を除外したUnion Typeを作る型</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Extract&lt;T,U&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code> のUnion Typeと、 <code class="docutils literal notranslate"><span class="pre">U</span></code> のUnion Typeの両方に含まれるUnion Typeを作る型</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">NonNullable&lt;T&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code> のUnion Typeから、 <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を抜いたUnion Typeを作る型</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Exclude&lt;T,U&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code> の合併型から、 <code class="docutils literal notranslate"><span class="pre">U</span></code> の合併型の構成要素を除外した合併型を作る型</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Extract&lt;T,U&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code> の合併型と、 <code class="docutils literal notranslate"><span class="pre">U</span></code> の合併型の両方に含まれる合併型を作る型</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NonNullable&lt;T&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">T</span></code> の合併型から、 <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を抜いた合併型を作る型</p></li>
 </ul>
 </div>
 <div class="section" id="id11">
@@ -233,9 +234,9 @@ C++の場合は、例えば要素が32ビットの数値で要素数が4の場�
 </ul>
 </div>
 </div>
-<div class="section" id="any-unknown-union-type">
-<h2><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> 、Union Typeとの違い<a class="headerlink" href="#any-unknown-union-type" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>未知の型というと、 <code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> が思いつくでしょう。また、複数の型を受け付けるというと、Union Typeもあります。これらとジェネリクスの違いについて説明します。</p>
+<div class="section" id="any-unknown">
+<h2><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> 、合併型との違い<a class="headerlink" href="#any-unknown" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>未知の型というと、 <code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> が思いつくでしょう。また、複数の型を受け付けるというと、合併型もあります。これらとジェネリクスの違いについて説明します。</p>
 <p><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> の変数に値を設定してしまうと、型情報がリセットされます。取り出すときに、適切な型を宣言してあげないと、その後のエラーチェックが無効になったり、エディタの補完ができません。</p>
 <p>次の関数は、初回だけ指定の関数を読んで値を取って来るが、2回目以降は保存した値をそのまま返す関数です。初回アクセスまで初期化を遅延させます。</p>
 <div class="literal-block-wrapper docutils container" id="id23">
@@ -288,7 +289,7 @@ C++の場合は、例えば要素が32ビットの数値で要素数が4の場�
 </pre></div>
 </div>
 </div>
-<p>Union Typeについても、型の補完時に余計な型情報がまざってしまうため、型ガードで必要な型である保証が必要です。また、ジェネリクスには2つの引数があって両方の型が同じ、という保証もしやすいメリットがあります。</p>
+<p>合併型についても、型の補完時に余計な型情報がまざってしまうため、型ガードで必要な型である保証が必要です。また、ジェネリクスには2つの引数があって両方の型が同じ、という保証もしやすいメリットがあります。</p>
 </div>
 <div class="section" id="id13">
 <h2>まとめ<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -324,7 +325,7 @@ C++の場合は、例えば要素が32ビットの数値で要素数が4の場�
 <li><a class="reference internal" href="#id12">クラスに対するユーティリティ型</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#any-unknown-union-type"><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> 、Union Typeとの違い</a></li>
+<li><a class="reference internal" href="#any-unknown"><code class="docutils literal notranslate"><span class="pre">any</span></code> や <code class="docutils literal notranslate"><span class="pre">unknown</span></code> 、合併型との違い</a></li>
 <li><a class="reference internal" href="#id13">まとめ</a></li>
 </ul>
 </li>
@@ -348,11 +349,11 @@ C++の場合は、例えば要素が32ビットの数値で要素数が4の場�
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 2851</li>
-        <li>非アスキー: 4324</li>
-        <li>合計文字数: 7175</li>
-        <li>半角換算: 11499</li>
-        <li>全角換算: 5749.5</li>
+        <li>英数記号: 2671</li>
+        <li>非アスキー: 4378</li>
+        <li>合計文字数: 7049</li>
+        <li>半角換算: 11427</li>
+        <li>全角換算: 5713.5</li>
     </ul>
     </p>
 </div>
@@ -365,7 +366,7 @@ C++の場合は、例えば要素が32ビットの数値で要素数が4の場�
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -374,7 +375,7 @@ C++の場合は、例えば要素が32ビットの数値で要素数が4の場�
       &copy;2019, Future Corporation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

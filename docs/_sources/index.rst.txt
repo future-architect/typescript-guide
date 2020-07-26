@@ -54,7 +54,6 @@
    functional
    class2
    reactive
-   typedef
    advance
 
 .. toctree::
@@ -65,7 +64,7 @@
    baseenv
    libenv
    clienv
-   reactenv
+   webfrontenv
    ci
    deploy
    version

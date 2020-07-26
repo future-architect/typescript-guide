@@ -307,7 +307,7 @@ JavaScriptの言語の標準に含まれていない、処理系独自の機能�
 
 .. code-block:: ts
 
-   const heavyTask = async (): Promise<number> => {
+   async function heavyTask() {
      return new Promise<number>((resolve, reject) => {
        // 何かしらの処理
        reject(error);
@@ -363,6 +363,55 @@ Node.jsで ``async`` / ``await`` やら ``Promise`` を一切使っていない�
 ブラウザの場合、誰もキャッチしないと、開発者ツールのコンソールに表示されますが、開発者ツールを開いていない限りエラーを見ることはできません。ユーザーには正常に正常に処理が進んだのか、そうじゃなかったのかわかりませんので、かならずキャッチして画面に表示してあげる必要があるでしょう。
 
 どちらにしても何かしらのリカバリー処理が必要となりますので、本書ではエラーと例外の区別といったことはしません。
+
+例外処理機構以外で例外を扱う
+--------------------------------------
+
+これまでTypeScriptにおける例外処理の方法や作法などを説明してきました。しかし、ベースとなっているJaavScriptの制約により、お世辞にも使いやすい機能とは言えません。理由は以下の3つです。
+
+* Javaの ``throws`` のように、メソッドがなげうる例外の種類がわからなず、ソースの関数の実態やドキュメント（整備されていれば）を確認する必要がある
+* JavaやC++のように、 ``catch`` 節を複数書いて、型ごとの後処理を書くことができず、 ``insteadof`` を駆使してエラーの種類を見分けるコードを書く必要がある
+* ``Promise`` や　``async`` 関数で、何が ``reejct`` に渡されたり、どんな例外を投げるのかを型定義に書く方法がない
+
+例外に関しては、補完も効かないし、型のチェックも行えません。いっそのこと、例外処理機構を忘れてしまうのも手です。例外処理のないGoでは、関数の返り値の最後がエラーという規約でコードを書きます。
+TypeScriptでも、いくつか方法が考えられます。
+
+* タプルを使ってエラーを返す（Go式）
+* オブジェクトを使ってエラーを返す
+* 合併型を使ってエラーを返す
+
+.. code-block:: ts
+
+   type User = {
+     name: string;
+     age:  number;
+   }
+
+   // タプル
+   function create(name: string, age: number): [User?, Error?] {
+     if (age < 0) {
+       return [undefined, new Error("before born")]
+     }
+     return [{name, age}];
+   }
+
+   // オブジェクト
+   function create2(name: string, age: number): {user?: User, error?: Error} {
+     if (age < 0) {
+       return {error: new Error("before born")}
+     }
+     return {user: {name, age}};
+   }
+
+   // 合併型
+   function create3(name: string, age: number): User | Error {
+     if (age < 0) {
+       return new Error("before born");
+     }
+     return {name, age};
+   }
+
+この中でどれが良いかは好みの問題ですが、個人的なおすすめはオブジェクトです。タプルよりかは返り値の意味に名前をつけられるのと、合併と異なり、オプショナルチェイニングを使ってエラーチェックを簡単に書ける可能性があります。\ ``instanceof``\ と毎回タイプする必要性もありません。ただ、どの書き方もマジョリティではなく、好みの問題ではあります。
 
 まとめ
 ------------

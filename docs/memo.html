@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&lt;no title&gt; &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <p>最小限のtsconfig
+型とは何か、typescriptはコンパイル時にチェックする
+ランタイムのエラーは検知できない
+unknownになることはない
+リテラル型
+→TypeScriptでは型といいつつ値まで固定してコンパイラが取得する可能性がある
+bigint
+symbol
+object型はanyと大差ない
+const objはその中の属性のリテラル型までは推論しない。constは再代入を禁止するだけで、属性の書き換えは自由なので
+インデックスシグネチャ</p>
+<p>return　文がunionになる
+タプル
+配列にreadonlyをつけることが可能
+voidとnever</p>
+<p>引数は推論しない
+デフォルト値から推論はできる
+レストパラメータ
+thisの型つけ:説明しない
+call/apply/bind: 説明しない</p>
+<p>map/forEachの中の分割代入（柏木さん）</p>
+<p>iterable/iterator</p>
+<p>オーバーロードされた型シグネチャは扱わない
+ジェネリックのバインド
+　→呼び出し時、明示的
+Promiseの推論は今のところうまくいかない</p>
+<dl class="simple">
+<dt>ジェネリックに製薬をあたえる</dt><dd><p>function a&lt;T extends U&gt;()</p>
+</dd>
+</dl>
+<p>関数呼び出し規約のフォーマルな書き方</p>
+<p>ES2020なprivate</p>
+<p>abstractなメソッド</p>
+<p>return typeにthisを使う</p>
+<p>インタフェースは複数箇所で宣言できる。マージされる。</p>
+<p>TSは属性が同じなら可換とみなす。定義が別で合っても。</p>
+<p>new コンストラクタシグネチャ。</p>
+<p>でコレータは型を拡張しない前提</p>
+<p>privateコンストラクタ</p>
+<p>TypeScript安全ではない。コーディングのしやすさとのバランス。</p>
+<p>マップ型
+Record&lt;Keys, Values&gt;
+Keys 型のキーと Values 型の値を持つオブジェクト。
+Partial&lt;Object&gt; Object内のすべてのフィールドを省略可能と指定します。
+Required&lt;Object&gt; Object内のすべてのフィールドを必須(省略不可)と指定します。
+Readonly&lt;Object&gt; Object内のすべてのフィールドを読み取り専用と指定します。
+Pick&lt;Object, Keys&gt;
+指定された Keysだけを持つ、Objectのサブタイプを返します。</p>
+<p>型と値は直行した名前空間</p>
+<p>done: タプル
+条件型</p>
+<p>オーバーロード</p>
+<p>on(文字列)なマッピング
+→確かにチェックはきくが、エラ〜メッセージはわかりにくいものになりそう。メソッドを分けて定義すべき。</p>
+<p>esModuleInterオプション
+import React from 'react'</p>
+<p>TypeScript
+-&gt;期待する属性に足りているか
+→余計な属性を渡していないか</p>
+<p>名前空間</p>
+<p>importHelperフラグ</p>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/memo.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 479</li>
+        <li>非アスキー: 679</li>
+        <li>合計文字数: 1158</li>
+        <li>半角換算: 1837</li>
+        <li>全角換算: 918.5</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/memo.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
