@@ -42,12 +42,6 @@
 
 .. toctree::
    :maxdepth: 2
-   :caption: 実践編
-
-   vuesample
-
-.. toctree::
-   :maxdepth: 2
    :caption: 中級のテクニック
 
    generics
@@ -58,7 +52,7 @@
 
 .. toctree::
    :maxdepth: 2
-   :caption: TypeScript環境構築
+   :caption: 環境ごとのTips
 
    prodenv
    baseenv

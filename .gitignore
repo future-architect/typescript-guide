@@ -4,3 +4,4 @@ node_modules
 docs/.doctrees
 _build/latex
 .DS_Store
+node_modules

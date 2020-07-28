@@ -51,11 +51,54 @@ TypeScriptを選んで開発すべき理由
 
 型情報が得られることで開発が加速される、というので十分に元はとれます。また、最初からTypeScriptを書くメリットとしては、JavaScriptのライブラリをコンパイルして作る際に、型定義ファイルも同時生成できて、無駄がない点にあります。最初から書くことでTypeScript資産がたまり、さらにTypeScriptの開発が楽になります。
 
+一方、JavaScriptを開発に使う場合も、各ブラウザのエンジンのサポートしている機能が古いことがあり、Babelを利用して、最新のJavaScriptから互換性の高いJavaScriptへの変換を行うのが通例です。そのため、JavaScriptを選んでも、TypeScriptを選んでも、何かしらのツール導入が必要なことには変わりありません。それであれば、TypeScriptを入れた方が付加価値がさらにあります。
+
 また、JavaScriptは極めて柔軟な言語です。関数の引数の型もどんなものでも受け付けるとか、引数によって内部の動作が大きく切り替わるようなコード（メソッド・オーバーロード）も書こうと思えば書けます。またTypeScriptの機能を駆使して、そのような関数に型情報を付与することもできます。しかし、TypeScriptで最初から書けば、そのような型付けに苦労するような、トリッキーな書き方がしにくくなります。結果として型定義のメンテナンスに時間を取られることが減ります。
 
 それ以外にも、型情報が分かった上で変換を行うため、ループ構文など、いくつかのコードを変換するときに、Babelよりも実行効率の良いJavaScriptコードを生成することもわかっています。
 
 本ドキュメントでは、大規模化するフロントエンド開発の難易度を下げ、バグが入り込みにくくなるTypeScriptを使いこなせるように、文法や環境構築などを紹介していきます。
+
+ライセンス
+---------------------------------
+
+.. image:: images/by-sa.png
+
+本ドキュメントは `クリエイティブ・コモンズ4.0の表示 - 継承 <http://creativecommons.org/licenses/by-sa/4.0/deed.ja>`_ （CC BY-SA 4.0） [#]_ の元で公開します。修正や足したいコンテンツはPull Requestを出していただけるとうれしいのですが、改変の制約はありませんのでフォークしていただくことも可能です。また、商用利用の制限もありません。
+
+著作権者名は「フューチャー株式会社（Future Corporation）」でお願いします。
+
+なお、LICENSEファイルは `Creative Commons Markdown <https://github.com/idleberg/Creative-Commons-Markdown/blob/master/4.0/by-sa.markdown>`_ から引用させていただきました。
+
+.. [#] http://creativecommons.org/licenses/by-sa/4.0/deed.ja
+
+本書の構成と学習の準備
+---------------------------------
+
+最初に説明した通り、本ドキュメントはTypeScriptファーストで説明していきます。現在でもJavaScriptを書く人の多くがTypeScriptを採用しており、その数は増えているため今後はTypeScriptでフロントエンドなどの開発のキャリアをスタートする人も増えるでしょう。本書は「全員がTypeScriptを書くようになった」時代がくることを想定して書いています。JavaScriptとの差異があるところは適宜補足します。
+
+本ドキュメントではまずTypeScriptの基本的な文法を学んでいきます。TypeScriptはJavaScriptの記法はすべてサポートしていますが、JavaScriptも歴史のある言語なので今となっては古い書き方も増えています。よく使われていたが今はよりよい書き方があることもある時はモダンな書き方が学べるようにしています。
+
+他の人が使うライブラリで必要となるような高度な文法は中級編として別のセクションに分けています。こちらは最初は飛ばしてもかまいません。
+
+その後は各環境向けのTipsを紹介します。共通部分をみながら必要な箇所をピックアップして読めるようにしています。ここではVSCodeを用いた開発環境構築やツール整備から始まり、それぞれの環境固有のトピックについて触れていきます。
+
+本ドキュメントはTypeScriptのエコシステムまで含めたすべてを説明しようとするものではありません。例えば、既存のJavaScriptのライブラリのための型定義ファイルを作成する方法については紹介しません。時間が経てば有名ライブラリについてはほぼ網羅されることを期待していますし、自作していくときはゼロからTypeScriptでいけば、型定義ファイルは自動生成されるので不要です。
+
+環境構築まではエディタなどの準備は不要です。文法を学ぶときは、本家が提供しているPlaygroundが便利です。本書執筆時点ではまだベータですが、次期バージョンのv3も利用できます。
+
+* 現行Playground: https://www.typescriptlang.org/play/
+* v3ベータ: https://www.staging-typescript.org/play
+
+V2の方はTypeScriptと変換後のJavaScriptを見比べるビューがメインの機能で、実行もできますが、ブラウザの中で実行したときのログは開発者ツールを起動しないと見れません。V3の方は変換結果以外に、TypeScriptが解釈した型情報（.d.ts）、エラー、実行ログも確認できて、学習ツールとして使いやすくなっています。プラグインも実行できるようになっています。
+
+.. figure:: images/playground_v2.png
+
+   現行のPlayground。右上のTry the new PlaygroundからV3にいける
+
+.. figure:: images/playground_v3.png
+
+   V3のPlayground。
 
 JavaScriptのバージョン
 ---------------------------------
@@ -72,51 +115,6 @@ JavaScriptのバージョン
 1月ぐらいにstage 4へ格上げになる機能が決定され、6月に新しいバージョンがリリースされます。
 
 TypeScriptも基本的には型がついたECMAScriptとして、ECMAScriptの機能は積極的に取り込んでいます。また、いくつかstage 2やstage 3の機能も取り込まれていたりします。
-
-本ドキュメントはTypeScriptファーストで説明していきますが、JavaScriptとの差異があるところは適宜補足します。
-
-本書の参考文献など
----------------------------------
-
-ECMAScriptの仕様および、MDN、TypeScriptの仕様などは一番のリファレンスとしています。
-
-* ECMAScript規格: https://www.ecma-international.org/publications/standards/Ecma-262.htm
-* MDN: https://developer.mozilla.org/ja/docs/Glossary/JavaScript
-* 本家サイト: http://www.typescriptlang.org/
-
-下記のサイトは最近まではCompiler Internalなどが書いてあるサイトとしてしか思っていなくて、詳しくは見ていませんでしたが、現在ではかなり充実してきています。現時点では参考にはしてませんでしたが、今後は参考にする可能性があります。
-
-* TypeScript Deep Dive: https://basarat.gitbooks.io/typescript/
-* TypeScript Deep Dive日本語版: https://typescript-jp.gitbook.io/deep-dive/
-
-本書のベースとなっているのは、本原稿を執筆した渋川がQiitaに書いたエントリーの\ `イマドキのJavaScriptの書き方2018 <https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9>`_\ [#]_\ と、それを元にして書いた `Software Design 2019年3月号 <https://gihyo.jp/magazine/SD/archive/2019/201903>`_\ のJavaScript特集です。それ以外に、状況別のTypeScriptの環境構築について書いた `2019年版: 脱Babel!フロント/JS開発をTypeScriptに移行するための環境整備マニュアル <https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1>`_ [#]_ も内包していますし、他のエントリーも細々と引用しています。
-
-これらの執筆においてもそうですが、本書自体の執筆でも、ウェブ上で多くの議論をしてくれた人たちとの交流によって得られた知識ふんだんに盛り込まれていますので、ここに感謝申し上げたいと思います。
-
-.. [#] https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9
-.. [#] https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1
-
-ライセンス
----------------------------------
-
-.. image:: images/by-sa.png
-
-本ドキュメントは `クリエイティブ・コモンズ4.0の表示 - 継承 <http://creativecommons.org/licenses/by-sa/4.0/deed.ja>`_ （CC BY-SA 4.0） [#]_ の元で公開します。修正や足したいコンテンツはPull Requestを出していただけるとうれしいのですが、改変の制約はありませんのでフォークしていただくことも可能です。また、商用利用の制限もありません。
-
-著作権者名は「フューチャー株式会社（Future Corporation）」でお願いします。
-
-なお、LICENSEファイルは `Creative Commons Markdown <https://github.com/idleberg/Creative-Commons-Markdown/blob/master/4.0/by-sa.markdown>`_ から引用させていただきました。
-
-.. [#] http://creativecommons.org/licenses/by-sa/4.0/deed.ja
-
-本書で扱わないこと
----------------------------------
-
-本書はTypeScriptのエコシステムまで含めたすべてを説明しようとするものではありません。
-
-例えば、既存のJavaScriptのライブラリのための型定義ファイルを作成する方法については紹介しません。時間が経てば有名ライブラリについてはほぼ網羅されることを期待していますし、自作していくときはゼロからTypeScriptでいけば、型定義ファイルは自動生成されるので不要です。
-
-また、ジェネリクスや型システムの複雑な機能には深入りはしません。TypeScriptも、少しずつ着実にバージョンアップを重ねています。一般的に開発者がよく利用するようなケースにおいては、すでに書きやすくなるようにデザインされています。また、今現在は簡単に定義できないようなものがあったとしても将来バージョンで改善されて簡単に書けるようになると期待されるからです。
 
 TypeScriptと互換性
 ---------------------------------
@@ -165,3 +163,24 @@ core-jsのオプションが知りたい場合は、core-jsのサイトのREADME
 .. [#] http://kangax.github.io/compat-table/es6/
 .. [#] Lambdaは長らくNode.js 6というかなり古いバージョンを使っていましたが10が提供されて6はサポート終了になり、Node.js 6ベースのタスクの新規作成と更新ができなくなりました。
 .. [#] https://www.npmjs.com/package/core-js
+
+本書の参考文献など
+---------------------------------
+
+ECMAScriptの仕様および、MDN、TypeScriptの仕様などは一番のリファレンスとしています。
+
+* ECMAScript規格: https://www.ecma-international.org/publications/standards/Ecma-262.htm
+* MDN: https://developer.mozilla.org/ja/docs/Glossary/JavaScript
+* 本家サイト: http://www.typescriptlang.org/
+
+下記のサイトは最近まではCompiler Internalなどが書いてあるサイトとしてしか思っていなくて、詳しくは見ていませんでしたが、現在ではかなり充実してきています。現時点では参考にはしてませんでしたが、今後は参考にする可能性があります。
+
+* TypeScript Deep Dive: https://basarat.gitbooks.io/typescript/
+* TypeScript Deep Dive日本語版: https://typescript-jp.gitbook.io/deep-dive/
+
+本書のベースとなっているのは、本原稿を執筆した渋川がQiitaに書いたエントリーの\ `イマドキのJavaScriptの書き方2018 <https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9>`_\ [#]_\ と、それを元にして書いた `Software Design 2019年3月号 <https://gihyo.jp/magazine/SD/archive/2019/201903>`_\ のJavaScript特集です。それ以外に、状況別のTypeScriptの環境構築について書いた `2019年版: 脱Babel!フロント/JS開発をTypeScriptに移行するための環境整備マニュアル <https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1>`_ [#]_ も内包していますし、他のエントリーも細々と引用しています。
+
+これらの執筆においてもそうですが、本書自体の執筆でも、ウェブ上で多くの議論をしてくれた人たちとの交流によって得られた知識ふんだんに盛り込まれていますので、ここに感謝申し上げたいと思います。
+
+.. [#] https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9
+.. [#] https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1
