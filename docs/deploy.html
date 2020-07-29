@@ -40,10 +40,8 @@
 <div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">課題</p>
 <p>npmパッケージ to npm
-npmパッケージ to nexus
-Dockerイメージ</p>
+npmパッケージ to nexus</p>
 <p><a class="reference external" href="https://qiita.com/kannkyo/items/5195069c65350b60edd9">https://qiita.com/kannkyo/items/5195069c65350b60edd9</a></p>
-<p><a class="reference external" href="https://qiita.com/shibukawa/items/fd49f98736045789ffc3#%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E5%91%A8%E3%82%8A%E3%81%AEdocker%E8%A8%AD%E5%AE%9A">https://qiita.com/shibukawa/items/fd49f98736045789ffc3#%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E5%91%A8%E3%82%8A%E3%81%AEdocker%E8%A8%AD%E5%AE%9A</a></p>
 </div>
 <div class="section" id="npm">
 <h2>npmパッケージとしてデプロイ<a class="headerlink" href="#npm" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -75,8 +73,8 @@ Dockerイメージ</p>
 <li><p><a class="reference external" href="https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/">https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/</a></p></li>
 </ul>
 <p>サンプルとしては次のコードを使います。</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">src/main.ts</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">src/main.ts</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">express</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Request</span><span class="p">,</span> <span class="nx">Response</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;express&quot;</span><span class="p">;</span>
 <span class="kr">import</span> <span class="nx">compression</span> <span class="nx">from</span> <span class="s2">&quot;compression&quot;</span><span class="p">;</span>
 <span class="kr">import</span> <span class="nx">bodyParser</span> <span class="nx">from</span> <span class="s2">&quot;body-parser&quot;</span><span class="p">;</span>
@@ -118,8 +116,8 @@ Dockerイメージ</p>
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>は<code class="docutils literal notranslate"><span class="pre">npx</span> <span class="pre">tsc</span> <span class="pre">--init</span></code>で生成したものをひとまず使います。<code class="docutils literal notranslate"><span class="pre">package.json</span></code>は以下のものを利用します。nccを使ってビルドする前提となっています。</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;webserver&quot;</span><span class="p">,</span>
   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
@@ -161,6 +159,7 @@ Dockerイメージ</p>
 <li><p>Node.js用のウェブサービス</p></li>
 <li><p>ウェブフロントエンド</p></li>
 </ul>
+<p>なお、本章のサンプルはベースイメージのバージョンは細かく指定していませんが、突然メジャーバージョンが上がってビルドできなくなることもあります。特に業務開発ではDocker Hubのイメージ情報のタグを見て、適宜バージョンを固定することをお勧めします。</p>
 <div class="section" id="id4">
 <h3>コンテナとは何か<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>コンテナは1アプリケーションだけが格納されたミニOS環境です。Linux上でもmacOS上でもWindows上でもクラウド環境でも、アプリケーションからは同じOS環境のように見えます。ポータブルなアプリケーション配布・実行環境としてますます地位が高まっています。コンテナは動いている環境のことを指します。コンテナは実行時にイメージを読み込んで環境を構築します。これは実行に必要なファイルと起動時のコマンドなどがセットになったものです。開発者が作るのはイメージです。</p>
@@ -184,7 +183,7 @@ Dockerイメージ</p>
 </div>
 <div class="section" id="id5">
 <h3>Dockerのベースイメージの選択<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>Dockerイメージを作成するには<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>という設定ファイルを作成し、<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code>コマンドを使ってイメージを作成します。イメージは何もないところからゼロで作ることもできなくはないですが、基本的にはベースイメージと呼ばれる土台となるイメージを選択して、それに対して必要なファイルを追加します。ビルド済みのアプリケーションを単に置く、という構築方法もありますが（公式イメージの多くはそれに近いことをしている）、アプリケーション開発の場合はソースコードをDocker内部に送り、それをDocker内部でビルドして、実行用イメージを作成します。できあがったイメージをコンパクトにするために、ビルド用イメージと、実行用イメージを分ける（マルチステージビルド）が今の主流です。</p>
+<p>Dockerイメージを作成するには<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>という設定ファイルを作成し、<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code>コマンドを使ってイメージを作成します。ベースイメージと呼ばれる土台となるイメージを選択して、それに対して必要なファイルを追加します。ビルド済みのアプリケーションを単に置く、という構築方法もありますが（公式イメージの多くはそれに近いことをしている）、アプリケーション開発の場合はソースコードをDocker内部に送り、それをDocker内部でビルドして、実行用イメージを作成します。できあがったイメージをコンパクトにするために、ビルド用イメージと、実行用イメージを分ける（マルチステージビルド）が今の主流です。</p>
 <p>Node.jsの公式のイメージは以下のサイトにあります。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://hub.docker.com/_/node/">https://hub.docker.com/_/node/</a></p></li>
@@ -257,9 +256,11 @@ Dockerイメージ</p>
 <div class="section" id="debiandocker">
 <h3>Debianベースのイメージ作成とDockerの基礎<a class="headerlink" href="#debiandocker" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>まず、イメージにするアプリケーションを作成します。コンテナの中のアプリケーションは終了時にシグナルが呼ばれますので、シグナルに応答して終了するように実装する必要があります。</p>
-<p>Dockerfileはコンテナのイメージを作成するためのレシピです。行志向のスクリプトになっています。</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<p><code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>はコンテナのイメージを作成するためのレシピです。行志向のスクリプトになっています。WindowsやmacOSでは、Linuxが動作している仮想PCの中でDockerのサーバーが動作しており（Windowsの場合はWindowsも動作しますが、ここでは無視します）、ビルドを実行すると、実行されているフォルダの配下のファイル（コンテキスト）と<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>が、まとめてサーバーに送られます。サーバーの中で、<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>に書かれた命令に従ってベースとなるディスクイメージに手を加えていきます。実行されるのはローカルコンピュータではないので、記述できるコマンドも、そのベースイメージのLinuxで使えるものに限られます。</p>
+<p>そのため、<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>に問題があれば、Windows上でビルドや実行をしても、macOS上でビルドや実行をしても、まったく同じエラーが発生するはずです。バージョン番号や内部で使われるパッケージのバージョンはその時の最新を使うこともできるため、いつでもまったく同じにはならないかもしれませんが、どこで誰がどのOSで実行しても、同じイメージが作られます。この冪等性がDockerが重宝されるポイントです。</p>
+<p>次のファイルが、実際に動作する<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>です。順を追って見ていきます。</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="c"># ここから下がビルド用イメージ</span>
 
 <span class="k">FROM</span> <span class="s">node:12-buster</span> <span class="k">AS</span> <span class="s">builder</span>
@@ -282,27 +283,205 @@ Dockerイメージ</p>
 </pre></div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">FROM</span></code>はベースとなるイメージを選択する命令です。ここではビルド用のベースイメージと、実行用のベースイメージと2箇所<code class="docutils literal notranslate"><span class="pre">FROM</span></code>を使用しています。<code class="docutils literal notranslate"><span class="pre">FROM</span></code>から次の<code class="docutils literal notranslate"><span class="pre">FROM</span></code>、あるいはファイルの終行までがイメージになります。ここでは2つイメージが作られていますが、最後のイメージが、このDockerfileの成果物のイメージとなります。</p>
+<p><code class="docutils literal notranslate"><span class="pre">FROM</span></code>はベースとなるイメージを選択する命令です。ここではビルド用のベースイメージと、実行用のベースイメージと2箇所<code class="docutils literal notranslate"><span class="pre">FROM</span></code>を使用しています。<code class="docutils literal notranslate"><span class="pre">FROM</span></code>から次の<code class="docutils literal notranslate"><span class="pre">FROM</span></code>、あるいはファイルの終行までがイメージになります。ここでは2つイメージが作られていますが、最後のイメージが、このDockerfileの成果物のイメージとなります。わざわざ2つに分けるのは、アクロバティックなことをしないで最終的なイメージサイズを小さくするためです。</p>
 <p>それぞれのイメージの中ではいくつかの命令を使ってイメージを完成させていきます。</p>
 <p><code class="docutils literal notranslate"><span class="pre">COPY\</span> <span class="pre">は実行場所（コンテキスト）や別のイメージ（\</span> <span class="pre">``--from</span></code>が必要）からファイルを取得してきて、イメージ内部に配置する命令です。このサンプルでは使っていませんが、<code class="docutils literal notranslate"><span class="pre">ADD</span></code>命令もあり、こちらは<code class="docutils literal notranslate"><span class="pre">COPY</span></code>の高性能バージョンです。ネットワーク越しにファイルを取得できますし、アーカイブファイルを展開してフォルダに配置もできます。<code class="docutils literal notranslate"><span class="pre">RUN</span></code>は何かしらの命令を実行します。</p>
-<p>あと重要なポイントが、このイメージ作成のステップ（行）ごとに内部的にはイメージが作成されている点です。このステップごとのファイルシステムの状態は「レイヤー」と呼ばれます。このレイヤーはキャッシュされて、ファイルシステムの状態に差分がなければキャッシュを利用します。イメージの内部にはこのレイヤーがすべて保存されています。例えば、ファイルを追加、そして削除をそれぞれ1ステップずつ実行すると、消したはずのファイルもレイヤーには残ってしまい、イメージサイズは大きなままとなります。</p>
-<p>実行用イメージはこのレイヤーとサイズの問題は心の片隅に置いておく方が良いですが（優先度としては10番目ぐらいです）、ビルド用のイメージはサイズが大きくなっても弊害とかはないので、なるべくステップを分けてキャッシュされるようにすべきです。また、キャッシュ効率をあげるために、なるべく変更が少ない大物を先にインストールすることが大切です。</p>
+<p>重要なポイントが、このイメージ作成のステップ（行）ごとに内部的にはイメージが作成されている点です。このステップごとのファイルシステムの状態は「レイヤー」と呼ばれます。このレイヤーはキャッシュされて、コンテキストとファイルシステムの状態に差分がなければキャッシュを利用します。イメージの内部にはこのレイヤーがすべて保存されています。実行用イメージはこのレイヤーとサイズの問題は心の片隅に置いておく方が良いですが（優先度としては10番目ぐらいです）、ビルド用のイメージはサイズが大きくなっても弊害とかはないので、なるべくステップを分けてキャッシュされるようにすべきです。また、キャッシュ効率をあげるために、なるべく変更が少ない大物を先にインストールすることが大切です。</p>
 <p>上記のサンプルではパッケージ情報ファイル（<code class="docutils literal notranslate"><span class="pre">package.json</span></code>と<code class="docutils literal notranslate"><span class="pre">package-lock.json</span></code>）取得してきてサードパーティのライブラリのダウンロード（<code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code>）だけを先に実行しています。利用パッケージの変更はソースコードの変更よりもレアケースです。一方、ソースコードの変更は大量に行われます。そのためにソースコードのコピーを後に行っています。もし逆であれば、ソースコード変更のたびにパッケージのダウンロードが走り、キャッシュがほとんど有効になりません。このようにすれば、ソースコードを変更して再ビルドするときは<code class="docutils literal notranslate"><span class="pre">COPY</span> <span class="pre">src</span></code>の行より以前はスキップされてそこから先だけが実行されます。</p>
-<p>実行用イメージの最後は<code class="docutils literal notranslate"><span class="pre">CMD</span></code>命令を使います。いつものスクリプトの実行と同じように記述すれば問題ありません。</p>
+<p>実行用イメージの最後は<code class="docutils literal notranslate"><span class="pre">CMD</span></code>命令を使います。シェルスクリプトで実行したいプログラムを記述するのと同じように記述すれば問題ありません。最後の<code class="docutils literal notranslate"><span class="pre">CMD</span></code>は、常時起動しつづけるウェブサーバーであっても、一通り処理を実行して終了するバッチコマンドであっても、どちらでもかまいません。</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><strong>Dockerとイメージサイズ削減</strong></p>
+<p>今回紹介している、ビルド用イメージと実行用イメージなど、複数イメージを利用してイメージを作成する方法は「マルチステージビルド」と呼ばれます。</p>
+<p>すべてのステップがレイヤーとして保存されると紹介しました。例えば、ファイルを追加、そして削除をそれぞれ1ステップずつ実行すると、消したはずのファイルもレイヤーには残ってしまい、イメージサイズは大きなままとなります。</p>
+<p>マルチステージビルドがなかった時代は、なるべくレイヤーを作らないことでイメージサイズを減らそうとしていました。例えば、C++コンパイラをパッケージマネージャを使ってインストールし、ビルドを実行し、コンパイラを削除するというところまで、一つのRUNコマンドで行うこともありました。これであれば、結果のレイヤーは一つですし、ビルド済みのバイナリだけが格納されるのでサイズは増えません。次のコードは<a class="reference external" href="https://github.com/docker-library/redis">Redisの実際のリポジトリ</a>から取得してきたものです。Redis 3.0当時のもので、今はもっと複雑ですが、この場合は試行錯誤すると、毎回パッケージのダウンロードが始まります。もはやこのようなことは不要です。</p>
+<div class="highlight-Dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">RUN</span> <span class="nv">buildDeps</span><span class="o">=</span><span class="s1">&#39;gcc libc6-dev make&#39;</span> <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> <span class="nb">set</span> -x <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> apt-get update <span class="o">&amp;&amp;</span> apt-get install -y <span class="nv">$buildDeps</span> --no-install-recommends <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/* <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> mkdir -p /usr/src/redis <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> curl -sSL <span class="s2">&quot;</span><span class="nv">$REDIS_DOWNLOAD_URL</span><span class="s2">&quot;</span> -o redis.tar.gz <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$REDIS_DOWNLOAD_SHA1</span><span class="s2"> *redis.tar.gz&quot;</span> <span class="p">|</span> sha1sum -c - <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> tar -xzf redis.tar.gz -C /usr/src/redis --strip-components<span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> rm redis.tar.gz <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> make -C /usr/src/redis <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> make -C /usr/src/redis install <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> rm -r /usr/src/redis <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> apt-get purge -y --auto-remove <span class="nv">$buildDeps</span>
+</pre></div>
 </div>
-<div class="section" id="distrolessdocker">
-<h3>distrolessベースのDockerイメージの作成<a class="headerlink" href="#distrolessdocker" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><strong>ビルド時間を確実に短くするテクニック</strong></p>
+<p>最初に、ローカルのファイルを一式Dockerのサーバーに送信すると説明しました。<code class="docutils literal notranslate"><span class="pre">.dockerignore</span></code>ファイルがあれば、そのサーバーに送るファイルを減らし、ビルドが始まるまでの時間が短縮されます。また、余計なファイルが変更されることでキャッシュが破棄されることを減らします。</p>
+<p>明らかに巨大になるのが次の2ファイルです。この2つは最低限列挙しましょう。<code class="docutils literal notranslate"><span class="pre">.git</span></code>を指定しないと、ブランチを切り替えただけで再ビルドになります。</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">.dockerignore</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>node_modules
+.git
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="id7">
-<h2>ウェブフロントエンドのDockerイメージの作成<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h3>Dockerイメージのビルドと実行<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Dockerfileができたらイメージをビルドして実行してみましょう。名前をつけなくても、最後に作成したものなので実行直後は迷子にはならないのですが、何かしら名前をつけておく方が何かと良いです。ハッシュな識別子はかならず生成されるので、削除や実行にはこの識別子も使えます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ビルド。作成したイメージにwebserverと名前をつける</span>
+$ docker build -t <span class="o">[</span>イメージ名<span class="o">]</span> .
+
+<span class="c1"># イメージ一覧</span>
+$ docker images
+
+<span class="c1"># イメージ削除</span>
+$ docker rmi <span class="o">[</span>イメージ名<span class="o">]</span>
+</pre></div>
+</div>
+<p>実行は次の通りです。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 実行</span>
+$ docker run -it --rm --name <span class="o">[</span>コンテナ名<span class="o">]</span> -p <span class="s2">&quot;3000:3000&quot;</span> <span class="o">[</span>イメージ名<span class="o">]</span>
+
+<span class="c1"># 実行中コンテナの表示（-aをつけると停止中のものも表示）</span>
+$ docker ps -a
+
+<span class="c1"># コンテナ停止（-dで実行していなければ、Ctrl+Cで停止可能）</span>
+$ docker stop <span class="o">[</span>コンテナ名<span class="o">]</span>
+
+<span class="c1"># 停止済みコンテナの削除</span>
+$ docker rm <span class="o">[</span>コンテナ名<span class="o">]</span>
+</pre></div>
+</div>
+<p>説明によってはデーモン化のための<code class="docutils literal notranslate"><span class="pre">-d</span></code>オプションを紹介しているものもありますが、ログを見たりもあると思いますし、簡単に停止ができるようにこのオプションは付けずに実行する方が便利です。代わりに、実行しているターミナルに接続して情報を出力するために<code class="docutils literal notranslate"><span class="pre">-it</span></code>（ハイフンは一つ）を付けます。また、Dockerを停止すると、停止状態になり、その後削除は<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rm</span></code>コマンドを実行しなければなりませんが、<code class="docutils literal notranslate"><span class="pre">--rm</span></code>をつけると、停止時に削除まで行ます。<code class="docutils literal notranslate"><span class="pre">-p</span></code>はあけたいポート番号です。左がホスト、右がDocker内部のプロセスのポートです。今回は同じなので、<cite>-p &quot;3000:3000&quot;</cite>を指定します。もし、コンテナ内部が80であれば、<cite>-p &quot;3000:80&quot;</cite>になります。</p>
+</div>
+<div class="section" id="distrolessdocker">
+<h3>distrolessベースのDockerイメージの作成<a class="headerlink" href="#distrolessdocker" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>distrolessはシェルが入っていおらず、外部からログインされることもなく安全というGoogle製のDockerイメージです。標準Linuxに入っているようなツールも含めて、最小限にカットされています。Node.js、Java、Python、.netなど言語のランタイムだけが入ったバージョン、llvmベースのコンパイラで作成したコードを動かすだけのバージョン、何もないバージョンなど、いくつかのバリエーションが用意されています。今回はNode.jsを使います。</p>
+<p>現在、8種類タグが定義されています。latestはLTSが終わるまでは10のままです。<code class="docutils literal notranslate"><span class="pre">debug</span></code>がついているものはデバッグ用のシェルが内蔵されています。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gcr.io/distroless/nodejs:latest</span></code>: 10と同じ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcr.io/distroless/nodejs:10</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcr.io/distroless/nodejs:12</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcr.io/distroless/nodejs:14</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcr.io/distroless/nodejs:10</span></code>: 10-debugと同じ</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcr.io/distroless/nodejs:10-debug</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcr.io/distroless/nodejs:12-debug</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcr.io/distroless/nodejs:14-debug</span></code></p></li>
+</ul>
+<p>一般的なの<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>は、<code class="docutils literal notranslate"><span class="pre">ENTRYPOINT</span></code>がシェル、<code class="docutils literal notranslate"><span class="pre">CMD</span></code>がそのシェルから呼び出されるプログラムです。distrolessはシェルがなく、<code class="docutils literal notranslate"><span class="pre">ENTRYPOINT</span></code>にNode.jsが設定されている、<code class="docutils literal notranslate"><span class="pre">CMD</span></code>にはJavaScriptのスクリプトを設定します。拡張を使わないコードなら簡単に動作します。先ほどの<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>と、ビルド部分はまったく同じです。</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="c"># ここから下がビルド用イメージ</span>
+
+<span class="k">FROM</span> <span class="s">node:12-buster</span> <span class="k">AS</span> <span class="s">builder</span>
+
+<span class="k">WORKDIR</span><span class="s"> app</span>
+<span class="k">COPY</span> package.json package-lock.json ./
+<span class="k">RUN</span> npm ci
+<span class="k">COPY</span> tsconfig.json ./
+<span class="k">COPY</span> src ./src
+<span class="k">RUN</span> npm run build
+
+<span class="c"># ここから下が実行用イメージ</span>
+
+<span class="k">FROM</span> <span class="s">gcr.io/distroless/nodejs</span> <span class="k">AS</span> <span class="s">runner</span>
+<span class="k">WORKDIR</span><span class="s"> /opt/app</span>
+<span class="k">COPY</span> --from<span class="o">=</span>builder /app/dist ./
+<span class="k">EXPOSE</span><span class="s"> 3000</span>
+<span class="k">CMD</span> <span class="p">[</span><span class="s2">&quot;/opt/app/index.js&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>ウェブフロントエンドのDockerイメージの作成<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>本節ではウェブフロントエンドが一式格納されたDockerイメージを作成します。もし、Next.jsでサーバーサイドレンダリングを行う場合、それは単なるNode.jsのサーバーですので、前節の内容に従ってNode.jsのコンテナを作成してください。本節で扱うのは、サーバーを伴わないHTML/JavaScriptなどのフロントエンドのファイルを配信する方法です。</p>
 <p>シングルページアプリケーションをビルドすると静的なHTMLやJS、CSSのファイル群ができます。これらのファイルを利用する方法はいくつかあります。</p>
 <ul class="simple">
-<li><p>CDNにアップロードする</p></li>
-<li><p>オブジェクトストレージにアップする</p></li>
+<li><p>CDNやオブジェクトストレージにアップする</p></li>
 <li><p>Dockerコンテナとしてデプロイする</p></li>
 </ul>
-<p>このうち、CDNやオブジェクトストレージへのアップロードはそれぞれのサービスごとの作法に従って行ます。ここではDockerコンテナとしてデプロイする方法を紹介します。</p>
+<p>このうち、CDNやオブジェクトストレージへのアップロードはそれぞれのサービスごとの作法に従って行ます。ここではDockerコンテナとしてデプロイする方法を紹介します。Dockerコンテナにするメリットはいくつかあります。主にテスト環境の構築画しやすい点です。</p>
+<p>デプロイ用のバックエンドサーバーをDocker化する流れは今後も加速していくでしょう。しかし、フロントエンドが特定のマネージドサービスにアップロードする形態の場合、デプロイ手段がバックエンドと異なるため、別のデプロイ方式を取る必要が出てきます。ちょっとしたステージング環境や、開発環境を構築する際に、フロントエンドもDockerイメージになっていて本番環境のCDNをエミュレートできると、ローカルでもサーバーでも、簡単に一式のサービスが起動できます。PostgreSQLのイメージや、Redisのイメージ、クラウドサービスのエミューレータなどと一緒に、docker-composeで一度に起動するとテストが簡単に行えます。</p>
+<p>サンプルとして、次のコマンドで作ったReactのアプリケーションを使います。もし、E2EテストのCypressのような、ダウンロードが極めて重い超巨大パッケージがある場合は、<code class="docutils literal notranslate"><span class="pre">optionalDependencies</span></code>に移動しておくことをお勧めします。この<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>ではoptionalな依存はインストールしないようにしています。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npx create-react-app --template typescript webfront
+</pre></div>
+</div>
+<p>Dockerコンテナにする場合、ウェブサーバーのNginxのコンテナイメージを基に、ビルド済みのJavaScript/HTML/その他のリソースを格納したコンテナイメージを作成します。次の内容が、フロントエンドアプリケーションの静的ファイルを配信するサーバーです。実行用イメージでは<code class="docutils literal notranslate"><span class="pre">nginx：alpine</span></code>イメージをベースに使っています。このイメージは最後にNginxを立ち上げる設定がされているため、実行用コンテナに必要なのは生成されたフィイルと、<code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code>をコピーするだけです。</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="c"># ここから下がビルド用イメージ</span>
+
+<span class="k">FROM</span> <span class="s">node:12-buster</span> <span class="k">AS</span> <span class="s">builder</span>
+
+<span class="k">WORKDIR</span><span class="s"> app</span>
+<span class="k">COPY</span> package.json package-lock.json ./
+<span class="k">RUN</span> npm ci --no-optional
+<span class="k">COPY</span> tsconfig.json ./
+<span class="k">COPY</span> public ./public
+<span class="k">COPY</span> src ./src
+<span class="k">RUN</span> npm run build
+
+<span class="c"># ここから下が実行用イメージ</span>
+
+<span class="k">FROM</span> <span class="s">nginx:alpine</span> <span class="k">AS</span> <span class="s">runner</span>
+<span class="k">COPY</span> nginx.conf /etc/nginx/nginx.conf
+<span class="k">COPY</span> --from<span class="o">=</span>builder /app/build public
+<span class="k">EXPOSE</span><span class="s"> 80</span>
+</pre></div>
+</div>
+</div>
+<p>配信用のnginxの設定です。シングルページアプリケーションにとって大切なパートが<code class="docutils literal notranslate"><span class="pre">try_files</span></code>です。シングルページアプリケーションでは1つのHTML/JSがあらゆるページを作り上げます。そしてその時にURLを書き換えます。しかし、そこでブラウザリロードをすると、JavaScritpによって作られた仮想的なURLを読みにこうとします。この<code class="docutils literal notranslate"><span class="pre">try_files</span></code>を有効にすると、一度アクセスしに行って見つからなかった場合にオプションで設定したファイルを返せます。ここでは<code class="docutils literal notranslate"><span class="pre">index.html</span></code>を返すので、そこでReact Routerなどのフロントで動作しているウェブサービスが仕分けを行い、もしどこにもマッチしなければフロント側のRouterがエラーをハンドリングできます。</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">nginx.conf</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">worker_processes</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="k">events</span> <span class="p">{</span>
+    <span class="kn">worker_connections</span> <span class="mi">1024</span><span class="p">;</span>
+    <span class="kn">multi_accept</span> <span class="no">on</span><span class="p">;</span>
+    <span class="kn">use</span> <span class="s">epoll</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">http</span> <span class="p">{</span>
+    <span class="kn">include</span> <span class="s">/etc/nginx/mime.types</span><span class="p">;</span>
+    <span class="kn">server</span> <span class="p">{</span>
+        <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+        <span class="kn">server_name</span> <span class="mi">127</span><span class="s">.0.0.1</span><span class="p">;</span>
+
+        <span class="kn">access_log</span> <span class="s">/dev/stdout</span><span class="p">;</span>
+        <span class="kn">error_log</span> <span class="s">stderr</span><span class="p">;</span>
+
+        <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+            <span class="kn">root</span> <span class="s">/public</span><span class="p">;</span>
+            <span class="kn">index</span> <span class="s">index.html</span><span class="p">;</span>
+            <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri/</span> <span class="s">/index.html</span> <span class="p">=</span><span class="mi">404</span><span class="p">;</span>
+            <span class="kn">gzip</span> <span class="no">on</span><span class="p">;</span>
+            <span class="kn">gzip_types</span> <span class="s">text/css</span> <span class="s">application/javascript</span> <span class="s">application/json</span> <span class="s">image/svg+xml</span><span class="p">;</span>
+            <span class="kn">gzip_comp_level</span> <span class="mi">9</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>それではビルドして実行してみましょう。正しく動作していることが確認できます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -it --rm --name <span class="o">[</span>コンテナ名<span class="o">]</span> -p <span class="s2">&quot;3000:80&quot;</span> <span class="o">[</span>イメージ名<span class="o">]</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id17">
+<img alt="_images/react_nginx_sample.png" src="_images/react_nginx_sample.png" />
+<p class="caption"><span class="caption-text">ビルドした結果をNginxで配信</span><a class="headerlink" href="#id17" title="この画像へのパーマリンク">¶</a></p>
+</div>
+<p>..note:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">qiita</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">shibukawa</span><span class="o">/</span><span class="n">items</span><span class="o">/</span><span class="mi">6</span><span class="n">a3b4d4b0cbd13041e53</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>まとめ<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>TypeScriptで作成したコードが価値を産むのは、何かしらのデプロイ作業を通じてになります。本章ではそのデプロイの方法について、さまざまな方法をを説明しています。</p>
+<p>Dockerは強力な武器です。ぜひ使いこなせるようになってください。</p>
 </div>
 </div>
 
@@ -325,10 +504,12 @@ Dockerイメージ</p>
 </li>
 <li><a class="reference internal" href="#cli">CLI/ウェブアプリケーションのイメージ作成</a><ul>
 <li><a class="reference internal" href="#debiandocker">Debianベースのイメージ作成とDockerの基礎</a></li>
+<li><a class="reference internal" href="#id7">Dockerイメージのビルドと実行</a></li>
 <li><a class="reference internal" href="#distrolessdocker">distrolessベースのDockerイメージの作成</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id7">ウェブフロントエンドのDockerイメージの作成</a></li>
+<li><a class="reference internal" href="#id8">ウェブフロントエンドのDockerイメージの作成</a></li>
+<li><a class="reference internal" href="#id9">まとめ</a></li>
 </ul>
 </li>
 </ul>
@@ -351,11 +532,11 @@ Dockerイメージ</p>
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 3446</li>
-        <li>非アスキー: 4696</li>
-        <li>合計文字数: 8142</li>
-        <li>半角換算: 12838</li>
-        <li>全角換算: 6419.0</li>
+        <li>英数記号: 6336</li>
+        <li>非アスキー: 8020</li>
+        <li>合計文字数: 14356</li>
+        <li>半角換算: 22376</li>
+        <li>全角換算: 11188.0</li>
     </ul>
     </p>
 </div>
