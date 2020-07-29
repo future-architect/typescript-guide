@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "prettier"
+  ],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "no-console": 0,
+    "prettier/prettier": 1
+  }
+}

@@ -42,6 +42,95 @@ npmのサイトにアップロードしてみましょう。
 
 .. todo:: あとで書く
 
+サーバーにアプリケーションをデプロイ
+-------------------------------------------
+
+Node.jsはシングルコアを効率よく使う処理系です。サーバーアプリケーションでマルチコアを効率よく使うには、プロセスマネージャを利用します。本書ではpm2を利用します。
+
+* https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/
+
+サンプルとしては次のコードを使います。
+
+.. code-block:: ts
+   :caption: src/main.ts
+
+   import express, { Request, Response } from "express";
+   import compression from "compression";
+   import bodyParser from "body-parser";
+   import gracefulShutdown from "http-graceful-shutdown";
+
+   const app = express();
+   app.use(compression());
+   app.use(bodyParser.json());
+   app.use(bodyParser.urlencoded({ extended: true }));
+
+   app.get("/", (req: Request, res: Response) => {
+       res.json({
+           message: `hello ${req.headers["user-agent"]}`,
+       });
+   });
+
+   const host = process.env.HOST || "0.0.0.0";
+   const port = process.env.PORT || 3000;
+
+   const server = app.listen(port, () => {
+       console.log("Server is running at http://%s:%d", host, port);
+       console.log("  Press CTRL-C to stop\n");
+   });
+
+   gracefulShutdown(server, {
+       signals: "SIGINT SIGTERM",
+       timeout: 30000,
+       development: false,
+       onShutdown: async (signal: string) => {
+           console.log("... called signal: " + signal);
+           console.log("... in cleanup");
+           // shutdown DB or something
+       },
+       finally: () => {
+           console.log("Server gracefulls shutted down.....");
+       },
+   });
+
+``tsconfig.json``\ は\ ``npx tsc --init``\ で生成したものをひとまず使います。\ ``package.json``\ は以下のものを利用します。nccを使ってビルドする前提となっています。
+
+.. code-block:: json
+   :caption: package.json
+
+   {
+     "name": "webserver",
+     "version": "1.0.0",
+     "scripts": {
+       "build": "ncc build src/main.ts",
+     },
+     "author": "Yoshiki Shibukawa",
+     "license": "ISC",
+     "dependencies": {
+       "pm2": "^4.4.0"
+     },
+     "devDependencies": {
+       "@types/body-parser": "^1.19.0",
+       "@types/compression": "^1.7.0",
+       "@types/express": "^4.17.7",
+       "@zeit/ncc": "^0.22.3",
+       "body-parser": "^1.19.0",
+       "compression": "^1.7.4",
+       "express": "^4.17.1",
+       "http-graceful-shutdown": "^2.3.2",
+       "typescript": "^3.9.7"
+     }
+   }
+
+nccでビルドすると、\ dist/index.js``\ という一つの.jsファイルが生成されます。実行は\ ``node dist/index.js``\ の変わりに次のコマンドを利用します。これで、CPUコア数分Node.jsのインスタンスを起動し、クラスタで動作します。
+
+.. code-block:: bash
+
+   pm2 start dist/index.js -i max
+
+pm2で起動すると、デーモン化されてアプリケーションが起動します。\ ``pm2 logs``\ コマンドでログをみたり、\ ``pm2 status``\ や\ ``pm2 list``\ で起動しているプロセスの状態を知ることができます。
+
+デーモン化させないでフォアグラウンドで動作させる場合は\ ``--no-daemon``\ をつけて起動します。
+
 Dockerイメージの作成
 -------------------------------------------
 
@@ -49,8 +138,6 @@ Dockerイメージの作成
 
 * Node.js用のCLIツール
 * Node.js用のウェブサービス
-* Deno用のCLIツール
-* Deno用のウェブサービス
 * ウェブフロントエンド
 
 コンテナとは何か
@@ -93,9 +180,9 @@ Node.jsの公式のイメージは以下のサイトにあります。
    :header-rows: 1
    :widths: 5 10 10 10 30
 
-   - * 用途 
+   - * 用途
      * バリエーション
-     * ビルド用イメージ 
+     * ビルド用イメージ
      * 実行用イメージ
      * 解説
    - * Node.js(CLI/ウェブアプリ)
@@ -139,11 +226,59 @@ CLIとウェブアプリケーションの場合の手順はあまり変わら�
 * C拡張なし（Debian-slim系でビルド）
 * セキュリティ重視（destrolessに配信）
 
-前二つはベースイメージが変わるだけですので、まとめて紹介します。
+前2つ目はベースイメージが\ ``node:12-buster``\ から\ ``node:12-buster-slim``\ に変わるだけですので、まとめて紹介します。
+
+なお、Node.jsはシングルコアで動作する処理系ですので、マルチコアを生かしたい場合はインスタンスを複数起動し、ロードバランスをする仕組みを外部に起動する必要があります。
+
+Debianベースのイメージ作成とDockerの基礎
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+まず、イメージにするアプリケーションを作成します。コンテナの中のアプリケーションは終了時にシグナルが呼ばれますので、シグナルに応答して終了するように実装する必要があります。
+
+
+Dockerfileはコンテナのイメージを作成するためのレシピです。行志向のスクリプトになっています。
 
 .. code-block:: docker
+   :caption: Dockerfile
 
-   FROM 
+   # ここから下がビルド用イメージ
+
+   FROM node:12-buster AS builder
+
+   WORKDIR app
+   COPY package.json package-lock.json ./
+   RUN npm ci
+   COPY tsconfig.json ./
+   COPY src ./src
+   RUN npm run build
+
+   # ここから下が実行用イメージ
+
+   FROM node:12-buster-slim AS runner
+   WORKDIR /opt/app
+   COPY --from=builder /app/dist ./
+   USER node
+   EXPOSE 3000
+   CMD ["node", "/opt/app/index.js"]
+
+``FROM``\ はベースとなるイメージを選択する命令です。ここではビルド用のベースイメージと、実行用のベースイメージと2箇所\ ``FROM``\ を使用しています。\ ``FROM``\ から次の\ ``FROM``\ 、あるいはファイルの終行までがイメージになります。ここでは2つイメージが作られていますが、最後のイメージが、このDockerfileの成果物のイメージとなります。
+
+それぞれのイメージの中ではいくつかの命令を使ってイメージを完成させていきます。
+
+``COPY\ は実行場所（コンテキスト）や別のイメージ（\ ``--from``\ が必要）からファイルを取得してきて、イメージ内部に配置する命令です。このサンプルでは使っていませんが、\ ``ADD``\ 命令もあり、こちらは\ ``COPY``\ の高性能バージョンです。ネットワーク越しにファイルを取得できますし、アーカイブファイルを展開してフォルダに配置もできます。\ ``RUN``\ は何かしらの命令を実行します。
+
+あと重要なポイントが、このイメージ作成のステップ（行）ごとに内部的にはイメージが作成されている点です。このステップごとのファイルシステムの状態は「レイヤー」と呼ばれます。このレイヤーはキャッシュされて、ファイルシステムの状態に差分がなければキャッシュを利用します。イメージの内部にはこのレイヤーがすべて保存されています。例えば、ファイルを追加、そして削除をそれぞれ1ステップずつ実行すると、消したはずのファイルもレイヤーには残ってしまい、イメージサイズは大きなままとなります。
+
+実行用イメージはこのレイヤーとサイズの問題は心の片隅に置いておく方が良いですが（優先度としては10番目ぐらいです）、ビルド用のイメージはサイズが大きくなっても弊害とかはないので、なるべくステップを分けてキャッシュされるようにすべきです。また、キャッシュ効率をあげるために、なるべく変更が少ない大物を先にインストールすることが大切です。
+
+上記のサンプルではパッケージ情報ファイル（\ ``package.json``\ と\ ``package-lock.json``\ ）取得してきてサードパーティのライブラリのダウンロード（\ ``npm install``\ ）だけを先に実行しています。利用パッケージの変更はソースコードの変更よりもレアケースです。一方、ソースコードの変更は大量に行われます。そのためにソースコードのコピーを後に行っています。もし逆であれば、ソースコード変更のたびにパッケージのダウンロードが走り、キャッシュがほとんど有効になりません。このようにすれば、ソースコードを変更して再ビルドするときは\ ``COPY src``\ の行より以前はスキップされてそこから先だけが実行されます。
+
+実行用イメージの最後は\ ``CMD``\ 命令を使います。いつものスクリプトの実行と同じように記述すれば問題ありません。
+
+distrolessベースのDockerイメージの作成
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 
 ウェブフロントエンドのDockerイメージの作成
 -----------------------------------------------------
@@ -156,3 +291,4 @@ CLIとウェブアプリケーションの場合の手順はあまり変わら�
 
 このうち、CDNやオブジェクトストレージへのアップロードはそれぞれのサービスごとの作法に従って行ます。ここではDockerコンテナとしてデプロイする方法を紹介します。
 
+.. todo:: 

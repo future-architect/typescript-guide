@@ -105,6 +105,7 @@ srcフォルダ以下に.tsファイルを入れて、出力先のフォルダ�
 
    $ npm install --save-dev typescript prettier
       eslint @typescript-eslint/eslint-plugin
+      @typescript-eslint/parser
       eslint-plugin-prettier
       eslint-config-prettier npm-run-all
 
@@ -121,7 +122,7 @@ ESLintの設定も作ります。Prettierと連携するようにします。
    :caption: .eslintrc
 
    {
-     "plugin": [
+     "plugins": [
        "prettier"
      ],
      "extends": [
@@ -129,11 +130,9 @@ ESLintの設定も作ります。Prettierと連携するようにします。
        "plugin:prettier/recommended"
      ],
      "rules": {
-       "no-console": [
-           false
-       ],
-       "@typescript-eslint/indent": "ingore",
-       "prettier/prettier": "error"
+       "no-console": 0,
+       "@typescript-eslint/indent": 0,
+       "prettier/prettier": 2
      }
    }
 
