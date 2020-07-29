@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CLIツール作成のための環境設定 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <title>CLIツール・ウェブサーバー作成のための環境設定 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -16,7 +16,7 @@
     <script src="_static/translations.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="next" title="Next.js（React）の環境構築" href="reactenv.html" />
+    <link rel="next" title="ウェブフロントエンドの環境構築" href="webfrontenv.html" />
     <link rel="prev" title="ライブラリ開発のための環境設定" href="libenv.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -35,36 +35,46 @@
           <div class="body" role="main">
             
   <div class="section" id="cli">
-<h1>CLIツール作成のための環境設定<a class="headerlink" href="#cli" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>TypeScriptを使ってNode.jsのためのCLIツールを作成するための環境構築方法を紹介していきます。</p>
+<h1>CLIツール・ウェブサーバー作成のための環境設定<a class="headerlink" href="#cli" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>TypeScriptを使ってCLIツールやウェブサーバーなどのNode.jsやDenoがある環境で動作するソフトウェアを作成するための環境構築方法を紹介していきます。2つ方法があります。</p>
+<ul class="simple">
+<li><p>Node.jsがインストールされている環境向け</p></li>
+<li><p>Denoががインストールされている環境向け</p></li>
+</ul>
+<p>どちらも、TypeScriptをJavaScript変換して1ファイルにまとめたファイルを作成します。</p>
+<div class="section" id="node-js">
+<h2>Node.jsの環境構築<a class="headerlink" href="#node-js" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Node.js向けには&#64;zeit/nccを利用します。</p>
+<p>&#64;zeit/nccはTypeScriptに最初から対応したコンパイラで、コマンドラインツールやウェブサーバーなどのNode.jsアプリケーションを1ファイルにするために作られています。&#64;zeit/ncc自体も自分自身を使ってバンドル化されており、ごく小さいサイズですばやくインストールできます。Goを参考にしており、<code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>以外の設定は不要です。もちろん、</p>
+<p>他に実績のあるツールとしてはBrowserifyがあります。これも、tsifyというプラグインと併用することでTypeScript製アプリケーションをバンドルして1ファイルにできます。このツールはメインの目的としてはNode.js製アプリケーションをブラウザでも動くようにするために作られました。後発の&#64;zeit/nccに比べると設定が多いのと、TypeScriptの設定を変えてcommon.js形式のパッケージにしないと扱えないのがnccと比べると煩雑です。また、<code class="docutils literal notranslate"><span class="pre">tsc</span></code>を使いバンドルせずにTypeScriptをJavaScriptに変換するだけを行って配布する方法もありますが、バンドルをしないとさまざまなファイルが入ってくるため、配布サイズも大きくなりがちです。</p>
 <div class="section" id="id1">
-<h2>作業フォルダを作る<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>ライブラリの時は、ES2015 modulesとCommonJSの2通り準備しましたが、CLIの場合はNode.jsだけ動かせば良いので、出力先もCommonJSだけで十分です。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>  $ mkdir dist   <span class="c1"># commonJSだけなので1つだけ</span>
-
-<span class="sb">``</span>.gitignore<span class="sb">``</span> も、出力先フォルダを1つだけに修正しましょう。
-</pre></div>
-</div>
+<h3>作業フォルダを作る<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>フォルダを作成し、JavaScriptのいつものプロジェクトのように<code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">init</span> <span class="pre">-y</span></code>を実行して<code class="docutils literal notranslate"><span class="pre">package.json</span></code>を作成しましょう。</p>
+<p>ライブラリの時は、ES2015 modulesとCommonJSの2通り準備しましたが、CLIの場合はNode.jsだけ動かせば良いので、出力先は一つになります。コンパイルしたファイル置き場は<code class="docutils literal notranslate"><span class="pre">dist</span></code>フォルダになりますが、コンパイル時に自動で作られるので作成しておく必要はありませんが、<code class="docutils literal notranslate"><span class="pre">.gitignore</span></code>には登録しておきましょう。</p>
 </div>
 <div class="section" id="id2">
-<h2>ビルド設定<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Node.jsの機能を使うことになるため、Node.jsのAPIの型定義ファイルは入れておきましょう。</p>
+<h3>ビルド設定<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>まずは&#64;zeit/nccをインストールします。</p>
+<p>Node.jsの機能を使うことになるため、Node.jsのAPIの型定義ファイルは入れておきましょう。TypeScriptはnccにバンドルされていますが、バンドルされている処理系のバージョンが古いことがあります。インストールしてあるTypeScriptを優先的に使ってくれるので入れておくと良いでしょう。</p>
 <p>コマンドラインで良く使うであろうライブラリを追加しておきます。
 カラーでのコンソール出力、コマンドライン引数のパーサ、ヘルプメッセージ表示です。</p>
 <p>どれもTypeScriptの型定義があるので、これも落としておきます。
 また、ソースマップサポートを入れると、エラーの行番号がソースのTypeScriptの行番号で表示されるようになって便利なので、これも入れておきます。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save cli-color command-line-args
-   command-line-usage source-map-support
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev @zeit/ncc typescript
+
 $ npm install --save-dev @types/node @types/cli-color
    @types/command-line-args @types/command-line-usage
    @types/source-map-support
+
+$ npm install --save cli-color command-line-args
+   command-line-usage source-map-support
 </pre></div>
 </div>
 <p>TypeScriptのビルド設定のポイントは、ブラウザからは使わないので、ターゲットのバージョンを高くできる点にあります。
 ローカルでは安定版を使ったとしてもNode.js 10が使えるでしょう。</p>
 <p>ライブラリのときとは異なり、成果物を利用するのはNode.jsの処理系だけなので、.d.tsファイルを生成する必要はありません。</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
   &quot;compilerOptions&quot;: {
     &quot;target&quot;: &quot;es2018&quot;,        // お好みで変更
@@ -90,25 +100,60 @@ $ npm install --save-dev @types/node @types/cli-color
 <p><code class="docutils literal notranslate"><span class="pre">package.json</span></code> 設定時は、他のパッケージから利用されることはないため、 <code class="docutils literal notranslate"><span class="pre">main</span></code>/<code class="docutils literal notranslate"><span class="pre">modules</span></code>/<code class="docutils literal notranslate"><span class="pre">types</span></code> の項目は不要です。
 代わりに、 <code class="docutils literal notranslate"><span class="pre">bin</span></code> 項目でエントリーポイント（ビルド結果の方）のファイルを指定します。
 このキー名が実行ファイル名になります。</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">package.js</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;bin&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;awesome-cmd&quot;</span><span class="p">:</span> <span class="s2">&quot;dist/index.js&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;tsc --project .&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;lint&quot;</span><span class="p">:</span> <span class="s2">&quot;eslint .&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;fix&quot;</span><span class="p">:</span> <span class="s2">&quot;eslint --fix .&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">package.js</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+  &quot;bin&quot;: {
+    &quot;awesome-cmd&quot;: &quot;dist/index.js&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;ncc build main.ts --minify --v8-cache --source-map&quot;,
+    ”watch&quot;: &quot;ncc build main.ts --watch&quot;,
+    &quot;start&quot;: &quot;ncc run main.ts&quot;,
+    &quot;lint&quot;: &quot;eslint .&quot;,
+    &quot;fix&quot;: &quot;eslint --fix .&quot;
+  }
+}
 </pre></div>
 </div>
 </div>
-<p>テストの設定、VSCodeの設定は変わりません。</p>
+<p><code class="docutils literal notranslate"><span class="pre">ncc</span> <span class="pre">build</span></code>でビルドします。<code class="docutils literal notranslate"><span class="pre">ncc</span> <span class="pre">run</span></code>でビルドして即座に実行します。設定ファイルはありません。必要十分な機能が揃っています。オプションで指定できるものは以下の通りです。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--minify</span></code>: ミニファイしてファイルを小さくする</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--source-map</span></code>: ソースマップを出力</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-e,</span> <span class="pre">--external</span> <span class="pre">[mod]</span></code>: バンドルをスキップするモジュール</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--watch</span></code>: 変更を検知してビルド</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--v8-cache</span></code>: V8のコンパイルキャッシュを生成</p></li>
+</ul>
+<p>テストの設定、VSCodeの設定は他の環境の設定と変わりません。</p>
+<p>もし、バイナリを入れる必要のあるライブラリがあると、ビルド時にエラーになります。その場合は、そのパッケージを <code class="docutils literal notranslate"><span class="pre">--external</span> <span class="pre">パッケージ名</span></code> で指定してバンドルされないようにします。
+ただし、この場合は配布環境でこのライブラリだけはnpm installしなければなりません。</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><strong>Node.js/Deno以外の処理系</strong></p>
+<p>また、low.js <a class="footnote-reference brackets" href="#id4" id="id3">1</a> という、ES5しか動かないもののNode.jsと一部互換性があるモジュールを提供し、ファイルサイズがごく小さいインタプリタがありますが、これと一緒に使うこともできます。</p>
+<p>low.jsはES5までしか対応しないため、出力ターゲットをES5にする必要があります。</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">tsconfig.json (low.jsを使う場合)</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+  &quot;compilerOptions&quot;: {
+    &quot;target&quot;: &quot;es5&quot;,             // もしlow.jsを使うなら
+    &quot;lib&quot;: [&quot;dom&quot;, &quot;es2017&quot;]     // もしlow.jsで新しいクラスなどを使うなら
+  }
+}
+</pre></div>
 </div>
-<div class="section" id="id3">
-<h2>CLIツールのソースコード<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</div>
+<p>これで、TypeScript製かつ、必要なライブラリが全部バンドルされたシングルファイルなスクリプトができあがります。</p>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dd><p><a class="reference external" href="https://www.lowjs.org/">https://www.lowjs.org/</a></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id5">
+<h3>CLIツールのソースコード<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>TypeScriptはシェバング(#!)があると特別扱いしてくれます。
 必ず入れておきましょう。
 ここで紹介したcommand-line-argsとcommand-line-usageはWikiで用例などが定義されているので、実装イメージに近いものをベースに加工していけば良いでしょう。</p>
@@ -130,52 +175,8 @@ main();
 </pre></div>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>バンドラーで1つにまとめる<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>npmで配るだけであればバンドルは不要ですが、ちょっとしたスクリプトをTypeScriptで書いてDockerサーバーで実行したいが、コンテナを小さくしたいのでnode_modulesは入れたくないということは今後増えていくと思いますので、そちらの方法も紹介します。
-また、low.js <a class="footnote-reference brackets" href="#id6" id="id5">1</a> という、ES5しか動かないもののNode.jsと一部互換性があるモジュールを提供し、ファイルサイズがごく小さいインタプリタがありますが、これと一緒に使うこともできます。</p>
-<p>バンドラーでは一番使われているのは間違いなくwebpackですが、昔ながらのBrowserifyは設定ファイルレスで、ちょっとした小物のビルドには便利です。BrowserifyはNode.jsのCommonJS形式のコードをバンドルしつつ、Node.js固有のパッケージは互換ライブラリを代わりに利用するようにして、Node.jsのコードをそのままブラウザで使えるようにするものです。オプションでNode.jsの互換ライブラリを使わないようにもできます。</p>
-<p>webpackでもちょっと設定ファイルを書けばいけるはずですが、TypeScript対応以外に、shebang対応とかは別のプラグインが必要だったり、ちょっと手間はかかります。</p>
-<p>Browserifyをインストールします。tsifyはBrowserifyプラグインで、TypeScriptのコードを変換します。
-バンドルしてしまうので、バイナリのインストールが必要なパッケージ以外の各種ライブラリはすべて--save-devで入れても大丈夫です。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev browserify tsify
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code> に関してはそのままで問題ありません。この手のバンドラーから使われる時は、.tsと.jsの1:1変換ではなくて、複数の.tsをメモリ上で.jsに変換し、そのあとにまとめて1ファイルにするn:1変換になります。そのため、個別の変換ファイルを出力しないnoEmit: trueをつけたりdistDirを消したりする必要がありますが、そのあたりはtsifyが勝手にやってくれます。</p>
-<p>ただし、ES5しか動作しないlow.jsを使う場合は、出力ターゲットをES5にする必要があります。</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">tsconfig.json (low.jsを使う場合)</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
-  &quot;compilerOptions&quot;: {
-    &quot;target&quot;: &quot;es5&quot;,             // もしlow.jsを使うなら
-    &quot;lib&quot;: [&quot;dom&quot;, &quot;es2017&quot;]     // もしlow.jsで新しいクラスなどを使うなら
-  }
-}
-</pre></div>
-</div>
-</div>
-<p>ビルドスクリプトは次の形式になります。
-<code class="docutils literal notranslate"><span class="pre">--node</span></code> をつけないと、ブラウザ用のコードを生成しますが、ファイル入出力などが使えなくなりますので、CLIでは <code class="docutils literal notranslate"><span class="pre">--node</span></code> を忘れずにつけます。
-TypeScript変換のために、 <code class="docutils literal notranslate"><span class="pre">-p</span></code> で <code class="docutils literal notranslate"><span class="pre">tsify</span></code> を追加しています。
-もしminifyとかしたくなったら、minifyifyなどの別のプラグインを利用します。</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;browserify --node -o dist/script.js -p [ tsify -p . ] src/index.ts&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>もし、バイナリを入れる必要のあるライブラリがあると、Browserifyがエラーになります。その場合は、そのパッケージを <code class="docutils literal notranslate"><span class="pre">--exclude</span> <span class="pre">パッケージ名</span></code> で指定してバンドルされないようにします。
-ただし、この場合は配布環境でこのライブラリだけはnpm installしなければなりません。</p>
-<p>これで、TypeScript製かつ、必要なライブラリが全部バンドルされたシングルファイルなスクリプトができあがります。</p>
-<dl class="footnote brackets">
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id5">1</a></span></dt>
-<dd><p><a class="reference external" href="https://www.lowjs.org/">https://www.lowjs.org/</a></p>
-</dd>
-</dl>
-</div>
-<div class="section" id="id7">
-<h2>まとめ<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h3>Node.jsのまとめ<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>コマンドラインツールの場合は、npmで配布する場合はライブラリ同様、バンドラーを使わずに、TypeScriptだけを使えば大丈夫です。
 ここにある設定で、次のようなことが達成できました。</p>
 <ul class="simple">
@@ -185,7 +186,10 @@ TypeScript変換のために、 <code class="docutils literal notranslate"><span
 <p>また、おまけで1ファイルにビルドする方法も紹介しました。</p>
 <p><code class="docutils literal notranslate"><span class="pre">package.json</span></code> の <code class="docutils literal notranslate"><span class="pre">scripts</span></code> のところに、開発に必要なタスクがコマンドとして定義されています。
 npmコマンドを使って行うことができます。すべてライブラリと同じです。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ビルドしてパッケージを作成</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ビルドして実行</span>
+$ npm start
+
+<span class="c1"># ビルドしてパッケージを作成</span>
 $ npm run build
 $ npm pack
 
@@ -201,6 +205,14 @@ $ npm run fix
 </div>
 </div>
 </div>
+<div class="section" id="deno">
+<h2>Deno<a class="headerlink" href="#deno" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Denoは新しい処理系です。Node.jsと同じくV8をベースとしている兄弟処理系ですが、TypeScriptにデフォルトで対応していたり、ネイティブコード部分はRustを使って実装されています。
+サードパーティのパッケージはnpmコマンドではなくdenoコマンドを使ってダウンロードします。</p>
+<p>Node.jsを置き換えるものかというと、現時点ではまだパッケージやツールが足りていません。特にNode.jsのnpmはウェブフロントエンドのライブラリなどの配布にも使われており、ウェブフロントエンドの開発のためのプラットフォームとしても活用されています。Denoはコマンドラインツールやウェブサービスの開発に特化しています。</p>
+<p>こちらもGoを参考にしたコマンドを持っています。それ単体でビルドして配布できます。</p>
+</div>
+</div>
 
 
           </div>
@@ -211,12 +223,15 @@ $ npm run fix
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">CLIツール作成のための環境設定</a><ul>
+<li><a class="reference internal" href="#">CLIツール・ウェブサーバー作成のための環境設定</a><ul>
+<li><a class="reference internal" href="#node-js">Node.jsの環境構築</a><ul>
 <li><a class="reference internal" href="#id1">作業フォルダを作る</a></li>
 <li><a class="reference internal" href="#id2">ビルド設定</a></li>
-<li><a class="reference internal" href="#id3">CLIツールのソースコード</a></li>
-<li><a class="reference internal" href="#id4">バンドラーで1つにまとめる</a></li>
-<li><a class="reference internal" href="#id7">まとめ</a></li>
+<li><a class="reference internal" href="#id5">CLIツールのソースコード</a></li>
+<li><a class="reference internal" href="#id6">Node.jsのまとめ</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#deno">Deno</a></li>
 </ul>
 </li>
 </ul>
@@ -225,7 +240,7 @@ $ npm run fix
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="libenv.html" title="前の章へ">ライブラリ開発のための環境設定</a></li>
-      <li>Next: <a href="reactenv.html" title="次の章へ">Next.js（React）の環境構築</a></li>
+      <li>Next: <a href="webfrontenv.html" title="次の章へ">ウェブフロントエンドの環境構築</a></li>
   </ul></li>
 </ul>
 </div>
@@ -239,11 +254,11 @@ $ npm run fix
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 2304</li>
-        <li>非アスキー: 1996</li>
-        <li>合計文字数: 4300</li>
-        <li>半角換算: 6296</li>
-        <li>全角換算: 3148.0</li>
+        <li>英数記号: 2432</li>
+        <li>非アスキー: 2430</li>
+        <li>合計文字数: 4862</li>
+        <li>半角換算: 7292</li>
+        <li>全角換算: 3646.0</li>
     </ul>
     </p>
 </div>

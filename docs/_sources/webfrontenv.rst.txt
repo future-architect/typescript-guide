@@ -357,7 +357,7 @@ Vue.jsは日本で人気のあるウェブフロントエンドのフレーム�
 
 以下のコードはVue.js 3系のクラスベースのコンポーネント実装です。
 
-.. code-block:: html
+.. code-block:: ts
 
    <script lang="ts">
    import { Options, Vue } from "vue-class-component";

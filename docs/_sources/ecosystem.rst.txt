@@ -9,7 +9,7 @@ TypeScriptはJavaScriptへの変換を目的として作られた言語です。
 * babel + ts-loader + Node.js: Babel経由で公式のコンパイラで変換してからNode.jsで実行
 * babel + @babel/preset-typescript + Node.js: Babelで型情報だけを落として簡易的に変換してNode.jsで実行
 * ts-node: TypeScriptを変換してそのままNode.jsで実行する処理系
-* deno: TypeScriptをネイティブサポートした処理系（2020-05-13 に 1.0 がリリースされました [#]_ ）
+* Deno: TypeScriptをネイティブサポートした処理系（2020-05-13 に 1.0 がリリースされました [#]_ ）
 
 Node.jsはJavaScriptにファイル入出力やウェブサーバー作成に必要なAPIなどを足した処理系です。
 本章では、TypeScriptの環境整備をするとともに、Node.jsを核としたエコシステムの概要を説明します。

@@ -53,7 +53,7 @@
   <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">getData</span><span class="p">();</span>
   <span class="kr">const</span> <span class="nx">modified</span> <span class="o">=</span> <span class="nx">modify</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
   <span class="nx">await</span> <span class="nx">sendData</span><span class="p">(</span><span class="nx">modified</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">Error</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`エラー発生 </span><span class="si">${</span><span class="nx">e</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
   <span class="c1">// 最後に必ず呼ばれる</span>
@@ -65,7 +65,7 @@
 <div class="code-block-caption"><span class="caption-text">例外の再送</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
   <span class="c1">//</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">Error</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">throw</span> <span class="nx">e</span><span class="p">;</span> <span class="c1">// 再度投げる</span>
 <span class="p">}</span>
 </pre></div>
@@ -79,7 +79,7 @@ JavaScriptでは1つしか書くことができません。型の種類による
 <div class="code-block-caption"><span class="caption-text">Javaと似たような例外の分岐</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
   <span class="c1">// 何かしらの処理</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">Error</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// instanceofを使ってエラーの種類を判別していく</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">e</span> <span class="k">instanceof</span> <span class="nx">NoNetworkError</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// NoNetworkErrorの場合</span>
@@ -128,7 +128,7 @@ JavaScriptでは1つしか書くことができません。型の種類による
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">json</span>: <span class="kt">any</span><span class="p">;</span>
 <span class="k">try</span> <span class="p">{</span>
   <span class="nx">json</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">jsonString</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">Error</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">json</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -165,7 +165,7 @@ JavaScriptでは1つしか書くことができません。型の種類による
   <span class="nx">logicC</span><span class="p">();</span>
   <span class="nx">logicD</span><span class="p">();</span>
   <span class="nx">logicE</span><span class="p">();</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">Error</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// エラー処理</span>
 <span class="p">}</span>
 </pre></div>
@@ -178,7 +178,7 @@ JavaScriptでは1つしか書くことができません。型の種類による
 <span class="nx">logicB</span><span class="p">();</span>
 <span class="k">try</span> <span class="p">{</span>
   <span class="nx">logicC</span><span class="p">();</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">Error</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// エラー処理</span>
 <span class="p">}</span>
 <span class="nx">logicD</span><span class="p">();</span>
@@ -195,7 +195,7 @@ JavaScriptでは1つしか書くことができません。型の種類による
 <p>基本的には <code class="docutils literal notranslate"><span class="pre">Error</span></code> 関連のオブジェクトだけを <code class="docutils literal notranslate"><span class="pre">throw</span></code> するようにしましょう。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
   <span class="o">:</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">Error</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// e.とタイプすると、name, messageなどがサジェストされる</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
 <span class="p">}</span>
@@ -233,7 +233,7 @@ JavaScriptでは1つしか書くことができません。型の種類による
 上記のクラスの <code class="docutils literal notranslate"><span class="pre">statusCode</span></code> も正しく補完されます。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
   <span class="nx">await</span> <span class="nx">getUser</span><span class="p">();</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">Error</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">e</span> <span class="k">instanceof</span> <span class="nx">NoNetworkError</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;ネットワークがありません&quot;</span><span class="p">);</span>
   <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">e</span> <span class="k">instanceof</span> <span class="nx">NetworkAccessError</span><span class="p">)</span> <span class="p">{</span>
@@ -297,7 +297,7 @@ JavaScriptでは1つしか書くことができません。型の種類による
   <span class="kr">const</span> <span class="nx">resp</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
   <span class="kr">const</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">Error</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;エラー発生!&quot;</span><span class="p">);</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
 <span class="p">}</span>
@@ -473,11 +473,11 @@ TypeScriptでも、いくつか方法が考えられます。</p>
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 4411</li>
+        <li>英数記号: 4348</li>
         <li>非アスキー: 5913</li>
-        <li>合計文字数: 10324</li>
-        <li>半角換算: 16237</li>
-        <li>全角換算: 8118.5</li>
+        <li>合計文字数: 10261</li>
+        <li>半角換算: 16174</li>
+        <li>全角換算: 8087.0</li>
     </ul>
     </p>
 </div>

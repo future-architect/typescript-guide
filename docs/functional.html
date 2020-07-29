@@ -62,8 +62,15 @@ JavaScriptで実現できる関数型プログラミングのテクニックは�
 <span class="p">});</span>
 </pre></div>
 </div>
-<p>変換処理の関数を書き、 <code class="docutils literal notranslate"><span class="pre">map</span></code> に渡すと、要素1つずつをその関数にわたし、その結果の配列を新たに作って返します。</p>
-<p>TypeScriptは変数の再代入を防ぐ <code class="docutils literal notranslate"><span class="pre">const</span></code> はありますが、</p>
+<p>変換処理の関数を書き、 <code class="docutils literal notranslate"><span class="pre">map()</span></code> に渡すと、要素1つずつをその関数にわたし、その結果の配列を新たに作って返します。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">map()</span></code>: 元のデータの各要素に何かしらの加工を行った新しい配列を作る</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">forEach()</span></code>: 元のデータの各要素に対するループを行う</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fileter</span></code>: 元のデータの書く要素を評価し、選択されたものだけを保持する新しい配列を作る</p></li>
+</ul>
+<p>これは配列の例ですが、複合型の場合に値そのものを書き換えるのではなく、書き換えた別のバージョンを作っていくのがポイントです。
+オブジェクト指向はデータと操作が結びついていますが、関数型はデータとそれに対する操作を切り離すと共に、データを複製するという異なったアプローチを取ります。
+実行効率的にもったいないのでは、と思われる方もいると思いますが、JavaScriptエンジン開発競争のおかげで、JavaScriptエンジンは動的言語の中ではトップクラスのパフォーマンスは持ちます。そこそこ大きなデータであっても高速に処理ができます。多少ペナルティがあったとしても、管理のしやすさや安全を重視してこの方法を取ります。</p>
 <p><a class="reference external" href="https://www.npmjs.com/package/iterative">https://www.npmjs.com/package/iterative</a></p>
 </div>
 </div>
@@ -101,11 +108,11 @@ JavaScriptで実現できる関数型プログラミングのテクニックは�
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 313</li>
-        <li>非アスキー: 952</li>
-        <li>合計文字数: 1265</li>
-        <li>半角換算: 2217</li>
-        <li>全角換算: 1108.5</li>
+        <li>英数記号: 347</li>
+        <li>非アスキー: 1305</li>
+        <li>合計文字数: 1652</li>
+        <li>半角換算: 2957</li>
+        <li>全角換算: 1478.5</li>
     </ul>
     </p>
 </div>

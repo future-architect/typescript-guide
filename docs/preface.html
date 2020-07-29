@@ -68,9 +68,44 @@ JavaScriptは2015年より前は保守的なアップデートがおこなわれ
 <h2>TypeScriptを選んで開発すべき理由<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>「型情報を省くとほぼJavaScript」なのに、なぜわざわざ別のツールを導入してまでTypeScriptを使うのでしょうか？</p>
 <p>型情報が得られることで開発が加速される、というので十分に元はとれます。また、最初からTypeScriptを書くメリットとしては、JavaScriptのライブラリをコンパイルして作る際に、型定義ファイルも同時生成できて、無駄がない点にあります。最初から書くことでTypeScript資産がたまり、さらにTypeScriptの開発が楽になります。</p>
+<p>一方、JavaScriptを開発に使う場合も、各ブラウザのエンジンのサポートしている機能が古いことがあり、Babelを利用して、最新のJavaScriptから互換性の高いJavaScriptへの変換を行うのが通例です。そのため、JavaScriptを選んでも、TypeScriptを選んでも、何かしらのツール導入が必要なことには変わりありません。それであれば、TypeScriptを入れた方が付加価値がさらにあります。</p>
 <p>また、JavaScriptは極めて柔軟な言語です。関数の引数の型もどんなものでも受け付けるとか、引数によって内部の動作が大きく切り替わるようなコード（メソッド・オーバーロード）も書こうと思えば書けます。またTypeScriptの機能を駆使して、そのような関数に型情報を付与することもできます。しかし、TypeScriptで最初から書けば、そのような型付けに苦労するような、トリッキーな書き方がしにくくなります。結果として型定義のメンテナンスに時間を取られることが減ります。</p>
 <p>それ以外にも、型情報が分かった上で変換を行うため、ループ構文など、いくつかのコードを変換するときに、Babelよりも実行効率の良いJavaScriptコードを生成することもわかっています。</p>
 <p>本ドキュメントでは、大規模化するフロントエンド開発の難易度を下げ、バグが入り込みにくくなるTypeScriptを使いこなせるように、文法や環境構築などを紹介していきます。</p>
+</div>
+<div class="section" id="id4">
+<h2>ライセンス<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<img alt="_images/by-sa.png" src="_images/by-sa.png" />
+<p>本ドキュメントは <a class="reference external" href="http://creativecommons.org/licenses/by-sa/4.0/deed.ja">クリエイティブ・コモンズ4.0の表示 - 継承</a> （CC BY-SA 4.0） <a class="footnote-reference brackets" href="#id7" id="id6">1</a> の元で公開します。修正や足したいコンテンツはPull Requestを出していただけるとうれしいのですが、改変の制約はありませんのでフォークしていただくことも可能です。また、商用利用の制限もありません。</p>
+<p>著作権者名は「フューチャー株式会社（Future Corporation）」でお願いします。</p>
+<p>なお、LICENSEファイルは <a class="reference external" href="https://github.com/idleberg/Creative-Commons-Markdown/blob/master/4.0/by-sa.markdown">Creative Commons Markdown</a> から引用させていただきました。</p>
+<dl class="footnote brackets">
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id6">1</a></span></dt>
+<dd><p><a class="reference external" href="http://creativecommons.org/licenses/by-sa/4.0/deed.ja">http://creativecommons.org/licenses/by-sa/4.0/deed.ja</a></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id8">
+<h2>本書の構成と学習の準備<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>最初に説明した通り、本ドキュメントはTypeScriptファーストで説明していきます。現在でもJavaScriptを書く人の多くがTypeScriptを採用しており、その数は増えているため今後はTypeScriptでフロントエンドなどの開発のキャリアをスタートする人も増えるでしょう。本書は「全員がTypeScriptを書くようになった」時代がくることを想定して書いています。JavaScriptとの差異があるところは適宜補足します。</p>
+<p>本ドキュメントではまずTypeScriptの基本的な文法を学んでいきます。TypeScriptはJavaScriptの記法はすべてサポートしていますが、JavaScriptも歴史のある言語なので今となっては古い書き方も増えています。よく使われていたが今はよりよい書き方があることもある時はモダンな書き方が学べるようにしています。</p>
+<p>他の人が使うライブラリで必要となるような高度な文法は中級編として別のセクションに分けています。こちらは最初は飛ばしてもかまいません。</p>
+<p>その後は各環境向けのTipsを紹介します。共通部分をみながら必要な箇所をピックアップして読めるようにしています。ここではVSCodeを用いた開発環境構築やツール整備から始まり、それぞれの環境固有のトピックについて触れていきます。</p>
+<p>本ドキュメントはTypeScriptのエコシステムまで含めたすべてを説明しようとするものではありません。例えば、既存のJavaScriptのライブラリのための型定義ファイルを作成する方法については紹介しません。時間が経てば有名ライブラリについてはほぼ網羅されることを期待していますし、自作していくときはゼロからTypeScriptでいけば、型定義ファイルは自動生成されるので不要です。</p>
+<p>環境構築まではエディタなどの準備は不要です。文法を学ぶときは、本家が提供しているPlaygroundが便利です。本書執筆時点ではまだベータですが、次期バージョンのv3も利用できます。</p>
+<ul class="simple">
+<li><p>現行Playground: <a class="reference external" href="https://www.typescriptlang.org/play/">https://www.typescriptlang.org/play/</a></p></li>
+<li><p>v3ベータ: <a class="reference external" href="https://www.staging-typescript.org/play">https://www.staging-typescript.org/play</a></p></li>
+</ul>
+<p>V2の方はTypeScriptと変換後のJavaScriptを見比べるビューがメインの機能で、実行もできますが、ブラウザの中で実行したときのログは開発者ツールを起動しないと見れません。V3の方は変換結果以外に、TypeScriptが解釈した型情報（.d.ts）、エラー、実行ログも確認できて、学習ツールとして使いやすくなっています。プラグインも実行できるようになっています。</p>
+<div class="figure align-default" id="id25">
+<img alt="_images/playground_v2.png" src="_images/playground_v2.png" />
+<p class="caption"><span class="caption-text">現行のPlayground。右上のTry the new PlaygroundからV3にいける</span><a class="headerlink" href="#id25" title="この画像へのパーマリンク">¶</a></p>
+</div>
+<div class="figure align-default" id="id26">
+<img alt="_images/playground_v3.png" src="_images/playground_v3.png" />
+<p class="caption"><span class="caption-text">V3のPlayground。</span><a class="headerlink" href="#id26" title="この画像へのパーマリンク">¶</a></p>
+</div>
 </div>
 <div class="section" id="javascript">
 <h2>JavaScriptのバージョン<a class="headerlink" href="#javascript" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -84,67 +119,24 @@ JavaScriptは2015年より前は保守的なアップデートがおこなわれ
 最初はstage 0から始まり、stage 1、stage 2とステップがあがっていきます。最初はアイディアでも、徐々にきちんとした仕様やデモ、参考実装など動くようにすることが求められていきます。stage 1が提案、stage 2がドラフト、stage 3がリリース候補、stage 4がECMAScript標準への組み込みになります。
 1月ぐらいにstage 4へ格上げになる機能が決定され、6月に新しいバージョンがリリースされます。</p>
 <p>TypeScriptも基本的には型がついたECMAScriptとして、ECMAScriptの機能は積極的に取り込んでいます。また、いくつかstage 2やstage 3の機能も取り込まれていたりします。</p>
-<p>本ドキュメントはTypeScriptファーストで説明していきますが、JavaScriptとの差異があるところは適宜補足します。</p>
-</div>
-<div class="section" id="id4">
-<h2>本書の参考文献など<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>ECMAScriptの仕様および、MDN、TypeScriptの仕様などは一番のリファレンスとしています。</p>
-<ul class="simple">
-<li><p>ECMAScript規格: <a class="reference external" href="https://www.ecma-international.org/publications/standards/Ecma-262.htm">https://www.ecma-international.org/publications/standards/Ecma-262.htm</a></p></li>
-<li><p>MDN: <a class="reference external" href="https://developer.mozilla.org/ja/docs/Glossary/JavaScript">https://developer.mozilla.org/ja/docs/Glossary/JavaScript</a></p></li>
-<li><p>本家サイト: <a class="reference external" href="http://www.typescriptlang.org/">http://www.typescriptlang.org/</a></p></li>
-</ul>
-<p>下記のサイトは最近まではCompiler Internalなどが書いてあるサイトとしてしか思っていなくて、詳しくは見ていませんでしたが、現在ではかなり充実してきています。現時点では参考にはしてませんでしたが、今後は参考にする可能性があります。</p>
-<ul class="simple">
-<li><p>TypeScript Deep Dive: <a class="reference external" href="https://basarat.gitbooks.io/typescript/">https://basarat.gitbooks.io/typescript/</a></p></li>
-<li><p>TypeScript Deep Dive日本語版: <a class="reference external" href="https://typescript-jp.gitbook.io/deep-dive/">https://typescript-jp.gitbook.io/deep-dive/</a></p></li>
-</ul>
-<p>本書のベースとなっているのは、本原稿を執筆した渋川がQiitaに書いたエントリーの <a class="reference external" href="https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9">イマドキのJavaScriptの書き方2018</a> <a class="footnote-reference brackets" href="#id7" id="id5">1</a> と、それを元にして書いた <a class="reference external" href="https://gihyo.jp/magazine/SD/archive/2019/201903">Software Design 2019年3月号</a> のJavaScript特集です。それ以外に、状況別のTypeScriptの環境構築について書いた <a class="reference external" href="https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1">2019年版: 脱Babel!フロント/JS開発をTypeScriptに移行するための環境整備マニュアル</a> <a class="footnote-reference brackets" href="#id8" id="id6">2</a> も内包していますし、他のエントリーも細々と引用しています。</p>
-<p>これらの執筆においてもそうですが、本書自体の執筆でも、ウェブ上で多くの議論をしてくれた人たちとの交流によって得られた知識ふんだんに盛り込まれていますので、ここに感謝申し上げたいと思います。</p>
-<dl class="footnote brackets">
-<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id5">1</a></span></dt>
-<dd><p><a class="reference external" href="https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9">https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9</a></p>
-</dd>
-<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id6">2</a></span></dt>
-<dd><p><a class="reference external" href="https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1">https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1</a></p>
-</dd>
-</dl>
 </div>
 <div class="section" id="id9">
-<h2>ライセンス<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<img alt="_images/by-sa.png" src="_images/by-sa.png" />
-<p>本ドキュメントは <a class="reference external" href="http://creativecommons.org/licenses/by-sa/4.0/deed.ja">クリエイティブ・コモンズ4.0の表示 - 継承</a> （CC BY-SA 4.0） <a class="footnote-reference brackets" href="#id12" id="id11">3</a> の元で公開します。修正や足したいコンテンツはPull Requestを出していただけるとうれしいのですが、改変の制約はありませんのでフォークしていただくことも可能です。また、商用利用の制限もありません。</p>
-<p>著作権者名は「フューチャー株式会社（Future Corporation）」でお願いします。</p>
-<p>なお、LICENSEファイルは <a class="reference external" href="https://github.com/idleberg/Creative-Commons-Markdown/blob/master/4.0/by-sa.markdown">Creative Commons Markdown</a> から引用させていただきました。</p>
-<dl class="footnote brackets">
-<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id11">3</a></span></dt>
-<dd><p><a class="reference external" href="http://creativecommons.org/licenses/by-sa/4.0/deed.ja">http://creativecommons.org/licenses/by-sa/4.0/deed.ja</a></p>
-</dd>
-</dl>
-</div>
-<div class="section" id="id13">
-<h2>本書で扱わないこと<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>本書はTypeScriptのエコシステムまで含めたすべてを説明しようとするものではありません。</p>
-<p>例えば、既存のJavaScriptのライブラリのための型定義ファイルを作成する方法については紹介しません。時間が経てば有名ライブラリについてはほぼ網羅されることを期待していますし、自作していくときはゼロからTypeScriptでいけば、型定義ファイルは自動生成されるので不要です。</p>
-<p>また、ジェネリクスや型システムの複雑な機能には深入りはしません。TypeScriptも、少しずつ着実にバージョンアップを重ねています。一般的に開発者がよく利用するようなケースにおいては、すでに書きやすくなるようにデザインされています。また、今現在は簡単に定義できないようなものがあったとしても将来バージョンで改善されて簡単に書けるようになると期待されるからです。</p>
-</div>
-<div class="section" id="id14">
-<h2>TypeScriptと互換性<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>インターネット上ですべてのユーザーが見られるサイトを作る場合、現在の機能的な下限はInternet Explorer 11 <a class="footnote-reference brackets" href="#id20" id="id15">4</a> です。
-Googleの検索エンジンのボットもこれとほぼ同等機能（<code class="docutils literal notranslate"><span class="pre">const</span></code>、 <code class="docutils literal notranslate"><span class="pre">let</span></code>ありのクラスなし）のChrome 41で固定されています <a class="footnote-reference brackets" href="#id21" id="id16">5</a> 。
+<h2>TypeScriptと互換性<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>インターネット上ですべてのユーザーが見られるサイトを作る場合、現在の機能的な下限はInternet Explorer 11 <a class="footnote-reference brackets" href="#id15" id="id10">2</a> です。
+Googleの検索エンジンのボットもこれとほぼ同等機能（<code class="docutils literal notranslate"><span class="pre">const</span></code>、 <code class="docutils literal notranslate"><span class="pre">let</span></code>ありのクラスなし）のChrome 41で固定されています <a class="footnote-reference brackets" href="#id16" id="id11">3</a> 。
 それ以外には、バージョンアップがもう提供されていないiOSやAndroidのスマートフォンの場合に最新の機能が使えないことがあります。
 ブラウザ以外ではGoogle Apps ScriptがECMAScript3にしか対応していません。</p>
 <p>100%のブラウザとの互換性を維持するのは開発リソースがいくらあっても足りないため、捻出できる工数と相談しながら、サポート範囲を決めます。
-ブラウザのバージョンごとにどの機能が対応しているかはECMAScript Compatibility Table<a class="footnote-reference brackets" href="#id22" id="id17">6</a>のサイトで調べられます。</p>
-<p>新しいブラウザのみに限定できるイントラネットのサービスや、Node.js以外は、Babelなり、TypeScriptなりのコンパイラを使い、変換後の出力として古いブラウザ向けのJavaScriptコードに変換して出力するのが現在では一般的です。Lambda、Cloud Functions、Google App Engineなどは、場合によっては少し古いバージョンのNode.jsを対象にしなければならないため、これも変換が必要になるかもしれません <a class="footnote-reference brackets" href="#id23" id="id18">7</a> 。</p>
+ブラウザのバージョンごとにどの機能が対応しているかはECMAScript Compatibility Table<a class="footnote-reference brackets" href="#id17" id="id12">4</a>のサイトで調べられます。</p>
+<p>新しいブラウザのみに限定できるイントラネットのサービスや、Node.js以外は、Babelなり、TypeScriptなりのコンパイラを使い、変換後の出力として古いブラウザ向けのJavaScriptコードに変換して出力するのが現在では一般的です。Lambda、Cloud Functions、Google App Engineなどは、場合によっては少し古いバージョンのNode.jsを対象にしなければならないため、これも変換が必要になるかもしれません <a class="footnote-reference brackets" href="#id18" id="id13">5</a> 。</p>
 <p>TypeScriptの場合はほぼ最新のECMAScriptの文法に型をつけて記述できますが、コンパイル時に出力するコードのバージョンを決めることができます。
 デフォルトではES3ですが、ES5、ES2015からES2018、ESNEXTとあわせて、合計7通りの選択肢が取れます。一部の記述はターゲットが古い場合にはオプションが必要になることもあります。最低限、ES5であれば、新旧問わずどのブラウザでも問題になることはないでしょう。</p>
 <p>ただし、TypeScriptが面倒を見てくれるのは文法の部分だけです。たとえば、 <code class="docutils literal notranslate"><span class="pre">Map</span></code> や <code class="docutils literal notranslate"><span class="pre">Set</span></code> といったクラスはES5にはありませんし、イテレータを伴う <code class="docutils literal notranslate"><span class="pre">Array</span></code> のメソッドもありません。</p>
-<p>TypeScriptには <code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code> というコンパイラの動作を決定する定義ファイルがあります。ブラウザの可搬性を維持しつつ、これらの新しい要素を使いたい場合には別途そこをサポートするものを入れる必要があります。現在、その足りないクラスやメソッドを追加するもの（Polyfillと呼ばれる）で、一番利用されるのが <code class="docutils literal notranslate"><span class="pre">core-js</span></code> <a class="footnote-reference brackets" href="#id24" id="id19">8</a> で、Babelからも使われているようです。</p>
+<p>TypeScriptには <code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code> というコンパイラの動作を決定する定義ファイルがあります。ブラウザの可搬性を維持しつつ、これらの新しい要素を使いたい場合には別途そこをサポートするものを入れる必要があります。現在、その足りないクラスやメソッドを追加するもの（Polyfillと呼ばれる）で、一番利用されるのが <code class="docutils literal notranslate"><span class="pre">core-js</span></code> <a class="footnote-reference brackets" href="#id19" id="id14">6</a> で、Babelからも使われているようです。</p>
 <p>出力ターゲットを古くすると、利用できるクラスなども一緒に古くなってしまうため、対策が必要です、まずは、ES2017やES2018などのバージョンのうち、必要なクラスを定義しているバージョンがどれかを探してきます。どのバージョンがどの機能をサポートしているかは、前述の compat-table が参考になります。</p>
 <p>ターゲットに <code class="docutils literal notranslate"><span class="pre">es5</span></code> を選ぶと、 <code class="docutils literal notranslate"><span class="pre">lib</span></code> には <code class="docutils literal notranslate"><span class="pre">[&quot;DOM&quot;,</span> <span class="pre">&quot;ScriptHost&quot;,</span> <span class="pre">&quot;ES5&quot;]</span></code> が定義されます。 <code class="docutils literal notranslate"><span class="pre">lib</span></code> は使えるクラスとかメソッド、その時の型などが定義されているもので、これを増やしたからといってできることが増えたりはしませんが、「これはないよ」というコンパイラがエラーを出力するための情報源として使われます。この <code class="docutils literal notranslate"><span class="pre">&quot;ES5&quot;</span></code> には、そのバージョンで利用できるクラスとメソッドしかないため、次のように <code class="docutils literal notranslate"><span class="pre">ES2017</span></code> に置き換えます。</p>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;es5&quot;</span><span class="p">,</span>
@@ -161,20 +153,44 @@ core-jsのオプションが知りたい場合は、core-jsのサイトのREADME
 </pre></div>
 </div>
 <dl class="footnote brackets">
-<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id15">4</a></span></dt>
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id10">2</a></span></dt>
 <dd><p>Microsoft社がEdgeがChromiumベースにすることが発表され、現在ベータ版が配布されています。これまでのEdgeと異なり、Windows 7以降のすべてのWindowsで提供されるようになります。IEモードも搭載されてIEとのリプレースも行えるようになるため、IE基準で考える必要はなくなっていく予定です。</p>
 </dd>
-<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id16">5</a></span></dt>
+<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id11">3</a></span></dt>
 <dd><p>Google I/O 2019で、これが現時点の最新版と同じChrome 74に更新されることが発表されています。</p>
 </dd>
-<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id17">6</a></span></dt>
+<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id12">4</a></span></dt>
 <dd><p><a class="reference external" href="http://kangax.github.io/compat-table/es6/">http://kangax.github.io/compat-table/es6/</a></p>
 </dd>
-<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id18">7</a></span></dt>
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id13">5</a></span></dt>
 <dd><p>Lambdaは長らくNode.js 6というかなり古いバージョンを使っていましたが10が提供されて6はサポート終了になり、Node.js 6ベースのタスクの新規作成と更新ができなくなりました。</p>
 </dd>
-<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id19">8</a></span></dt>
+<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id14">6</a></span></dt>
 <dd><p><a class="reference external" href="https://www.npmjs.com/package/core-js">https://www.npmjs.com/package/core-js</a></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id20">
+<h2>本書の参考文献など<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ECMAScriptの仕様および、MDN、TypeScriptの仕様などは一番のリファレンスとしています。</p>
+<ul class="simple">
+<li><p>ECMAScript規格: <a class="reference external" href="https://www.ecma-international.org/publications/standards/Ecma-262.htm">https://www.ecma-international.org/publications/standards/Ecma-262.htm</a></p></li>
+<li><p>MDN: <a class="reference external" href="https://developer.mozilla.org/ja/docs/Glossary/JavaScript">https://developer.mozilla.org/ja/docs/Glossary/JavaScript</a></p></li>
+<li><p>本家サイト: <a class="reference external" href="http://www.typescriptlang.org/">http://www.typescriptlang.org/</a></p></li>
+</ul>
+<p>下記のサイトは最近まではCompiler Internalなどが書いてあるサイトとしてしか思っていなくて、詳しくは見ていませんでしたが、現在ではかなり充実してきています。現時点では参考にはしてませんでしたが、今後は参考にする可能性があります。</p>
+<ul class="simple">
+<li><p>TypeScript Deep Dive: <a class="reference external" href="https://basarat.gitbooks.io/typescript/">https://basarat.gitbooks.io/typescript/</a></p></li>
+<li><p>TypeScript Deep Dive日本語版: <a class="reference external" href="https://typescript-jp.gitbook.io/deep-dive/">https://typescript-jp.gitbook.io/deep-dive/</a></p></li>
+</ul>
+<p>本書のベースとなっているのは、本原稿を執筆した渋川がQiitaに書いたエントリーの <a class="reference external" href="https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9">イマドキのJavaScriptの書き方2018</a> <a class="footnote-reference brackets" href="#id23" id="id21">7</a> と、それを元にして書いた <a class="reference external" href="https://gihyo.jp/magazine/SD/archive/2019/201903">Software Design 2019年3月号</a> のJavaScript特集です。それ以外に、状況別のTypeScriptの環境構築について書いた <a class="reference external" href="https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1">2019年版: 脱Babel!フロント/JS開発をTypeScriptに移行するための環境整備マニュアル</a> <a class="footnote-reference brackets" href="#id24" id="id22">8</a> も内包していますし、他のエントリーも細々と引用しています。</p>
+<p>これらの執筆においてもそうですが、本書自体の執筆でも、ウェブ上で多くの議論をしてくれた人たちとの交流によって得られた知識ふんだんに盛り込まれていますので、ここに感謝申し上げたいと思います。</p>
+<dl class="footnote brackets">
+<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id21">7</a></span></dt>
+<dd><p><a class="reference external" href="https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9">https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9</a></p>
+</dd>
+<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id22">8</a></span></dt>
+<dd><p><a class="reference external" href="https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1">https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1</a></p>
 </dd>
 </dl>
 </div>
@@ -193,11 +209,11 @@ core-jsのオプションが知りたい場合は、core-jsのサイトのREADME
 <li><a class="reference internal" href="#id2">本ドキュメントの位置づけ</a></li>
 <li><a class="reference internal" href="#typescript">TypeScriptのウェブ開発における位置づけ</a></li>
 <li><a class="reference internal" href="#id3">TypeScriptを選んで開発すべき理由</a></li>
+<li><a class="reference internal" href="#id4">ライセンス</a></li>
+<li><a class="reference internal" href="#id8">本書の構成と学習の準備</a></li>
 <li><a class="reference internal" href="#javascript">JavaScriptのバージョン</a></li>
-<li><a class="reference internal" href="#id4">本書の参考文献など</a></li>
-<li><a class="reference internal" href="#id9">ライセンス</a></li>
-<li><a class="reference internal" href="#id13">本書で扱わないこと</a></li>
-<li><a class="reference internal" href="#id14">TypeScriptと互換性</a></li>
+<li><a class="reference internal" href="#id9">TypeScriptと互換性</a></li>
+<li><a class="reference internal" href="#id20">本書の参考文献など</a></li>
 </ul>
 </li>
 </ul>
@@ -220,11 +236,11 @@ core-jsのオプションが知りたい場合は、core-jsのサイトのREADME
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 2385</li>
-        <li>非アスキー: 6276</li>
-        <li>合計文字数: 8661</li>
-        <li>半角換算: 14937</li>
-        <li>全角換算: 7468.5</li>
+        <li>英数記号: 2718</li>
+        <li>非アスキー: 6911</li>
+        <li>合計文字数: 9629</li>
+        <li>半角換算: 16540</li>
+        <li>全角換算: 8270.0</li>
     </ul>
     </p>
 </div>

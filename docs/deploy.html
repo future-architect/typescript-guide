@@ -36,6 +36,7 @@
             
   <div class="section" id="id1">
 <h1>成果物のデプロイ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>TypeScriptで作ったアプリケーションの開発環境の作り方を、バリエーションごとに紹介してきました。それぞれの環境でビルド方法についても紹介しました。本章ではデプロイについて紹介します。</p>
 <div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">課題</p>
 <p>npmパッケージ to npm
@@ -43,6 +44,265 @@ npmパッケージ to nexus
 Dockerイメージ</p>
 <p><a class="reference external" href="https://qiita.com/kannkyo/items/5195069c65350b60edd9">https://qiita.com/kannkyo/items/5195069c65350b60edd9</a></p>
 <p><a class="reference external" href="https://qiita.com/shibukawa/items/fd49f98736045789ffc3#%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E5%91%A8%E3%82%8A%E3%81%AEdocker%E8%A8%AD%E5%AE%9A">https://qiita.com/shibukawa/items/fd49f98736045789ffc3#%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%82%A8%E3%83%B3%E3%83%89%E5%91%A8%E3%82%8A%E3%81%AEdocker%E8%A8%AD%E5%AE%9A</a></p>
+</div>
+<div class="section" id="npm">
+<h2>npmパッケージとしてデプロイ<a class="headerlink" href="#npm" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>この方法でデプロイする対象は以下の通りです。</p>
+<ul class="simple">
+<li><p>Node.js用のライブラリ</p></li>
+<li><p>Node.js用のCLIツール</p></li>
+<li><p>Node.js用のウェブサービス</p></li>
+</ul>
+<p>ビルドしたらアーカイブファイルを作ってみましょう。これで、package.tgzファイルができます。npm installにこのファイルのパスを渡すとインストールできます。アップロードする前に、サンプルのプロジェクトを作ってみて、このパッケージをインストールしてみて、必要なファイルが抜けていないか、必要な依存パッケージが足りているかといったことを確認してみましょう。また、展開してみて、余計なファイルが含まれていないことも確認すると良いでしょう。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm pack
+</pre></div>
+</div>
+<ul>
+<li><p>ビルドには必要だが、配布する必要のないファイルが含まれている</p>
+<p><code class="docutils literal notranslate"><span class="pre">.npmignore</span></code>ファイルにそのファイル名を列挙します。パッケージを作る時に無視されます。</p>
+</li>
+<li><p>ビルドには必要だが、利用環境でインストール不要なパッケージがある</p>
+<p><code class="docutils literal notranslate"><span class="pre">package.json</span></code>の<code class="docutils literal notranslate"><span class="pre">dependencies</span></code>から、<code class="docutils literal notranslate"><span class="pre">devDependencies</span></code>に移動します。</p>
+</li>
+</ul>
+<p>npmのサイトにアップロードしてみましょう。</p>
+<p>パッケージリポジトリはnpm以外にもあります。例えば、Nexusを使えばローカルにパッケージリポジトリが建てられます。GitHubもパッケージリポジトリを提供しています。</p>
+</div>
+<div class="section" id="id3">
+<h2>サーバーにアプリケーションをデプロイ<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Node.jsはシングルコアを効率よく使う処理系です。サーバーアプリケーションでマルチコアを効率よく使うには、プロセスマネージャを利用します。本書ではpm2を利用します。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/">https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/</a></p></li>
+</ul>
+<p>サンプルとしては次のコードを使います。</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">src/main.ts</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">express</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Request</span><span class="p">,</span> <span class="nx">Response</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;express&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">compression</span> <span class="nx">from</span> <span class="s2">&quot;compression&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">bodyParser</span> <span class="nx">from</span> <span class="s2">&quot;body-parser&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">gracefulShutdown</span> <span class="nx">from</span> <span class="s2">&quot;http-graceful-shutdown&quot;</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">compression</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="nx">extended</span>: <span class="kt">true</span> <span class="p">}));</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span>: <span class="kt">Request</span><span class="p">,</span> <span class="nx">res</span>: <span class="kt">Response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+        <span class="nx">message</span><span class="o">:</span> <span class="sb">`hello </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s2">&quot;user-agent&quot;</span><span class="p">]</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="kr">const</span> <span class="nx">host</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">HOST</span> <span class="o">||</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mi">3000</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Server is running at http://%s:%d&quot;</span><span class="p">,</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">port</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;  Press CTRL-C to stop\n&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">gracefulShutdown</span><span class="p">(</span><span class="nx">server</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">signals</span><span class="o">:</span> <span class="s2">&quot;SIGINT SIGTERM&quot;</span><span class="p">,</span>
+    <span class="nx">timeout</span>: <span class="kt">30000</span><span class="p">,</span>
+    <span class="nx">development</span>: <span class="kt">false</span><span class="p">,</span>
+    <span class="nx">onShutdown</span>: <span class="kt">async</span> <span class="p">(</span><span class="nx">signal</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;... called signal: &quot;</span> <span class="o">+</span> <span class="nx">signal</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;... in cleanup&quot;</span><span class="p">);</span>
+        <span class="c1">// shutdown DB or something</span>
+    <span class="p">},</span>
+    <span class="k">finally</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Server gracefulls shutted down.....&quot;</span><span class="p">);</span>
+    <span class="p">},</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>は<code class="docutils literal notranslate"><span class="pre">npx</span> <span class="pre">tsc</span> <span class="pre">--init</span></code>で生成したものをひとまず使います。<code class="docutils literal notranslate"><span class="pre">package.json</span></code>は以下のものを利用します。nccを使ってビルドする前提となっています。</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;webserver&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;ncc build src/main.ts&quot;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;Yoshiki Shibukawa&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;ISC&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;pm2&quot;</span><span class="p">:</span> <span class="s2">&quot;^4.4.0&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;@types/body-parser&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.19.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;@types/compression&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.7.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;@types/express&quot;</span><span class="p">:</span> <span class="s2">&quot;^4.17.7&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;@zeit/ncc&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.22.3&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;body-parser&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.19.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;compression&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.7.4&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;express&quot;</span><span class="p">:</span> <span class="s2">&quot;^4.17.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;http-graceful-shutdown&quot;</span><span class="p">:</span> <span class="s2">&quot;^2.3.2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;typescript&quot;</span><span class="p">:</span> <span class="s2">&quot;^3.9.7&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>nccでビルドすると、dist/index.js``という一つの.jsファイルが生成されます。実行は<code class="docutils literal notranslate"><span class="pre">node</span> <span class="pre">dist/index.js</span></code>の変わりに次のコマンドを利用します。これで、CPUコア数分Node.jsのインスタンスを起動し、クラスタで動作します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pm2 start dist/index.js -i max
+</pre></div>
+</div>
+<p>pm2で起動すると、デーモン化されてアプリケーションが起動します。<code class="docutils literal notranslate"><span class="pre">pm2</span> <span class="pre">logs</span></code>コマンドでログをみたり、<code class="docutils literal notranslate"><span class="pre">pm2</span> <span class="pre">status</span></code>や<code class="docutils literal notranslate"><span class="pre">pm2</span> <span class="pre">list</span></code>で起動しているプロセスの状態を知ることができます。</p>
+<p>デーモン化させないでフォアグラウンドで動作させる場合は<code class="docutils literal notranslate"><span class="pre">--no-daemon</span></code>をつけて起動します。</p>
+</div>
+<div class="section" id="docker">
+<h2>Dockerイメージの作成<a class="headerlink" href="#docker" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>この方法でデプロイする対象は以下の通りです。</p>
+<ul class="simple">
+<li><p>Node.js用のCLIツール</p></li>
+<li><p>Node.js用のウェブサービス</p></li>
+<li><p>ウェブフロントエンド</p></li>
+</ul>
+<div class="section" id="id4">
+<h3>コンテナとは何か<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>コンテナは1アプリケーションだけが格納されたミニOS環境です。Linux上でもmacOS上でもWindows上でもクラウド環境でも、アプリケーションからは同じOS環境のように見えます。ポータブルなアプリケーション配布・実行環境としてますます地位が高まっています。コンテナは動いている環境のことを指します。コンテナは実行時にイメージを読み込んで環境を構築します。これは実行に必要なファイルと起動時のコマンドなどがセットになったものです。開発者が作るのはイメージです。</p>
+<p>コンテナ関係のシステムは、実行のランタイムやビルド方法など、それぞれにいくつか選択肢がありますが、開発時の環境として一番ポピュラーなのがDockerです。本書ではコンテナ=Dockerコンテナとして説明をします。</p>
+<p>ローカルではコンテナはDocker for Desktopを使ってイメージの作成や動作のテストができます。運用環境として、どのクラウド事業者もKubernetesを使ってコンテナベースで本番運用環境の維持管理できるサービスを提供しています。1つのノードにリソースが許すかぎり多数のコンテナを配置することができ、実行時の効率も上がります。
+それ以外にも、AWS ECSやAWS Fargate、GCP Cloud Runなど、単体のDockerイメージやDockerイメージ群を起動できるサービスもあります。コンテナはウェブアプリケーションのような起動し続けるサービスにも使えますし、一度実行して終了するバッチ処理にも活用できます。</p>
+<p>Dockerコンテナ内のアプリケーションは外部の環境と切り離されて実行されますが、Dockerの実行時のオプションで外界と接点を設定できます。複雑な設定が必要なアプリケーションの場合は、設定ファイルをコンテナ内の特定のパスに置くこともできますが、推奨されるのは環境変数のみによって制御されるアプリケーションです。</p>
+<ul class="simple">
+<li><p>環境変数</p></li>
+<li><p>ネットワークの設定</p>
+<ul>
+<li><p>特定のポートをlocalhostに公開</p></li>
+<li><p>localhostとコンテナ内部のを同一ネットワークにするかどうか</p></li>
+</ul>
+</li>
+<li><p>ファイルやフォルダのマウント</p></li>
+<li><p>最後に実行するコマンドのオプション</p></li>
+</ul>
+<p>コンテナは上記のように、クラウドサービスに直接デプロイして実行できます。</p>
+<p>複数のコンテナに必要な設定を与えてまとめて起動するツール（コンテナオーケストレーションツール）もあります。それがdocker-composeやKubernetesです。</p>
+</div>
+<div class="section" id="id5">
+<h3>Dockerのベースイメージの選択<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Dockerイメージを作成するには<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>という設定ファイルを作成し、<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code>コマンドを使ってイメージを作成します。イメージは何もないところからゼロで作ることもできなくはないですが、基本的にはベースイメージと呼ばれる土台となるイメージを選択して、それに対して必要なファイルを追加します。ビルド済みのアプリケーションを単に置く、という構築方法もありますが（公式イメージの多くはそれに近いことをしている）、アプリケーション開発の場合はソースコードをDocker内部に送り、それをDocker内部でビルドして、実行用イメージを作成します。できあがったイメージをコンパクトにするために、ビルド用イメージと、実行用イメージを分ける（マルチステージビルド）が今の主流です。</p>
+<p>Node.jsの公式のイメージは以下のサイトにあります。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://hub.docker.com/_/node/">https://hub.docker.com/_/node/</a></p></li>
+</ul>
+<p>バージョンと、OSの組み合わせだけイメージがあります。その中でおすすめの組み合わせが次の3つです。</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>用途</p></th>
+<th class="head"><p>バリエーション</p></th>
+<th class="head"><p>ビルド用イメージ</p></th>
+<th class="head"><p>実行用イメージ</p></th>
+<th class="head"><p>解説</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Node.js(CLI/ウェブアプリ)</p></td>
+<td><p>鉄板</p></td>
+<td><p>nodeのDebian系</p></td>
+<td><p>nodeのDebian-slim系</p></td>
+<td><p>ネイティブ拡張があっても利用可能</p></td>
+</tr>
+<tr class="row-odd"><td><p>Node.js(CLI/ウェブアプリ)</p></td>
+<td><p>ネイティブ拡張なし</p></td>
+<td><p>nodeのDebian-slim系</p></td>
+<td><p>nodeのDebian-slim系</p></td>
+<td><p>ビルド環境もコンパクトに</p></td>
+</tr>
+<tr class="row-even"><td><p>Node.js(CLI/ウェブアプリ)</p></td>
+<td><p>セキュリティ重視</p></td>
+<td><p>nodeのDebian-slim系</p></td>
+<td><p>distrolessのnode.js</p></td>
+<td><p>コンテナへのログインを許さないセキュアな実行イメージ</p></td>
+</tr>
+<tr class="row-odd"><td><p>ウェブフロントエンド配信</p></td>
+<td></td>
+<td><p>nodeのDebian-slim系</p></td>
+<td><p>nginx:alpine</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-todo admonition" id="id6">
+<p class="admonition-title">課題</p>
+<p>Denoはこちらのスレッドを見守る <a class="reference external" href="https://github.com/denoland/deno/issues/3356">https://github.com/denoland/deno/issues/3356</a></p>
+</div>
+<p>DebianはLinuxディストリビューションの名前です。buster (Debian 10)、stretch (Debian 9)、jessie (Debian 8)が執筆時点ではコンテナリポジトリにあります。それぞれ、無印がフル版で、gccや各種開発用ライブラリを含みます。いろいろ入っていて便利ですが、イメージサイズは大きめです。slimがつくバージョンがそれぞれにあります。これはNode.jsは入っているが、gccなどがないバージョンです。例えば、最新LTS（執筆時点で12）のDebianの開発環境込みのイメージであれば、<code class="docutils literal notranslate"><span class="pre">node:12-buster</span></code>を選びます。</p>
+<p>もう一つ、GCPのコンテナレジストリで提供されているのがdistrolessです。こちらはシェルもなく、セキュリティパッチも積極的に当てていくという、セキュリティにフォーカスしたDebianベースのイメージです。
+シェルがないということはリモートログインができませんので、踏み台にされる心配がないイメージです。これはGCPのコンテナレジストリに登録されており、<code class="docutils literal notranslate"><span class="pre">gcr.io/distroless/nodejs</span></code>という名前で利用可能です。</p>
+<p>Alpineというサイズ重視のOSイメージはありますが、あとから追加インストールしなければならないパッケージが増えがちなのと、パッケージのバージョン固定がしにくい（古いパッケージが削除されてしまってインストールできなくなる）などの問題がありますし、他のイメージがだいたいDebianベースなので、Debianベースのもので揃えておいた方がトラブルは少ないでしょう。</p>
+<p>Dockerイメージはサイズが重視されますが、ビルド時間や再ビルド時間も大切な要素です。開発ツールなしのイメージ（slimやalpineなど）を選び、必要な開発ツールだけをダウンロードするのはサイズの上では有利ですが、すでにできあがったイメージをただダウンロードするのよりも、依存関係を計算しながら各パッケージをダウンロードする方が時間がかかります。</p>
+</div>
+</div>
+<div class="section" id="cli">
+<h2>CLI/ウェブアプリケーションのイメージ作成<a class="headerlink" href="#cli" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>CLIとウェブアプリケーションの場合の手順はあまり変わらないので一緒に説明します。ベースイメージの選択では3種類の組み合わせがありました。</p>
+<ul class="simple">
+<li><p>C拡張あり（Debian系でビルド）</p></li>
+<li><p>C拡張なし（Debian-slim系でビルド）</p></li>
+<li><p>セキュリティ重視（destrolessに配信）</p></li>
+</ul>
+<p>前2つ目はベースイメージが<code class="docutils literal notranslate"><span class="pre">node:12-buster</span></code>から<code class="docutils literal notranslate"><span class="pre">node:12-buster-slim</span></code>に変わるだけですので、まとめて紹介します。</p>
+<p>なお、Node.jsはシングルコアで動作する処理系ですので、マルチコアを生かしたい場合はインスタンスを複数起動し、ロードバランスをする仕組みを外部に起動する必要があります。</p>
+<div class="section" id="debiandocker">
+<h3>Debianベースのイメージ作成とDockerの基礎<a class="headerlink" href="#debiandocker" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>まず、イメージにするアプリケーションを作成します。コンテナの中のアプリケーションは終了時にシグナルが呼ばれますので、シグナルに応答して終了するように実装する必要があります。</p>
+<p>Dockerfileはコンテナのイメージを作成するためのレシピです。行志向のスクリプトになっています。</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="c"># ここから下がビルド用イメージ</span>
+
+<span class="k">FROM</span> <span class="s">node:12-buster</span> <span class="k">AS</span> <span class="s">builder</span>
+
+<span class="k">WORKDIR</span><span class="s"> app</span>
+<span class="k">COPY</span> package.json package-lock.json ./
+<span class="k">RUN</span> npm ci
+<span class="k">COPY</span> tsconfig.json ./
+<span class="k">COPY</span> src ./src
+<span class="k">RUN</span> npm run build
+
+<span class="c"># ここから下が実行用イメージ</span>
+
+<span class="k">FROM</span> <span class="s">node:12-buster-slim</span> <span class="k">AS</span> <span class="s">runner</span>
+<span class="k">WORKDIR</span><span class="s"> /opt/app</span>
+<span class="k">COPY</span> --from<span class="o">=</span>builder /app/dist ./
+<span class="k">USER</span><span class="s"> node</span>
+<span class="k">EXPOSE</span><span class="s"> 3000</span>
+<span class="k">CMD</span> <span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span> <span class="s2">&quot;/opt/app/index.js&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">FROM</span></code>はベースとなるイメージを選択する命令です。ここではビルド用のベースイメージと、実行用のベースイメージと2箇所<code class="docutils literal notranslate"><span class="pre">FROM</span></code>を使用しています。<code class="docutils literal notranslate"><span class="pre">FROM</span></code>から次の<code class="docutils literal notranslate"><span class="pre">FROM</span></code>、あるいはファイルの終行までがイメージになります。ここでは2つイメージが作られていますが、最後のイメージが、このDockerfileの成果物のイメージとなります。</p>
+<p>それぞれのイメージの中ではいくつかの命令を使ってイメージを完成させていきます。</p>
+<p><code class="docutils literal notranslate"><span class="pre">COPY\</span> <span class="pre">は実行場所（コンテキスト）や別のイメージ（\</span> <span class="pre">``--from</span></code>が必要）からファイルを取得してきて、イメージ内部に配置する命令です。このサンプルでは使っていませんが、<code class="docutils literal notranslate"><span class="pre">ADD</span></code>命令もあり、こちらは<code class="docutils literal notranslate"><span class="pre">COPY</span></code>の高性能バージョンです。ネットワーク越しにファイルを取得できますし、アーカイブファイルを展開してフォルダに配置もできます。<code class="docutils literal notranslate"><span class="pre">RUN</span></code>は何かしらの命令を実行します。</p>
+<p>あと重要なポイントが、このイメージ作成のステップ（行）ごとに内部的にはイメージが作成されている点です。このステップごとのファイルシステムの状態は「レイヤー」と呼ばれます。このレイヤーはキャッシュされて、ファイルシステムの状態に差分がなければキャッシュを利用します。イメージの内部にはこのレイヤーがすべて保存されています。例えば、ファイルを追加、そして削除をそれぞれ1ステップずつ実行すると、消したはずのファイルもレイヤーには残ってしまい、イメージサイズは大きなままとなります。</p>
+<p>実行用イメージはこのレイヤーとサイズの問題は心の片隅に置いておく方が良いですが（優先度としては10番目ぐらいです）、ビルド用のイメージはサイズが大きくなっても弊害とかはないので、なるべくステップを分けてキャッシュされるようにすべきです。また、キャッシュ効率をあげるために、なるべく変更が少ない大物を先にインストールすることが大切です。</p>
+<p>上記のサンプルではパッケージ情報ファイル（<code class="docutils literal notranslate"><span class="pre">package.json</span></code>と<code class="docutils literal notranslate"><span class="pre">package-lock.json</span></code>）取得してきてサードパーティのライブラリのダウンロード（<code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code>）だけを先に実行しています。利用パッケージの変更はソースコードの変更よりもレアケースです。一方、ソースコードの変更は大量に行われます。そのためにソースコードのコピーを後に行っています。もし逆であれば、ソースコード変更のたびにパッケージのダウンロードが走り、キャッシュがほとんど有効になりません。このようにすれば、ソースコードを変更して再ビルドするときは<code class="docutils literal notranslate"><span class="pre">COPY</span> <span class="pre">src</span></code>の行より以前はスキップされてそこから先だけが実行されます。</p>
+<p>実行用イメージの最後は<code class="docutils literal notranslate"><span class="pre">CMD</span></code>命令を使います。いつものスクリプトの実行と同じように記述すれば問題ありません。</p>
+</div>
+<div class="section" id="distrolessdocker">
+<h3>distrolessベースのDockerイメージの作成<a class="headerlink" href="#distrolessdocker" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>ウェブフロントエンドのDockerイメージの作成<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>シングルページアプリケーションをビルドすると静的なHTMLやJS、CSSのファイル群ができます。これらのファイルを利用する方法はいくつかあります。</p>
+<ul class="simple">
+<li><p>CDNにアップロードする</p></li>
+<li><p>オブジェクトストレージにアップする</p></li>
+<li><p>Dockerコンテナとしてデプロイする</p></li>
+</ul>
+<p>このうち、CDNやオブジェクトストレージへのアップロードはそれぞれのサービスごとの作法に従って行ます。ここではDockerコンテナとしてデプロイする方法を紹介します。</p>
 </div>
 </div>
 
@@ -52,7 +312,27 @@ Dockerイメージ</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">成果物のデプロイ</a><ul>
+<li><a class="reference internal" href="#npm">npmパッケージとしてデプロイ</a></li>
+<li><a class="reference internal" href="#id3">サーバーにアプリケーションをデプロイ</a></li>
+<li><a class="reference internal" href="#docker">Dockerイメージの作成</a><ul>
+<li><a class="reference internal" href="#id4">コンテナとは何か</a></li>
+<li><a class="reference internal" href="#id5">Dockerのベースイメージの選択</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cli">CLI/ウェブアプリケーションのイメージ作成</a><ul>
+<li><a class="reference internal" href="#debiandocker">Debianベースのイメージ作成とDockerの基礎</a></li>
+<li><a class="reference internal" href="#distrolessdocker">distrolessベースのDockerイメージの作成</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">ウェブフロントエンドのDockerイメージの作成</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
@@ -71,11 +351,11 @@ Dockerイメージ</p>
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 251</li>
-        <li>非アスキー: 24</li>
-        <li>合計文字数: 275</li>
-        <li>半角換算: 299</li>
-        <li>全角換算: 149.5</li>
+        <li>英数記号: 3446</li>
+        <li>非アスキー: 4696</li>
+        <li>合計文字数: 8142</li>
+        <li>半角換算: 12838</li>
+        <li>全角換算: 6419.0</li>
     </ul>
     </p>
 </div>
