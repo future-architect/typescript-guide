@@ -27,6 +27,7 @@ Pull Requestをくださった方々
 * `@tmitz <https://github.com/tmitz>`_
 * `@ichikawa-hiroki <https://github.com/ichikawa-hiroki>`_
 * `@eduidl <https://github.com/eduidl>`_
+* `@inductor <https://github.com/inductor>`_
 
 フィードバックをくださった方々
 ------------------------------------
