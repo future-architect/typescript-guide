@@ -539,7 +539,7 @@ minikubeのセットアップが終わったら、kubectlをインストール�
 
    $ docker build -t typescript-kubernetes:1.0.0 .
    $ docker images
-   # イメージ一覧が帰ってくることを確認
+   # イメージ一覧が返ってくることを確認
 
 そうしたら、以下のYAMLファイルを作成します。
 
