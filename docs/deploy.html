@@ -73,8 +73,8 @@ npmパッケージ to nexus</p>
 <li><p><a class="reference external" href="https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/">https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/</a></p></li>
 </ul>
 <p>サンプルとしては次のコードを使います。</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">src/main.ts</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">src/main.ts</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">express</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Request</span><span class="p">,</span> <span class="nx">Response</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;express&quot;</span><span class="p">;</span>
 <span class="kr">import</span> <span class="nx">compression</span> <span class="nx">from</span> <span class="s2">&quot;compression&quot;</span><span class="p">;</span>
 <span class="kr">import</span> <span class="nx">bodyParser</span> <span class="nx">from</span> <span class="s2">&quot;body-parser&quot;</span><span class="p">;</span>
@@ -116,13 +116,13 @@ npmパッケージ to nexus</p>
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>は<code class="docutils literal notranslate"><span class="pre">npx</span> <span class="pre">tsc</span> <span class="pre">--init</span></code>で生成したものをひとまず使います。<code class="docutils literal notranslate"><span class="pre">package.json</span></code>は以下のものを利用します。nccを使ってビルドする前提となっています。</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;webserver&quot;</span><span class="p">,</span>
   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
   <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;ncc build src/main.ts&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;ncc build src/main.ts&quot;</span>
   <span class="p">},</span>
   <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;Yoshiki Shibukawa&quot;</span><span class="p">,</span>
   <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;ISC&quot;</span><span class="p">,</span>
@@ -259,8 +259,8 @@ npmパッケージ to nexus</p>
 <p><code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>はコンテナのイメージを作成するためのレシピです。行志向のスクリプトになっています。WindowsやmacOSでは、Linuxが動作している仮想PCの中でDockerのサーバーが動作しており（Windowsの場合はWindowsも動作しますが、ここでは無視します）、ビルドを実行すると、実行されているフォルダの配下のファイル（コンテキスト）と<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>が、まとめてサーバーに送られます。サーバーの中で、<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>に書かれた命令に従ってベースとなるディスクイメージに手を加えていきます。実行されるのはローカルコンピュータではないので、記述できるコマンドも、そのベースイメージのLinuxで使えるものに限られます。</p>
 <p>そのため、<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>に問題があれば、Windows上でビルドや実行をしても、macOS上でビルドや実行をしても、まったく同じエラーが発生するはずです。バージョン番号や内部で使われるパッケージのバージョンはその時の最新を使うこともできるため、いつでもまったく同じにはならないかもしれませんが、どこで誰がどのOSで実行しても、同じイメージが作られます。この冪等性がDockerが重宝されるポイントです。</p>
 <p>次のファイルが、実際に動作する<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>です。順を追って見ていきます。</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="c"># ここから下がビルド用イメージ</span>
 
 <span class="k">FROM</span> <span class="s">node:12-buster</span> <span class="k">AS</span> <span class="s">builder</span>
@@ -316,8 +316,8 @@ npmパッケージ to nexus</p>
 <p><strong>ビルド時間を確実に短くするテクニック</strong></p>
 <p>最初に、ローカルのファイルを一式Dockerのサーバーに送信すると説明しました。<code class="docutils literal notranslate"><span class="pre">.dockerignore</span></code>ファイルがあれば、そのサーバーに送るファイルを減らし、ビルドが始まるまでの時間が短縮されます。また、余計なファイルが変更されることでキャッシュが破棄されることを減らします。</p>
 <p>明らかに巨大になるのが次の2ファイルです。この2つは最低限列挙しましょう。<code class="docutils literal notranslate"><span class="pre">.git</span></code>を指定しないと、ブランチを切り替えただけで再ビルドになります。</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">.dockerignore</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">.dockerignore</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>node_modules
 .git
 </pre></div>
@@ -369,8 +369,8 @@ $ docker rm <span class="o">[</span>コンテナ名<span class="o">]</span>
 <li><p><code class="docutils literal notranslate"><span class="pre">gcr.io/distroless/nodejs:14-debug</span></code></p></li>
 </ul>
 <p>一般的なの<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>は、<code class="docutils literal notranslate"><span class="pre">ENTRYPOINT</span></code>がシェル、<code class="docutils literal notranslate"><span class="pre">CMD</span></code>がそのシェルから呼び出されるプログラムです。distrolessはシェルがなく、<code class="docutils literal notranslate"><span class="pre">ENTRYPOINT</span></code>にNode.jsが設定されている、<code class="docutils literal notranslate"><span class="pre">CMD</span></code>にはJavaScriptのスクリプトを設定します。拡張を使わないコードなら簡単に動作します。先ほどの<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>と、ビルド部分はまったく同じです。</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="c"># ここから下がビルド用イメージ</span>
 
 <span class="k">FROM</span> <span class="s">node:12-buster</span> <span class="k">AS</span> <span class="s">builder</span>
@@ -409,8 +409,8 @@ $ docker rm <span class="o">[</span>コンテナ名<span class="o">]</span>
 </pre></div>
 </div>
 <p>Dockerコンテナにする場合、ウェブサーバーのNginxのコンテナイメージを基に、ビルド済みのJavaScript/HTML/その他のリソースを格納したコンテナイメージを作成します。次の内容が、フロントエンドアプリケーションの静的ファイルを配信するサーバーです。実行用イメージでは<code class="docutils literal notranslate"><span class="pre">nginx：alpine</span></code>イメージをベースに使っています。このイメージは最後にNginxを立ち上げる設定がされているため、実行用コンテナに必要なのは生成されたフィイルと、<code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code>をコピーするだけです。</p>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="c"># ここから下がビルド用イメージ</span>
 
 <span class="k">FROM</span> <span class="s">node:12-buster</span> <span class="k">AS</span> <span class="s">builder</span>
@@ -433,8 +433,8 @@ $ docker rm <span class="o">[</span>コンテナ名<span class="o">]</span>
 </div>
 </div>
 <p>配信用のnginxの設定です。シングルページアプリケーションにとって大切なパートが<code class="docutils literal notranslate"><span class="pre">try_files</span></code>です。シングルページアプリケーションでは1つのHTML/JSがあらゆるページを作り上げます。そしてその時にURLを書き換えます。しかし、そこでブラウザリロードをすると、JavaScritpによって作られた仮想的なURLを読みにこうとします。この<code class="docutils literal notranslate"><span class="pre">try_files</span></code>を有効にすると、一度アクセスしに行って見つからなかった場合にオプションで設定したファイルを返せます。ここでは<code class="docutils literal notranslate"><span class="pre">index.html</span></code>を返すので、そこでReact Routerなどのフロントで動作しているウェブサービスが仕分けを行い、もしどこにもマッチしなければフロント側のRouterがエラーをハンドリングできます。</p>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">nginx.conf</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">nginx.conf</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">worker_processes</span> <span class="mi">2</span><span class="p">;</span>
 
 <span class="k">events</span> <span class="p">{</span>
@@ -469,17 +469,140 @@ $ docker rm <span class="o">[</span>コンテナ名<span class="o">]</span>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -it --rm --name <span class="o">[</span>コンテナ名<span class="o">]</span> -p <span class="s2">&quot;3000:80&quot;</span> <span class="o">[</span>イメージ名<span class="o">]</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id17">
+<div class="figure align-default" id="id19">
 <img alt="_images/react_nginx_sample.png" src="_images/react_nginx_sample.png" />
-<p class="caption"><span class="caption-text">ビルドした結果をNginxで配信</span><a class="headerlink" href="#id17" title="この画像へのパーマリンク">¶</a></p>
+<p class="caption"><span class="caption-text">ビルドした結果をNginxで配信</span><a class="headerlink" href="#id19" title="この画像へのパーマリンク">¶</a></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
 <p><a class="reference external" href="https://qiita.com/shibukawa/items/6a3b4d4b0cbd13041e53">https://qiita.com/shibukawa/items/6a3b4d4b0cbd13041e53</a></p>
 </div>
 </div>
+<div class="section" id="kubernetes">
+<h2>Kubernetesへのデプロイ<a class="headerlink" href="#kubernetes" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>このセクションでは、作成したアプリケーションのDockerイメージをKubernetesの上で動かすための基本について説明します。</p>
 <div class="section" id="id9">
-<h2>まとめ<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h3>Kubernetesの概要<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>KubernetesはGoogleが自社の基盤をOSSとして1から再実装したソフトウェアです。アプリケーションのデプロイ単位としてDockerコンテナを用いており、開発者はコンテナイメージを作成して配信することによって、Kubernetesの上でアプリケーションを動かすことができます。</p>
+<p>コンテナアプリケーションを本番で稼働するにあたっては、サービスを停止せずにアップデートする方法や、複数のコンテナを水平にスケールしながら負荷分散する機能など、さまざまな運用面での課題を解決する必要がありますが、Kubernetesではそれらの機能を一貫して提供してくれるメリットがあります。</p>
+</div>
+<div class="section" id="id10">
+<h3>Kubernetesをローカルで実行する<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Kubernetesをローカルで実行するには以下のようなツールを使う方法があります。</p>
+<ul class="simple">
+<li><p>minikube</p></li>
+<li><p>kind</p></li>
+<li><p>microk8s</p></li>
+</ul>
+<p>このうち、minikubeとkindでは手元のDocker上でKubernetesを動かすことができるため、Linux上でDockerを動かさずとも手元のmacOSやWindows上でDocker Desktopを使って簡単にKubernetesを立ち上げることができます。microk8sに関してはLinux上でのサポートに限られます(特にUbuntuが推奨されます)が、依存するパッケージが少ないためインストールがシンプルであるメリットがあります。ここではminikubeを使ってKubernetesを動かしてみましょう。</p>
+<p>minikubeのインストール方法は以下の公式ドキュメントにあります。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://minikube.sigs.k8s.io/docs/start/">https://minikube.sigs.k8s.io/docs/start/</a></p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># minikubeを起動</span>
+$ minikube start
+😄  Ubuntu <span class="m">20</span>.04 上の minikube v1.12.1
+✨  Automatically selected the docker driver
+
+❗  <span class="s1">&#39;docker&#39;</span> driver reported a issue that could affect the performance.
+💡  Suggestion: <span class="nb">enable</span> overlayfs kernel module on your Linux
+
+👍  Starting control plane node minikube in cluster minikube
+🔥  Creating docker container <span class="o">(</span><span class="nv">CPUs</span><span class="o">=</span><span class="m">2</span>, <span class="nv">Memory</span><span class="o">=</span>2200MB<span class="o">)</span> ...
+🐳  Docker <span class="m">19</span>.03.2 で Kubernetes v1.18.3 を準備しています...
+🔎  Verifying Kubernetes components...
+🌟  Enabled addons: default-storageclass, storage-provisioner
+🏄  Done! kubectl is now configured to use <span class="s2">&quot;minikube&quot;</span>
+</pre></div>
+</div>
+<p>minikubeのセットアップが終わったら、kubectlをインストールします。kubectlはKubernetesのCLIツールで、Kubernetesそのものとは別途インストールする必要があります。各環境でのセットアップは以下のサイトを参考に行ってみてください。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://kubernetes.io/ja/docs/tasks/tools/install-kubectl/">https://kubernetes.io/ja/docs/tasks/tools/install-kubectl/</a></p></li>
+</ul>
+<p>これでKubernetesを触るための準備が整いました。次に、アプリケーションの準備を行います。</p>
+<p>あらかじめ、手元のDockerで任意のタグを付けてアプリケーションをビルドしておきます。例では <code class="docutils literal notranslate"><span class="pre">typescript-kubernetes:1.0.0</span></code>とします。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker build -t typescript-kubernetes:1.0.0 .
+$ docker images
+<span class="c1"># イメージ一覧が返ってくることを確認</span>
+</pre></div>
+</div>
+<p>そうしたら、以下のYAMLファイルを作成します。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes-deployment</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="nt">selector</span><span class="p">:</span>
+    <span class="nt">matchLabels</span><span class="p">:</span>
+    <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
+<span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="nt">template</span><span class="p">:</span>
+    <span class="nt">metadata</span><span class="p">:</span>
+    <span class="nt">labels</span><span class="p">:</span>
+        <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
+    <span class="nt">spec</span><span class="p">:</span>
+    <span class="nt">containers</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
+        <span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes:1.0.0</span>
+        <span class="l l-Scalar l-Scalar-Plain">imagePullPolicy</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+        <span class="l l-Scalar l-Scalar-Plain">ports</span><span class="p p-Indicator">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">containerPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="nn">---</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Service</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes-service</span>
+<span class="nt">labels</span><span class="p">:</span>
+    <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="nt">ports</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+    <span class="l l-Scalar l-Scalar-Plain">targetPort</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="nt">selector</span><span class="p">:</span>
+    <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
+<span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterIP</span>
+</pre></div>
+</div>
+<p>作成したYAMLをKubernetesに適用します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ kubectl apply -f app.yaml
+deployment.apps/typescript-kubernetes-deployment created
+service/typescript-kubernetes-service created
+$ kubectl get pod
+NAME                                               READY   STATUS    RESTARTS   AGE
+typescript-kubernetes-deployment-8bfd76d4c-2tsl6   <span class="m">1</span>/1     Running   <span class="m">0</span>          3m16s
+typescript-kubernetes-deployment-8bfd76d4c-h6sdz   <span class="m">1</span>/1     Running   <span class="m">0</span>          3m13s
+typescript-kubernetes-deployment-8bfd76d4c-sg2jz   <span class="m">1</span>/1     Running   <span class="m">0</span>          3m12s
+$ kubectl get service
+NAME                            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>   AGE
+kubernetes                      ClusterIP   <span class="m">10</span>.96.0.1       &lt;none&gt;        <span class="m">443</span>/TCP   35m
+typescript-kubernetes-service   ClusterIP   <span class="m">10</span>.107.196.16   &lt;none&gt;        <span class="m">80</span>/TCP    7m10s
+</pre></div>
+</div>
+<p>作成したDeployment(複数のコンテナアプリケーションをまとめで管理できるリソース)とService(複数のコンテナアプリケーションをロードバランスしてくれるネットワークリソース)が稼働していることを確認したら、今度は動作を確認します。手元のシェルで <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">port-forward</span></code>を実行し、Kubernetes上のアプリケーションを手元のブラウザで接続できるようにします。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ kubectl port-forward service/typescript-kubernetes-service <span class="m">8080</span>:80
+Forwarding from <span class="m">127</span>.0.0.1:8080 -&gt; <span class="m">80</span>
+Forwarding from <span class="o">[</span>::1<span class="o">]</span>:8080 -&gt; <span class="m">80</span>
+</pre></div>
+</div>
+<p>ブラウザで <code class="docutils literal notranslate"><span class="pre">localhost:8080</span></code>にアクセスすると、作成されたアプリケーションがnginxの上で動いていることが確認できます。なお、本番などでマネージドサービスを利用する場合、ClusterIP + port-forwardを利用しなくとも、以下のようにLoadBalacnerサービスを使用することで、パブリッククラウドのロードバランサーと簡単に連携させることができます。</p>
+<ul class="simple">
+<li><p>type: ClusterIP</p></li>
+</ul>
+<ul class="simple">
+<li><p>type: LoadBalancer</p></li>
+</ul>
+<p>最後に、作成したminikubeの環境を削除します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ minikube delete
+🔥  docker の「minikube」を削除しています...
+🔥  Deleting container <span class="s2">&quot;minikube&quot;</span> ...
+🔥  /home/kela/.minikube/machines/minikube を削除しています...
+💀  Removed all traces of the <span class="s2">&quot;minikube&quot;</span> cluster.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>まとめ<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>TypeScriptで作成したコードが価値を産むのは、何かしらのデプロイ作業を通じてになります。本章ではそのデプロイの方法について、さまざまな方法をを説明しています。</p>
 <p>Dockerは強力な武器です。ぜひ使いこなせるようになってください。</p>
 </div>
@@ -509,7 +632,12 @@ $ docker rm <span class="o">[</span>コンテナ名<span class="o">]</span>
 </ul>
 </li>
 <li><a class="reference internal" href="#id8">ウェブフロントエンドのDockerイメージの作成</a></li>
-<li><a class="reference internal" href="#id9">まとめ</a></li>
+<li><a class="reference internal" href="#kubernetes">Kubernetesへのデプロイ</a><ul>
+<li><a class="reference internal" href="#id9">Kubernetesの概要</a></li>
+<li><a class="reference internal" href="#id10">Kubernetesをローカルで実行する</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id11">まとめ</a></li>
 </ul>
 </li>
 </ul>
@@ -532,11 +660,11 @@ $ docker rm <span class="o">[</span>コンテナ名<span class="o">]</span>
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 6329</li>
-        <li>非アスキー: 8020</li>
-        <li>合計文字数: 14349</li>
-        <li>半角換算: 22369</li>
-        <li>全角換算: 11184.5</li>
+        <li>英数記号: 9248</li>
+        <li>非アスキー: 9101</li>
+        <li>合計文字数: 18349</li>
+        <li>半角換算: 27450</li>
+        <li>全角換算: 13725.0</li>
     </ul>
     </p>
 </div>

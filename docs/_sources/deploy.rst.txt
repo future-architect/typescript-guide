@@ -98,7 +98,7 @@ Node.jsはシングルコアを効率よく使う処理系です。サーバー�
      "name": "webserver",
      "version": "1.0.0",
      "scripts": {
-       "build": "ncc build src/main.ts",
+       "build": "ncc build src/main.ts"
      },
      "author": "Yoshiki Shibukawa",
      "license": "ISC",
@@ -303,7 +303,7 @@ Debianベースのイメージ作成とDockerの基礎
 
 .. note::
 
-   **ビルド時間を確実に短くするテクニック** 
+   **ビルド時間を確実に短くするテクニック**
 
    最初に、ローカルのファイルを一式Dockerのサーバーに送信すると説明しました。\ ``.dockerignore``\ ファイルがあれば、そのサーバーに送るファイルを減らし、ビルドが始まるまでの時間が短縮されます。また、余計なファイルが変更されることでキャッシュが破棄されることを減らします。
 
@@ -482,6 +482,156 @@ Dockerコンテナにする場合、ウェブサーバーのNginxのコンテナ
 .. note::
 
    https://qiita.com/shibukawa/items/6a3b4d4b0cbd13041e53
+
+Kubernetesへのデプロイ
+-------------------------------------------
+
+このセクションでは、作成したアプリケーションのDockerイメージをKubernetesの上で動かすための基本について説明します。
+
+Kubernetesの概要
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+KubernetesはGoogleが自社の基盤をOSSとして1から再実装したソフトウェアです。アプリケーションのデプロイ単位としてDockerコンテナを用いており、開発者はコンテナイメージを作成して配信することによって、Kubernetesの上でアプリケーションを動かすことができます。
+
+コンテナアプリケーションを本番で稼働するにあたっては、サービスを停止せずにアップデートする方法や、複数のコンテナを水平にスケールしながら負荷分散する機能など、さまざまな運用面での課題を解決する必要がありますが、Kubernetesではそれらの機能を一貫して提供してくれるメリットがあります。
+
+Kubernetesをローカルで実行する
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Kubernetesをローカルで実行するには以下のようなツールを使う方法があります。
+
+* minikube
+* kind
+* microk8s
+
+このうち、minikubeとkindでは手元のDocker上でKubernetesを動かすことができるため、Linux上でDockerを動かさずとも手元のmacOSやWindows上でDocker Desktopを使って簡単にKubernetesを立ち上げることができます。microk8sに関してはLinux上でのサポートに限られます(特にUbuntuが推奨されます)が、依存するパッケージが少ないためインストールがシンプルであるメリットがあります。ここではminikubeを使ってKubernetesを動かしてみましょう。
+
+minikubeのインストール方法は以下の公式ドキュメントにあります。
+
+* https://minikube.sigs.k8s.io/docs/start/
+
+.. code-block:: bash
+
+   # minikubeを起動
+   $ minikube start
+   😄  Ubuntu 20.04 上の minikube v1.12.1
+   ✨  Automatically selected the docker driver
+
+   ❗  'docker' driver reported a issue that could affect the performance.
+   💡  Suggestion: enable overlayfs kernel module on your Linux
+
+   👍  Starting control plane node minikube in cluster minikube
+   🔥  Creating docker container (CPUs=2, Memory=2200MB) ...
+   🐳  Docker 19.03.2 で Kubernetes v1.18.3 を準備しています...
+   🔎  Verifying Kubernetes components...
+   🌟  Enabled addons: default-storageclass, storage-provisioner
+   🏄  Done! kubectl is now configured to use "minikube"
+
+minikubeのセットアップが終わったら、kubectlをインストールします。kubectlはKubernetesのCLIツールで、Kubernetesそのものとは別途インストールする必要があります。各環境でのセットアップは以下のサイトを参考に行ってみてください。
+
+* https://kubernetes.io/ja/docs/tasks/tools/install-kubectl/
+
+これでKubernetesを触るための準備が整いました。次に、アプリケーションの準備を行います。
+
+あらかじめ、手元のDockerで任意のタグを付けてアプリケーションをビルドしておきます。例では \ ``typescript-kubernetes:1.0.0``\ とします。
+
+.. code-block:: bash
+
+   $ docker build -t typescript-kubernetes:1.0.0 .
+   $ docker images
+   # イメージ一覧が返ってくることを確認
+
+そうしたら、以下のYAMLファイルを作成します。
+
+.. code-block:: yaml
+
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+    name: typescript-kubernetes-deployment
+    spec:
+    selector:
+        matchLabels:
+        app: typescript-kubernetes
+    replicas: 3
+    template:
+        metadata:
+        labels:
+            app: typescript-kubernetes
+        spec:
+        containers:
+        - name: typescript-kubernetes
+            image: typescript-kubernetes:1.0.0
+            imagePullPolicy: IfNotPresent
+            ports:
+            - containerPort: 80
+    ---
+    kind: Service
+    apiVersion: v1
+    metadata:
+    name: typescript-kubernetes-service
+    labels:
+        app: typescript-kubernetes
+    spec:
+    ports:
+    - port: 80
+        targetPort: 80
+    selector:
+        app: typescript-kubernetes
+    type: ClusterIP
+
+作成したYAMLをKubernetesに適用します。
+
+.. code-block:: bash
+
+   $ kubectl apply -f app.yaml
+   deployment.apps/typescript-kubernetes-deployment created
+   service/typescript-kubernetes-service created
+   $ kubectl get pod
+   NAME                                               READY   STATUS    RESTARTS   AGE
+   typescript-kubernetes-deployment-8bfd76d4c-2tsl6   1/1     Running   0          3m16s
+   typescript-kubernetes-deployment-8bfd76d4c-h6sdz   1/1     Running   0          3m13s
+   typescript-kubernetes-deployment-8bfd76d4c-sg2jz   1/1     Running   0          3m12s
+   $ kubectl get service
+   NAME                            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+   kubernetes                      ClusterIP   10.96.0.1       <none>        443/TCP   35m
+   typescript-kubernetes-service   ClusterIP   10.107.196.16   <none>        80/TCP    7m10s
+
+作成したDeployment(複数のコンテナアプリケーションをまとめで管理できるリソース)とService(複数のコンテナアプリケーションをロードバランスしてくれるネットワークリソース)が稼働していることを確認したら、今度は動作を確認します。手元のシェルで \ ``kubectl port-forward``\ を実行し、Kubernetes上のアプリケーションを手元のブラウザで接続できるようにします。
+
+.. code-block:: bash
+
+   $ kubectl port-forward service/typescript-kubernetes-service 8080:80
+   Forwarding from 127.0.0.1:8080 -> 80
+   Forwarding from [::1]:8080 -> 80
+
+ブラウザで \ ``localhost:8080``\ にアクセスすると、作成されたアプリケーションがnginxの上で動いていることが確認できます。なお、本番などでマネージドサービスを利用する場合、ClusterIP + port-forwardを利用しなくとも、以下のようにLoadBalacnerサービスを使用することで、パブリッククラウドのロードバランサーと簡単に連携させることができます。
+
+.. code-block:: diff
+    kind: Service
+    apiVersion: v1
+    metadata:
+    name: typescript-kubernetes-service
+    labels:
+        app: typescript-kubernetes
+    spec:
+    ports:
+    - port: 80
+        targetPort: 80
+    selector:
+        app: typescript-kubernetes
+-    type: ClusterIP
++    type: LoadBalancer
+
+最後に、作成したminikubeの環境を削除します。
+
+.. code-block:: bash
+
+   $ minikube delete
+   🔥  docker の「minikube」を削除しています...
+   🔥  Deleting container "minikube" ...
+   🔥  /home/kela/.minikube/machines/minikube を削除しています...
+   💀  Removed all traces of the "minikube" cluster.
 
 まとめ
 -----------------
