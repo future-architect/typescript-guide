@@ -39,6 +39,7 @@
    async
    exception
    module
+   console
 
 .. toctree::
    :maxdepth: 2

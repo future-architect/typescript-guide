@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>console.logによるログ出力 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="ジェネリクス" href="generics.html" />
+    <link rel="prev" title="モジュール" href="module.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="console-log">
+<h1><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力<a class="headerlink" href="#console-log" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>基本編のおまけでログ出力について紹介します。言語を学ぶときやデバッグ時には変数を出力することで状態を知ろうとするでしょう。その時に使えるのがConsole APIです。これらは特にTypeScript特有のものではありませんが、覚えておいて損はないので紹介します。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;ログ出力&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>これが一番使われるものだと思いますが、他にもいろいろあります。これを実装すべきといった仕様はないのですが、現状で各環境で実装されている仕様はLiving StandardとしてWHATWGにあります。しかし、どの環境でも使えるとは限りません。特に、TypeScript Playgroundでは使えないもの多数ありますが、これらは何もしないだけでエラーになるわけではありません。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://console.spec.whatwg.org/">https://console.spec.whatwg.org/</a></p></li>
+</ul>
+</div></blockquote>
+<p>本章ではいくつかをピックアップして紹介します。</p>
+<div class="section" id="console-log-info-warn-error">
+<h2><code class="docutils literal notranslate"><span class="pre">console.log/info/warn/error()</span></code><a class="headerlink" href="#console-log-info-warn-error" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<blockquote>
+<div><table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>API</p></th>
+<th class="head"><p>Chrome開発ツール</p></th>
+<th class="head"><p>Safari開発ツール</p></th>
+<th class="head"><p>Node.js</p></th>
+<th class="head"><p>TS PG</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">console.log()</span></code></p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">console.info()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">log()</span></code>と同じ</p></td>
+<td><p>✔</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">log()</span></code>と同じ</p></td>
+<td><p>✔</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">console.warn()</span></code></p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">log()</span></code>と同じ</p></td>
+<td><p>✔</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">console.error()</span></code></p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">log()</span></code>と同じ</p></td>
+<td><p>✔</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>それぞれ、見た目が大きく異なります。</p>
+<div class="figure align-default" id="id3">
+<img alt="_images/chrome_console.png" src="_images/chrome_console.png" />
+<p class="caption"><span class="caption-text">Chromeの開発ツールでの表示</span><a class="headerlink" href="#id3" title="この画像へのパーマリンク">¶</a></p>
+</div>
+<div class="figure align-default" id="id4">
+<img alt="_images/safari_console.png" src="_images/safari_console.png" />
+<p class="caption"><span class="caption-text">Safariの開発ツールでの表示</span><a class="headerlink" href="#id4" title="この画像へのパーマリンク">¶</a></p>
+</div>
+<div class="figure align-default" id="id5">
+<img alt="_images/node_console.png" src="_images/node_console.png" />
+<p class="caption"><span class="caption-text">Node.jsでの表示</span><a class="headerlink" href="#id5" title="この画像へのパーマリンク">¶</a></p>
+</div>
+<div class="figure align-default" id="id6">
+<img alt="_images/tspg_console.png" src="_images/tspg_console.png" />
+<p class="caption"><span class="caption-text">TypeScript Playgroundでの表示</span><a class="headerlink" href="#id6" title="この画像へのパーマリンク">¶</a></p>
+</div>
+<p>どの環境でも使えるテクニックですが、何かしらの変数を出力したい場合、<code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">}</span></code>でくくると、変数名と値がペアになって出力されます。これはオブジェクトの短縮記法によるもので、オブジェクトの中に変数だけを書くと、その変数と同じ名前のキーに、その変数の値が格納されます。オブジェクトはキーと値をセットで出力されるため、変数名と値が両方出力されます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">({</span><span class="nx">name</span><span class="p">});</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span> <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;wozozo&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="console-table-dir">
+<h2><code class="docutils literal notranslate"><span class="pre">console.table/dir()</span></code><a class="headerlink" href="#console-table-dir" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<blockquote>
+<div><table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>API</p></th>
+<th class="head"><p>Chrome開発ツール</p></th>
+<th class="head"><p>Safari開発ツール</p></th>
+<th class="head"><p>Node.js</p></th>
+<th class="head"><p>TS PG</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">console.table()</span></code></p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">console.dir()</span></code></p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">log()</span></code>と同じ</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>複雑なオブジェクトを見やすく表示してくれる機能です。<code class="docutils literal notranslate"><span class="pre">console.table()</span></code>は表形式で、<code class="docutils literal notranslate"><span class="pre">console.dir()</span></code>はツリー形式でデータを表示します。</p>
+<div class="figure align-default" id="id7">
+<img alt="_images/console_table_dir.png" src="_images/console_table_dir.png" />
+<p class="caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">console.table()</span></code>と<code class="docutils literal notranslate"><span class="pre">console.dir()</span></code></span><a class="headerlink" href="#id7" title="この画像へのパーマリンク">¶</a></p>
+</div>
+<p>ただし、この両方がフルでサポートされているのはブラウザの開発者ツールのみです。Node.jsは<code class="docutils literal notranslate"><span class="pre">console.table()</span></code>はサポートしています。TypeScript Playgroundはエラーにはなりませんが、何も表示されません。</p>
+</div>
+<div class="section" id="id1">
+<h2>その他のメソッド<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>他にもたくさん機能はありますが、特に使う必要がないと思われるものです。</p>
+<p><code class="docutils literal notranslate"><span class="pre">console.assert()</span></code>は、他の言語のライブラリや組み込み機能で提供されているのと同じく、条件式が開発者の想定通りかどうかを確認する関数です。最初の引数が<code class="docutils literal notranslate"><span class="pre">true</span></code>でなければエラーとしてログに出力されます。しかし、開発者ツールでもNode.jsでも、エラーが発生したことしかわかりません。実行時にエラーにするよりは、ユニットテストでカバーすべき内容でしょう。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>まとめ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>デバッグログで使える機能を紹介しました。 いろいろ紹介しましたが、基本的にはテキスト出力がユーザーインタフェースの一部となっているNode.js以外は本番コードには残すべきものではありません。あくまでもデバッグの補助です。環境ごとに使えたり使えなかったり結果が異なる点にも注意が必要です。</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力</a><ul>
+<li><a class="reference internal" href="#console-log-info-warn-error"><code class="docutils literal notranslate"><span class="pre">console.log/info/warn/error()</span></code></a></li>
+<li><a class="reference internal" href="#console-table-dir"><code class="docutils literal notranslate"><span class="pre">console.table/dir()</span></code></a></li>
+<li><a class="reference internal" href="#id1">その他のメソッド</a></li>
+<li><a class="reference internal" href="#id2">まとめ</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="module.html" title="前の章へ">モジュール</a></li>
+      <li>Next: <a href="generics.html" title="次の章へ">ジェネリクス</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/console.rst.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div><div>
+    <h4>Page Info</h4>
+    <p>
+    <ul>
+        <li>英数記号: 596</li>
+        <li>非アスキー: 999</li>
+        <li>合計文字数: 1595</li>
+        <li>半角換算: 2594</li>
+        <li>全角換算: 1297.0</li>
+    </ul>
+    </p>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">クイック検索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="検索" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Future Corporation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/console.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

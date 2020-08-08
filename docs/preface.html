@@ -92,19 +92,14 @@ JavaScriptは2015年より前は保守的なアップデートがおこなわれ
 <p>他の人が使うライブラリで必要となるような高度な文法は中級編として別のセクションに分けています。こちらは最初は飛ばしてもかまいません。</p>
 <p>その後は各環境向けのTipsを紹介します。共通部分をみながら必要な箇所をピックアップして読めるようにしています。ここではVSCodeを用いた開発環境構築やツール整備から始まり、それぞれの環境固有のトピックについて触れていきます。</p>
 <p>本ドキュメントはTypeScriptのエコシステムまで含めたすべてを説明しようとするものではありません。例えば、既存のJavaScriptのライブラリのための型定義ファイルを作成する方法については紹介しません。時間が経てば有名ライブラリについてはほぼ網羅されることを期待していますし、自作していくときはゼロからTypeScriptでいけば、型定義ファイルは自動生成されるので不要です。</p>
-<p>環境構築まではエディタなどの準備は不要です。文法を学ぶときは、本家が提供しているPlaygroundが便利です。本書執筆時点ではまだベータですが、次期バージョンのv3も利用できます。</p>
+<p>環境構築まではエディタなどの準備は不要です。文法を学ぶときは、本家が提供しているPlaygroundが便利です。</p>
 <ul class="simple">
-<li><p>現行Playground: <a class="reference external" href="https://www.typescriptlang.org/play/">https://www.typescriptlang.org/play/</a></p></li>
-<li><p>v3ベータ: <a class="reference external" href="https://www.staging-typescript.org/play">https://www.staging-typescript.org/play</a></p></li>
+<li><p>TypeScript Playground: <a class="reference external" href="https://www.typescriptlang.org/play/">https://www.typescriptlang.org/play/</a></p></li>
 </ul>
-<p>V2の方はTypeScriptと変換後のJavaScriptを見比べるビューがメインの機能で、実行もできますが、ブラウザの中で実行したときのログは開発者ツールを起動しないと見れません。V3の方は変換結果以外に、TypeScriptが解釈した型情報（.d.ts）、エラー、実行ログも確認できて、学習ツールとして使いやすくなっています。プラグインも実行できるようになっています。</p>
+<p>Playgroundは徐々に機能が追加されています。最初はちょっとした変換だけだったものが、コンパイルオプションがいろいろ選べるようになったり、処理系のバージョンが選択できるようになったりしました。2020年8月に公開されたV3では、変換結果以外に、TypeScriptが解釈した型情報（.d.ts）、エラー、実行ログも確認できて、学習ツールとして使いやすくなっています。プラグインも実行できるようになっています。</p>
 <div class="figure align-default" id="id25">
-<img alt="_images/playground_v2.png" src="_images/playground_v2.png" />
-<p class="caption"><span class="caption-text">現行のPlayground。右上のTry the new PlaygroundからV3にいける</span><a class="headerlink" href="#id25" title="この画像へのパーマリンク">¶</a></p>
-</div>
-<div class="figure align-default" id="id26">
 <img alt="_images/playground_v3.png" src="_images/playground_v3.png" />
-<p class="caption"><span class="caption-text">V3のPlayground。</span><a class="headerlink" href="#id26" title="この画像へのパーマリンク">¶</a></p>
+<p class="caption"><span class="caption-text">最新のPlayground。</span><a class="headerlink" href="#id25" title="この画像へのパーマリンク">¶</a></p>
 </div>
 </div>
 <div class="section" id="javascript">
@@ -135,8 +130,8 @@ Googleの検索エンジンのボットもこれとほぼ同等機能（<code cl
 <p>TypeScriptには <code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code> というコンパイラの動作を決定する定義ファイルがあります。ブラウザの可搬性を維持しつつ、これらの新しい要素を使いたい場合には別途そこをサポートするものを入れる必要があります。現在、その足りないクラスやメソッドを追加するもの（Polyfillと呼ばれる）で、一番利用されるのが <code class="docutils literal notranslate"><span class="pre">core-js</span></code> <a class="footnote-reference brackets" href="#id19" id="id14">6</a> で、Babelからも使われているようです。</p>
 <p>出力ターゲットを古くすると、利用できるクラスなども一緒に古くなってしまうため、対策が必要です、まずは、ES2017やES2018などのバージョンのうち、必要なクラスを定義しているバージョンがどれかを探してきます。どのバージョンがどの機能をサポートしているかは、前述の compat-table が参考になります。</p>
 <p>ターゲットに <code class="docutils literal notranslate"><span class="pre">es5</span></code> を選ぶと、 <code class="docutils literal notranslate"><span class="pre">lib</span></code> には <code class="docutils literal notranslate"><span class="pre">[&quot;DOM&quot;,</span> <span class="pre">&quot;ScriptHost&quot;,</span> <span class="pre">&quot;ES5&quot;]</span></code> が定義されます。 <code class="docutils literal notranslate"><span class="pre">lib</span></code> は使えるクラスとかメソッド、その時の型などが定義されているもので、これを増やしたからといってできることが増えたりはしませんが、「これはないよ」というコンパイラがエラーを出力するための情報源として使われます。この <code class="docutils literal notranslate"><span class="pre">&quot;ES5&quot;</span></code> には、そのバージョンで利用できるクラスとメソッドしかないため、次のように <code class="docutils literal notranslate"><span class="pre">ES2017</span></code> に置き換えます。</p>
-<div class="literal-block-wrapper docutils container" id="id27">
-<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;es5&quot;</span><span class="p">,</span>
@@ -236,11 +231,11 @@ core-jsのオプションが知りたい場合は、core-jsのサイトのREADME
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 2718</li>
-        <li>非アスキー: 6911</li>
-        <li>合計文字数: 9629</li>
-        <li>半角換算: 16540</li>
-        <li>全角換算: 8270.0</li>
+        <li>英数記号: 2641</li>
+        <li>非アスキー: 6889</li>
+        <li>合計文字数: 9530</li>
+        <li>半角換算: 16419</li>
+        <li>全角換算: 8209.5</li>
     </ul>
     </p>
 </div>

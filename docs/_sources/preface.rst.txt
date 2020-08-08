@@ -85,20 +85,15 @@ TypeScriptを選んで開発すべき理由
 
 本ドキュメントはTypeScriptのエコシステムまで含めたすべてを説明しようとするものではありません。例えば、既存のJavaScriptのライブラリのための型定義ファイルを作成する方法については紹介しません。時間が経てば有名ライブラリについてはほぼ網羅されることを期待していますし、自作していくときはゼロからTypeScriptでいけば、型定義ファイルは自動生成されるので不要です。
 
-環境構築まではエディタなどの準備は不要です。文法を学ぶときは、本家が提供しているPlaygroundが便利です。本書執筆時点ではまだベータですが、次期バージョンのv3も利用できます。
+環境構築まではエディタなどの準備は不要です。文法を学ぶときは、本家が提供しているPlaygroundが便利です。
 
-* 現行Playground: https://www.typescriptlang.org/play/
-* v3ベータ: https://www.staging-typescript.org/play
+* TypeScript Playground: https://www.typescriptlang.org/play/
 
-V2の方はTypeScriptと変換後のJavaScriptを見比べるビューがメインの機能で、実行もできますが、ブラウザの中で実行したときのログは開発者ツールを起動しないと見れません。V3の方は変換結果以外に、TypeScriptが解釈した型情報（.d.ts）、エラー、実行ログも確認できて、学習ツールとして使いやすくなっています。プラグインも実行できるようになっています。
-
-.. figure:: images/playground_v2.png
-
-   現行のPlayground。右上のTry the new PlaygroundからV3にいける
+Playgroundは徐々に機能が追加されています。最初はちょっとした変換だけだったものが、コンパイルオプションがいろいろ選べるようになったり、処理系のバージョンが選択できるようになったりしました。2020年8月に公開されたV3では、変換結果以外に、TypeScriptが解釈した型情報（.d.ts）、エラー、実行ログも確認できて、学習ツールとして使いやすくなっています。プラグインも実行できるようになっています。
 
 .. figure:: images/playground_v3.png
 
-   V3のPlayground。
+   最新のPlayground。
 
 JavaScriptのバージョン
 ---------------------------------

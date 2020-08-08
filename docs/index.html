@@ -94,8 +94,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="complex.html">複合型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="complex.html#id2">配列</a></li>
-<li class="toctree-l2"><a class="reference internal" href="complex.html#id9">オブジェクト</a></li>
-<li class="toctree-l2"><a class="reference internal" href="complex.html#id14">まとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="complex.html#id8">オブジェクト</a></li>
+<li class="toctree-l2"><a class="reference internal" href="complex.html#id13">まとめ</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="syntax.html">基本的な構文</a><ul>
@@ -172,6 +172,13 @@
 <li class="toctree-l2"><a class="reference internal" href="module.html#id11">中級向けの機能</a></li>
 <li class="toctree-l2"><a class="reference internal" href="module.html#id14">ちょっと上級の話題</a></li>
 <li class="toctree-l2"><a class="reference internal" href="module.html#id17">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="console.html"><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="console.html#console-log-info-warn-error"><code class="docutils literal notranslate"><span class="pre">console.log/info/warn/error()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html#console-table-dir"><code class="docutils literal notranslate"><span class="pre">console.table/dir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html#id1">その他のメソッド</a></li>
+<li class="toctree-l2"><a class="reference internal" href="console.html#id2">まとめ</a></li>
 </ul>
 </li>
 </ul>
@@ -282,11 +289,43 @@
 <p class="todo-source">(<a class="reference internal" href="advance.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/advance.rst の 4 行目です)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">課題</p>
+<p>lyntのTypeScript対応状況を注視する</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="baseenv.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/baseenv.rst の 39 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>tsdocとかドキュメントツールを紹介</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="baseenv.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/baseenv.rst の 211 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>eslintやテストの書き方の紹介</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="baseenv.html#id7"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/baseenv.rst の 213 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
 <p>travis、circle.ci、gitlab-ciの設定を紹介。あとはJenkins？</p>
 <p><a class="reference external" href="https://qiita.com/nju33/items/72992bd4941b96bc4ce5">https://qiita.com/nju33/items/72992bd4941b96bc4ce5</a></p>
 <p><a class="reference external" href="https://qiita.com/naokikimura/items/f1c8903eec86ec1de655">https://qiita.com/naokikimura/items/f1c8903eec86ec1de655</a></p>
 </div>
 <p class="todo-source">(<a class="reference internal" href="ci.html#id1"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/ci.rst の 4 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>npmパッケージ to npm
+npmパッケージ to nexus</p>
+<p><a class="reference external" href="https://qiita.com/kannkyo/items/5195069c65350b60edd9">https://qiita.com/kannkyo/items/5195069c65350b60edd9</a></p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="deploy.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/deploy.rst の 6 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>Denoはこちらのスレッドを見守る <a class="reference external" href="https://github.com/denoland/deno/issues/3356">https://github.com/denoland/deno/issues/3356</a></p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="deploy.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/deploy.rst の 208 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>あとで書く</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="ecosystem.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/ecosystem.rst の 42 行目です)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">課題</p>
 <p>// browser/moduleなど
@@ -307,44 +346,12 @@
 <p class="admonition-title">課題</p>
 <p>cashにexportがあるので、cross-envはいらないかも？</p>
 </div>
-<p class="todo-source">(<a class="reference internal" href="recommended.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/recommended.rst の 55 行目です)</p>
+<p class="todo-source">(<a class="reference internal" href="recommended.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/recommended.rst の 54 行目です)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">課題</p>
 <p>事例をつける</p>
 </div>
 <p class="todo-source">(<a class="reference internal" href="typing.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/typing.rst の 54 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>lyntのTypeScript対応状況を注視する</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="baseenv.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/baseenv.rst の 39 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>tsdocとかドキュメントツールを紹介</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="baseenv.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/baseenv.rst の 211 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>eslintやテストの書き方の紹介</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="baseenv.html#id7"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/baseenv.rst の 213 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>あとで書く</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="ecosystem.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/ecosystem.rst の 42 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>npmパッケージ to npm
-npmパッケージ to nexus</p>
-<p><a class="reference external" href="https://qiita.com/kannkyo/items/5195069c65350b60edd9">https://qiita.com/kannkyo/items/5195069c65350b60edd9</a></p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="deploy.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/deploy.rst の 6 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>Denoはこちらのスレッドを見守る <a class="reference external" href="https://github.com/denoland/deno/issues/3356">https://github.com/denoland/deno/issues/3356</a></p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="deploy.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/deploy.rst の 208 行目です)</p>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="このヘッドラインへのパーマリンク">¶</a></h1>

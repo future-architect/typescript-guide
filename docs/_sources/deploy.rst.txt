@@ -479,9 +479,9 @@ Dockerコンテナにする場合、ウェブサーバーのNginxのコンテナ
 
    ビルドした結果をNginxで配信
 
-..note::
+.. note::
 
-  https://qiita.com/shibukawa/items/6a3b4d4b0cbd13041e53
+   https://qiita.com/shibukawa/items/6a3b4d4b0cbd13041e53
 
 まとめ
 -----------------
