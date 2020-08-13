@@ -216,7 +216,7 @@ React+Material UI+TypeScriptのサンプル
 ページ作成のサンプルです。Next.jsベースになっていますが、このサンプルに関してはcreate-react-appとの差はごく一部です。
 
 * Next.jsはpages以下の.tsxファイルがページになります。このファイルは\ ``pages/index.tsx``\ なので、\ ``http://localhost:3000``\ でアクセスできます。このファイルは\ ``export default``\ でReactコンポーネントを返す必要があります。create-react-app製のコードは\ ``src/index.tsx``\ がルートになっていますが、そこからインポートされている\ ``src/App.tsx``\ がアプリケーションとしてはトップページなので、ここに書くと良いでしょう。
-* ``next/head``\ は\ ``<head>``\ タグを生成するコンポーネントになりますが、create-react-appの場合は\ `react-helment <https://www.npmjs.com/package/react-helmet>`_\ などの別パッケージが必要でしょう。
+* ``next/head``\ は\ ``<head>``\ タグを生成するコンポーネントになりますが、create-react-appの場合は\ `react-helmet <https://www.npmjs.com/package/react-helmet>`_\ などの別パッケージが必要でしょう。
 * ``next/link``\ はシングルページアプリケーションのページ間遷移を実現する特殊なリンクを生成するコンポーネントです。create-react-appでシングルページアプリケーションを実現する場合は\ `React Router <https://reactrouter.com/>`_\ などの別パッケージが必要となります。
 
 TypeScriptだからといって特殊なことはほとんどなく、世間のJavaScriptのコードのほとんどそのままコピーでも動くでしょう。唯一補完が聞かない\ ``any``\ が設定されていたのが\ ``makeStyle``\ でした。これはCSSを生成する時にパラメータとして任意の情報を設定できるのですが、今回はMaterial UIのテーマをそのまま渡すことにしたので、\ ``Theme``\ を型として設定しています。
