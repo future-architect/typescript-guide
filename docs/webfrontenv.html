@@ -42,6 +42,9 @@ Agularは2以降からTypeScriptに書き直されて、TypeScript以外では�
 <div class="section" id="id2">
 <h2>ウェブアプリケーションにおけるビルドツールのゴール<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ウェブアプリケーションの環境構築は、ただコンパイルができるというだけではなく、TypeScriptからJavaScriptにトランスパイルされたファイルを1つや複数のチャンクにまとめるバンドラーというツールも必要です。また、開発サーバなどの設定も必要でしょう。開発サーバーはHTTPサーバーとして起動し、JavaScriptやHTML、CSSを配信するサーバーとしてブラウザからは見えます。その裏では、ファイルシステムのソースコードを監視し、変更があったら即座にビルドをして動作確認までのリードタイムを短くします。それだけではなく、その開発中のウェブサイトを見ているブラウザに対して強制リセットをしかけたり（ホットリロード）、起動中にJavaScriptのコードを差し替えたり（ホットモジュールリプレースメント）といったことを実現します。また、TypeScriptだけではなく、CSSでも、事前コンパイルでコーディングの効率をあげる方法が一般化しているため、この設定も必要でしょう。</p>
+<p>この分野では数多くのツールがあります。スキルのある人は自分の好みや要件に合わせてツールを選択すると良いでしょう。TypeScriptの対応についても、最初から対応していたり、後からプラグインで拡張など、いろいろなものがあります。</p>
+<p>webpackは細かくカスタマイズできますし、豊富な開発リソースで頻繁にリリースされています。ツリーシェイキングといった不要なコードを除外してサイズを小さくする機能にいち早く取り組んだり、業界をリードしています。困った時に検索すると情報も多く出てきます。一方で、TypeScript対応で開発サーバーやCSS対応など、機能を足していこうとすると設定やプラグインが増えていきます。特に、ReactのJSX構文を利用する場合は、バンドラーの処理の前段でTypeScriptをJavaScriptに変換したあとにBabelを使い、最後にバンドラーで1ファイルや複数ファイルにまとめるなど、ビルドのパイプラインが多段になりがちです。ReactやVueの環境構築ツールやNext.js、Nuxt.jsなどはwebpackを内包して、少ない設定の量で一定の機能を備えたビルド環境を整えてくれます。本書でも、webpackそのものを紹介することはしませんが、これらのツールの紹介をします。</p>
+<p>他にも数多くのバンドラーがあります。webpack以降に出てきたものの多くは設定が少ない、あるいは設定ファイルが不要（ゼロコンフィギュレーション）を売りにしたものが数多くあります。Rollupは人気のあるバンドラーで、TypeScriptを使うにはプラグインが必要ですが、そうでないのであれば設定がほとんど必要ありません。RollupをベースにTypeScriptサポートを最初から組み込んだmicrobundleもあります。HTMLやCSSのビルドもできて開発サーバーも全てついてくるオールインワンでビルド速度を重視したParcelや、Go製でビルド速度に特化したesbuildもあります。一方で、カスタマイズが必要なので最初からカスタマイズ前提でCLIを提供しないFuseboxなどもあります。</p>
 </div>
 <div class="section" id="react">
 <h2>Reactの環境構築<a class="headerlink" href="#react" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -313,6 +316,327 @@ export default function Home() {
 <p class="caption"><span class="caption-text">Next.js + Material UI + TypeScriptのサンプル</span><a class="headerlink" href="#id13" title="この画像へのパーマリンク">¶</a></p>
 </div>
 </div>
+<div class="section" id="reacttypescript">
+<h3>ReactとTypeScript<a class="headerlink" href="#reacttypescript" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Reactに限らず、近年の流行のウェブフロントエンドの実装スタイルは「コンポーネント」と呼ばれる独自タグを実装していく方法です。コンポーネントの中にもコンポーネントを書くことができます。そのコンポーネントが集まってアプリケーションになります。Reactもその例に漏れず、コンポーネントを実装していきます。</p>
+<p>前節のサンプルの中にある、大文字始まりの名前のタグがそのコンポーネントです。それぞれのタグは表示されるときには分解されて、最終的にはHTML5のいつものタグに還元されます。タグなので、引数があり、子要素があります。</p>
+<p>ReactはTypeScriptを使って適切に型のチェックができるようになっています。Reactはjsx構文を使って書きますが、これはTypeScriptやBabelといった処理系によってJavaScriptの普通の関数呼び出しに変換されます。React以前のライブラリなどは、テンプレートをフロントで効率よく実行するためのに、動的に関数呼び出しのコードを生成し、<code class="docutils literal notranslate"><span class="pre">eval</span></code>などを使って関数に変換したりしていました。近年ではこれらはContent-Security-Policyでエラーになる可能性があるなどの問題もあり、ビルド時にプログラム化するようになってきました。</p>
+<p>Reactはこのテンプレートの変換を処理系が直々に行うので、別途変換のプリプロセッサを入れる必要がないというメリットもあるのですが、それ以上に入力パラメータの間違いなどを、普通の関数の型チェックと同様に行えるという、他のフロントエンドのフレームワークにはないメリットがあります。このチェックを最大限に生かすのも、それほど手間をかけずに行えます。次のコードはTypeScriptを用いてReactコンポーネントを作るときによく使う要素を詰め込んだものです。</p>
+<ul class="simple">
+<li><p>外部からの引数（props）</p></li>
+<li><p>コンポーネント内で管理するステート（<code class="docutils literal notranslate"><span class="pre">useState()</span></code>）</p></li>
+<li><p>初期化コード、終了コード（<code class="docutils literal notranslate"><span class="pre">useEffect()</span></code>）</p></li>
+<li><p>デフォルト値</p></li>
+</ul>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span>import React, { useState, useEffect } from &#39;react&#39;
+
+// コンポーネントのプロパティ（タグの属性）
+type Props = {
+  title: string;
+  description?: string;
+  defaultValue: string;
+};
+
+// コンポーネントは関数
+// 返り値が最終的に描画されるHTMLタグ
+export function MyComponent(props: Props) {
+  // propsを参照
+  const { title, description } = props;
+  // コンポーネント内のステート
+  const [count, setCount] = useState(0);
+  // ライフサイクルメソッド
+  useEffect(() =&gt; {
+    // 作成時（初回レンダリング直後）に呼ばれる箇所
+    return () =&gt; {
+      // 終了時に呼ばれる箇所
+    };
+  }, []);
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;{title}&lt;/div&gt;
+      { description ? &lt;section&gt;{description}&lt;/section&gt; : null }
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;{count}&lt;/button&gt;
+    &lt;/div&gt;
+  );
+};
+
+// 省略時のデフォルトのプロパティ
+MyComponent.defaultProps = {
+  defaultValue: &#39;default&#39;;
+};
+</pre></div>
+</div>
+<p>これらのうち、引数の関数のプロパティにきちんと型をつけ、<code class="docutils literal notranslate"><span class="pre">defaultProps</span></code>に値を設定すれば、利用時にエラーチェックが行われるようになります。また、関数内部の<code class="docutils literal notranslate"><span class="pre">useState()</span></code>は初期値に設定した値を元に型推論が行われます。2つの要素のタプルを返しますが、 前者は初期値と同じ型の即値が入った変数、後者はステートを更新するための関数（初期値と同じ型の1の引数のみを持つ）です。これらのおかげで、自分のコンポーネントを作成するときも、その作成したコンポーネントを利用するときも、型の恩恵が受けられます。</p>
+<p>コンポーネントを外部公開する場合に、<code class="docutils literal notranslate"><span class="pre">Props</span></code>をexportする必要はありません。コンポーネントから<code class="docutils literal notranslate"><span class="pre">ComponentProps&lt;&gt;</span></code>を使って導出が可能です。もし継承拡張するニーズがあったとしても、コンポーネントだけexportしておけば利用側でアクセスできます。余計なものをexportしない方がプログラムの依存関係はよりシンプルになります。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">ComponentProps</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">MyComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./my-component&#39;</span><span class="p">;</span>
+
+<span class="nx">type</span> <span class="nx">MyComponentProps</span> <span class="o">=</span> <span class="nx">ComponentProps</span><span class="o">&lt;</span><span class="k">typeof</span> <span class="nx">MyComponent</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>ただし、<code class="docutils literal notranslate"><span class="pre">defaultProps</span></code>で初期値を与えていてもそれは反映されません。そのため、利用側の印象と一致させるために、<code class="docutils literal notranslate"><span class="pre">defaultProps</span></code>を与える場合は、<code class="docutils literal notranslate"><span class="pre">Props</span></code>定義に<code class="docutils literal notranslate"><span class="pre">?</span></code>を追加しておきましょう。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">type</span> <span class="nx">Props</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">title</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="nx">description?</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="nx">defaultValue?</span>: <span class="kt">string</span><span class="p">;</span> <span class="c1">// こうしておくべきだった</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reduxtypescript">
+<h3>ReduxとTypeScript<a class="headerlink" href="#reduxtypescript" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Reactの周辺のライブラリの作者の中にはTypeScriptを使わない人が多くいました。Reactは元々Facebookが開発していたflowtypeを使うことが多かったり、ReactのJavaScriptの記述法がかなりトリッキーだったり、と理由はいろいろ考えられます。その後、MicrosoftがReactを大々的に利用するように宣言し、TypeScriptの機能もかなり充実しました。近年ではTypeScriptの型定義ファイルが最初から付属するようになったり、TypeScriptで再実装されたり、TypeScriptとの親和性がどんどん上がっています。</p>
+<p>Reduxはアプリケーション内部で横断的に利用したいデータを保持したいり、その更新を行うための補助ライブラリです。データの更新にともない、必要な画面更新だけを効率的に行えるようにもしてくれます。大規模なアプリケーションではよく活用されていました。そのRedux本体も、TypeScriptで適切に型をつけていこうとするとかなり頭と手を使う必要がありましたが、公式サポートライブラリのRedux-Toolkitは、TypeScriptとの親和性が極めて高くなりました。素のReduxをこれから扱う理由は特にないので、本書ではRedux-Toolkit経由でのReduxの操作について紹介します。</p>
+<p>Reduxはストアと呼ばれる中央のデータ庫を持ちます。データに変更を加えるためのreducerと呼ばれる変換ロジックを実装します。標準のReduxを使う場合は、reducerのみを実装します。この関数の返り値がステートになります。データの保管そのものはReduxが行い、開発者が触ることはできません。必要に応じてreducerをReduxが実行し、その結果をReduxが管理するという構成です。</p>
+<p>このreducerをトリガーするのに必要なのが、アクションと呼ばれるデータでした。これを<code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>という関数に投げ込むことでreducerが起動され、そのアクションに応じてデータを書き換えていました。</p>
+<p>しかし、まずJavaScriptの文化で、アクションクリエーターというアクションを作る関数を作っていました。この場合、型をつけるにはreducerの引数にはすべてのアクションの型（アクションクリエーターの返り値の型）の合併型を作る必要がありました。この「すべての」というのが大きなアプリケーションになると依存関係が循環しないように気をつけたり、漏れなく型を合成してあげないといけなかったりと、型のために人間が行う作業が膨大でした。多くの人が「Reduxに型をつけるには？」という文章を書いたりしましたが、その後、Reduxが公式で出してきた解答がRedux-Toookitでした。</p>
+<p>Redux-Toolkitは次のような実装になります。スライスというステートとreducer、アクションクリエーターがセットになったオブジェクトを作成します。</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">スライスを作成</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">createSlice</span><span class="p">,</span> <span class="nx">configureStore</span><span class="p">,</span> <span class="nx">PayloadAction</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@reduxjs/toolkit&#39;</span><span class="p">;</span>
+
+<span class="c1">// stateの型定義</span>
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">State</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">count</span>: <span class="kt">number</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// 初期状態。インラインで書いても良いですが・・・・</span>
+<span class="kr">const</span> <span class="nx">initialState</span>: <span class="kt">State</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">count</span>: <span class="kt">0</span>
+<span class="p">};</span>
+
+<span class="c1">// createSliceでreducerとactionを同時に定義</span>
+<span class="kr">const</span> <span class="nx">counterSlice</span> <span class="o">=</span> <span class="nx">createSlice</span><span class="p">({</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;counter&#39;</span><span class="p">,</span>
+  <span class="nx">initialState</span><span class="p">,</span>
+  <span class="nx">reducers</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">incrementCounter</span><span class="o">:</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span>: <span class="kt">PayloadAction</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
+      <span class="nx">count</span>: <span class="kt">state.count</span> <span class="o">+</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">,</span>
+    <span class="p">}),</span>
+    <span class="nx">decrementCounter</span><span class="o">:</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span>: <span class="kt">PayloadAction</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
+      <span class="nx">count</span>: <span class="kt">state.count</span> <span class="o">-</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">,</span>
+    <span class="p">}),</span>
+  <span class="p">},</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<p>スライス自体はReduxのストアを作る材料ではありますが、もうひとつ、アクションクリエーターのオブジェクトも結果に格納されています。これをエクスポートしてコンポーネントから利用できるようにします。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// action creatorをスライスから取り出して公開可能</span>
+<span class="c1">// dispatch経由でコンポーネントのコードから呼び出せる</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="p">{</span> <span class="nx">incrementCounter</span><span class="p">,</span> <span class="nx">decrementCounter</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">counterSlice</span><span class="p">.</span><span class="nx">actions</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>スライスからストアを作るには<code class="docutils literal notranslate"><span class="pre">configureStore()</span></code>を使います。管理対象が少なければ、スライス作成からストア作成まで１ファイルでやりきってもいいでしょう。複雑になる場合は、スライス作成部分をファイルに切り出しましょう。</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">スライスからストアを作成</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// sliceからstoreを作る</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">configureStore</span><span class="p">({</span>
+  <span class="nx">reducer</span>: <span class="kt">counterSlice.reducer</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="c1">// 複数のsliceからstoreを作るにはreducerにオブジェクトを渡せばOK</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">configureStore</span><span class="p">({</span>
+  <span class="nx">reducer</span><span class="o">:</span> <span class="p">{</span>
+     <span class="nx">counter</span>: <span class="kt">counterSlice.reducer</span><span class="p">,</span>
+     <span class="nx">primenumber</span>: <span class="kt">primenumberSlice.reducer</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<p>さらに型チェックを強固にするために、コンポーネントとのインタフェースとなる関数群にもきちんと型をつけておきます。上記の<code class="docutils literal notranslate"><span class="pre">store</span></code>を作るファイルで一緒にやってしまうと良いでしょう。</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">利用側との接点となる型情報付き関数を生成</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span>
+  <span class="nx">useSelector</span> <span class="kr">as</span> <span class="nx">useReduxSelector</span><span class="p">,</span>
+  <span class="nx">TypedUseSelectorHook</span><span class="p">,</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-redux&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">RootState</span> <span class="o">-</span> <span class="nx">ReturnType</span><span class="o">&lt;</span><span class="k">typeof</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getState</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">useSelector</span>: <span class="kt">TypedUseSelectorHook</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">useReduxSelector</span><span class="p">;</span>
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">AppDispatch</span> <span class="o">=</span> <span class="nx">type</span> <span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<p>Reduxとの大きな違いは、内部で管理するステートの初期値とその型を明示的に宣言できるようになったことです。Reduxではreducerの引数とそのデフォルト値が初期値でした。いろいろなところで活用しますし、ステートの加工にあたってもチェックや補完が欲しいところなので、補完も期待通りに行われますし、エラーメッセージもわかりやすくなります。</p>
+<p><code class="docutils literal notranslate"><span class="pre">reducers</span></code>の中身が実際に値を加工する操作が入っています。この関数では変更前のステートを受け取り、それに値を設定して関数の返り値として返します。Reduxと違い、1つの関数の中に自分で<code class="docutils literal notranslate"><span class="pre">switch</span></code>文を書くのではなく、このオブジェクトのキー単位で操作の単位として独立しています。</p>
+<p>アプリケーション側との接点は2か所です。アプリケーション全体の設定と、値を利用したいコンポーネントです。</p>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">アプリ全体で一カ所、storeを設定</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span>import { store } from &#39;../redux/store&#39;;
+import { Provider } from &#39;react-redux&#39;;
+
+function App() {
+  return (
+    &lt;Provider store={store}&gt;
+      &lt;Router&gt;
+        &lt;Switch&gt;
+          &lt;Route exact path=&quot;/&quot;&gt;&lt;RootPage /&gt;&lt;/Route&gt;
+          &lt;Route path=&quot;/edit&quot;&gt;&lt;EditPage /&gt;&lt;/Route&gt;
+        &lt;/Switch&gt;
+      &lt;/Router&gt;
+    &lt;/Provider&gt;
+  )
+}
+</pre></div>
+</div>
+</div>
+<p>各コンポーネントでは<code class="docutils literal notranslate"><span class="pre">useSelector()</span></code>と<code class="docutils literal notranslate"><span class="pre">useDispatch()</span></code>を使ってストアへの読み書きを行ます。</p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">Reduxのステートを利用する関数側</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>// Reduxの提供のuseDispatch
+import { useDispatch } from &#39;react-redux&#39;;
+// スライス側からアクションクリエーター
+import { incrementCounter } from &#39;../redux/counterslice&#39;;
+// ストア側からは型をつけたuseSelectorとDispatch用の型定義
+import { useSelector, AppDispatch } from &#39;../redux/store&#39;;
+
+export function MyComponent() {
+  const dispatch = useDispatch&lt;AppDispatch&gt;();
+  const counter = useSelector(state =&gt; state.counter);
+  return (
+    &lt;div&gt;
+      &lt;!-- ストアのステートを利用 --&gt;
+      &lt;h1&gt;count: {counter.count}&lt;/h1&gt;
+      &lt;!-- dispatchでストアに変更を加える --&gt;
+      &lt;button onClick={() =&gt; dispatch(incrementCounter(10))} /&gt;
+    &lt;/div&gt;
+  )
+}
+</pre></div>
+</div>
+</div>
+<p>要注意なポイントは、スライスの名前です。複数のスライスをまとめてReduxの最終的なステートを作り上げますが、この名前がかぶっていると、変更していないはずなのにいつのまにか値が変更されていたりといったトラブルが発生します。</p>
+</div>
+<div class="section" id="reactredux">
+<h3>ReactとReduxの非同期アクセス<a class="headerlink" href="#reactredux" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Reactの基本の書き方とRedux-Toolkitを使って型チェックが完全な形で行われるようになりました。サーバーサイドレンダリングの仕組みやstyled-componentを使ったスタイリング、Routerによるシングルページアプリケーションのページ切り替えなど、追加の情報や便利ライブラリは別にありますが、Reactに関する最新の基礎知識はほぼこれでカバーできたと言えます。</p>
+<p>しかし、もう1つ触れておかなければならないことがあります。それが非同期のデータアクセスです。</p>
+<p>画面の表示に必要なデータの取得や結果の格納でサーバーアクセスが必要になることがあります。サーバーアクセスが一切ないウェブフロントエンドはあまりないでしょう。静的サイトジェネレータから呼び出す場合はまたそちらの作法がありますが、今回は通常のウェブアプリケーションのフロントエンドの説明を行ます。</p>
+<p>まず表示に利用する情報の取得です。コンポーネント単体で取得、あるいはRedux経由の利用があります。一番簡単なコンポーネント内部で完結する方法を紹介します。コンポーネント内部で呼び出す場合は<code class="docutils literal notranslate"><span class="pre">useEffect()</span></code>を利用します。注意点としては、<code class="docutils literal notranslate"><span class="pre">useEffect()</span></code>にはasync関数を渡すことができない点です。後始末の処理を<code class="docutils literal notranslate"><span class="pre">return</span></code>で返すというAPI設計の制約による気がしますが、利用側としては従わざるをえません。asyncな関数を作り、それを呼び出します。</p>
+<p>このコードは、ブラウザ標準APIの<code class="docutils literal notranslate"><span class="pre">fetch</span></code>を使い、最終的に<code class="docutils literal notranslate"><span class="pre">useState()</span></code>提供の関数<code class="docutils literal notranslate"><span class="pre">setData()</span></code>で取得してきた値を格納しています。もしエラーがあれば、同様に<code class="docutils literal notranslate"><span class="pre">setShowErrorDialog()</span></code>に格納しています。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// サーバーデータ</span>
+<span class="kr">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">({</span><span class="nx">loaded</span>: <span class="kt">false</span><span class="p">}</span> <span class="kr">as</span> <span class="nx">Data</span><span class="p">);</span>
+<span class="c1">// エラーダイアログ表示用ステート</span>
+<span class="kr">const</span> <span class="p">[</span><span class="nx">showErrorDialog</span><span class="p">,</span> <span class="nx">setShowErrorDialog</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+
+<span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">async</span> <span class="kd">function</span> <span class="nx">getData() {</span>
+    <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/getdata&#39;</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">data</span>: <span class="kt">Data</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">data</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span> <span class="kr">as</span> <span class="nx">Data</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">setShowErrorDialog</span><span class="p">(</span><span class="sb">`parse error </span><span class="si">${</span><span class="nx">e</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">setShowErrorDialog</span><span class="p">(</span><span class="sb">`server access error`</span><span class="p">);</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">setData</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">getData</span><span class="p">();</span>
+<span class="p">},</span> <span class="p">[]);</span>
+</pre></div>
+</div>
+<p>Redux-Toolkitのreducersにはそのままでは非同期処理が書けません。<code class="docutils literal notranslate"><span class="pre">createAsyncThunk()</span></code>を使い、それを<code class="docutils literal notranslate"><span class="pre">extraReducers</span></code>の中で登録します。</p>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">非同期のreducer</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">createAsyncThunk</span> <span class="p">}</span> <span class="kr">import</span> <span class="s1">&#39;@reduxjs/toolkit&#39;</span><span class="p">;</span>
+
+<span class="nx">type</span> <span class="nx">fetchLastCounterReturnType</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">count</span>: <span class="kt">number</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">fetchLastCounter</span> <span class="o">=</span> <span class="nx">createAsyncThunk</span><span class="o">&lt;</span><span class="nx">fetchLastCounterReturnType</span><span class="o">&gt;</span><span class="p">(</span>
+  <span class="s1">&#39;lastcount/fetch&#39;</span><span class="p">,</span>
+  <span class="nx">async</span> <span class="p">(</span><span class="nx">arg</span><span class="p">,</span> <span class="nx">thunk</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">fetchLastCounterReturnType</span><span class="o">&gt;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/lastcount&#39;</span><span class="p">,</span> <span class="p">{</span>
+       <span class="nx">credentials</span><span class="o">:</span> <span class="s1">&#39;same-origin&#39;</span><span class="p">,</span>
+    <span class="p">});</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="p">(</span><span class="nx">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span> <span class="kr">as</span> <span class="nx">fetchLastCounterReturnType</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;fetch count error&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">counterSlice</span> <span class="o">=</span> <span class="nx">createSlice</span><span class="p">({</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;counter&#39;</span><span class="p">,</span>
+  <span class="nx">initialState</span><span class="p">,</span>
+  <span class="nx">reducers</span><span class="o">:</span> <span class="p">{},</span>
+  <span class="nx">extraReducers</span>: <span class="kt">builder</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">builder</span><span class="p">.</span><span class="nx">addCase</span><span class="p">(</span><span class="nx">fetchLastCounter</span><span class="p">.</span><span class="nx">fullfilled</span><span class="p">,</span>
+      <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+          <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
+          <span class="nx">count</span>: <span class="kt">action.payload.count</span>
+        <span class="p">};</span>
+      <span class="p">}</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<p>これも、<code class="docutils literal notranslate"><span class="pre">dispatch(fetchLastCounter())</span></code>のように呼び出せます。この非同期アクションに引数を設定したい場合は、createAsyncThunkの2つ目の型パラメータに引数を設定します。型パラメータに入れずにasyncの関数側の<code class="docutils literal notranslate"><span class="pre">arg</span></code>にだけ型を付けようとしてもエラーになるので注意してください。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">type</span> <span class="nx">fetchLastCounterArgType</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">counterName</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">fetchLastCounter</span> <span class="o">=</span> <span class="nx">createAsyncThunk</span><span class="o">&lt;</span>
+  <span class="nx">fetchLastCounterReturnType</span><span class="p">,</span>
+  <span class="nx">fetchLastCounterArgType</span>
+<span class="o">&gt;</span><span class="p">(</span>
+  <span class="s1">&#39;lastcount/fetch&#39;</span><span class="p">,</span>
+  <span class="nx">async</span> <span class="p">(</span><span class="nx">arg</span><span class="p">,</span> <span class="nx">thunk</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 略</span>
+  <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>この非同期アクションからReduxのストアに値を設定する方法が2つあります。1つが上記の登録方法で紹介した<code class="docutils literal notranslate"><span class="pre">extraReducers</span></code>です。<code class="docutils literal notranslate"><span class="pre">pending</span></code>、<code class="docutils literal notranslate"><span class="pre">fulfilled</span></code>、<code class="docutils literal notranslate"><span class="pre">error</span></code>の3つの状態に対して<code class="docutils literal notranslate"><span class="pre">reducer</span></code>が書けます。それぞれ、実行開始直後、完了後、エラー発生のときに呼ばれます。これが一番簡単です。</p>
+<p>もう片方が、データ格納用のreducerを別個に作成し、非同期アクションから呼び出す方法です。2つ目の引数の<code class="docutils literal notranslate"><span class="pre">thunk</span></code>には<code class="docutils literal notranslate"><span class="pre">getState()</span></code>や<code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>といった、Redux本体とアクセスするメソッドがあります。これらを使い、ステートの状態を取得しつつ、<code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>で個別に作成したreducerに呼ぶことで、ステートに結果を書き込むことができます。基本的には前者の方法で済むことが多いでしょう。</p>
+<p>これらの非同期アクションを呼び出して結果をコンポーネントから利用する方法は2つあります。ひとつはすでに紹介した<code class="docutils literal notranslate"><span class="pre">useSelector()</span></code>経由で情報を取得してくる方法です。もう1つは、結果を直接受け取る方法です。後者は<code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>の結果を<code class="docutils literal notranslate"><span class="pre">unwrapResult()</span></code>に渡すことで、正常終了したときの結果が得られます。</p>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">unwrapResult</span></code>を使った例</span><a class="headerlink" href="#id20" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">unwrapResult</span> <span class="p">}</span> <span class="kr">import</span> <span class="s1">&#39;@reduxjs/toolkit&#39;</span><span class="p">;</span>
+
+<span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">async</span> <span class="kd">function</span> <span class="nx">getData() {</span>
+    <span class="kr">const</span> <span class="nx">ret</span> <span class="o">=</span> <span class="nx">unwrapResult</span><span class="p">(</span><span class="nx">await</span> <span class="nx">dispatch</span><span class="p">(</span><span class="nx">fetchLastCounter</span><span class="p">()));</span>
+    <span class="nx">dispatch</span><span class="p">(</span><span class="nx">fetchUpdateLog</span><span class="p">(</span><span class="nx">ret</span><span class="p">.</span><span class="nx">count</span><span class="p">,</span> <span class="nx">username</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="nx">getData</span><span class="p">();</span>
+<span class="p">},</span> <span class="p">[]);</span>
+</pre></div>
+</div>
+</div>
+<p>Reactの昔からよく発生するコーディングのミスとして、ステートへ格納した直後に結果を読み出そうとしてもまだ更新されていない、というものがあります。<code class="docutils literal notranslate"><span class="pre">useState()</span></code>のセッターで設定したステートやReduxのストアの状態は、次の更新時まで変更されません。更新してしまうと、一つのレンダリング関数の中で、変数の状態が複数存在する可能性が発生してしまい、整合性を保つのが困難になります。しかし、その副作用として、結果を更新したものを使う場合に、次の更新まで待たなければならなくなります。</p>
+<p>しかし、非同期の呼び出しがきちんと期待通りに呼ばれるかどうかというのはうまく動かなかった時の問題追跡が困難です。そのため、サーバーの結果を受けて再度何かサーバーアクセスを行う場合などは、途中でReactの再描画を待つのではなく、一つのasync関数の中で処理を完結させる方がバグが出にくく、コードの行数も短くなり、見通しの良いコードになります。</p>
+<p>次のコードはぱっと見たときに<code class="docutils literal notranslate"><span class="pre">useEffect()</span></code>同士の依存関係が見えません。コードを読み解くと、<code class="docutils literal notranslate"><span class="pre">fetchLastCounter()</span></code>の結果がReduxのステートに格納され、その数値が書き換わったことで、2つ目の<code class="docutils literal notranslate"><span class="pre">useEffect()</span></code>が呼ばれることが分かりますが、お世辞にも分かりやすいとは言えません。TypeScriptの可視性のすぐれた<code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code>を使うべきです。</p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">unwrapResult</span></code>を使わない例</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">counter</span> <span class="o">=</span> <span class="nx">useSelector</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">counter</span><span class="p">);</span>
+
+<span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">dispatch</span><span class="p">(</span><span class="nx">fetchLastCounter</span><span class="p">());</span>
+<span class="p">},</span> <span class="p">[]);</span>
+
+<span class="c1">// 分割されたuseEffect</span>
+<span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">dispatch</span><span class="p">(</span><span class="nx">fetchUpdateLog</span><span class="p">(</span><span class="nx">counter</span><span class="p">.</span><span class="nx">count</span><span class="p">,</span> <span class="nx">username</span><span class="p">));</span>
+<span class="p">},</span> <span class="p">[</span><span class="nx">counter</span><span class="p">.</span><span class="nx">count</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="vue-js">
 <h2>Vue.jsの環境構築<a class="headerlink" href="#vue-js" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -325,19 +649,19 @@ export default function Home() {
 </pre></div>
 </div>
 <p>作成時に最初に聞かれる質問でdefaultのpreset（babelとeslint）ではなく、Manually select featuresを選択します。</p>
-<div class="figure align-default" id="id14">
+<div class="figure align-default" id="id22">
 <img alt="_images/vue-cli-1.png" src="_images/vue-cli-1.png" />
-<p class="caption"><span class="caption-text">TypeScriptを選択する場合はManually select featuresを選択</span><a class="headerlink" href="#id14" title="この画像へのパーマリンク">¶</a></p>
+<p class="caption"><span class="caption-text">TypeScriptを選択する場合はManually select featuresを選択</span><a class="headerlink" href="#id22" title="この画像へのパーマリンク">¶</a></p>
 </div>
 <p>次のオプションで必要なものをスペースキーで選択して、エンターで次に進みます。選んだ項目によって追加の質問が行われます。Routerやステート管理などのアプリケーション側の機能に関する項目以外にも、LinterやユニットテストフレームワークやE2Eテストの補助ツールなど、さまざまなものを選択できます。</p>
-<div class="figure align-default" id="id15">
+<div class="figure align-default" id="id23">
 <img alt="_images/vue-cli-2.png" src="_images/vue-cli-2.png" />
-<p class="caption"><span class="caption-text">必要な機能を選択する</span><a class="headerlink" href="#id15" title="この画像へのパーマリンク">¶</a></p>
+<p class="caption"><span class="caption-text">必要な機能を選択する</span><a class="headerlink" href="#id23" title="この画像へのパーマリンク">¶</a></p>
 </div>
 <p>途中で、クラスベースかそうではないか、という質問が出てきます。以前ではクラスベースのAPIの方がTypeScriptとの相性がよかったのですが、Vue.js 3からの新しいAPIで、クラスベースでない時も型チェックなどに優しいAPIに改善されました。そこはチームで好きな方を選択すれば良いですし、あとから別のスタイルにすることもできます。</p>
-<div class="figure align-default" id="id16">
+<div class="figure align-default" id="id24">
 <img alt="_images/vue-cli-3.png" src="_images/vue-cli-3.png" />
-<p class="caption"><span class="caption-text">クラススタイルのコンポーネントを利用するか？</span><a class="headerlink" href="#id16" title="この画像へのパーマリンク">¶</a></p>
+<p class="caption"><span class="caption-text">クラススタイルのコンポーネントを利用するか？</span><a class="headerlink" href="#id24" title="この画像へのパーマリンク">¶</a></p>
 </div>
 <p>現在のVue.jsのプロジェクトのほとんどは、<code class="docutils literal notranslate"><span class="pre">.vue</span></code>ファイルに記述するシングルファイルコンポーネント（SFC）を使っていると思いますが、TypeScriptを使う場合、スクリプトタグの<code class="docutils literal notranslate"><span class="pre">lang</span></code>属性を<code class="docutils literal notranslate"><span class="pre">ts</span></code>になっています。</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
@@ -478,6 +802,9 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
 <li><a class="reference internal" href="#id5">Reactの周辺ツールのインストールと設定</a></li>
 <li><a class="reference internal" href="#ui">UI部品の追加</a></li>
 <li><a class="reference internal" href="#react-material-ui-typescript">React+Material UI+TypeScriptのサンプル</a></li>
+<li><a class="reference internal" href="#reacttypescript">ReactとTypeScript</a></li>
+<li><a class="reference internal" href="#reduxtypescript">ReduxとTypeScript</a></li>
+<li><a class="reference internal" href="#reactredux">ReactとReduxの非同期アクセス</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#vue-js">Vue.jsの環境構築</a><ul>
@@ -508,11 +835,11 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 7613</li>
-        <li>非アスキー: 5866</li>
-        <li>合計文字数: 13479</li>
-        <li>半角換算: 19345</li>
-        <li>全角換算: 9672.5</li>
+        <li>英数記号: 13920</li>
+        <li>非アスキー: 11422</li>
+        <li>合計文字数: 25342</li>
+        <li>半角換算: 36764</li>
+        <li>全角換算: 18382.0</li>
     </ul>
     </p>
 </div>
