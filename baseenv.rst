@@ -127,7 +127,8 @@ ESLintの設定も作ります。Prettierと連携するようにします。
      ],
      "extends": [
        "plugin:@typescript-eslint/recommended",
-       "plugin:prettier/recommended"
+       "plugin:prettier/recommended",
+       "prettier/@typescript-eslint"
      ],
      "rules": {
        "no-console": 0,
