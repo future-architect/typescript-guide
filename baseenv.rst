@@ -198,13 +198,15 @@ Visual Stuido Codeでフォルダを開いたときに、eslintの拡張と、ed
      ]
    }
 
-ファイル保存時にeslint --fixが自動実行されるように設定しておきましょう。これでVisual Studio Codeを使う限り、誰がプロジェクトを開いてもコードスタイルが保たれます。eslintプラグインのautoFixOnSaveは、files.autoSaveがoffのときにしか効かないので、それも設定しておきます。
+ファイル保存時にeslint --fixが自動実行されるように設定しておきましょう。これでVisual Studio Codeを使う限り、誰がプロジェクトを開いてもコードスタイルが保たれます。Visual Studio Codeのeditor.codeActionsOnSaveは、files.autoSaveがafterDelayのときは効かないので、offに設定しておきます。
 
 .. code-block:: json
    :caption: .vscode/settings.json
 
    {
-     "eslint.autoFixOnSave": true,
+     "editor.codeActionsOnSave": {
+       "source.fixAll.eslint": true,
+     },
      "files.autoSave": "off"
    }
 
