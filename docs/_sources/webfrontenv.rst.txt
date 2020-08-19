@@ -458,7 +458,7 @@ Redux-Toolkitは次のような実装になります。スライスというス�
      }
    });
 
-さらに型チェックを強固にするために、コンポーネントとのインタフェースとなる関数群にもきちんと型をつけておきます。上記の\ ``store``\ を作るファイルで一緒にやってしまうと良いでしょう。 
+さらに型チェックを強固にするために、コンポーネントとのインタフェースとなる関数群にもきちんと型をつけておきます。上記の\ ``store``\ を作るファイルで一緒にやってしまうと良いでしょう。
 
 .. code-block:: ts
    :caption: 利用側との接点となる型情報付き関数を生成
@@ -466,12 +466,11 @@ Redux-Toolkitは次のような実装になります。スライスというス�
    import {
      useSelector as useReduxSelector,
      TypedUseSelectorHook,
-   } from 'react-redux';   
+   } from 'react-redux';
 
    export type RootState - ReturnType<typeof store.getState>;
    export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
-   export type AppDispatch = type store.dispatch; 
-   
+   export type AppDispatch = type store.dispatch;
 
 Reduxとの大きな違いは、内部で管理するステートの初期値とその型を明示的に宣言できるようになったことです。Reduxではreducerの引数とそのデフォルト値が初期値でした。いろいろなところで活用しますし、ステートの加工にあたってもチェックや補完が欲しいところなので、補完も期待通りに行われますし、エラーメッセージもわかりやすくなります。
 
@@ -484,7 +483,7 @@ Reduxとの大きな違いは、内部で管理するステートの初期値と
 
    import { store } from '../redux/store';
    import { Provider } from 'react-redux';
-   
+
    function App() {
      return (
        <Provider store={store}>

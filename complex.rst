@@ -155,6 +155,64 @@ Javaなどの配列は要素のすべての型は同じです。TypeScriptでは
    // 新: スプレッド構文で配列のコピー
    const copy = [...smalls];
 
+配列のソート
+~~~~~~~~~~~~~~~~~~~~~~~
+
+配列は\ ``sort()``\ メソッドを使います。これはインプレースで、その配列を変更します。ソートをそのまま実行すると、中の要素をすべて文字列化した上で、辞書順でソートします。
+
+.. code-block:: ts
+   :caption: デフォルトでは文字列としてソートする
+
+   const numbers = [30, 1, 200];
+
+   numbers.sort();
+   // 1, 200, 30
+
+数値が入っている場合に、期待と異なる動作をします。比較関数を引数に私、0より小さい数値（左辺を左側に）、0（等価）、0より大きい数値（左辺を右側に移動）を返すことで要素の並び替えのルールを設定できます。オブジェクトの場合はどのキーを使うかなども比較関数で吸収します。左辺が小さい時に負の数を返せば昇順に、逆を返せば降順になります。
+
+.. code-block:: ts
+   :caption: ソート関数を渡す
+
+   const numbers = [30, 1, 200];
+   numbers.sort((a, b) => a - b);
+   // 1, 30, 200
+
+   const stations = [
+      {name: "池袋", users: 558623},
+      {name: "新宿", users: 775386},
+      {name: "渋谷", users: 366128},
+      {name: "東京", users: 462589}
+   ];
+   // 駅の利用者数でソート
+   stations.sort((a, b) => a.users - b.users);
+
+複数の条件でソートしたい場合は、if文を重ねて書いていってもいいのですが、同値条件が抜けたりしがちなので、いったん全て-1, 0, 1にしておいて、足し合わせて総合スコアを計算する方がミスが減りますし、条件の入れ替えはしやすいでしょう。
+
+.. code-block:: ts
+   :caption: 複合条件でソート
+
+   function cmpNum(a: number, b: number) {
+     return (a < b) ? -1 : (a === b) ? 0 : 1;
+   }
+   function cmpStr(a: string, b: string) {
+     return (a < b) ? -1 : (a === b) ? 0 : 1;
+   }
+   // 乗り入れ本数→読みでソート
+   stations.sort((a, b) => {
+     const lineScore = cmpNum(a.lines, b.lines);
+     const yomiScore = cmpStr(a.yomi, b.yomi);
+     // わかりやすく10倍しているが、2倍でもOK
+     return lineScore * 10 + yomiScore;
+   });
+
+非破壊のソートはないので、元の配列を変更せずにソートした結果だけを得たい場合は、前節のスプレッド構文を組み合わせて行います。
+
+.. code-block:: ts
+   :caption: 非破壊ソート
+
+   // 駅の利用者数でソート
+   const sorted = [...stations].sort((a, b) => a.users - b.users);
+
 ループは\ ``for ... of``\ を使う
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

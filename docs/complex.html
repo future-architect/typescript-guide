@@ -90,8 +90,8 @@
 <p>スプレッド構文は省略記号のようにピリオドを3つ書く構文で、あたかも複数の要素がそこにあるかのように振る舞います。
 スプレッド構文は取り出し以外にも、配列やオブジェクトの加工、関数呼び出しの引数リストに対しても使える強力な構文です。
 ここでは、2つめ以降のすべての要素を<code class="docutils literal notranslate"><span class="pre">other</span></code>に格納しています。</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">配列の要素の取り出し</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">配列の要素の取り出し</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">smalls</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">&quot;小動物&quot;</span><span class="p">,</span>
   <span class="s2">&quot;小型車&quot;</span><span class="p">,</span>
@@ -114,8 +114,8 @@
 <div class="section" id="id5">
 <h3>配列の要素の存在チェック<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以前は、要素のインデックス値を見て判断していましたが、配列に要素が入っているかどうかをbooleanで返す<code class="docutils literal notranslate"><span class="pre">includes()</span></code>メソッドが入ったので、積極的にこれを使っていきましょう。</p>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">要素の存在チェック</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">要素の存在チェック</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">places</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;小岩駅&quot;</span><span class="p">,</span> <span class="s2">&quot;小浜市&quot;</span><span class="p">,</span> <span class="s2">&quot;小倉駅&quot;</span><span class="p">];</span>
 
 <span class="c1">// 旧: indexOfを利用</span>
@@ -142,8 +142,8 @@
 その1つが、配列やオブジェクトを加工していくのではなく、値が変更されたコピーを別に作って、最後にリプレースするという方法です。
 <code class="docutils literal notranslate"><span class="pre">splice()</span></code>は対象の配列を変更してしまいますが、スプレッド構文を使うと、この方針に沿ったコーディングがしやすくなります。
 配列のコピーも簡単にできます。</p>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">配列の加工</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">配列の加工</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">smalls</span> <span class="o">=</span> <span class="p">[</span>
   <span class="s2">&quot;小動物&quot;</span><span class="p">,</span>
   <span class="s2">&quot;小型車&quot;</span><span class="p">,</span>
@@ -171,6 +171,64 @@
 
 <span class="c1">// 新: スプレッド構文で配列のコピー</span>
 <span class="kr">const</span> <span class="nx">copy</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">smalls</span><span class="p">];</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>配列のソート<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>配列は<code class="docutils literal notranslate"><span class="pre">sort()</span></code>メソッドを使います。これはインプレースで、その配列を変更します。ソートをそのまま実行すると、中の要素をすべて文字列化した上で、辞書順でソートします。</p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">デフォルトでは文字列としてソートする</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">];</span>
+
+<span class="nx">numbers</span><span class="p">.</span><span class="nx">sort</span><span class="p">();</span>
+<span class="c1">// 1, 200, 30</span>
+</pre></div>
+</div>
+</div>
+<p>数値が入っている場合に、期待と異なる動作をします。比較関数を引数に私、0より小さい数値（左辺を左側に）、0（等価）、0より大きい数値（左辺を右側に移動）を返すことで要素の並び替えのルールを設定できます。オブジェクトの場合はどのキーを使うかなども比較関数で吸収します。左辺が小さい時に負の数を返せば昇順に、逆を返せば降順になります。</p>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">ソート関数を渡す</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">];</span>
+<span class="nx">numbers</span><span class="p">.</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">a</span> <span class="o">-</span> <span class="nx">b</span><span class="p">);</span>
+<span class="c1">// 1, 30, 200</span>
+
+<span class="kr">const</span> <span class="nx">stations</span> <span class="o">=</span> <span class="p">[</span>
+   <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;池袋&quot;</span><span class="p">,</span> <span class="nx">users</span>: <span class="kt">558623</span><span class="p">},</span>
+   <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;新宿&quot;</span><span class="p">,</span> <span class="nx">users</span>: <span class="kt">775386</span><span class="p">},</span>
+   <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;渋谷&quot;</span><span class="p">,</span> <span class="nx">users</span>: <span class="kt">366128</span><span class="p">},</span>
+   <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;東京&quot;</span><span class="p">,</span> <span class="nx">users</span>: <span class="kt">462589</span><span class="p">}</span>
+<span class="p">];</span>
+<span class="c1">// 駅の利用者数でソート</span>
+<span class="nx">stations</span><span class="p">.</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">users</span> <span class="o">-</span> <span class="nx">b</span><span class="p">.</span><span class="nx">users</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p>複数の条件でソートしたい場合は、if文を重ねて書いていってもいいのですが、同値条件が抜けたりしがちなので、いったん全て-1, 0, 1にしておいて、足し合わせて総合スコアを計算する方がミスが減りますし、条件の入れ替えはしやすいでしょう。</p>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">複合条件でソート</span><a class="headerlink" href="#id20" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">cmpNum</span><span class="p">(</span><span class="nx">a</span>: <span class="kt">number</span><span class="p">,</span> <span class="nx">b</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">a</span> <span class="o">&lt;</span> <span class="nx">b</span><span class="p">)</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span> <span class="o">?</span> <span class="nx">0</span> : <span class="kt">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">cmpStr</span><span class="p">(</span><span class="nx">a</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">b</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">a</span> <span class="o">&lt;</span> <span class="nx">b</span><span class="p">)</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="nx">b</span><span class="p">)</span> <span class="o">?</span> <span class="nx">0</span> : <span class="kt">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// 乗り入れ本数→読みでソート</span>
+<span class="nx">stations</span><span class="p">.</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">lineScore</span> <span class="o">=</span> <span class="nx">cmpNum</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">lines</span><span class="p">,</span> <span class="nx">b</span><span class="p">.</span><span class="nx">lines</span><span class="p">);</span>
+  <span class="kr">const</span> <span class="nx">yomiScore</span> <span class="o">=</span> <span class="nx">cmpStr</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">yomi</span><span class="p">,</span> <span class="nx">b</span><span class="p">.</span><span class="nx">yomi</span><span class="p">);</span>
+  <span class="c1">// わかりやすく10倍しているが、2倍でもOK</span>
+  <span class="k">return</span> <span class="nx">lineScore</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="nx">yomiScore</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<p>非破壊のソートはないので、元の配列を変更せずにソートした結果だけを得たい場合は、前節のスプレッド構文を組み合わせて行います。</p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">非破壊ソート</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 駅の利用者数でソート</span>
+<span class="kr">const</span> <span class="nx">sorted</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">stations</span><span class="p">].</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">users</span> <span class="o">-</span> <span class="nx">b</span><span class="p">.</span><span class="nx">users</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -258,8 +316,8 @@ C言語由来のループは昔からあるものですがループ変数が必�
 </div></blockquote>
 </div>
 </div>
-<div class="section" id="id7">
-<h3>読み込み専用の配列<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id8">
+<h3>読み込み専用の配列<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>TypeScriptの「<code class="docutils literal notranslate"><span class="pre">const</span></code>」は変数の再代入をさせない、というガードにはなりますが、C++のように、「変更不可」にはできません。TypeScriptにはこれには別のキーワード、<code class="docutils literal notranslate"><span class="pre">readonly</span></code>が提供されています。型の定義の前に<code class="docutils literal notranslate"><span class="pre">readonly</span></code>を付与すれば</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">a</span>: <span class="kt">readonly</span> <span class="kt">number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
 <span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -306,14 +364,14 @@ C言語由来のループは昔からあるものですがループ変数が必�
 <p>TypeScriptを使うと、型情報がついて実装が簡単になるだけではなく、速度のメリットもあります。</p>
 </div>
 </div>
-<div class="section" id="id8">
-<h2>オブジェクト<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id9">
+<h2>オブジェクト<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>オブジェクトは、JavaScriptのコアとなるデータですが、クラスなどを定義しないで、気軽にまとまったデータを扱うときに使います。
 配列は要素へのアクセス方法がインデックス（数値）でしたが、オブジェクトの場合は文字列です。
 キー名が変数などで使える文字だけで構成されている場合は、名前をそのまま記述できますが、空白文字やマイナスなどを含む場合にはダブルクオートやシングルクオートでくくります。
 また、キー名に変数を書く場合は <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">]</span></code> でくくります。</p>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">オブジェクト</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">オブジェクト</span><a class="headerlink" href="#id22" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 定義はキー、コロン(:)、値を書く。要素間は改行</span>
 <span class="kr">const</span> <span class="nx">key</span> <span class="o">=</span> <span class="s1">&#39;favorite drink&#39;</span><span class="p">;</span>
 
@@ -343,8 +401,8 @@ C言語由来のループは昔からあるものですがループ変数が必�
 プレーンテキストであり、書きやすく読みやすい（XMLやSOAPと比べて）こともありますし、JavaScriptでネイティブで扱えるため、API通信で使われるデータフォーマットとしてはトップシェアを誇ります。</p>
 <p>JSONをパースすると、オブジェクトと配列で階層構造になったデータができあがります。
 通信用のライブラリでは、パース済みの状態でレスポンスが帰ってきたりするため、正確ではないですが、このオブジェクト/配列も便宜上、JSONと呼ぶこともあります。</p>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">JSONとオブジェクト</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">JSONとオブジェクト</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 最初の引数にオブジェクトや配列、文字列などを入れる</span>
 <span class="c1">// 2つめの引数はデータ変換をしたいときの変換関数（ログ出力からパスワードをマスクしたいなど）</span>
 <span class="c1">//   省略可能。通常はnull</span>
@@ -362,21 +420,21 @@ C言語由来のループは昔からあるものですがループ変数が必�
 その場合はJSON.parse()の中で <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> 例外が発生します。
 特に、JSONを便利だからとマスターデータとして使っていて、非プログラマーの人に、編集してもらったりしたときによく発生します。
 あとは、JSONレスポンスを期待しているウェブサービスの時に、サーバー側でエラーが発生して、 <code class="docutils literal notranslate"><span class="pre">Forbidden</span></code> という文字列が帰ってきた場合（403エラー時のボディ）にも発生します。</p>
-<div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">JSONパースのエラー</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">JSONパースのエラー</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SyntaxError: Unexpected token n in JSON at position 1
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="id9">
-<h3>オブジェクトからのデータの取り出し<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id10">
+<h3>オブジェクトからのデータの取り出し<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>オブジェクトの場合も配列同様、分割代入でまとめて取り出せます。
 また、要素がなかったときにデフォルト値を設定したり、指定された要素以外のオブジェクトを抜き出すことが可能です。
 注意点としては、まとめて取り出す場合の変数名は、必ずオブジェクトのキー名になります。
 関数の返値や、後述の<code class="docutils literal notranslate"><span class="pre">Promise</span></code>では、この記法のおかげで気軽に複数の情報をまとめて返せます。</p>
-<div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text">オブジェクトの要素の取り出し</span><a class="headerlink" href="#id20" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">オブジェクトの要素の取り出し</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">smallAnimal</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;小動物&quot;</span><span class="p">,</span>
   <span class="nx">favorite</span><span class="o">:</span> <span class="s2">&quot;小籠包&quot;</span>
@@ -411,8 +469,8 @@ C言語由来のループは昔からあるものですがループ変数が必�
 </pre></div>
 </div>
 </div>
-<div class="section" id="id10">
-<h3>オブジェクトの要素の加工<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id11">
+<h3>オブジェクトの要素の加工<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>JavaScriptではオブジェクトがリテラルで作成できるデータ構造として気軽に利用されます。
 オブジェクトの加工（コピーや結合）も配列同様にスプレッド構文で簡単にできます。</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">smallAnimal</span> <span class="o">=</span> <span class="p">{</span>
@@ -500,14 +558,14 @@ C言語由来のループは昔からあるものですがループ変数が必�
 <p><code class="docutils literal notranslate"><span class="pre">Map</span></code> 、 <code class="docutils literal notranslate"><span class="pre">Set</span></code> はES2015以降に導入されたクラスであるため、出力ターゲットをこれよりも新しくするか、ライブラリに登録した上でPolyfillを使うしかありません。</p>
 </div>
 </div>
-<div class="section" id="id11">
-<h3>TypeScriptとオブジェクト<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id12">
+<h3>TypeScriptとオブジェクト<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>オブジェクトは、プロトタイプ指向というJavaScriptの柔軟性をささえる重要な部品です。
 一方、TypeScriptはなるべく静的に型をつけて行く事で、コンパイル時にさまざまなチェックが行えるようになり不具合を見つけることができます。オブジェクトの型の定義については<a class="reference internal" href="typing.html"><span class="doc">基本的な型付け</span></a>の章で紹介します。</p>
 <p>型定義をすると、プロパティの名前のスペルミスであったり、違う型を入れてしまうことが減ります。エラーチェックのコードを実装する手間も減るでしょう。</p>
 </div>
-<div class="section" id="id12">
-<h3>読み込み専用のオブジェクト<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id13">
+<h3>読み込み専用のオブジェクト<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>配列は<code class="docutils literal notranslate"><span class="pre">readonly</span></code>をつけて読み込み専用にできましたが、オブジェクトも同様のことができます。ただし、<code class="docutils literal notranslate"><span class="pre">readonly</span></code>キーワードではできず、型ユーティリティの<code class="docutils literal notranslate"><span class="pre">ReadOnly&lt;&gt;</span></code>を使います。これには、型を定義しておく必要があります。これ以外にも、フィールドごとに<code class="docutils literal notranslate"><span class="pre">readonly</span></code>を付与することもで可能です。前節でも触れましたが、これも詳しくは<a class="reference internal" href="typing.html"><span class="doc">基本的な型付け</span></a>の章で紹介します。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">type</span> <span class="nx">User</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
@@ -523,8 +581,8 @@ C言語由来のループは昔からあるものですがループ変数が必�
 </div>
 </div>
 </div>
-<div class="section" id="id13">
-<h2>まとめ<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id14">
+<h2>まとめ<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>JavaScriptの2大複合型の配列とオブジェクトを紹介しました。また、オブジェクトの関連のデータ構造として <code class="docutils literal notranslate"><span class="pre">Map</span></code> や <code class="docutils literal notranslate"><span class="pre">Set</span></code> も紹介しました。</p>
 <p>Javaと比べると、TypeScriptで実装する場合、同じようなものを実装する場合にもクラス定義の数は減るでしょう。ちょっとしたデータを格納するデータ構造などは、これらの型を使って定義なしで使うことが多いからです。Javaからやってくると、これらの型を乱用しているように見えて不安になるかもしれません。しかし、TypeScriptを使えば、型推論やインラインでの明示的な型定義によって、これらの型でもきちんとしたチェックが行われるようになります。不安はあるかもしれませんが、安全にコーディングができます。</p>
 </div>
@@ -545,22 +603,23 @@ C言語由来のループは昔からあるものですがループ変数が必�
 <li><a class="reference internal" href="#id4">配列からのデータの取り出し</a></li>
 <li><a class="reference internal" href="#id5">配列の要素の存在チェック</a></li>
 <li><a class="reference internal" href="#id6">配列の加工</a></li>
+<li><a class="reference internal" href="#id7">配列のソート</a></li>
 <li><a class="reference internal" href="#for-of">ループは<code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">...</span> <span class="pre">of</span></code>を使う</a></li>
 <li><a class="reference internal" href="#iterable">iterableとイテレータ</a></li>
-<li><a class="reference internal" href="#id7">読み込み専用の配列</a></li>
+<li><a class="reference internal" href="#id8">読み込み専用の配列</a></li>
 <li><a class="reference internal" href="#typescript">TypeScriptと配列</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id8">オブジェクト</a><ul>
+<li><a class="reference internal" href="#id9">オブジェクト</a><ul>
 <li><a class="reference internal" href="#json-javascript-object-notation">JSON（JavaScript Object Notation）</a></li>
-<li><a class="reference internal" href="#id9">オブジェクトからのデータの取り出し</a></li>
-<li><a class="reference internal" href="#id10">オブジェクトの要素の加工</a></li>
+<li><a class="reference internal" href="#id10">オブジェクトからのデータの取り出し</a></li>
+<li><a class="reference internal" href="#id11">オブジェクトの要素の加工</a></li>
 <li><a class="reference internal" href="#map">辞書用途はオブジェクトではなくて<code class="docutils literal notranslate"><span class="pre">Map</span></code>を使う</a></li>
-<li><a class="reference internal" href="#id11">TypeScriptとオブジェクト</a></li>
-<li><a class="reference internal" href="#id12">読み込み専用のオブジェクト</a></li>
+<li><a class="reference internal" href="#id12">TypeScriptとオブジェクト</a></li>
+<li><a class="reference internal" href="#id13">読み込み専用のオブジェクト</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id13">まとめ</a></li>
+<li><a class="reference internal" href="#id14">まとめ</a></li>
 </ul>
 </li>
 </ul>
@@ -583,11 +642,11 @@ C言語由来のループは昔からあるものですがループ変数が必�
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 6394</li>
-        <li>非アスキー: 7390</li>
-        <li>合計文字数: 13784</li>
-        <li>半角換算: 21174</li>
-        <li>全角換算: 10587.0</li>
+        <li>英数記号: 7146</li>
+        <li>非アスキー: 7901</li>
+        <li>合計文字数: 15047</li>
+        <li>半角換算: 22948</li>
+        <li>全角換算: 11474.0</li>
     </ul>
     </p>
 </div>
