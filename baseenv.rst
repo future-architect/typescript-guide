@@ -205,7 +205,7 @@ Visual Stuido Codeでフォルダを開いたときに、eslintの拡張と、ed
 
    {
      "editor.codeActionsOnSave": {
-       "source.fixAll.eslint": true,
+       "source.fixAll.eslint": true
      },
      "files.autoSave": "off"
    }
