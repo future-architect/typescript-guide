@@ -37,8 +37,8 @@ Javaなどの配列は要素のすべての型は同じです。TypeScriptでは
 .. code-block:: ts
 
    const movie: [string, number] = ['Gozilla', 1954];
-   // error TS2322: Type 'number' is not assignable to type 'string'.
    movie[0] = 2019;
+   // error TS2322: Type 'number' is not assignable to type 'string'.
 
 固定長の配列を表現する手段としても利用できます。
 
