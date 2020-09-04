@@ -116,6 +116,7 @@
 <li class="toctree-l2"><a class="reference internal" href="typing.html#id10">型ガード</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typing.html#keyof-mapped-type"><code class="docutils literal notranslate"><span class="pre">keyof</span></code> とMapped Type: オブジェクトのキーの文字列のみを許容する動的な型宣言</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typing.html#id14">インタフェースを使った型定義</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#typescript">もしTypeScriptの型を付けるのがコストが高いと感じたら？</a></li>
 <li class="toctree-l2"><a class="reference internal" href="typing.html#id15">まとめ</a></li>
 </ul>
 </li>
@@ -236,11 +237,24 @@
 <li class="toctree-l2"><a class="reference internal" href="clienv.html#deno">Deno</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="webfrontenv.html">ウェブフロントエンドの環境構築</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="webfrontenv.html#id2">ウェブアプリケーションにおけるビルドツールのゴール</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webfrontenv.html#react">Reactの環境構築</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webfrontenv.html#vue-js">Vue.jsの環境構築</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webfrontenv.html#id8">まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="react.html#id1">ウェブアプリケーションにおけるビルドツールのゴール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#id2">Reactについて</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#create-react-app">create-react-appによる環境構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#next-js">Next.js</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#id5">Reactの周辺ツールのインストールと設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#ui">UI部品の追加</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#react-material-ui-typescript">React+Material UI+TypeScriptのサンプル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#reacttypescript">ReactとTypeScript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#reduxtypescript">ReduxとTypeScript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#reactredux">ReactとReduxの非同期アクセス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#id6">Reactの新しい書き方</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#id8">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vue.html#id1">クラスベースのコンポーネント</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vue.html#id2">関数ベースのコンポーネント作成</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ci.html">CI（継続的インテグレーション）環境の構築</a></li>
@@ -290,21 +304,6 @@
 <p class="todo-source">(<a class="reference internal" href="advance.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/advance.rst の 4 行目です)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">課題</p>
-<p>lyntのTypeScript対応状況を注視する</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="baseenv.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/baseenv.rst の 39 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>tsdocとかドキュメントツールを紹介</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="baseenv.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/baseenv.rst の 211 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>eslintやテストの書き方の紹介</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="baseenv.html#id7"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/baseenv.rst の 213 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
 <p>travis、circle.ci、gitlab-ciの設定を紹介。あとはJenkins？</p>
 <p><a class="reference external" href="https://qiita.com/nju33/items/72992bd4941b96bc4ce5">https://qiita.com/nju33/items/72992bd4941b96bc4ce5</a></p>
 <p><a class="reference external" href="https://qiita.com/naokikimura/items/f1c8903eec86ec1de655">https://qiita.com/naokikimura/items/f1c8903eec86ec1de655</a></p>
@@ -338,9 +337,19 @@
 <p class="todo-source">(<a class="reference internal" href="recommended.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/recommended.rst の 54 行目です)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">課題</p>
-<p>事例をつける</p>
+<p>lyntのTypeScript対応状況を注視する</p>
 </div>
-<p class="todo-source">(<a class="reference internal" href="typing.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/typing.rst の 54 行目です)</p>
+<p class="todo-source">(<a class="reference internal" href="baseenv.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/baseenv.rst の 39 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>tsdocとかドキュメントツールを紹介</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="baseenv.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/baseenv.rst の 214 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>eslintやテストの書き方の紹介</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="baseenv.html#id7"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/baseenv.rst の 216 行目です)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">課題</p>
 <p>npmパッケージ to npm
@@ -353,6 +362,11 @@ npmパッケージ to nexus</p>
 <p>Denoはこちらのスレッドを見守る <a class="reference external" href="https://github.com/denoland/deno/issues/3356">https://github.com/denoland/deno/issues/3356</a></p>
 </div>
 <p class="todo-source">(<a class="reference internal" href="deploy.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/deploy.rst の 208 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>事例をつける</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="typing.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/typing.rst の 54 行目です)</p>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="このヘッドラインへのパーマリンク">¶</a></h1>

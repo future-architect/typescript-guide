@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ウェブフロントエンドの環境構築 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+    <title>Reactの環境構築 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -16,7 +16,7 @@
     <script src="_static/translations.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="next" title="CI（継続的インテグレーション）環境の構築" href="ci.html" />
+    <link rel="next" title="Vue.jsの環境構築" href="vue.html" />
     <link rel="prev" title="CLIツール・ウェブサーバー作成のための環境設定" href="clienv.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -34,24 +34,25 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="id1">
-<h1>ウェブフロントエンドの環境構築<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+  <div class="section" id="react">
+<h1>Reactの環境構築<a class="headerlink" href="#react" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>ウェブフロントエンドが今のJavaScript/TypeScriptの主戦場です。本章ではそのウェブフロントエンドの環境構築について紹介します。しかし、本書を書き始めたときに比べて、TypeScriptユーザーが増えるにつれて環境構築のサポートがどんどん手厚くなっているため、章の内容は減っています。そのため、1章でメジャーなフレームワークをすべて紹介することにしました。</p>
 <p>本書で取り上げるのはReactとVue.jsです。React以外にReactをベースにした統合フロントエンドフレームワークとなっているNext.jsも取り上げます。
 Agularは2以降からTypeScriptに書き直されて、TypeScript以外では書けなくなり、最初からTypeScriptが有効な状態でプロジェクトが作成されるため、説明は割愛します。</p>
-<div class="section" id="id2">
-<h2>ウェブアプリケーションにおけるビルドツールのゴール<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id1">
+<h2>ウェブアプリケーションにおけるビルドツールのゴール<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ウェブアプリケーションの環境構築は、ただコンパイルができるというだけではなく、TypeScriptからJavaScriptにトランスパイルされたファイルを1つや複数のチャンクにまとめるバンドラーというツールも必要です。また、開発サーバなどの設定も必要でしょう。開発サーバーはHTTPサーバーとして起動し、JavaScriptやHTML、CSSを配信するサーバーとしてブラウザからは見えます。その裏では、ファイルシステムのソースコードを監視し、変更があったら即座にビルドをして動作確認までのリードタイムを短くします。それだけではなく、その開発中のウェブサイトを見ているブラウザに対して強制リセットをしかけたり（ホットリロード）、起動中にJavaScriptのコードを差し替えたり（ホットモジュールリプレースメント）といったことを実現します。また、TypeScriptだけではなく、CSSでも、事前コンパイルでコーディングの効率をあげる方法が一般化しているため、この設定も必要でしょう。</p>
 <p>この分野では数多くのツールがあります。スキルのある人は自分の好みや要件に合わせてツールを選択すると良いでしょう。TypeScriptの対応についても、最初から対応していたり、後からプラグインで拡張など、いろいろなものがあります。</p>
 <p>webpackは細かくカスタマイズできますし、豊富な開発リソースで頻繁にリリースされています。ツリーシェイキングといった不要なコードを除外してサイズを小さくする機能にいち早く取り組んだり、業界をリードしています。困った時に検索すると情報も多く出てきます。一方で、TypeScript対応で開発サーバーやCSS対応など、機能を足していこうとすると設定やプラグインが増えていきます。特に、ReactのJSX構文を利用する場合は、バンドラーの処理の前段でTypeScriptをJavaScriptに変換したあとにBabelを使い、最後にバンドラーで1ファイルや複数ファイルにまとめるなど、ビルドのパイプラインが多段になりがちです。ReactやVueの環境構築ツールやNext.js、Nuxt.jsなどはwebpackを内包して、少ない設定の量で一定の機能を備えたビルド環境を整えてくれます。本書でも、webpackそのものを紹介することはしませんが、これらのツールの紹介をします。</p>
 <p>他にも数多くのバンドラーがあります。webpack以降に出てきたものの多くは設定が少ない、あるいは設定ファイルが不要（ゼロコンフィギュレーション）を売りにしたものが数多くあります。Rollupは人気のあるバンドラーで、TypeScriptを使うにはプラグインが必要ですが、そうでないのであれば設定がほとんど必要ありません。RollupをベースにTypeScriptサポートを最初から組み込んだmicrobundleもあります。HTMLやCSSのビルドもできて開発サーバーも全てついてくるオールインワンでビルド速度を重視したParcelや、Go製でビルド速度に特化したesbuildもあります。一方で、カスタマイズが必要なので最初からカスタマイズ前提でCLIを提供しないFuseboxなどもあります。</p>
 </div>
-<div class="section" id="react">
-<h2>Reactの環境構築<a class="headerlink" href="#react" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id2">
+<h2>Reactについて<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ReactはFacebook製のウェブフロントエンドのライブラリで、宣言的UI、仮想DOMによる高速描画などの機能を備え、現在のフロントエンドで利用されるライブラリの中では世界シェアが一位となっています。Reactによって広まった宣言的UIはいまやウェブを超え、iOSのSwift UIやAndroidのJetpack Compose、Flutterなど、モバイルアプリの世界にも波及しており、このコミュニティが近年のムーブメントの発信源となることも増えています。</p>
 <p>JavaScriptは組み合わせが多くて流行がすぐに移り変わっていつも環境構築させられる（ように見える）とよく言われますが、組み合わせが増えても検証されてないものを一緒に使うのはなかなか骨の折れる作業で、結局中のコードまで読まないといけなかったりとか、環境構築の難易度ばかりが上がってしまいます。特にRouterとかすべてにおいて標準が定まっていないReactはそれが顕著です。それでも、もう2013年のリリースから長い期間が経ち、周辺ライブラリも自由競争の中で淘汰されたりして、定番と言われるものもかなり定まってきています。環境構築においてもほぼ全自動で済むツール<code class="docutils literal notranslate"><span class="pre">create-react-app</span></code>が登場しましたし、オールインワンなNext.jsも利用できます。そろそろ「枯れつつあるフレームワーク」としてReactを選ぶこともできるようになると感じています。</p>
+</div>
 <div class="section" id="create-react-app">
-<h3>create-react-appによる環境構築<a class="headerlink" href="#create-react-app" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2>create-react-appによる環境構築<a class="headerlink" href="#create-react-app" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Reactは標準で環境構築ツールcreate-react-appコマンドを提供しています。これを使って環境構築を行う場合、 <code class="docutils literal notranslate"><span class="pre">--template</span> <span class="pre">typescript</span></code> オプションをつけるとTypeScript用のプロジェクトが作成できます。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npx create-react-app --template typescript myapp
 
@@ -72,7 +73,7 @@ Happy hacking!
 <p>構築した環境は、すべてをバンドルした<code class="docutils literal notranslate"><span class="pre">react-scripts</span></code>というコマンドが開発サーバー、コンパイル、バンドルなどすべてを行います。このスクリプトはカスタマイズのポイントがなく、<code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>があるだけです。このスクリプトはときに厄介な動きをすることもあります。例えば、<code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>の変更を勝手に戻したりします。<code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">eject</span></code>を実行すると、このスクリプトが分解されて<code class="docutils literal notranslate"><span class="pre">config</span></code>フォルダに出力されます。これを変更することで、出力先からwebpackの設定まで、細かい内容が変更できるようになります。また、どのような動作が設定されていたのかも確認できます。</p>
 </div>
 <div class="section" id="next-js">
-<h3>Next.js<a class="headerlink" href="#next-js" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2>Next.js<a class="headerlink" href="#next-js" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Next.jsはVercel社が開発しているReactのオールインワンパッケージです。<code class="docutils literal notranslate"><span class="pre">next</span></code>コマンドでプロジェクトを作成すると、webpackによるビルドサーバーやコンパイルに必要な設定だけではなく、フロントエンド側の便利機能のCSS in JS、シングルページアプリケーションのためのRouterなどの開発環境整備が完了した環境が一発で作成できます。バージョン9からはTypeScriptにも対応済みのプロジェクトが作成されるようになりました。よく使う部品が最初から設定されているため、ツールやライブラリの調整に手間がかからないのが良い点です。</p>
 <p>デフォルトではサーバーサイドレンダリングを行うフロントエンド機能のみですが、カスタムサーバー機能を使えば、Express.jsなどのNode.jsのAPIサーバーにサーバーサイドレンダリング機能などを乗せることができます。Express.jsへの薄いラッパーになりますので、Express.jsの知識を利用して、APIサーバー機能も同一のサーバー上に追加できます。また、サーバーサイドレンダリングを使わずに静的なHTMLとJavaScriptコードを生成することも可能です。</p>
 <p>Next.jsの良いところは、よく使うツールやライブラリ一式が検証された状態で最初からテストされている点にくわえ、issueのところでもアクティブな中の人がガンガン回答してくれていますし、何よりも多種多様なライブラリとの組み合わせをexampleとして公開してくれている<a class="footnote-reference brackets" href="#id4" id="id3">1</a>のが一番強いです。
@@ -110,14 +111,14 @@ ReactもJSX構文をそのまま残す必要があるので&quot;preserve&quot;�
 <p>詳しくはNext.jsの<a class="reference external" href="https://nextjs.org/docs/basic-features/built-in-css-support">組み込みCSSサポートページ（英語）</a>を参照してください。</p>
 </div>
 <div class="section" id="id5">
-<h3>Reactの周辺ツールのインストールと設定<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2>Reactの周辺ツールのインストールと設定<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>create-react-appの方はすでに設定済みですが、Next.jsはESLintやテストの設定が行われませんので、品質が高いコードを実装するために環境整備をしましょう。
 ESLintを入れる場合は、ReactのJSXに対応させるために、<code class="docutils literal notranslate"><span class="pre">eslint-plugin-react</span></code>を忘れないようにしましょう。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># テスト関係</span>
 $ npm install --save-dev jest ts-jest @types/jest
 
 <span class="c1"># ESLint一式</span>
-$ npm install --save-dev prettier　eslint
+$ npm install --save-dev prettier eslint
 　　 @typescript-eslint/eslint-plugin eslint-plugin-prettier
     eslint-config-prettier eslint-plugin-react npm-run-all
 </pre></div>
@@ -164,7 +165,7 @@ $ npm install --save-dev prettier　eslint
 </div>
 </div>
 <div class="section" id="ui">
-<h3>UI部品の追加<a class="headerlink" href="#ui" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2>UI部品の追加<a class="headerlink" href="#ui" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ReactやNext.jsにはかっこいいUI部品などはついておらず、自分でCSSを書かないかぎりは真っ白なシンプルなHTMLになってしまいます。React向けによくメンテナンスされているMaterial Designのライブラリである、Material UIを入れましょう。ウェブ開発になると急に必要なパッケージが増えますね。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://material-ui.com/">https://material-ui.com/</a></p></li>
@@ -218,11 +219,11 @@ render(
 </ul>
 </div>
 <div class="section" id="react-material-ui-typescript">
-<h3>React+Material UI+TypeScriptのサンプル<a class="headerlink" href="#react-material-ui-typescript" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2>React+Material UI+TypeScriptのサンプル<a class="headerlink" href="#react-material-ui-typescript" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ページ作成のサンプルです。Next.jsベースになっていますが、このサンプルに関してはcreate-react-appとの差はごく一部です。</p>
 <ul class="simple">
 <li><p>Next.jsはpages以下の.tsxファイルがページになります。このファイルは<code class="docutils literal notranslate"><span class="pre">pages/index.tsx</span></code>なので、<code class="docutils literal notranslate"><span class="pre">http://localhost:3000</span></code>でアクセスできます。このファイルは<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">default</span></code>でReactコンポーネントを返す必要があります。create-react-app製のコードは<code class="docutils literal notranslate"><span class="pre">src/index.tsx</span></code>がルートになっていますが、そこからインポートされている<code class="docutils literal notranslate"><span class="pre">src/App.tsx</span></code>がアプリケーションとしてはトップページなので、ここに書くと良いでしょう。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">next/head</span></code>は<code class="docutils literal notranslate"><span class="pre">&lt;head&gt;</span></code>タグを生成するコンポーネントになりますが、create-react-appの場合は<a class="reference external" href="https://www.npmjs.com/package/react-helmet">react-helment</a>などの別パッケージが必要でしょう。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">next/head</span></code>は<code class="docutils literal notranslate"><span class="pre">&lt;head&gt;</span></code>タグを生成するコンポーネントになりますが、create-react-appの場合は<a class="reference external" href="https://www.npmjs.com/package/react-helmet">react-helmet</a>などの別パッケージが必要でしょう。</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">next/link</span></code>はシングルページアプリケーションのページ間遷移を実現する特殊なリンクを生成するコンポーネントです。create-react-appでシングルページアプリケーションを実現する場合は<a class="reference external" href="https://reactrouter.com/">React Router</a>などの別パッケージが必要となります。</p></li>
 </ul>
 <p>TypeScriptだからといって特殊なことはほとんどなく、世間のJavaScriptのコードのほとんどそのままコピーでも動くでしょう。唯一補完が聞かない<code class="docutils literal notranslate"><span class="pre">any</span></code>が設定されていたのが<code class="docutils literal notranslate"><span class="pre">makeStyle</span></code>でした。これはCSSを生成する時にパラメータとして任意の情報を設定できるのですが、今回はMaterial UIのテーマをそのまま渡すことにしたので、<code class="docutils literal notranslate"><span class="pre">Theme</span></code>を型として設定しています。</p>
@@ -317,7 +318,7 @@ export default function Home() {
 </div>
 </div>
 <div class="section" id="reacttypescript">
-<h3>ReactとTypeScript<a class="headerlink" href="#reacttypescript" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2>ReactとTypeScript<a class="headerlink" href="#reacttypescript" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Reactに限らず、近年の流行のウェブフロントエンドの実装スタイルは「コンポーネント」と呼ばれる独自タグを実装していく方法です。コンポーネントの中にもコンポーネントを書くことができます。そのコンポーネントが集まってアプリケーションになります。Reactもその例に漏れず、コンポーネントを実装していきます。</p>
 <p>前節のサンプルの中にある、大文字始まりの名前のタグがそのコンポーネントです。それぞれのタグは表示されるときには分解されて、最終的にはHTML5のいつものタグに還元されます。タグなので、引数があり、子要素があります。</p>
 <p>ReactはTypeScriptを使って適切に型のチェックができるようになっています。Reactはjsx構文を使って書きますが、これはTypeScriptやBabelといった処理系によってJavaScriptの普通の関数呼び出しに変換されます。React以前のライブラリなどは、テンプレートをフロントで効率よく実行するためのに、動的に関数呼び出しのコードを生成し、<code class="docutils literal notranslate"><span class="pre">eval</span></code>などを使って関数に変換したりしていました。近年ではこれらはContent-Security-Policyでエラーになる可能性があるなどの問題もあり、ビルド時にプログラム化するようになってきました。</p>
@@ -385,13 +386,13 @@ MyComponent.defaultProps = {
 </div>
 </div>
 <div class="section" id="reduxtypescript">
-<h3>ReduxとTypeScript<a class="headerlink" href="#reduxtypescript" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2>ReduxとTypeScript<a class="headerlink" href="#reduxtypescript" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Reactの周辺のライブラリの作者の中にはTypeScriptを使わない人が多くいました。Reactは元々Facebookが開発していたflowtypeを使うことが多かったり、ReactのJavaScriptの記述法がかなりトリッキーだったり、と理由はいろいろ考えられます。その後、MicrosoftがReactを大々的に利用するように宣言し、TypeScriptの機能もかなり充実しました。近年ではTypeScriptの型定義ファイルが最初から付属するようになったり、TypeScriptで再実装されたり、TypeScriptとの親和性がどんどん上がっています。</p>
 <p>Reduxはアプリケーション内部で横断的に利用したいデータを保持したいり、その更新を行うための補助ライブラリです。データの更新にともない、必要な画面更新だけを効率的に行えるようにもしてくれます。大規模なアプリケーションではよく活用されていました。そのRedux本体も、TypeScriptで適切に型をつけていこうとするとかなり頭と手を使う必要がありましたが、公式サポートライブラリのRedux-Toolkitは、TypeScriptとの親和性が極めて高くなりました。素のReduxをこれから扱う理由は特にないので、本書ではRedux-Toolkit経由でのReduxの操作について紹介します。</p>
 <p>Reduxはストアと呼ばれる中央のデータ庫を持ちます。データに変更を加えるためのreducerと呼ばれる変換ロジックを実装します。標準のReduxを使う場合は、reducerのみを実装します。この関数の返り値がステートになります。データの保管そのものはReduxが行い、開発者が触ることはできません。必要に応じてreducerをReduxが実行し、その結果をReduxが管理するという構成です。</p>
 <p>このreducerをトリガーするのに必要なのが、アクションと呼ばれるデータでした。これを<code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>という関数に投げ込むことでreducerが起動され、そのアクションに応じてデータを書き換えていました。</p>
 <p>しかし、まずJavaScriptの文化で、アクションクリエーターというアクションを作る関数を作っていました。この場合、型をつけるにはreducerの引数にはすべてのアクションの型（アクションクリエーターの返り値の型）の合併型を作る必要がありました。この「すべての」というのが大きなアプリケーションになると依存関係が循環しないように気をつけたり、漏れなく型を合成してあげないといけなかったりと、型のために人間が行う作業が膨大でした。多くの人が「Reduxに型をつけるには？」という文章を書いたりしましたが、その後、Reduxが公式で出してきた解答がRedux-Toookitでした。</p>
-<p>Redux-Toolkitは次のような実装になります。スライスというステートとreducer、アクションクリエーターがセットになったオブジェクトを作成します。</p>
+<p>Redux-Toolkitは次のような実装になります。スライスというステートとreducer、アクションクリエーターがセットになったオブジェクトを作成します。Reducerの引数のstateは<code class="docutils literal notranslate"><span class="pre">Readonly&lt;&gt;</span></code>をつけておくと、デバッグで問題の追跡が難しい不測の事態が発生するのを未然に防げます。</p>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text">スライスを作成</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">createSlice</span><span class="p">,</span> <span class="nx">configureStore</span><span class="p">,</span> <span class="nx">PayloadAction</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@reduxjs/toolkit&#39;</span><span class="p">;</span>
@@ -411,11 +412,11 @@ MyComponent.defaultProps = {
   <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;counter&#39;</span><span class="p">,</span>
   <span class="nx">initialState</span><span class="p">,</span>
   <span class="nx">reducers</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">incrementCounter</span><span class="o">:</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span>: <span class="kt">PayloadAction</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+    <span class="nx">incrementCounter</span><span class="o">:</span> <span class="p">(</span><span class="nx">state</span>: <span class="kt">Readonly</span><span class="o">&lt;</span><span class="nx">State</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">action</span>: <span class="kt">PayloadAction</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
       <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
       <span class="nx">count</span>: <span class="kt">state.count</span> <span class="o">+</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">,</span>
     <span class="p">}),</span>
-    <span class="nx">decrementCounter</span><span class="o">:</span> <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span>: <span class="kt">PayloadAction</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+    <span class="nx">decrementCounter</span><span class="o">:</span> <span class="p">(</span><span class="nx">state</span>: <span class="kt">Readonly</span><span class="o">&lt;</span><span class="nx">State</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">action</span>: <span class="kt">PayloadAction</span><span class="o">&lt;</span><span class="kt">number</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
       <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
       <span class="nx">count</span>: <span class="kt">state.count</span> <span class="o">-</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span><span class="p">,</span>
     <span class="p">}),</span>
@@ -456,9 +457,9 @@ MyComponent.defaultProps = {
   <span class="nx">TypedUseSelectorHook</span><span class="p">,</span>
 <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-redux&#39;</span><span class="p">;</span>
 
-<span class="kr">export</span> <span class="nx">type</span> <span class="nx">RootState</span> <span class="o">-</span> <span class="nx">ReturnType</span><span class="o">&lt;</span><span class="k">typeof</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getState</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">RootState</span> <span class="o">=</span> <span class="nx">ReturnType</span><span class="o">&lt;</span><span class="k">typeof</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getState</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="kr">export</span> <span class="kr">const</span> <span class="nx">useSelector</span>: <span class="kt">TypedUseSelectorHook</span><span class="o">&lt;</span><span class="nx">RootState</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">useReduxSelector</span><span class="p">;</span>
-<span class="kr">export</span> <span class="nx">type</span> <span class="nx">AppDispatch</span> <span class="o">=</span> <span class="nx">type</span> <span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">;</span>
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">AppDispatch</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -513,7 +514,7 @@ export function MyComponent() {
 <p>要注意なポイントは、スライスの名前です。複数のスライスをまとめてReduxの最終的なステートを作り上げますが、この名前がかぶっていると、変更していないはずなのにいつのまにか値が変更されていたりといったトラブルが発生します。</p>
 </div>
 <div class="section" id="reactredux">
-<h3>ReactとReduxの非同期アクセス<a class="headerlink" href="#reactredux" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2>ReactとReduxの非同期アクセス<a class="headerlink" href="#reactredux" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Reactの基本の書き方とRedux-Toolkitを使って型チェックが完全な形で行われるようになりました。サーバーサイドレンダリングの仕組みやstyled-componentを使ったスタイリング、Routerによるシングルページアプリケーションのページ切り替えなど、追加の情報や便利ライブラリは別にありますが、Reactに関する最新の基礎知識はほぼこれでカバーできたと言えます。</p>
 <p>しかし、もう1つ触れておかなければならないことがあります。それが非同期のデータアクセスです。</p>
 <p>画面の表示に必要なデータの取得や結果の格納でサーバーアクセスが必要になることがあります。サーバーアクセスが一切ないウェブフロントエンドはあまりないでしょう。静的サイトジェネレータから呼び出す場合はまたそちらの作法がありますが、今回は通常のウェブアプリケーションのフロントエンドの説明を行ます。</p>
@@ -637,151 +638,256 @@ export function MyComponent() {
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="vue-js">
-<h2>Vue.jsの環境構築<a class="headerlink" href="#vue-js" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Vue.jsは日本で人気のあるウェブフロントエンドのフレームワークです。柔軟な設定のできるCLIツールが特徴です。本書では3系についてとりあげます。</p>
-<div class="admonition note">
-<p class="admonition-title">注釈</p>
-<p>今の執筆時点ではまだ正式リリースはまだです。</p>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npx @vue/cli@next create myapp
-</pre></div>
-</div>
-<p>作成時に最初に聞かれる質問でdefaultのpreset（babelとeslint）ではなく、Manually select featuresを選択します。</p>
-<div class="figure align-default" id="id22">
-<img alt="_images/vue-cli-1.png" src="_images/vue-cli-1.png" />
-<p class="caption"><span class="caption-text">TypeScriptを選択する場合はManually select featuresを選択</span><a class="headerlink" href="#id22" title="この画像へのパーマリンク">¶</a></p>
-</div>
-<p>次のオプションで必要なものをスペースキーで選択して、エンターで次に進みます。選んだ項目によって追加の質問が行われます。Routerやステート管理などのアプリケーション側の機能に関する項目以外にも、LinterやユニットテストフレームワークやE2Eテストの補助ツールなど、さまざまなものを選択できます。</p>
-<div class="figure align-default" id="id23">
-<img alt="_images/vue-cli-2.png" src="_images/vue-cli-2.png" />
-<p class="caption"><span class="caption-text">必要な機能を選択する</span><a class="headerlink" href="#id23" title="この画像へのパーマリンク">¶</a></p>
-</div>
-<p>途中で、クラスベースかそうではないか、という質問が出てきます。以前ではクラスベースのAPIの方がTypeScriptとの相性がよかったのですが、Vue.js 3からの新しいAPIで、クラスベースでない時も型チェックなどに優しいAPIに改善されました。そこはチームで好きな方を選択すれば良いですし、あとから別のスタイルにすることもできます。</p>
-<div class="figure align-default" id="id24">
-<img alt="_images/vue-cli-3.png" src="_images/vue-cli-3.png" />
-<p class="caption"><span class="caption-text">クラススタイルのコンポーネントを利用するか？</span><a class="headerlink" href="#id24" title="この画像へのパーマリンク">¶</a></p>
-</div>
-<p>現在のVue.jsのプロジェクトのほとんどは、<code class="docutils literal notranslate"><span class="pre">.vue</span></code>ファイルに記述するシングルファイルコンポーネント（SFC）を使っていると思いますが、TypeScriptを使う場合、スクリプトタグの<code class="docutils literal notranslate"><span class="pre">lang</span></code>属性を<code class="docutils literal notranslate"><span class="pre">ts</span></code>になっています。</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
-  HTMLテンプレート
-<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ts&quot;</span><span class="p">&gt;</span>
-  <span class="nx">コンポーネントのソースコード</span><span class="p">(</span><span class="nx">TypeScript</span><span class="p">)</span>
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
-  <span class="nt">CSS</span>
-<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
-</pre></div>
-</div>
 <div class="section" id="id6">
-<h3>クラスベースのコンポーネント<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>クラスベースのコンポーネントはvue-class-componentパッケージを使い、デコレータをつけたクラスとして実装します。クラスのインスタンスのフィールドがデータ、ゲッターが算出プロパティになっているなど、TypeScriptのプレーンな文法とVueの機能がリンクしており、ウェブフロントエンドを最初に学んだのではなく、言語としてのTypeScriptやJavaScript、他の言語の経験が豊富な人には親しみやすいでしょう。環境構築のCLIのオプションではデフォルトでこちらになるような選択肢になっています。</p>
-<p>以下のコードはVue.js 3系のクラスベースのコンポーネント実装です。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>&lt;script lang=&quot;ts&quot;&gt;
-import { Options, Vue } from &quot;vue-class-component&quot;;
-import HelloWorld from &quot;./components/HelloWorld.vue&quot;;
+<h2>Reactの新しい書き方<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Reactは歴史のあるコンポーネントで、途中でいくつも機能追加が行われたり改善されています。1つのことを実現するのに新旧何通りもやり方が提供されていたりします。新しい書き方が作られるのは、もちろん、そちらの方がミスが少なかったり、コードが短くなったりと改善が見込まれるからです。Reactの場合はTypeScript的にも優しい書き方となっているため、もし古いコーディング規約に従っている場合は新しい書き方に整理していくと良いでしょう。</p>
+<p>2019年2月にリリースされたReact 16.8のHooksにより、新しい書き方に大々的に移行可能になりました。もしこれ以前から続いているプロジェクトの場合、新しくつくるコンポーネントや、改修を行うコンポーネントから徐々に移行していくと良いでしょう。</p>
+<div class="section" id="id7">
+<h3>クラスコンポーネントではなく、関数コンポーネントにする<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>まずは古いTypeScript以前の書き方です。お決まりの書き方だけでもかなりの行数になってしまいます。</p>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">古い書き方</span><a class="headerlink" href="#id22" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span>import React, { Component } from &quot;react&quot;;
+import propTypes from &quot;prop-types&quot;;
 
-@Options({
-  components: { // テンプレート中で利用したい外部のコンポーネント
-    HelloWorld
-  }
-})
-export default class Counter extends Vue {
-  // フィールドがデータ
-  count = 0;
+class MyComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 0;
+        }
+        this.onClick = this.onClick.bind(this);
+    }
 
-  // 産出プロパティはゲッターとして実装
-  get message() {
-    return `カウントは${this.count}です`;
-  }
+    componentDidMount() {
+        // サーバーアクセスなどのマウント後に実行したいコードはここ
+    }
 
-  // メソッドを作成するとテンプレートから呼び出せる
-  increment() {
-    this.count++;
-  }
+    componentWillUnmount() {
+        // 削除前に実行したいコードはここ
+    }
 
-  decrement() {
-    this.count--;
-  }
+    onClick() {
+        this.setState({
+            count: this.state.count + 1;
+        });
+        this.Props.onUpdated(this.state.count + 1);
+    }
 
-  // ライフサイクルメソッドもメソッド定義でOK
-  beforeMount() {
-  }
+    render() {
+        return (
+            &lt;div className=&quot;panel&quot;&gt;
+                &lt;div className=&quot;message&quot;&gt;
+                    &lt;button onClick={this.onClick}&gt;{this.props.label}&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        );
+    }
 }
-&lt;/script&gt;
+
+MyComponent.propTypes = {
+    label: PropTypes.string
+    onUpdated: PropTypes.func
+}
+
+MyComponent.defaultProps = {
+    label: &quot;押して下さい&quot;
+};
 </pre></div>
 </div>
-<p>これをラップしてより多くのデコレータを追加したvue-property-decoratorというパッケージもあります。こちらの方が、<code class="docutils literal notranslate"><span class="pre">&#64;Prop</span></code>や<code class="docutils literal notranslate"><span class="pre">&#64;Emit</span></code>でプロパティやイベント送信も宣言できて便利でしょう。</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><a class="reference external" href="https://www.npmjs.com/package/vue-property-decorator">https://www.npmjs.com/package/vue-property-decorator</a></p></li>
-</ul>
-</div></blockquote>
-<div class="admonition warning">
-<p class="admonition-title">警告</p>
-<p>ただし、現時点で3.0系で変わったvue-class-componentの変更にはまだ追従していないように見えます。</p>
+</div>
+<p>これ以降、JavaScriptやTypeScriptへの機能追加により、何段階か書き方の改善がありました。コンストラクタで<code class="docutils literal notranslate"><span class="pre">onClick</span></code>をbindしなおしている代わりに、class定義の中で代入できるようになったので、アロー演算子を使っているかもしれませんし、TypeScript化で<code class="docutils literal notranslate"><span class="pre">Component</span></code>の型変数でPropsやStateの型変数を設定するようになっているかもしれません。</p>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">ほどほどに古い書き方</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">interface</span> <span class="nx">Props</span> <span class="p">{</span>
+    <span class="nx">label</span>: <span class="kt">string</span><span class="p">;</span>
+    <span class="nx">onUpdated</span><span class="o">:</span> <span class="p">(</span><span class="nx">count</span>: <span class="kt">number</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">State</span> <span class="p">{</span>
+    <span class="nx">counter</span>: <span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// TypeScriptで型定義</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">MyComponent</span> <span class="kr">extends</span> <span class="nx">Component</span><span class="o">&lt;</span><span class="nx">Props</span><span class="p">,</span> <span class="nx">State</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="c1">// コンストラクタではなく、クラス定義の中で代入文</span>
+    <span class="kr">private</span> <span class="nx">state</span>: <span class="kt">State</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">counter</span>: <span class="kt">0</span><span class="p">,</span>
+    <span class="p">};</span>
+    <span class="c1">// アロー演算子でイベントハンドラ実装</span>
+    <span class="kr">private</span> <span class="nx">onClick</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">counter</span>: <span class="kt">this.state.counter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">});</span>
+    <span class="p">}</span>
+    <span class="nx">render() {</span>
+        <span class="c1">// :ここは同じ</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 </div>
-<div class="section" id="id7">
-<h3>関数ベースのコンポーネント作成<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>Vue本体で提供されている<code class="docutils literal notranslate"><span class="pre">defineComponent()</span></code>関数を使いコンポーネントを定義します。今までのオブジェクトをそのまま公開する方法と違い、この関数の引数のオブジェクトの型は定まっているため、以前よりもTypeScriptとの相性が改善されています。このオブジェクトの属性で名前や他の依存コンポーネント、Propsなどを定義するとともに、<code class="docutils literal notranslate"><span class="pre">setup()</span></code>メソッドでコンポーネント内部で利用される属性などを定義します。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>&lt;script lang=&quot;ts&quot;&gt;
-import { defineComponent, SetupContext, reactive } from &quot;vue&quot;;
-import HelloWorld from &quot;./components/HelloWorld.vue&quot;;
+<p>古い書き方でTypeScriptを使わなくても、Reactレベルでさまざまなチェック機構で提供されており開発は便利ではありました。ただし、<code class="docutils literal notranslate"><span class="pre">state</span></code>の変更処理（<code class="docutils literal notranslate"><span class="pre">setState()</span></code>呼び出し）をした直後にはまだインスタンス変数の<code class="docutils literal notranslate"><span class="pre">this.state</span></code>が変更されておらず、状態がおかしくなってしまう、という問題があったり、イベントハンドラをJSXに渡すときに、thisの束縛を忘れてイベントが発火した後にエラーになるといったミスがおきやすい素地がありました。</p>
+<p>現在主流になっているのが関数コンポーネントです。当初は状態を持たないコンポーネントのみだったため、クラスコンポーネントからの完全移行は大変でしたが、Hookという機能が追加されてクラスコンポーネントを完璧に置き換えられるようになりました。関数コンポーネントは状態管理をReact側におまかせして、<code class="docutils literal notranslate"><span class="pre">render()</span></code>のみにしたような書き方です。だいぶ、縦にも横にも圧縮されたことがわかります。</p>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">新しい書き方</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>import React, { useState, useEffect } from &quot;react&quot;;
 
 type Props = {
-  name: string;
+    label?: string;
+    onUpdated: (count: number) =&gt; void;
+};
+
+export function MyComponent(props: Props) {
+    const [count, setCount] = useState(0);
+    const {label, onUpdate} = props;
+
+    useEffect(() =&gt; {
+        // サーバーアクセスなどのマウント後に実行したいコードはここ
+        return () =&gt; {
+            // 削除前に実行したいコードはここ
+        }
+    }, []);
+
+    function onClick() {
+        setCount(count + 1);
+        onUpdated(count + 1);
+    }
+
+    return (
+        &lt;div className=&quot;panel&quot;&gt;
+            &lt;div className=&quot;message&quot;&gt;
+                &lt;button onClick={onClick}&gt;{label}&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
 }
 
-export default defineComponent({
-  name: &quot;App&quot;,
-  components: {
-    HelloWorld
-  },
-  props: {
-    name: {
-      type: String,
-      default: &quot;hello world&quot;
-    }
-  },
-  setup(props: Props, context: SetupContext) {
-    const state = reactive({
-      counter: 0,
-    });
-    const greeting = () =&gt; {
-      context.emit(&quot;greeting&quot;, `Hello ${props.name}`);
-    };
-
-    return {
-      state,
-      greeting
-    }
-  }
-});
-&lt;/script&gt;
+MyComponent.defaultProps = {
+    label: &quot;押して下さい&quot;
+};
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">注釈</p>
-<p><strong>Nuxt.jsを使ったプロジェクト作成</strong></p>
-<p>Vue.jsにも、Vue.jsをベースにしてサーバーサイドレンダリングなどの自分で設定すると大変な機能がプリセットになっているNuxt.jsがあります。
-Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケージのインストールや設定が必要です。日本語によるガイドもあります。</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://typescript.nuxtjs.org/ja/guide/setup.html">https://typescript.nuxtjs.org/ja/guide/setup.html</a></p></li>
-</ul>
 </div>
+<p>一番短くなってミスがおきにくくなったのは<code class="docutils literal notranslate"><span class="pre">state</span></code>周りです。<code class="docutils literal notranslate"><span class="pre">useState()</span></code>に初期値を渡すと、現在の値を保持する変数と、変更する関数がペアで帰ってきます。初期値から型推論で設定されるため、Stateの型定義を外で行う必要はなくなります。<code class="docutils literal notranslate"><span class="pre">setState()</span></code>で変更したものが直後に変更されているはず、と誤解されることもなくなりました。もう一度レンダリングが実行されないと変数の値が変更されないのは<code class="docutils literal notranslate"><span class="pre">useState()</span></code>の宣言を見ればあきらかです。</p>
+<p>イベントハンドラの<code class="docutils literal notranslate"><span class="pre">this</span></code>の束縛もなくなります。もはや単なる関数であって、オブジェクトではないため、<code class="docutils literal notranslate"><span class="pre">this</span></code>を扱う必要もなくなります。横方向に圧縮されたのは<code class="docutils literal notranslate"><span class="pre">this.</span></code>がたくさん省略されたからです。</p>
+<p>いくつかのライフサイクルメソッドが削除されたり、名前が変わったりはありますが、以前のコードもそのまま動きますので、全部を一度に移行する必要はありません。</p>
+</div>
+<div class="section" id="hooks">
+<h3>サードパーティのライブラリもHooksを使う<a class="headerlink" href="#hooks" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>関数コンポーネント自体もコードを文字書くする効能がありますが、新しいHooksスタイルにより、サードパーティのライブラリの組み込みも簡単になります。残念ながら、Hooksスタイルの関数は関数コンポーネントでしか利用できませんので、前述の関数コンポーネントへの書き換えがまず必要になります。</p>
+<p>例えば、React-RouterやReduxとの接続は、コンポーネントをラップしてpropsに要素を追加する関数呼び出しが必要でした。ユーザーコード側では、サードパーティのライブラリから何かしら情報をもらったり、サードパーティのライブラリの機能を呼び出しするには、<code class="docutils literal notranslate"><span class="pre">props</span></code>経由で扱う必要があり、この特殊なラッパーは<code class="docutils literal notranslate"><span class="pre">props</span></code>に新しい属性を増やす役割を果たしていました。しかし、ユーザーコード側でも<code class="docutils literal notranslate"><span class="pre">propsTypes</span></code>にこれを追加する必要があったりと、たくさんの転記作業が必要でした。コンポーネントの外の状態まで気を配る必要がありました。</p>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">古いReact-Routerのラッパースタイルの書き方</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">withRouter</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;react-router-dom&quot;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">MyComponent</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">onClick</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ページ遷移</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;/new-path&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// :</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// サードパーティを使う側に知識が必要なポイント</span>
+<span class="nx">MyComponent</span><span class="p">.</span><span class="nx">props</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">history</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">object</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="c1">// ここでラップ！</span>
+<span class="kr">const</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">withRouter</span><span class="p">(</span><span class="nx">MyComponent</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<p>Hooksに対応したReact-Routerのv5移行であればコンポーネントの中で履歴を触るためにコンポーネントの外にまで手を加える（ラップしたりPropsを変更する）必要はなくなりました。ここでも、縦にも横にも短くなったことがわかるでしょう。React-Routerの機能にアクセスするための壮大な準備コードが不要になりました。</p>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">新しい履歴へのアクセス方法</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">useHistory</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;react-router-dom&quot;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">MyComponent</span><span class="p">(</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">history</span> <span class="o">=</span> <span class="nx">useHistory</span><span class="p">();</span>
+
+    <span class="nx">onClick() {</span>
+        <span class="nx">history</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;/new-path&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="c1">// :</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>よく不要論とかが取り沙汰されるReduxも、Reduxのストアにアクセスしたり、変更のために<code class="docutils literal notranslate"><span class="pre">dispatch</span></code>を呼ぶときにその準備コードが多くなる問題がありました。次のコードは、コンポーネント定義自体は全部省略して空ですが、これだけの準備コードが必要でした。</p>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">Reduxの古い書き方</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">connect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;react-redux&quot;</span>
+
+<span class="kr">class</span> <span class="nx">MyComponent</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+   <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="c1">// PropTypesへの追加が必要</span>
+<span class="nx">MyComponent</span><span class="p">.</span><span class="nx">porpTypes</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">counter</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">object</span><span class="p">,</span>
+    <span class="nx">onClick</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">func</span><span class="p">,</span>
+    <span class="nx">dispatch</span><span class="o">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">func</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1">// このマッピング関数の定義は必要</span>
+<span class="kd">function</span> <span class="nx">mapStateToProps</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">counter</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">reducer</span><span class="p">.</span><span class="nx">counter</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="c1">// connectでpropsにdispatchが増えるので、connectの2つめの</span>
+<span class="c1">// このマッピングは使わずにdispatchをコンポーネント内部で呼び出す</span>
+<span class="c1">// ことも可能</span>
+<span class="kd">function</span> <span class="nx">mapDispatchToProps</span><span class="p">(</span><span class="nx">dispatch</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1">// アクションはオブジェクトそのままではなくアクションクリエータとして切り出されている場合も</span>
+        <span class="nx">onClick</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span>
+            <span class="nx">type</span><span class="o">:</span> <span class="nx">Actions</span><span class="p">.</span><span class="nx">DISPATCH_EVENT</span><span class="p">,</span>
+            <span class="nx">hoge</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="p">}),</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">MyComponent</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">mapStateToProps</span><span class="p">,</span> <span class="nx">mapDispatchToProps</span><span class="p">)(</span><span class="nx">Test</span><span class="p">);</span>
+<span class="kr">export</span> <span class="nx">MyComponent</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>のマッピングはしていませんが、<code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>やReduxのストアへのアクセスは2つのHooksスタイルの関数で完了します。劇的ですね。Reduxのストア定義自体も、本章の中で紹介したRedux-Toolkitを使うことで大幅に短く書けるようになりました。</p>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text">Reduxの新しい書き方</span><a class="headerlink" href="#id28" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">useDispatch</span><span class="p">,</span> <span class="nx">useSelector</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-redux&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="kd">function</span> <span class="nx">MyComponent() {</span>
+    <span class="kr">const</span> <span class="nx">dispatch</span> <span class="o">=</span> <span class="nx">useDispatch</span><span class="p">();</span>
+    <span class="kr">const</span> <span class="nx">counter</span> <span class="o">=</span> <span class="nx">useSelector</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">counter</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>なお、<code class="docutils literal notranslate"><span class="pre">useDispatch()</span></code>と<code class="docutils literal notranslate"><span class="pre">useSelector()</span></code>ですが、本章の中で触れた通りに、Redux-Toolkitのストアの定義のついでに型付けをしておくと、コンポーネント内部でも型の恩恵を最大限に得ることができます。</p>
+<p>React-Routerにしても、Reduxにしても、はたまたスタイル定義のライブラリだったりにしても、一種類だけの適用であれば、探せばサンプルコードや情報も出てきますし、初心者でも調べ物しながらなんとかできる範囲ではありますが、複数のコンポーネントが登場し始めて設定周りのコードが絡みだすと、情報が減り、トラブル発生時のシューティングが難しくなります。コードを読む人も、どこから手を付けて良いのか分かりにくくなってきます。</p>
+<p>同じ機能を実装するにしても、コードが縦にも横にも短く、儀式的なコードが減れば、ライブラリや技術へのキャッチアップコストも減りますし、読んで理解するのも簡単になります。また、型の恩恵も受けやすいとなると、開発がかなり加速するでしょう。</p>
 </div>
 </div>
 <div class="section" id="id8">
 <h2>まとめ<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>これで一通り、ReactやVue.jsを使う環境ができました。最低限の設定ですが、TypeScriptを使ったビルドや、開発サーバーの起動などもできるようになりました。</p>
-<p>フロントエンドは開発環境を整えるのが大変、すぐに変わる、みたいなことがよく言われますが、ここ10年の間、やりたいこと自体は変わっていません。1ファイルでの開発は大変なので複数ファイルに分けて、デプロイ用にはバンドルして1ファイルにまとめる。ブラウザにロードしてデバッグする以前にコード解析で問題をなるべく見つけるようにする。ここ5年ぐらいは主要なのコンポーネントもだいたい固定されてきているように思います。State of JavaScript Surveyという調査をみると、シェアが高いライブラリはますますシェアを高めていっており、変化は少なくなってきています。</p>
+<p>これで一通り、Reactを使う環境ができました。最低限の設定ですが、TypeScriptを使ったビルドや、開発サーバーの起動などもできるようになりました。</p>
+<p>フロントエンドは開発環境を整えるのが大変、すぐに変わる、みたいなことがよく言われますが、ここ10年の間、やりたいこと自体は変わっていません。1ファイルでの開発は大変なので複数ファイルに分けて、デプロイ用にはバンドルして1ファイルにまとめる。ブラウザにロードしてデバッグする以前にコード解析で問題をなるべく見つけるようにする。ここ5年ぐらいは主要なのコンポーネントもだいたい固定されてきているように思います。State of JavaScript Surveyという調査をみると、シェアが高いライブラリはますますシェアを高めていっており、変化は少なくなってきています。一方で、React自体はより良い書き方ができるように進歩しています。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://2019.stateofjs.com/">https://2019.stateofjs.com/</a></p></li>
 </ul>
-<p>CoffeeScriptや6to5に始まり、Babel、TypeScriptと、AltJSもいろいろ登場してきましたが、TypeScriptの人気は現在伸び率がナンバーワンです。それに応じて、各種環境構築ツールも、TypeScriptをオプションの一つに加えています。本章の内容も、最初に書いたときよりも、どんどんコンパクトになってきています。もしかしたら、将来みなさんが環境構築をする時になったら本書の内容のほとんどの工程は不要になっているかもしれません。それはそれで望ましいので、早くそのような時代がきて、お詫びの訂正をしたいと思います。</p>
+<p>CoffeeScriptや6to5に始まり、Babel、TypeScriptと、AltJSもいろいろ登場してきましたが、TypeScriptの人気は現在伸び率がナンバーワンです。それに応じて、各種環境構築ツールもTypeScriptをオプションの一つに加えており、ドキュメントでも必ず言及があります。デフォルトでTypeScriptが利用できるというツールも増えてきています。</p>
+<p>本章の内容も、最初に書いたときよりも、どんどんコンパクトになってきています。もしかしたら、将来みなさんが環境構築をする時になったら本書の内容のほとんどの工程は不要になっているかもしれません。それはそれで望ましいので、早くそのような時代がきて、お詫びの訂正をしたいと思います。</p>
 </div>
 </div>
 
@@ -794,9 +900,9 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">ウェブフロントエンドの環境構築</a><ul>
-<li><a class="reference internal" href="#id2">ウェブアプリケーションにおけるビルドツールのゴール</a></li>
-<li><a class="reference internal" href="#react">Reactの環境構築</a><ul>
+<li><a class="reference internal" href="#">Reactの環境構築</a><ul>
+<li><a class="reference internal" href="#id1">ウェブアプリケーションにおけるビルドツールのゴール</a></li>
+<li><a class="reference internal" href="#id2">Reactについて</a></li>
 <li><a class="reference internal" href="#create-react-app">create-react-appによる環境構築</a></li>
 <li><a class="reference internal" href="#next-js">Next.js</a></li>
 <li><a class="reference internal" href="#id5">Reactの周辺ツールのインストールと設定</a></li>
@@ -805,11 +911,9 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
 <li><a class="reference internal" href="#reacttypescript">ReactとTypeScript</a></li>
 <li><a class="reference internal" href="#reduxtypescript">ReduxとTypeScript</a></li>
 <li><a class="reference internal" href="#reactredux">ReactとReduxの非同期アクセス</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#vue-js">Vue.jsの環境構築</a><ul>
-<li><a class="reference internal" href="#id6">クラスベースのコンポーネント</a></li>
-<li><a class="reference internal" href="#id7">関数ベースのコンポーネント作成</a></li>
+<li><a class="reference internal" href="#id6">Reactの新しい書き方</a><ul>
+<li><a class="reference internal" href="#id7">クラスコンポーネントではなく、関数コンポーネントにする</a></li>
+<li><a class="reference internal" href="#hooks">サードパーティのライブラリもHooksを使う</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#id8">まとめ</a></li>
@@ -821,25 +925,25 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="clienv.html" title="前の章へ">CLIツール・ウェブサーバー作成のための環境設定</a></li>
-      <li>Next: <a href="ci.html" title="次の章へ">CI（継続的インテグレーション）環境の構築</a></li>
+      <li>Next: <a href="vue.html" title="次の章へ">Vue.jsの環境構築</a></li>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>このページ</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/webfrontenv.rst.txt"
+      <li><a href="_sources/react.rst.txt"
             rel="nofollow">ソースコードを表示</a></li>
     </ul>
    </div><div>
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 13920</li>
-        <li>非アスキー: 11422</li>
-        <li>合計文字数: 25342</li>
-        <li>半角換算: 36764</li>
-        <li>全角換算: 18382.0</li>
+        <li>英数記号: 16310</li>
+        <li>非アスキー: 12878</li>
+        <li>合計文字数: 29188</li>
+        <li>半角換算: 42066</li>
+        <li>全角換算: 21033.0</li>
     </ul>
     </p>
 </div>
@@ -865,7 +969,7 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/webfrontenv.rst.txt"
+      <a href="_sources/react.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

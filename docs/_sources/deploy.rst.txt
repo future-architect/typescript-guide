@@ -496,7 +496,7 @@ KubernetesはGoogleが自社の基盤をOSSとして1から再実装したソフ
 コンテナアプリケーションを本番で稼働するにあたっては、サービスを停止せずにアップデートする方法や、複数のコンテナを水平にスケールしながら負荷分散する機能など、さまざまな運用面での課題を解決する必要がありますが、Kubernetesではそれらの機能を一貫して提供してくれるメリットがあります。
 
 Kubernetesをローカルで実行する
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Kubernetesをローカルで実行するには以下のようなツールを使う方法があります。
 
@@ -607,21 +607,21 @@ minikubeのセットアップが終わったら、kubectlをインストール�
 
 ブラウザで \ ``localhost:8080``\ にアクセスすると、作成されたアプリケーションがnginxの上で動いていることが確認できます。なお、本番などでマネージドサービスを利用する場合、ClusterIP + port-forwardを利用しなくとも、以下のようにLoadBalacnerサービスを使用することで、パブリッククラウドのロードバランサーと簡単に連携させることができます。
 
-.. code-block:: diff
-    kind: Service
-    apiVersion: v1
-    metadata:
-    name: typescript-kubernetes-service
-    labels:
-        app: typescript-kubernetes
-    spec:
-    ports:
-    - port: 80
-        targetPort: 80
-    selector:
-        app: typescript-kubernetes
--    type: ClusterIP
-+    type: LoadBalancer
+.. code-block:: yaml
+
+   kind: Service
+   apiVersion: v1
+   metadata:
+   name: typescript-kubernetes-service
+   labels:
+      app: typescript-kubernetes
+   spec:
+   ports:
+   - port: 80
+      targetPort: 80
+   selector:
+      app: typescript-kubernetes
+   type: LoadBalancer
 
 最後に、作成したminikubeの環境を削除します。
 

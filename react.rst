@@ -1,5 +1,4 @@
-=====================================
-ウェブフロントエンドの環境構築
+Reactの環境構築
 =====================================
 
 ウェブフロントエンドが今のJavaScript/TypeScriptの主戦場です。本章ではそのウェブフロントエンドの環境構築について紹介します。しかし、本書を書き始めたときに比べて、TypeScriptユーザーが増えるにつれて環境構築のサポートがどんどん手厚くなっているため、章の内容は減っています。そのため、1章でメジャーなフレームワークをすべて紹介することにしました。
@@ -8,7 +7,7 @@
 Agularは2以降からTypeScriptに書き直されて、TypeScript以外では書けなくなり、最初からTypeScriptが有効な状態でプロジェクトが作成されるため、説明は割愛します。
 
 ウェブアプリケーションにおけるビルドツールのゴール
-==================================================
+-----------------------------------------------------
 
 ウェブアプリケーションの環境構築は、ただコンパイルができるというだけではなく、TypeScriptからJavaScriptにトランスパイルされたファイルを1つや複数のチャンクにまとめるバンドラーというツールも必要です。また、開発サーバなどの設定も必要でしょう。開発サーバーはHTTPサーバーとして起動し、JavaScriptやHTML、CSSを配信するサーバーとしてブラウザからは見えます。その裏では、ファイルシステムのソースコードを監視し、変更があったら即座にビルドをして動作確認までのリードタイムを短くします。それだけではなく、その開発中のウェブサイトを見ているブラウザに対して強制リセットをしかけたり（ホットリロード）、起動中にJavaScriptのコードを差し替えたり（ホットモジュールリプレースメント）といったことを実現します。また、TypeScriptだけではなく、CSSでも、事前コンパイルでコーディングの効率をあげる方法が一般化しているため、この設定も必要でしょう。
 
@@ -18,8 +17,8 @@ webpackは細かくカスタマイズできますし、豊富な開発リソー�
 
 他にも数多くのバンドラーがあります。webpack以降に出てきたものの多くは設定が少ない、あるいは設定ファイルが不要（ゼロコンフィギュレーション）を売りにしたものが数多くあります。Rollupは人気のあるバンドラーで、TypeScriptを使うにはプラグインが必要ですが、そうでないのであれば設定がほとんど必要ありません。RollupをベースにTypeScriptサポートを最初から組み込んだmicrobundleもあります。HTMLやCSSのビルドもできて開発サーバーも全てついてくるオールインワンでビルド速度を重視したParcelや、Go製でビルド速度に特化したesbuildもあります。一方で、カスタマイズが必要なので最初からカスタマイズ前提でCLIを提供しないFuseboxなどもあります。
 
-Reactの環境構築
-=====================================
+Reactについて
+-----------------------------------------------------
 
 ReactはFacebook製のウェブフロントエンドのライブラリで、宣言的UI、仮想DOMによる高速描画などの機能を備え、現在のフロントエンドで利用されるライブラリの中では世界シェアが一位となっています。Reactによって広まった宣言的UIはいまやウェブを超え、iOSのSwift UIやAndroidのJetpack Compose、Flutterなど、モバイルアプリの世界にも波及しており、このコミュニティが近年のムーブメントの発信源となることも増えています。
 
@@ -110,7 +109,7 @@ ESLintを入れる場合は、ReactのJSXに対応させるために、\ ``eslin
    $ npm install --save-dev jest ts-jest @types/jest
 
    # ESLint一式
-   $ npm install --save-dev prettier　eslint
+   $ npm install --save-dev prettier eslint
    　　 @typescript-eslint/eslint-plugin eslint-plugin-prettier
        eslint-config-prettier eslint-plugin-react npm-run-all 
 
@@ -399,7 +398,7 @@ Reduxはストアと呼ばれる中央のデータ庫を持ちます。データ
 
 しかし、まずJavaScriptの文化で、アクションクリエーターというアクションを作る関数を作っていました。この場合、型をつけるにはreducerの引数にはすべてのアクションの型（アクションクリエーターの返り値の型）の合併型を作る必要がありました。この「すべての」というのが大きなアプリケーションになると依存関係が循環しないように気をつけたり、漏れなく型を合成してあげないといけなかったりと、型のために人間が行う作業が膨大でした。多くの人が「Reduxに型をつけるには？」という文章を書いたりしましたが、その後、Reduxが公式で出してきた解答がRedux-Toookitでした。
 
-Redux-Toolkitは次のような実装になります。スライスというステートとreducer、アクションクリエーターがセットになったオブジェクトを作成します。
+Redux-Toolkitは次のような実装になります。スライスというステートとreducer、アクションクリエーターがセットになったオブジェクトを作成します。Reducerの引数のstateは\ ``Readonly<>``\ をつけておくと、デバッグで問題の追跡が難しい不測の事態が発生するのを未然に防げます。
 
 .. code-block:: ts
    :caption: スライスを作成
@@ -421,11 +420,11 @@ Redux-Toolkitは次のような実装になります。スライスというス�
      name: 'counter',
      initialState,
      reducers: {
-       incrementCounter: (state, action: PayloadAction<number>) => ({
+       incrementCounter: (state: Readonly<State>, action: PayloadAction<number>) => ({
          ...state,
          count: state.count + action.payload,
        }),
-       decrementCounter: (state, action: PayloadAction<number>) => ({
+       decrementCounter: (state: Readonly<State>, action: PayloadAction<number>) => ({
          ...state,
          count: state.count - action.payload,
        }),
@@ -468,9 +467,9 @@ Redux-Toolkitは次のような実装になります。スライスというス�
      TypedUseSelectorHook,
    } from 'react-redux';
 
-   export type RootState - ReturnType<typeof store.getState>;
+   export type RootState = ReturnType<typeof store.getState>;
    export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
-   export type AppDispatch = type store.dispatch;
+   export type AppDispatch = typeof store.dispatch;
 
 Reduxとの大きな違いは、内部で管理するステートの初期値とその型を明示的に宣言できるようになったことです。Reduxではreducerの引数とそのデフォルト値が初期値でした。いろいろなところで活用しますし、ステートの加工にあたってもチェックや補完が欲しいところなので、補完も期待通りに行われますし、エラーメッセージもわかりやすくなります。
 
@@ -661,161 +660,266 @@ Reactの昔からよく発生するコーディングのミスとして、ステ
      dispatch(fetchUpdateLog(counter.count, username));
    }, [counter.count]);
 
-Vue.jsの環境構築
-===========================
+Reactの新しい書き方
+--------------------------------
 
-Vue.jsは日本で人気のあるウェブフロントエンドのフレームワークです。柔軟な設定のできるCLIツールが特徴です。本書では3系についてとりあげます。
+Reactは歴史のあるコンポーネントで、途中でいくつも機能追加が行われたり改善されています。1つのことを実現するのに新旧何通りもやり方が提供されていたりします。新しい書き方が作られるのは、もちろん、そちらの方がミスが少なかったり、コードが短くなったりと改善が見込まれるからです。Reactの場合はTypeScript的にも優しい書き方となっているため、もし古いコーディング規約に従っている場合は新しい書き方に整理していくと良いでしょう。
 
-.. note::
+2019年2月にリリースされたReact 16.8のHooksにより、新しい書き方に大々的に移行可能になりました。もしこれ以前から続いているプロジェクトの場合、新しくつくるコンポーネントや、改修を行うコンポーネントから徐々に移行していくと良いでしょう。
 
-   今の執筆時点ではまだ正式リリースはまだです。
+クラスコンポーネントではなく、関数コンポーネントにする
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: bash
+まずは古いTypeScript以前の書き方です。お決まりの書き方だけでもかなりの行数になってしまいます。
 
-   $ npx @vue/cli@next create myapp
+.. code-block:: js
+   :caption: 古い書き方
 
-作成時に最初に聞かれる質問でdefaultのpreset（babelとeslint）ではなく、Manually select featuresを選択します。
+   import React, { Component } from "react";
+   import propTypes from "prop-types";
 
-.. figure:: images/vue-cli-1.png
+   class MyComponent extends Component {
+       constructor(props) {
+           super(props);
+           this.state = {
+               count: 0;
+           }
+           this.onClick = this.onClick.bind(this);
+       }
 
-   TypeScriptを選択する場合はManually select featuresを選択
+       componentDidMount() {
+           // サーバーアクセスなどのマウント後に実行したいコードはここ
+       }
 
-次のオプションで必要なものをスペースキーで選択して、エンターで次に進みます。選んだ項目によって追加の質問が行われます。Routerやステート管理などのアプリケーション側の機能に関する項目以外にも、LinterやユニットテストフレームワークやE2Eテストの補助ツールなど、さまざまなものを選択できます。
+       componentWillUnmount() {
+           // 削除前に実行したいコードはここ
+       }
 
-.. figure:: images/vue-cli-2.png
+       onClick() {
+           this.setState({
+               count: this.state.count + 1;
+           });
+           this.Props.onUpdated(this.state.count + 1);
+       }
 
-   必要な機能を選択する
-
-途中で、クラスベースかそうではないか、という質問が出てきます。以前ではクラスベースのAPIの方がTypeScriptとの相性がよかったのですが、Vue.js 3からの新しいAPIで、クラスベースでない時も型チェックなどに優しいAPIに改善されました。そこはチームで好きな方を選択すれば良いですし、あとから別のスタイルにすることもできます。
-
-.. figure:: images/vue-cli-3.png
-
-  クラススタイルのコンポーネントを利用するか？
-
-現在のVue.jsのプロジェクトのほとんどは、\ ``.vue``\ ファイルに記述するシングルファイルコンポーネント（SFC）を使っていると思いますが、TypeScriptを使う場合、スクリプトタグの\ ``lang``\ 属性を\ ``ts``\ になっています。
-
-
-
-.. code-block:: html
-
-   <template>
-     HTMLテンプレート
-   </template>
-   <script lang="ts">
-     コンポーネントのソースコード(TypeScript)
-   </script>
-   <style>
-     CSS
-   </style>
-
-クラスベースのコンポーネント
------------------------------------------
-
-クラスベースのコンポーネントはvue-class-componentパッケージを使い、デコレータをつけたクラスとして実装します。クラスのインスタンスのフィールドがデータ、ゲッターが算出プロパティになっているなど、TypeScriptのプレーンな文法とVueの機能がリンクしており、ウェブフロントエンドを最初に学んだのではなく、言語としてのTypeScriptやJavaScript、他の言語の経験が豊富な人には親しみやすいでしょう。環境構築のCLIのオプションではデフォルトでこちらになるような選択肢になっています。
-
-以下のコードはVue.js 3系のクラスベースのコンポーネント実装です。
-
-.. code-block:: ts
-
-   <script lang="ts">
-   import { Options, Vue } from "vue-class-component";
-   import HelloWorld from "./components/HelloWorld.vue";
-
-   @Options({
-     components: { // テンプレート中で利用したい外部のコンポーネント
-       HelloWorld
-     }
-   })
-   export default class Counter extends Vue {
-     // フィールドがデータ
-     count = 0;
-
-     // 産出プロパティはゲッターとして実装
-     get message() {
-       return `カウントは${this.count}です`;
-     }
-
-     // メソッドを作成するとテンプレートから呼び出せる
-     increment() {
-       this.count++;
-     }
-
-     decrement() {
-       this.count--;
-     }
-
-     // ライフサイクルメソッドもメソッド定義でOK
-     beforeMount() {
-     }
+       render() {
+           return (
+               <div className="panel">
+                   <div className="message">
+                       <button onClick={this.onClick}>{this.props.label}</button>
+                   </div>
+               </div>
+           );
+       }
    }
-   </script>
 
-これをラップしてより多くのデコレータを追加したvue-property-decoratorというパッケージもあります。こちらの方が、\ ``@Prop``\ や\ ``@Emit``\ でプロパティやイベント送信も宣言できて便利でしょう。
+   MyComponent.propTypes = {
+       label: PropTypes.string
+       onUpdated: PropTypes.func
+   }
 
-   * https://www.npmjs.com/package/vue-property-decorator
+   MyComponent.defaultProps = {
+       label: "押して下さい"
+   };
 
-.. warning::
-
-   ただし、現時点で3.0系で変わったvue-class-componentの変更にはまだ追従していないように見えます。
-
-関数ベースのコンポーネント作成
------------------------------------------
-
-Vue本体で提供されている\ ``defineComponent()``\ 関数を使いコンポーネントを定義します。今までのオブジェクトをそのまま公開する方法と違い、この関数の引数のオブジェクトの型は定まっているため、以前よりもTypeScriptとの相性が改善されています。このオブジェクトの属性で名前や他の依存コンポーネント、Propsなどを定義するとともに、\ ``setup()``\ メソッドでコンポーネント内部で利用される属性などを定義します。
+これ以降、JavaScriptやTypeScriptへの機能追加により、何段階か書き方の改善がありました。コンストラクタで\ ``onClick``\ をbindしなおしている代わりに、class定義の中で代入できるようになったので、アロー演算子を使っているかもしれませんし、TypeScript化で\ ``Component``\ の型変数でPropsやStateの型変数を設定するようになっているかもしれません。
 
 .. code-block:: ts
+   :caption: ほどほどに古い書き方
 
-   <script lang="ts">
-   import { defineComponent, SetupContext, reactive } from "vue";
-   import HelloWorld from "./components/HelloWorld.vue";
+   interface Props {
+       label: string;
+       onUpdated: (count: number) => void;
+   }
+
+   interface State {
+       counter: number;
+   }
+
+   // TypeScriptで型定義
+   export class MyComponent extends Component<Props, State> {
+       // コンストラクタではなく、クラス定義の中で代入文
+       private state: State = {
+           counter: 0,
+       };
+       // アロー演算子でイベントハンドラ実装
+       private onClick = () => {
+           this.setState({counter: this.state.counter + 1});
+       }
+       render() {
+           // :ここは同じ
+       }
+   }
+
+古い書き方でTypeScriptを使わなくても、Reactレベルでさまざまなチェック機構で提供されており開発は便利ではありました。ただし、\ ``state``\ の変更処理（\ ``setState()``\ 呼び出し）をした直後にはまだインスタンス変数の\ ``this.state``\ が変更されておらず、状態がおかしくなってしまう、という問題があったり、イベントハンドラをJSXに渡すときに、thisの束縛を忘れてイベントが発火した後にエラーになるといったミスがおきやすい素地がありました。
+
+現在主流になっているのが関数コンポーネントです。当初は状態を持たないコンポーネントのみだったため、クラスコンポーネントからの完全移行は大変でしたが、Hookという機能が追加されてクラスコンポーネントを完璧に置き換えられるようになりました。関数コンポーネントは状態管理をReact側におまかせして、\ ``render()``\ のみにしたような書き方です。だいぶ、縦にも横にも圧縮されたことがわかります。
+
+.. code-block:: ts
+   :caption: 新しい書き方
+
+   import React, { useState, useEffect } from "react";
 
    type Props = {
-     name: string;
+       label?: string;
+       onUpdated: (count: number) => void;
+   };
+
+   export function MyComponent(props: Props) {
+       const [count, setCount] = useState(0);
+       const {label, onUpdate} = props;
+
+       useEffect(() => {
+           // サーバーアクセスなどのマウント後に実行したいコードはここ
+           return () => {
+               // 削除前に実行したいコードはここ
+           }
+       }, []);
+
+       function onClick() {
+           setCount(count + 1);
+           onUpdated(count + 1);
+       }
+
+       return (
+           <div className="panel">
+               <div className="message">
+                   <button onClick={onClick}>{label}</button>
+               </div>
+           </div>
+       );
    }
 
-   export default defineComponent({
-     name: "App",
-     components: {
-       HelloWorld
-     },
-     props: {
-       name: {
-         type: String,
-         default: "hello world"
-       }
-     },
-     setup(props: Props, context: SetupContext) {
-       const state = reactive({
-         counter: 0,
-       });
-       const greeting = () => {
-         context.emit("greeting", `Hello ${props.name}`);
-       };
+   MyComponent.defaultProps = {
+       label: "押して下さい"
+   };
 
+一番短くなってミスがおきにくくなったのは\ ``state``\ 周りです。\ ``useState()``\ に初期値を渡すと、現在の値を保持する変数と、変更する関数がペアで帰ってきます。初期値から型推論で設定されるため、Stateの型定義を外で行う必要はなくなります。\ ``setState()``\ で変更したものが直後に変更されているはず、と誤解されることもなくなりました。もう一度レンダリングが実行されないと変数の値が変更されないのは\ ``useState()``\ の宣言を見ればあきらかです。
+
+イベントハンドラの\ ``this``\ の束縛もなくなります。もはや単なる関数であって、オブジェクトではないため、\ ``this``\ を扱う必要もなくなります。横方向に圧縮されたのは\ ``this.``\ がたくさん省略されたからです。
+
+いくつかのライフサイクルメソッドが削除されたり、名前が変わったりはありますが、以前のコードもそのまま動きますので、全部を一度に移行する必要はありません。
+
+サードパーティのライブラリもHooksを使う
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+関数コンポーネント自体もコードを文字書くする効能がありますが、新しいHooksスタイルにより、サードパーティのライブラリの組み込みも簡単になります。残念ながら、Hooksスタイルの関数は関数コンポーネントでしか利用できませんので、前述の関数コンポーネントへの書き換えがまず必要になります。
+
+例えば、React-RouterやReduxとの接続は、コンポーネントをラップしてpropsに要素を追加する関数呼び出しが必要でした。ユーザーコード側では、サードパーティのライブラリから何かしら情報をもらったり、サードパーティのライブラリの機能を呼び出しするには、\ ``props``\ 経由で扱う必要があり、この特殊なラッパーは\ ``props``\ に新しい属性を増やす役割を果たしていました。しかし、ユーザーコード側でも\ ``propsTypes``\ にこれを追加する必要があったりと、たくさんの転記作業が必要でした。コンポーネントの外の状態まで気を配る必要がありました。
+
+.. code-block:: js
+   :caption: 古いReact-Routerのラッパースタイルの書き方
+
+   import React, { Component } from "react";
+   import { withRouter } from "react-router-dom";
+
+   export class MyComponent extends Component {
+       onClick() {
+           // ページ遷移
+           this.props.history.push("/new-path");
+       }
+       render() {
+           // :
+       }
+   }
+
+   // サードパーティを使う側に知識が必要なポイント
+   MyComponent.props = {
+       history: PropTypes.object.isRequired,
+   };
+
+   // ここでラップ！
+   const MyComponent = withRouter(MyComponent);
+
+Hooksに対応したReact-Routerのv5移行であればコンポーネントの中で履歴を触るためにコンポーネントの外にまで手を加える（ラップしたりPropsを変更する）必要はなくなりました。ここでも、縦にも横にも短くなったことがわかるでしょう。React-Routerの機能にアクセスするための壮大な準備コードが不要になりました。　
+
+.. code-block:: ts
+   :caption: 新しい履歴へのアクセス方法
+
+   import React from "react";
+   import { useHistory } from "react-router-dom";
+
+   export function MyComponent( {
+       const history = useHistory();
+
+       onClick() {
+           history.push("/new-path");
+       }
+
+       return (
+           // :
+       );
+   }
+
+よく不要論とかが取り沙汰されるReduxも、Reduxのストアにアクセスしたり、変更のために\ ``dispatch``\ を呼ぶときにその準備コードが多くなる問題がありました。次のコードは、コンポーネント定義自体は全部省略して空ですが、これだけの準備コードが必要でした。　
+
+.. code-block:: js
+   :caption: Reduxの古い書き方
+
+   import React, { Component } from "react";
+   import { connect } from "react-redux"
+
+   class MyComponent extends Component {
+      ...
+   }
+
+   // PropTypesへの追加が必要
+   MyComponent.porpTypes = {
+       counter: PropTypes.object,
+       onClick: PropTypes.func,
+       dispatch: PropTypes.func,
+   }
+
+   // このマッピング関数の定義は必要
+   function mapStateToProps(state, props) {
        return {
-         state,
-         greeting
+           counter: state.reducer.counter
+       };
+   }
+
+   // connectでpropsにdispatchが増えるので、connectの2つめの
+   // このマッピングは使わずにdispatchをコンポーネント内部で呼び出す
+   // ことも可能
+   function mapDispatchToProps(dispatch) {
+       return {
+           // アクションはオブジェクトそのままではなくアクションクリエータとして切り出されている場合も
+           onClick: () => dispatch({ 
+               type: Actions.DISPATCH_EVENT,
+               hoge: true,
+           }),
        }
-     }
-   });
-   </script>
+   };
 
-.. note::
+   const MyComponent connect(mapStateToProps, mapDispatchToProps)(Test);
+   export MyComponent;
 
-   **Nuxt.jsを使ったプロジェクト作成**
+``dispatch()``\ のマッピングはしていませんが、\ ``dispatch()``\ やReduxのストアへのアクセスは2つのHooksスタイルの関数で完了します。劇的ですね。Reduxのストア定義自体も、本章の中で紹介したRedux-Toolkitを使うことで大幅に短く書けるようになりました。
 
-   Vue.jsにも、Vue.jsをベースにしてサーバーサイドレンダリングなどの自分で設定すると大変な機能がプリセットになっているNuxt.jsがあります。
-   Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケージのインストールや設定が必要です。日本語によるガイドもあります。
+.. code-block:: ts
+   :caption: Reduxの新しい書き方
 
-   * https://typescript.nuxtjs.org/ja/guide/setup.html
+   import { useDispatch, useSelector } from 'react-redux';
+
+   export function MyComponent() {
+       const dispatch = useDispatch();
+       const counter = useSelector(state => state.counter);
+   }
+
+なお、\ ``useDispatch()``\ と\ ``useSelector()``\ ですが、本章の中で触れた通りに、Redux-Toolkitのストアの定義のついでに型付けをしておくと、コンポーネント内部でも型の恩恵を最大限に得ることができます。
+
+React-Routerにしても、Reduxにしても、はたまたスタイル定義のライブラリだったりにしても、一種類だけの適用であれば、探せばサンプルコードや情報も出てきますし、初心者でも調べ物しながらなんとかできる範囲ではありますが、複数のコンポーネントが登場し始めて設定周りのコードが絡みだすと、情報が減り、トラブル発生時のシューティングが難しくなります。コードを読む人も、どこから手を付けて良いのか分かりにくくなってきます。
+
+同じ機能を実装するにしても、コードが縦にも横にも短く、儀式的なコードが減れば、ライブラリや技術へのキャッチアップコストも減りますし、読んで理解するのも簡単になります。また、型の恩恵も受けやすいとなると、開発がかなり加速するでしょう。
 
 まとめ
-============================
+-----------------------------------------------------
 
-これで一通り、ReactやVue.jsを使う環境ができました。最低限の設定ですが、TypeScriptを使ったビルドや、開発サーバーの起動などもできるようになりました。
+これで一通り、Reactを使う環境ができました。最低限の設定ですが、TypeScriptを使ったビルドや、開発サーバーの起動などもできるようになりました。
 
-フロントエンドは開発環境を整えるのが大変、すぐに変わる、みたいなことがよく言われますが、ここ10年の間、やりたいこと自体は変わっていません。1ファイルでの開発は大変なので複数ファイルに分けて、デプロイ用にはバンドルして1ファイルにまとめる。ブラウザにロードしてデバッグする以前にコード解析で問題をなるべく見つけるようにする。ここ5年ぐらいは主要なのコンポーネントもだいたい固定されてきているように思います。State of JavaScript Surveyという調査をみると、シェアが高いライブラリはますますシェアを高めていっており、変化は少なくなってきています。
+フロントエンドは開発環境を整えるのが大変、すぐに変わる、みたいなことがよく言われますが、ここ10年の間、やりたいこと自体は変わっていません。1ファイルでの開発は大変なので複数ファイルに分けて、デプロイ用にはバンドルして1ファイルにまとめる。ブラウザにロードしてデバッグする以前にコード解析で問題をなるべく見つけるようにする。ここ5年ぐらいは主要なのコンポーネントもだいたい固定されてきているように思います。State of JavaScript Surveyという調査をみると、シェアが高いライブラリはますますシェアを高めていっており、変化は少なくなってきています。一方で、React自体はより良い書き方ができるように進歩しています。
 
 * https://2019.stateofjs.com/
 
-CoffeeScriptや6to5に始まり、Babel、TypeScriptと、AltJSもいろいろ登場してきましたが、TypeScriptの人気は現在伸び率がナンバーワンです。それに応じて、各種環境構築ツールも、TypeScriptをオプションの一つに加えています。本章の内容も、最初に書いたときよりも、どんどんコンパクトになってきています。もしかしたら、将来みなさんが環境構築をする時になったら本書の内容のほとんどの工程は不要になっているかもしれません。それはそれで望ましいので、早くそのような時代がきて、お詫びの訂正をしたいと思います。
+CoffeeScriptや6to5に始まり、Babel、TypeScriptと、AltJSもいろいろ登場してきましたが、TypeScriptの人気は現在伸び率がナンバーワンです。それに応じて、各種環境構築ツールもTypeScriptをオプションの一つに加えており、ドキュメントでも必ず言及があります。デフォルトでTypeScriptが利用できるというツールも増えてきています。
+
+本章の内容も、最初に書いたときよりも、どんどんコンパクトになってきています。もしかしたら、将来みなさんが環境構築をする時になったら本書の内容のほとんどの工程は不要になっているかもしれません。それはそれで望ましいので、早くそのような時代がきて、お詫びの訂正をしたいと思います。

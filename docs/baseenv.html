@@ -150,7 +150,8 @@ jest.config.json
   <span class="p">],</span>
   <span class="nt">&quot;extends&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;plugin:@typescript-eslint/recommended&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;plugin:prettier/recommended&quot;</span>
+    <span class="s2">&quot;plugin:prettier/recommended&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;prettier/@typescript-eslint&quot;</span>
   <span class="p">],</span>
   <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;no-console&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -222,11 +223,13 @@ jest.config.json
 </pre></div>
 </div>
 </div>
-<p>ファイル保存時にeslint --fixが自動実行されるように設定しておきましょう。これでVisual Studio Codeを使う限り、誰がプロジェクトを開いてもコードスタイルが保たれます。eslintプラグインのautoFixOnSaveは、files.autoSaveがoffのときにしか効かないので、それも設定しておきます。</p>
+<p>ファイル保存時にeslint --fixが自動実行されるように設定しておきましょう。これでVisual Studio Codeを使う限り、誰がプロジェクトを開いてもコードスタイルが保たれます。Visual Studio Codeのeditor.codeActionsOnSaveは、files.autoSaveがafterDelayのときは効かないので、offに設定しておきます。</p>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text">.vscode/settings.json</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;eslint.autoFixOnSave&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;editor.codeActionsOnSave&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;source.fixAll.eslint&quot;</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">},</span>
   <span class="nt">&quot;files.autoSave&quot;</span><span class="p">:</span> <span class="s2">&quot;off&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -279,11 +282,11 @@ jest.config.json
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 2189</li>
-        <li>非アスキー: 1836</li>
-        <li>合計文字数: 4025</li>
-        <li>半角換算: 5861</li>
-        <li>全角換算: 2930.5</li>
+        <li>英数記号: 2295</li>
+        <li>非アスキー: 1827</li>
+        <li>合計文字数: 4122</li>
+        <li>半角換算: 5949</li>
+        <li>全角換算: 2974.5</li>
     </ul>
     </p>
 </div>

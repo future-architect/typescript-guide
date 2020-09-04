@@ -59,7 +59,8 @@
    baseenv
    libenv
    clienv
-   webfrontenv
+   react
+   vue
    ci
    deploy
    version

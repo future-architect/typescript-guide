@@ -585,12 +585,21 @@ Forwarding from <span class="o">[</span>::1<span class="o">]</span>:8080 -&gt; <
 </pre></div>
 </div>
 <p>ブラウザで <code class="docutils literal notranslate"><span class="pre">localhost:8080</span></code>にアクセスすると、作成されたアプリケーションがnginxの上で動いていることが確認できます。なお、本番などでマネージドサービスを利用する場合、ClusterIP + port-forwardを利用しなくとも、以下のようにLoadBalacnerサービスを使用することで、パブリッククラウドのロードバランサーと簡単に連携させることができます。</p>
-<ul class="simple">
-<li><p>type: ClusterIP</p></li>
-</ul>
-<ul class="simple">
-<li><p>type: LoadBalancer</p></li>
-</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Service</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes-service</span>
+<span class="nt">labels</span><span class="p">:</span>
+   <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="nt">ports</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+   <span class="l l-Scalar l-Scalar-Plain">targetPort</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="nt">selector</span><span class="p">:</span>
+   <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
+<span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">LoadBalancer</span>
+</pre></div>
+</div>
 <p>最後に、作成したminikubeの環境を削除します。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ minikube delete
 🔥  docker の「minikube」を削除しています...
@@ -660,11 +669,11 @@ Forwarding from <span class="o">[</span>::1<span class="o">]</span>:8080 -&gt; <
     <h4>Page Info</h4>
     <p>
     <ul>
-        <li>英数記号: 9248</li>
+        <li>英数記号: 9428</li>
         <li>非アスキー: 9101</li>
-        <li>合計文字数: 18349</li>
-        <li>半角換算: 27450</li>
-        <li>全角換算: 13725.0</li>
+        <li>合計文字数: 18529</li>
+        <li>半角換算: 27630</li>
+        <li>全角換算: 13815.0</li>
     </ul>
     </p>
 </div>

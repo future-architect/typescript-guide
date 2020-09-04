@@ -191,6 +191,12 @@ Javaなどの配列は要素のすべての型は同じです。TypeScriptでは
 .. code-block:: ts
    :caption: 複合条件でソート
 
+   const stations = [
+      {name: "大手町", lines: 5, yomi: "おおてまち"},
+      {name: "飯田橋", lines: 7, yomi: "いいだばし"},
+      {name: "永田町", lines: 5, yomi: "ながたちょう"},
+   ];
+
    function cmpNum(a: number, b: number) {
      return (a < b) ? -1 : (a === b) ? 0 : 1;
    }
