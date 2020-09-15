@@ -1,38 +1,202 @@
 
-<!DOCTYPE html>
 
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>console.logによるログ出力 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <script src="_static/translations.js"></script>
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>console.logによるログ出力 &mdash; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="ジェネリクス" href="generics.html" />
-    <link rel="prev" title="モジュール" href="module.html" />
+    <link rel="prev" title="モジュール" href="module.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
 
-          <div class="body" role="main">
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> 仕事ですぐに使えるTypeScript
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">TypeScriptの世界を知る</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="preface.html">前書き</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Node.jsエコシステムを体験しよう</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TypeScriptの書き方</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="variable.html">変数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="primitive.html">プリミティブ型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex.html">複合型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syntax.html">基本的な構文</a></li>
+<li class="toctree-l1"><a class="reference internal" href="typing.html">基本的な型付け</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function.html">関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="otherbuiltinobjects.html">その他の組み込み型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class.html">クラス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async.html">非同期処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html">例外処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">モジュール</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#console-log-info-warn-error"><code class="docutils literal notranslate"><span class="pre">console.log/info/warn/error()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#console-table-dir"><code class="docutils literal notranslate"><span class="pre">console.table/dir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">その他のメソッド</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">まとめ</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">中級のテクニック</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generics.html">ジェネリクス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functional.html">関数型指向のプログラミング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class2.html">クラス上級編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reactive.html">リアクティブ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advance.html">高度なテクニック</a></li>
+</ul>
+<p class="caption"><span class="caption-text">環境ごとのTips</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prodenv.html">ソフトウェア開発の環境を考える</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseenv.html">基本の環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libenv.html">ライブラリ開発のための環境設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clienv.html">CLIツール・ウェブサーバー作成のための環境設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">CI（継続的インテグレーション）環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">成果物のデプロイ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">使用ライブラリのバージョン管理</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recommended.html">おすすめのパッケージ・ツール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">貢献者</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">仕事ですぐに使えるTypeScript</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/console.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="console-log">
 <h1><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力<a class="headerlink" href="#console-log" title="このヘッドラインへのパーマリンク">¶</a></h1>
@@ -174,77 +338,59 @@
 </div>
 
 
+           </div>
+           
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">目次</a></h3>
-  <ul>
-<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力</a><ul>
-<li><a class="reference internal" href="#console-log-info-warn-error"><code class="docutils literal notranslate"><span class="pre">console.log/info/warn/error()</span></code></a></li>
-<li><a class="reference internal" href="#console-table-dir"><code class="docutils literal notranslate"><span class="pre">console.table/dir()</span></code></a></li>
-<li><a class="reference internal" href="#id1">その他のメソッド</a></li>
-<li><a class="reference internal" href="#id2">まとめ</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="module.html" title="前の章へ">モジュール</a></li>
-      <li>Next: <a href="generics.html" title="次の章へ">ジェネリクス</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>このページ</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/console.rst.txt"
-            rel="nofollow">ソースコードを表示</a></li>
-    </ul>
-   </div><div>
-    <h4>Page Info</h4>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="generics.html" class="btn btn-neutral float-right" title="ジェネリクス" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="module.html" class="btn btn-neutral float-left" title="モジュール" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
     <p>
-    <ul>
-        <li>英数記号: 596</li>
-        <li>非アスキー: 999</li>
-        <li>合計文字数: 1595</li>
-        <li>半角換算: 2594</li>
-        <li>全角換算: 1297.0</li>
-    </ul>
+        
+        &copy; 著作権 2019-2020, Future Corporation
+
     </p>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">クイック検索</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="検索" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2019, Future Corporation.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/console.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
     
-  </body>
+   
+
+</body>
 </html>

@@ -1,38 +1,202 @@
 
-<!DOCTYPE html>
 
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>基本の環境構築 &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <script src="_static/translations.js"></script>
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>基本の環境構築 &mdash; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="ライブラリ開発のための環境設定" href="libenv.html" />
-    <link rel="prev" title="ソフトウェア開発の環境を考える" href="prodenv.html" />
+    <link rel="prev" title="ソフトウェア開発の環境を考える" href="prodenv.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
 
-          <div class="body" role="main">
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> 仕事ですぐに使えるTypeScript
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">TypeScriptの世界を知る</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="preface.html">前書き</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Node.jsエコシステムを体験しよう</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TypeScriptの書き方</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variable.html">変数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="primitive.html">プリミティブ型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex.html">複合型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syntax.html">基本的な構文</a></li>
+<li class="toctree-l1"><a class="reference internal" href="typing.html">基本的な型付け</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function.html">関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="otherbuiltinobjects.html">その他の組み込み型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class.html">クラス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async.html">非同期処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html">例外処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">モジュール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="console.html"><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力</a></li>
+</ul>
+<p class="caption"><span class="caption-text">中級のテクニック</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generics.html">ジェネリクス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functional.html">関数型指向のプログラミング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class2.html">クラス上級編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reactive.html">リアクティブ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advance.html">高度なテクニック</a></li>
+</ul>
+<p class="caption"><span class="caption-text">環境ごとのTips</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="prodenv.html">ソフトウェア開発の環境を考える</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基本の環境構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id3">作業フォルダの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">ビルドのツールのインストールと設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">テスト</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#visual-studio-code">Visual Studio Codeの設定</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="libenv.html">ライブラリ開発のための環境設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clienv.html">CLIツール・ウェブサーバー作成のための環境設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">CI（継続的インテグレーション）環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">成果物のデプロイ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">使用ライブラリのバージョン管理</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recommended.html">おすすめのパッケージ・ツール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">貢献者</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">仕事ですぐに使えるTypeScript</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>基本の環境構築</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/baseenv.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="id1">
 <h1>基本の環境構築<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
@@ -166,10 +330,29 @@ jest.config.json
 これで、 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">lint</span></code> や <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">fix</span></code> でコードチェックをしたり、スタイル修正が行えます。</p>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>&quot;scripts&quot;: {
-  &quot;lint&quot;: &quot;eslint .&quot;,
-  &quot;fix&quot;: &quot;eslint --fix .&quot;
-}
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;lint&quot;</span><span class="p">:</span> <span class="s2">&quot;eslint .&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fix&quot;</span><span class="p">:</span> <span class="s2">&quot;eslint --fix .&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Reactを使っていると、JSX内部でコンポーネントを利用していても、未使用変数として扱われてしまうことがあります。その場合は<code class="docutils literal notranslate"><span class="pre">eslint-plugin-react</span></code>も追加でインストールして設定を追加しましょう。Reactの場合、返り値の型を明示的に指定しないと警告が出るモードはあまりうれしくないので、この警告は出ないようにしましょう。</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">.eslintrc</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;plugins&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;react&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;extends&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;plugin:react/recommended&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;@typescript-eslint/explicit-module-boundary-types&quot;</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -181,8 +364,8 @@ jest.config.json
 </pre></div>
 </div>
 <p>scripts/testと、jestの設定を追加します。古い資料だと、transformの値がnode_modules/ts-jest等になっているのがありますが、今はts-jestだけでいけます。</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;jest&quot;</span>
@@ -191,8 +374,8 @@ jest.config.json
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">jest.config.js</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">jest.config.js</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">transform</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;^.+\\.tsx?$&quot;</span><span class="o">:</span> <span class="s2">&quot;ts-jest&quot;</span>
@@ -211,21 +394,27 @@ jest.config.json
 </div>
 <div class="section" id="visual-studio-code">
 <h2>Visual Studio Codeの設定<a class="headerlink" href="#visual-studio-code" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Visual Stuido Codeでフォルダを開いたときに、eslintの拡張と、editorconfigの拡張がインストールされるようにします。</p>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">.vscode/extensions.json</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<p>Visual Studio Codeでフォルダを開いたときに、eslintの拡張と、editorconfigの拡張がインストールされるようにします。<code class="docutils literal notranslate"><span class="pre">.vscode</span></code>フォルダにファイルを作ることで、プロジェクトのソースコードと一緒に、プロジェクトの共有設定を共有できます。同じ拡張機能を入れてもらって、コードチェックなどのクオリティを統一し、コードインテグレーション時に無駄な調整をしなくて済むようにできます。ここではついでにコードのスペルチェックの拡張機能も入れておきます。</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">.vscode/extensions.json</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;recommendations&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;dbaeumer.vscode-eslint&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;EditorConfig.editorconfig&quot;</span>
+    <span class="s2">&quot;EditorConfig.editorconfig&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;streetsidesoftware.code-spell-checker&quot;</span>
   <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
+<p>この設定はこのJSONを書いても良いですし、拡張機能のページで該当する拡張機能を開いてから、コードパレットで<code class="docutils literal notranslate"><span class="pre">Extensions:</span> <span class="pre">Add</span> <span class="pre">to</span> <span class="pre">Recommended</span> <span class="pre">Extensions</span> <span class="pre">(Workspace</span> <span class="pre">Folder)</span></code>を選択すると追加されます。</p>
+<div class="figure align-default" id="id17">
+<img alt="_images/add-to-recommendation.png" src="_images/add-to-recommendation.png" />
+<p class="caption"><span class="caption-text">拡張機能をプロジェクト推奨に設定</span><a class="headerlink" href="#id17" title="この画像へのパーマリンク">¶</a></p>
+</div>
 <p>ファイル保存時にeslint --fixが自動実行されるように設定しておきましょう。これでVisual Studio Codeを使う限り、誰がプロジェクトを開いてもコードスタイルが保たれます。Visual Studio Codeのeditor.codeActionsOnSaveは、files.autoSaveがafterDelayのときは効かないので、offに設定しておきます。</p>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">.vscode/settings.json</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">.vscode/settings.json</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;editor.codeActionsOnSave&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;source.fixAll.eslint&quot;</span><span class="p">:</span> <span class="kc">true</span>
@@ -235,6 +424,7 @@ jest.config.json
 </pre></div>
 </div>
 </div>
+<p>ファイルを保存してみて修正されるか試してみましょう。もしされない場合は一度コマンドラインから実行してみてください。拡張で設定されているパッケージが足りない場合などはエラーが発生します。</p>
 <div class="admonition-todo admonition" id="id6">
 <p class="admonition-title">課題</p>
 <p>tsdocとかドキュメントツールを紹介</p>
@@ -247,77 +437,59 @@ jest.config.json
 </div>
 
 
+           </div>
+           
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">目次</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">基本の環境構築</a><ul>
-<li><a class="reference internal" href="#id3">作業フォルダの作成</a></li>
-<li><a class="reference internal" href="#id4">ビルドのツールのインストールと設定</a></li>
-<li><a class="reference internal" href="#id5">テスト</a></li>
-<li><a class="reference internal" href="#visual-studio-code">Visual Studio Codeの設定</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="prodenv.html" title="前の章へ">ソフトウェア開発の環境を考える</a></li>
-      <li>Next: <a href="libenv.html" title="次の章へ">ライブラリ開発のための環境設定</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>このページ</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/baseenv.rst.txt"
-            rel="nofollow">ソースコードを表示</a></li>
-    </ul>
-   </div><div>
-    <h4>Page Info</h4>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="libenv.html" class="btn btn-neutral float-right" title="ライブラリ開発のための環境設定" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="prodenv.html" class="btn btn-neutral float-left" title="ソフトウェア開発の環境を考える" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
     <p>
-    <ul>
-        <li>英数記号: 2295</li>
-        <li>非アスキー: 1827</li>
-        <li>合計文字数: 4122</li>
-        <li>半角換算: 5949</li>
-        <li>全角換算: 2974.5</li>
-    </ul>
+        
+        &copy; 著作権 2019-2020, Future Corporation
+
     </p>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">クイック検索</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="検索" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2019, Future Corporation.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/baseenv.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
     
-  </body>
+   
+
+</body>
 </html>

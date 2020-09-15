@@ -1,43 +1,227 @@
 
-<!DOCTYPE html>
 
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>クラス &#8212; 仕事ですぐに使えるTypeScript  ドキュメント</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <script src="_static/translations.js"></script>
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>クラス &mdash; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="非同期処理" href="async.html" />
-    <link rel="prev" title="関数" href="function.html" />
+    <link rel="prev" title="その他の組み込み型" href="otherbuiltinobjects.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
 
-          <div class="body" role="main">
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> 仕事ですぐに使えるTypeScript
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">TypeScriptの世界を知る</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="preface.html">前書き</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Node.jsエコシステムを体験しよう</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TypeScriptの書き方</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="variable.html">変数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="primitive.html">プリミティブ型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex.html">複合型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syntax.html">基本的な構文</a></li>
+<li class="toctree-l1"><a class="reference internal" href="typing.html">基本的な型付け</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function.html">関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="otherbuiltinobjects.html">その他の組み込み型</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">クラス</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#javascriptjava">JavaScriptとJava風オブジェクト指向文法の歴史</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">用語の整理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">基本のクラス宣言</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#public-protected-private">アクセス制御（<code class="docutils literal notranslate"><span class="pre">public</span></code>/ <code class="docutils literal notranslate"><span class="pre">protected</span></code> / <code class="docutils literal notranslate"><span class="pre">private</span></code>）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">コンストラクタの引数を使ってプロパティを宣言</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#static"><code class="docutils literal notranslate"><span class="pre">static</span></code> メンバー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">インスタンスクラスフィールド</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#readonly">読み込み専用の変数（ <code class="docutils literal notranslate"><span class="pre">readonly</span></code> ）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">メンバー定義方法のまとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">継承/インタフェース実装宣言</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">クラスとインタフェースの違い・使い分け</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">デコレータ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id18">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="async.html">非同期処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html">例外処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">モジュール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="console.html"><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力</a></li>
+</ul>
+<p class="caption"><span class="caption-text">中級のテクニック</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generics.html">ジェネリクス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functional.html">関数型指向のプログラミング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class2.html">クラス上級編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reactive.html">リアクティブ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advance.html">高度なテクニック</a></li>
+</ul>
+<p class="caption"><span class="caption-text">環境ごとのTips</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prodenv.html">ソフトウェア開発の環境を考える</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseenv.html">基本の環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libenv.html">ライブラリ開発のための環境設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clienv.html">CLIツール・ウェブサーバー作成のための環境設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">CI（継続的インテグレーション）環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">成果物のデプロイ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">使用ライブラリのバージョン管理</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recommended.html">おすすめのパッケージ・ツール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">貢献者</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">仕事ですぐに使えるTypeScript</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>クラス</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/class.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="id1">
 <h1>クラス<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>昔は関数と<code class="docutils literal notranslate"><span class="pre">prototype</span></code>という属性をいじくり回してクラスを表現していました。正確には処理系的にはクラスではないのですが、コードのユーザー視点では他の言語のクラスと同等なのでクラスとしてしまいます。
-なお、Javaなどのような書き味を求めて、この仕組みをラップした自前の<code class="docutils literal notranslate"><span class="pre">extends</span></code>関数みたいなのを作ってクラスっぽいことを表現しようという一派も一時期いましたが、今のJavaScriptとTypeScriptでは、より良い書き方が提供されています。</p>
+<div class="section" id="javascriptjava">
+<h2>JavaScriptとJava風オブジェクト指向文法の歴史<a class="headerlink" href="#javascriptjava" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>クラスはプログラミング言語によってはとても重要な位置付けにあります。たとえば、Javaはすべての要素がクラスに属し、そのクラスの組み合わせでプログラムを作成していきます。クラスの利用方法を学び、クラスの実装方法を学び、よりよいクラスの設計方法を知ることがJavaにおいてはとても重要です。また、20年ほど前はJavaはプログラミングのパラダイムにおいては最先端であり、クラスを元にした設計手法、デザインパターン、アジャイルソフトウェア開発のプログラミング系のプラクティス（テスト駆動開発やリファクタリング）を通じて、多くのプログラミング言語にJava流の設計が輸出されていきました。クラスを使いこなすことで、次のことが実現可能になるとさかんに喧伝されていました。</p>
+<ul class="simple">
+<li><p>大規模なコード</p></li>
+<li><p>再利用性の高いコード</p></li>
+</ul>
+<p>例えばPythonやRubyなどの今は古参扱いのプログラミング言語の多くも、当時は機能拡張を積極的に行っておりJavaやその周辺のベストプラクティスに影響を受けたと思われるライブラリなどがいくつか組み込まれています。クラスを持ってその先端の設計技法が利用できることは、当時の一級言語のステータスでした。</p>
+<p>JavaScriptはクラスをダイレクトに表現する文法はなかったものの、昔は関数と<code class="docutils literal notranslate"><span class="pre">prototype</span></code>という属性をいじくり回してクラスを表現していました。正確には処理系的にはクラスではないのですが、コードのユーザー視点では他の言語のクラスと同等なのでここではこの当時の記法で作るものもクラスとして扱います。とはいえ、それでもJavaScriptはクラスがないことを理由に「大規模開発に向かないおもちゃ言語」と言われることもありました。</p>
+<p>その欠点をカバーしてJavaなどのような書き味を求めて、ひと昔前のJavaScript界隈では、この<code class="docutils literal notranslate"><span class="pre">prototype</span></code>の仕組みをラップした自前の<code class="docutils literal notranslate"><span class="pre">extends</span></code>関数みたいなのを作ってクラスっぽいことを表現しようという一派も一時期いました。また、5年ほど前までは、クラスを使うためにCoffeeScriptに救いを求める人も多数いました。今のJavaScriptとTypeScriptでは、言語の標準機能として良い書き方が提供されています。</p>
+<p>クラスをようやくサポートしたものの、近年ではクラスを使わない書き方、関数型言語のエッセンスを取り入れた書き方も流行ってきています。大規模といえばオブジェクト指向でクラス、という短絡的な言い方をする人はもはや絶滅危惧種です。</p>
+<p>しかし、大規模なアプリケーションの部品としてではなく、末端の部品としては便利です。みなさんも、文字列や配列などの組み込み型を通じて、自然とオブジェクト指向には触れています。あのような部品を自分で作るための手段です。関数型のスタイルとも組み合わせて利用できますし、書き方を学んでおきましょう。</p>
+</div>
 <div class="section" id="id2">
 <h2>用語の整理<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>オブジェクト指向言語は、それぞれの言語ごとに使っている言葉が違うので、それを一旦整理します。本書では次の用語で呼びます。TypeScriptの公式ドキュメント準拠です。</p>
@@ -538,85 +722,59 @@ TypeScriptの場合は、エディタによるコード補完の正答率が大�
 </div>
 
 
+           </div>
+           
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">目次</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">クラス</a><ul>
-<li><a class="reference internal" href="#id2">用語の整理</a></li>
-<li><a class="reference internal" href="#id3">基本のクラス宣言</a></li>
-<li><a class="reference internal" href="#public-protected-private">アクセス制御（<code class="docutils literal notranslate"><span class="pre">public</span></code>/ <code class="docutils literal notranslate"><span class="pre">protected</span></code> / <code class="docutils literal notranslate"><span class="pre">private</span></code>）</a></li>
-<li><a class="reference internal" href="#id4">コンストラクタの引数を使ってプロパティを宣言</a></li>
-<li><a class="reference internal" href="#static"><code class="docutils literal notranslate"><span class="pre">static</span></code> メンバー</a></li>
-<li><a class="reference internal" href="#id5">インスタンスクラスフィールド</a></li>
-<li><a class="reference internal" href="#readonly">読み込み専用の変数（ <code class="docutils literal notranslate"><span class="pre">readonly</span></code> ）</a></li>
-<li><a class="reference internal" href="#id12">メンバー定義方法のまとめ</a></li>
-<li><a class="reference internal" href="#id13">継承/インタフェース実装宣言</a></li>
-<li><a class="reference internal" href="#id14">クラスとインタフェースの違い・使い分け</a></li>
-<li><a class="reference internal" href="#id15">デコレータ</a></li>
-<li><a class="reference internal" href="#id18">まとめ</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="function.html" title="前の章へ">関数</a></li>
-      <li>Next: <a href="async.html" title="次の章へ">非同期処理</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>このページ</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/class.rst.txt"
-            rel="nofollow">ソースコードを表示</a></li>
-    </ul>
-   </div><div>
-    <h4>Page Info</h4>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="async.html" class="btn btn-neutral float-right" title="非同期処理" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="otherbuiltinobjects.html" class="btn btn-neutral float-left" title="その他の組み込み型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
     <p>
-    <ul>
-        <li>英数記号: 4968</li>
-        <li>非アスキー: 6194</li>
-        <li>合計文字数: 11162</li>
-        <li>半角換算: 17356</li>
-        <li>全角換算: 8678.0</li>
-    </ul>
+        
+        &copy; 著作権 2019-2020, Future Corporation
+
     </p>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">クイック検索</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="検索" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2019, Future Corporation.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/class.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
     
-  </body>
+   
+
+</body>
 </html>

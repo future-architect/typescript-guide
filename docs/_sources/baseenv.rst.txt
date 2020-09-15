@@ -143,9 +143,28 @@ ESLintを起動するタスクを ``package.json`` に追加しましょう。
 .. code-block:: json
    :caption: package.json
 
-   "scripts": {
-     "lint": "eslint .",
-     "fix": "eslint --fix ."
+   {
+     "scripts": {
+       "lint": "eslint .",
+       "fix": "eslint --fix ."
+     }
+   }
+
+Reactを使っていると、JSX内部でコンポーネントを利用していても、未使用変数として扱われてしまうことがあります。その場合は\ ``eslint-plugin-react``\ も追加でインストールして設定を追加しましょう。Reactの場合、返り値の型を明示的に指定しないと警告が出るモードはあまりうれしくないので、この警告は出ないようにしましょう。
+
+.. code-block:: json
+   :caption: .eslintrc
+
+   {
+     "plugins": [
+       "react"
+     ],
+     "extends": [
+       "plugin:react/recommended"
+     ],
+     "rules": {
+       "@typescript-eslint/explicit-module-boundary-types": 0
+     }
    }
 
 テスト
@@ -187,7 +206,7 @@ scripts/testと、jestの設定を追加します。古い資料だと、transfo
 Visual Studio Codeの設定
 --------------------------------
 
-Visual Stuido Codeでフォルダを開いたときに、eslintの拡張と、editorconfigの拡張がインストールされるようにします。
+Visual Studio Codeでフォルダを開いたときに、eslintの拡張と、editorconfigの拡張がインストールされるようにします。\ ``.vscode``\ フォルダにファイルを作ることで、プロジェクトのソースコードと一緒に、プロジェクトの共有設定を共有できます。同じ拡張機能を入れてもらって、コードチェックなどのクオリティを統一し、コードインテグレーション時に無駄な調整をしなくて済むようにできます。ここではついでにコードのスペルチェックの拡張機能も入れておきます。
 
 .. code-block:: json
    :caption: .vscode/extensions.json
@@ -195,9 +214,16 @@ Visual Stuido Codeでフォルダを開いたときに、eslintの拡張と、ed
    {
      "recommendations": [
        "dbaeumer.vscode-eslint",
-       "EditorConfig.editorconfig"
+       "EditorConfig.editorconfig",
+       "streetsidesoftware.code-spell-checker"
      ]
    }
+
+この設定はこのJSONを書いても良いですし、拡張機能のページで該当する拡張機能を開いてから、コードパレットで\ ``Extensions: Add to Recommended Extensions (Workspace Folder)``\ を選択すると追加されます。
+
+.. figure:: images/add-to-recommendation.png
+
+   拡張機能をプロジェクト推奨に設定
 
 ファイル保存時にeslint --fixが自動実行されるように設定しておきましょう。これでVisual Studio Codeを使う限り、誰がプロジェクトを開いてもコードスタイルが保たれます。Visual Studio Codeのeditor.codeActionsOnSaveは、files.autoSaveがafterDelayのときは効かないので、offに設定しておきます。
 
@@ -210,6 +236,8 @@ Visual Stuido Codeでフォルダを開いたときに、eslintの拡張と、ed
      },
      "files.autoSave": "off"
    }
+
+ファイルを保存してみて修正されるか試してみましょう。もしされない場合は一度コマンドラインから実行してみてください。拡張で設定されているパッケージが足りない場合などはエラーが発生します。
 
 .. todo:: tsdocとかドキュメントツールを紹介
 

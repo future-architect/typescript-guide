@@ -35,6 +35,7 @@
    syntax
    typing
    function
+   otherbuiltinobjects
    class
    async
    exception
