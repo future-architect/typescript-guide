@@ -153,7 +153,7 @@ core-jsのオプションが知りたい場合は、core-jsのサイトのREADME
 
    import "core-js/es6/map";
 
-.. [#] Microsoft社がEdgeがChromiumベースにすることが発表され、現在ベータ版が配布されています。これまでのEdgeと異なり、Windows 7以降のすべてのWindowsで提供されるようになります。IEモードも搭載されてIEとのリプレースも行えるようになるため、IE基準で考える必要はなくなっていく予定です。
+.. [#] Microsoft社がEdgeをChromiumベースにすることを発表し、2020年現在、配布が開始されています。これまでのEdgeと異なり、Windows 7以降のすべてのWindowsで提供されるようになります。IEモードも搭載されてIEとのリプレースも行えるようになるため、IE基準で考える必要はなくなっていく予定です。
 .. [#] Google I/O 2019で、これが現時点の最新版と同じChrome 74に更新されることが発表されています。
 .. [#] http://kangax.github.io/compat-table/es6/
 .. [#] Lambdaは長らくNode.js 6というかなり古いバージョンを使っていましたが10が提供されて6はサポート終了になり、Node.js 6ベースのタスクの新規作成と更新ができなくなりました。
