@@ -130,6 +130,8 @@ npmコマンドはパッケージのダウンロードのためにインター�
 
 チーム内では、gitなどでプロジェクトのソースコードを共有します。JavaScript系のプロジェクトでは、その中に ``package.json`` と ``package-lock.json`` があり、デプロイ時に環境を作ったり、共有された人は環境を手元で再現したりするのが簡単にできます。
 
+以下は、環境変数NODE_ENVが未設定またはproduction以外の場合の動作です。
+
 .. list-table::
    :header-rows: 1
    :widths: 10 20
