@@ -318,11 +318,14 @@ iterableとイテレータ
 読み込み専用の配列
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TypeScriptの「\ ``const``\ 」は変数の再代入をさせない、というガードにはなりますが、C++のように、「変更不可」にはできません。TypeScriptにはこれには別のキーワード、\ ``readonly``\ が提供されています。型の定義の前に\ ``readonly``\ を付与すれば
+TypeScriptの「\ ``const``\ 」は変数の再代入をさせない、というガードにはなりますが、C++のように、「変更不可」にはできません。TypeScriptにはこれには別のキーワード、\ ``readonly``\ が提供されています。型の定義の前に\ ``readonly``\ を付与するか、リテラルの後ろに\ ``as const``\ をつけると読み込み専用になります。
 
 .. code-block:: ts
 
+   // 型につける場合はreadonly
    const a: readonly number[] = [1, 2, 3];
+   // 値やリテラルに付ける場合はas const
+   const b = [1, 2, 3] as const;
    a[0] = 1;
    // Index signature in type 'readonly number[]' only permits reading.
 
@@ -591,7 +594,7 @@ TypeScriptとオブジェクト
 読み込み専用のオブジェクト
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-配列は\ ``readonly``\ をつけて読み込み専用にできましたが、オブジェクトも同様のことができます。ただし、\ ``readonly``\ キーワードではできず、型ユーティリティの\ ``ReadOnly<>``\ を使います。これには、型を定義しておく必要があります。これ以外にも、フィールドごとに\ ``readonly``\ を付与することもで可能です。前節でも触れましたが、これも詳しくは\ :doc:`typing`\ の章で紹介します。
+配列は\ ``readonly``\ や\ ``as const``\ をつけて読み込み専用にできましたが、オブジェクトも同様のことができます。ただし、\ ``readonly``\ キーワードではできず、型ユーティリティの\ ``Readonly<>``\ を使います。これには、型を定義しておく必要があります。これ以外にも、フィールドごとに\ ``readonly``\ を付与することもで可能です。あるいは、型ではなく、値の最後に\ ``as const``\ を付与します。前節でも触れましたが、これも詳しくは\ :doc:`typing`\ の章で紹介します。
 
 .. code-block:: ts
 
@@ -601,6 +604,9 @@ TypeScriptとオブジェクト
    };
 
    const u: Readonly<User> = {name: "shibukawa", age: 39};
+
+   // こちらでも良い
+   const u = {name: "shibukawa", age: 39} as const;
 
    // NG
    u.age = 17;

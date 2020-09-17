@@ -460,7 +460,7 @@ const [a味噌汁, aご飯] = await Promise.all([味噌汁温め(), ご飯温め
 <p><code class="docutils literal notranslate"><span class="pre">Promise.all()</span></code> が適切ではない場面もいくつかあります。</p>
 <p>例えば、外部のAPI呼び出しをする場合、たいてい、秒間あたりのアクセス数が制限されています。
 配列に100個の要素があるからといって100並列でリクエストを投げるとエラーが帰って来て正常に処理が終了しないこともありえます。
-その場合はp-max <a class="footnote-reference brackets" href="#id8" id="id7">2</a> といった、並列数を制御しつつ、 <code class="docutils literal notranslate"><span class="pre">map()</span></code> と同等のことを実現してくれる <code class="docutils literal notranslate"><span class="pre">p-map()</span></code> といったライブラリを活用すると良いでしょう。</p>
+その場合は、並列数を制御しつつ <code class="docutils literal notranslate"><span class="pre">map()</span></code> と同等のことを実現してくれる <code class="docutils literal notranslate"><span class="pre">p-map</span></code> <a class="footnote-reference brackets" href="#id8" id="id7">2</a> といったライブラリを活用すると良いでしょう。</p>
 <dl class="footnote brackets">
 <dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id7">2</a></span></dt>
 <dd><p><a class="reference external" href="https://www.npmjs.com/package/p-map">https://www.npmjs.com/package/p-map</a></p>

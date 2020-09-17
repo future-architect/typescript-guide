@@ -125,9 +125,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#id14">ちょっと上級の話題</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id15">パス名の読み替え</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#commonjs">CommonJSとの違い</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#import-export">型のみのimport/export</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id17">まとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id23">まとめ</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="console.html"><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力</a></li>
@@ -242,8 +243,8 @@
 </pre></div>
 </div>
 <p>npmjs.orgで配布しない、自作のアプリケーションやライブラリ、サービスなんかもパッケージとして作成します。Node.js用ではない、ウェブのフロントエンドのコードでも、Node.jsのパッケージ形式でプロジェクトを作成します。公開しない場合でも、パッケージにしておけば、開発用コマンドのランチャーとして使ったり、依存パッケージの管理ができます。 <code class="docutils literal notranslate"><span class="pre">package.json</span></code> がある場合、インストールすると、 <code class="docutils literal notranslate"><span class="pre">package.json</span></code> に <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> のところに情報が保存されます。 <code class="docutils literal notranslate"><span class="pre">--save-dev</span></code> （もしくは <code class="docutils literal notranslate"><span class="pre">-D</span></code> ）をつけると、 <code class="docutils literal notranslate"><span class="pre">devDependencies</span></code> に保存されます。本番環境ではいらない、開発用のツールなどはこのオプションをつけます。</p>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">devDependenciesに登録</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">devDependenciesに登録</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>npm install --save-dev <span class="o">[</span>パッケージ名<span class="o">]</span>
 </pre></div>
 </div>
@@ -254,14 +255,14 @@
 <h3>TypeScriptとパッケージ<a class="headerlink" href="#typescript" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>TypeScript固有トピックとしては、Aというパッケージ自体にTypeScript固有の型定義ファイルが含まれないことがあり、&#64;types/Aという別のパッケージとして提供されていることがあります。TypeScriptから見ると、この2つで1つのパッケージという感覚でいれば良いでしょう。</p>
 <p>インストールされているパッケージの型定義ファイルがあればダウンロードするtypesyncコマンドがnpmjs.orgにあります。明示的に&#64;typesのパッケージをインストールしても良いのですが、typesyncコマンドをインストールして、installコマンド実行時に毎回実行するようにすると便利です。</p>
-<div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">typesyncコマンドのインストール</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">typesyncコマンドのインストール</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ npm install typesync
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text">型定義のパッケージが別にあれば自動ダウンロード</span><a class="headerlink" href="#id20" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">型定義のパッケージが別にあれば自動ダウンロード</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;postinstall&quot;</span><span class="p">:</span> <span class="s2">&quot;typesync&quot;</span>
@@ -292,8 +293,8 @@
 <h3>エクスポート<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>ファイルの中の変数、関数、クラスをエクスポートすると、他のファイルからそれらが利用できるようになります。
 エクスポートを行うには<code class="docutils literal notranslate"><span class="pre">export</span></code>キーワードをそれぞれの要素の前に付与します。</p>
-<div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text">エクスポート</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">エクスポート</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 変数、関数、クラスのエクスポート</span>
 <span class="kr">export</span> <span class="kr">const</span> <span class="nx">favorite</span> <span class="o">=</span> <span class="s2">&quot;小籠包&quot;</span><span class="p">;</span>
 <span class="kr">export</span> <span class="kd">function</span> <span class="nx">fortune</span><span class="p">()</span> <span class="p">{</span>
@@ -311,8 +312,8 @@
 <p>エクスポートしたものは<code class="docutils literal notranslate"><span class="pre">import</span></code>を使って取り込みます。
 エクスポートされた名前をそのまま使いますが、シンボル名が衝突しそうな場合は<code class="docutils literal notranslate"><span class="pre">as</span></code>を使って別名をつけることができます。
 配布用のJavaScriptを作るバンドルツールは、この <code class="docutils literal notranslate"><span class="pre">import</span></code> 文を分析して、不要なコードを最終成果物から落としてファイルサイズを小さくするツリーシェイキングという機能を持っています。</p>
-<div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text">インポート</span><a class="headerlink" href="#id22" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text">インポート</span><a class="headerlink" href="#id28" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 名前を指定してimport</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">favorite</span><span class="p">,</span> <span class="nx">fortune</span><span class="p">,</span> <span class="nx">SmallAnimal</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./smallanimal&quot;</span><span class="p">;</span>
 
@@ -325,8 +326,8 @@
 <div class="section" id="default">
 <h3><code class="docutils literal notranslate"><span class="pre">default</span></code> エクスポートとインポート<a class="headerlink" href="#default" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>他の言語であまりない要素が<code class="docutils literal notranslate"><span class="pre">default</span></code>指定です。エクスポートする要素の1つを <code class="docutils literal notranslate"><span class="pre">default</span></code> の要素として設定できます。</p>
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">default</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id29">
+<div class="code-block-caption"><span class="caption-text">default</span><a class="headerlink" href="#id29" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// defaultをつけて好きな要素をexport</span>
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">address</span> <span class="o">=</span> <span class="s2">&quot;小岩井&quot;</span><span class="p">;</span>
 
@@ -337,8 +338,8 @@
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">default</span></code> のエクスポートと、 <code class="docutils literal notranslate"><span class="pre">default</span></code> 以外のエクスポートは両立できます。</p>
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">default</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id30">
+<div class="code-block-caption"><span class="caption-text">default</span><a class="headerlink" href="#id30" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// defaultつきと、それ以外を同時にimport</span>
 <span class="kr">import</span> <span class="nx">location</span><span class="p">,</span> <span class="p">{</span> <span class="nx">SmallAnimal</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s2">&quot;./smallanimal&quot;</span><span class="p">;</span>
 </pre></div>
@@ -411,8 +412,8 @@ TypeScriptも、この <code class="docutils literal notranslate"><span class="p
 <h3>リネームして <code class="docutils literal notranslate"><span class="pre">export</span></code><a class="headerlink" href="#export" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">as</span></code>を使って別名でエクスポートも可能です。
 たとえば、クラスをそのままエクスポートするのではなく、Reduxのストアと接続したカスタム版をオリジナルの名前でエクスポートしたいときに使います。</p>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">リネームをしてエクスポート</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id31">
+<div class="code-block-caption"><span class="caption-text">リネームをしてエクスポート</span><a class="headerlink" href="#id31" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-jsx notranslate"><div class="highlight"><pre><span></span>function MyReactComponent(props: {name: string, dispatch: (act: any) =&gt; void}) =&gt; {
   return &lt;h1&gt;私は小動物の{props.name}です&lt;/h1&gt;
 }
@@ -429,8 +430,8 @@ export { favorite as favariteFood };
 アプリケーションから読み込まれるエントリーポイントとなるスクリプトを1つ書き、外部に公開したい要素をそこから再エクスポートすることにより、他の各ファイルに書かれた要素を集約することができます。</p>
 <p>記述方法は、 <code class="docutils literal notranslate"><span class="pre">import</span></code> 文の先頭のキーワードを <code class="docutils literal notranslate"><span class="pre">export</span></code> に変えるだけです。
 他のファイルでデフォルトでなかった要素を、デフォルトとしてエクスポートすることも可能です。</p>
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">再エクスポート</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id32">
+<div class="code-block-caption"><span class="caption-text">再エクスポート</span><a class="headerlink" href="#id32" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">export</span> <span class="p">{</span> <span class="nx">favorite</span><span class="p">,</span> <span class="nx">fortune</span><span class="p">,</span> <span class="nx">SmallAnimal</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./smallanimal&quot;</span><span class="p">;</span>
 
 <span class="c1">// リネームもできる</span>
@@ -475,8 +476,8 @@ JavaScriptは他のアプリケーション上で動くマクロ言語として�
 <p>JavaScript界隈のモノリポジトリでは、packagesやprojectsといったフォルダを作り、その中にプロジェクトフォルダを並べます。
 pathsを使ったパスの読み替えを設定すると、各パッケージでは絶対パスで関連パッケージがインポートできます。</p>
 <p>この場合によく使われるのが、ルートに共通設定を書いたファイルを作り、各パッケージではこれを継承しつつ、差分だけを記述する方法です。</p>
-<div class="literal-block-wrapper docutils container" id="id27">
-<div class="code-block-caption"><span class="caption-text">tsconfig.base.json</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id33">
+<div class="code-block-caption"><span class="caption-text">tsconfig.base.json</span><a class="headerlink" href="#id33" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span>&quot;compilerOptions&quot;: {
   &quot;baseUrl&quot;: &quot;./packages&quot;,
   &quot;paths&quot;: {
@@ -486,8 +487,8 @@ pathsを使ったパスの読み替えを設定すると、各パッケージで
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id28">
-<div class="code-block-caption"><span class="caption-text">packages/app/tsconfig.json</span><a class="headerlink" href="#id28" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id34">
+<div class="code-block-caption"><span class="caption-text">packages/app/tsconfig.json</span><a class="headerlink" href="#id34" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;extends&quot;</span><span class="p">:</span> <span class="s2">&quot;../../tsconfig.base&quot;</span><span class="p">,</span>
   <span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -503,8 +504,8 @@ pathsを使ったパスの読み替えを設定すると、各パッケージで
 <p class="admonition-title">課題</p>
 <p>ちょっとうまく動いていないので、要調査</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id29">
-<div class="code-block-caption"><span class="caption-text">jest.config.js</span><a class="headerlink" href="#id29" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id35">
+<div class="code-block-caption"><span class="caption-text">jest.config.js</span><a class="headerlink" href="#id35" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
    <span class="nx">moduleNameMapper</span><span class="o">:</span> <span class="p">{</span>
      <span class="s2">&quot;mylibroot&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;rootDir&gt;/../mylibroot/src/index.ts&quot;</span>
@@ -525,8 +526,8 @@ pathsを使ったパスの読み替えを設定すると、各パッケージで
 オブジェクトを使って複数エクスポートする場合は明示的なインポートをすると問題ありません。
 <code class="docutils literal notranslate"><span class="pre">default</span></code>形式と同様の動作をサポートするには、オブジェクトに<code class="docutils literal notranslate"><span class="pre">default</span></code>という名前の項目を追加し、なおかつ<code class="docutils literal notranslate"><span class="pre">__esModule:</span> <span class="pre">true</span></code>属性を付与すれば行えます。</p>
 <p>これらの動作はBabelとTypeScriptのデフォルト設定で確認しましたが、これらの挙動はオプションでも変更される場合があります。また、RollupやParcelなどの別のバンドラーツールではまた動作が変わることがあります。</p>
-<div class="literal-block-wrapper docutils container" id="id30">
-<div class="code-block-caption"><span class="caption-text">CommonJSのライブラリをES2015 modulesでインポート</span><a class="headerlink" href="#id30" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id36">
+<div class="code-block-caption"><span class="caption-text">CommonJSのライブラリをES2015 modulesでインポート</span><a class="headerlink" href="#id36" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 1つだけCommonJS形式でエクスポート</span>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="s2">&quot;小豆島&quot;</span><span class="p">;</span>
 
@@ -554,9 +555,68 @@ pathsを使ったパスの読み替えを設定すると、各パッケージで
 </div>
 </div>
 </div>
+<div class="section" id="import-export">
+<h3>型のみのimport/export<a class="headerlink" href="#import-export" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>TypeScript 3.8から、型のみをインポートしたりエクスポートできるようになりました。</p>
+<div class="literal-block-wrapper docutils container" id="id37">
+<div class="code-block-caption"><span class="caption-text">型のみのインポート</span><a class="headerlink" href="#id37" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">type</span> <span class="p">{</span> <span class="nx">AwesomeType</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./type&quot;</span><span class="p">;</span>
+</pre></div>
 </div>
-<div class="section" id="id17">
-<h2>まとめ<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</div>
+<p>読み込まれるファイルの中に何か副作用のある式があったとします。次のファイルはグローバルなところで<code class="docutils literal notranslate"><span class="pre">console.log()</span></code>があります。このファイルがインポートされるだけで、今日の運勢が出力されるという迷惑なライブラリです<a class="footnote-reference brackets" href="#id21" id="id17">1</a>。</p>
+<div class="literal-block-wrapper docutils container" id="id38">
+<div class="code-block-caption"><span class="caption-text">fortunes.ts</span><a class="headerlink" href="#id38" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">export</span> <span class="kr">const</span> <span class="nx">fortunes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;大吉&quot;</span><span class="p">,</span> <span class="s2">&quot;吉&quot;</span><span class="p">,</span> <span class="s2">&quot;中吉&quot;</span><span class="p">,</span> <span class="s2">&quot;小吉&quot;</span><span class="p">,</span> <span class="s2">&quot;末吉&quot;</span><span class="p">,</span> <span class="s2">&quot;凶&quot;</span><span class="p">,</span> <span class="s2">&quot;大凶&quot;</span> <span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`あなたの今日の運勢は</span><span class="si">${</span><span class="nx">fortunes</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">7</span><span class="p">)]</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">Fortunes</span> <span class="o">=</span> <span class="s2">&quot;大吉&quot;</span> <span class="o">|</span> <span class="s2">&quot;吉&quot;</span> <span class="o">|</span> <span class="s2">&quot;中吉&quot;</span> <span class="o">|</span> <span class="s2">&quot;小吉&quot;</span> <span class="o">|</span> <span class="s2">&quot;末吉&quot;</span> <span class="o">|</span> <span class="s2">&quot;凶&quot;</span> <span class="o">|</span> <span class="s2">&quot;大凶&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<p>TypeScriptはインポートしたものが型だけの場合に、出力からはそのインポート文を丸ごと排除します。排除されると、nccやBabelなどのバンドラーの出力結果に、そのインポート先のファイルが含まれなくなるため、副作用はおきません。副作用を起こしたい場合は型ではなく値を読み込むか、読み込み対象を指定せずにインポートします。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 値を読み込むと副作用発生</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">fortunes</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./fortunes&quot;</span><span class="p">;</span>
+
+<span class="c1">// 型だけなら発生せず</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Fortunes</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./fortunes&quot;</span><span class="p">;</span>
+
+<span class="c1">// 対象を絞らなくても副作用発生</span>
+<span class="kr">import</span> <span class="s2">&quot;./fortunes&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>そもそも副作用があるモジュールはあまりないとは思いますが、この副作用が発生しないことを明示的に指定するのが型のみのインポートです。</p>
+<p>この挙動を制御するオプションが3.8から増えました。<code class="docutils literal notranslate"><span class="pre">tsc</span> <span class="pre">--init</span></code>しても出力されない、レアなオプションです。</p>
+<p><a href="#id18"><span class="problematic" id="id19">``</span></a>compilerOptions.importsNotUsedAsValues: &quot;remove&quot; | &quot;preserve&quot; | &quot;error&quot;</p>
+<ul class="simple">
+<li><p>&quot;remove&quot;: 削除する（現行のデフォルトとおなじ）</p></li>
+<li><p>&quot;preserve&quot;: 型だけであってもインポートを残し、副作用が必ず発生するようになる</p></li>
+<li><p>&quot;error&quot;: 型だけを通常の名前束縛のインポート構文で読み込むとエラーにする</p></li>
+</ul>
+<p>この最後の<code class="docutils literal notranslate"><span class="pre">preserve</span></code>や <code class="docutils literal notranslate"><span class="pre">error</span></code>の時に、副作用なく型のインポートのみを許容する構文があります。それが次の書き方です。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 型だけなら発生せず</span>
+<span class="kr">import</span> <span class="nx">type</span> <span class="p">{</span> <span class="nx">Fortunes</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./fortunes&quot;</span><span class="p">;</span>
+
+<span class="c1">// compilerOptions.importsNotUsedAsValues: &quot;error&quot;だとエラーに</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Fortunes</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./fortunes&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>なお、この構文は読み込めるのは型だけなので、コロンの左側に来る要素で使うとエラーになります。</p>
+<p>型だけインポートを使うと今までも現在もインポート自体がなかったことにされますが、このオプションにより副作用の有無が明示的なコードを書くことができるようになります。strictを限界まで設定しているユーザーは<code class="docutils literal notranslate"><span class="pre">compilerOptions.importsNotUsedAsValues:</span> <span class="pre">&quot;error&quot;</span></code>も追加すると良いでしょう。</p>
+<p>インポートだけではなく、<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">type</span> <span class="pre">{</span> <span class="pre">A,</span> <span class="pre">B</span> <span class="pre">}</span> <span class="pre">from</span> <span class="pre">&quot;./modules&quot;;</span></code>といった、インポートして即エクスポートする文においては、<code class="docutils literal notranslate"><span class="pre">export</span></code>にも利用できます。</p>
+<p>現在リリースされているtypescript-eslintにおいても、<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">type</span></code>を使う方が推奨値としてデフォルト設定されています<a class="footnote-reference brackets" href="#id22" id="id20">2</a>。</p>
+<dl class="footnote brackets">
+<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id17">1</a></span></dt>
+<dd><p>他に迷惑な有名なライブラリとしては、Pythonのthisがあります。<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">this</span></code>をするとPythonの設計思想を表す詩が表示されます。</p>
+</dd>
+<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id20">2</a></span></dt>
+<dd><p><a class="reference external" href="https://github.com/typescript-eslint/typescript-eslint/blob/v4.1.1/packages/eslint-plugin/docs/rules/consistent-type-imports.md">https://github.com/typescript-eslint/typescript-eslint/blob/v4.1.1/packages/eslint-plugin/docs/rules/consistent-type-imports.md</a></p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="id23">
+<h2>まとめ<a class="headerlink" href="#id23" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>インポートとエクスポートのための構文自体は難しくありません。
 ファイル名を間違ったりしても、Visual Studio Codeなどのエディタがすばやくエラーを見つけてくれるため、問題の発見と解決は素早く行えるでしょう。</p>
 <p>JavaScriptには当初モジュール機構がなく、後から追加されたりしたため、過去の経緯、CommonJSなどの他の仕組みも考慮したうえで設定を行う必要があったりします。

@@ -405,7 +405,7 @@
 </div>
 <p>オブジェクトの分割代入を利用すると、デフォルト値つきの柔軟なパラメータも簡単に実現できます。
 以前は、オプショナルな引数は<code class="docutils literal notranslate"><span class="pre">opts</span></code>という名前のオブジェクトを渡すこともよくありました。
-今時であれば、完全省略時でもデフォルト値が設定されるし、部分的に設定も可能みたいな引数が次のように書けます。</p>
+今時であれば、完全省略時にはデフォルト値が設定され、部分的な設定も可能な引数が次のように書けます。</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 分割代入を使って配列やオブジェクトを変数に展開＆デフォルト値も設定</span>
 <span class="c1">// 最後の={}がないとエラーになるので注意</span>
 <span class="kd">function</span> <span class="nx">f</span><span class="p">({</span><span class="nx">name</span><span class="o">=</span><span class="s2">&quot;小動物&quot;</span><span class="p">,</span> <span class="nx">favorite</span><span class="o">=</span><span class="s2">&quot;小豆餅&quot;</span><span class="p">}</span><span class="o">=</span><span class="p">{})</span> <span class="p">{</span>
@@ -498,8 +498,8 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">call()</span></code>は配列の<code class="docutils literal notranslate"><span class="pre">push()</span></code>メソッドのように、引数を可変長にしたいときに使っていました。
-関数の中では<code class="docutils literal notranslate"><span class="pre">arguments</span></code>という名前のちょっと配列っぽいオブジェクトです。
-ちょっと使いにくいので、一旦本物の配列にする時に<code class="docutils literal notranslate"><span class="pre">call()</span></code>を使って配列のメソッドを<code class="docutils literal notranslate"><span class="pre">arguments</span></code>に適用するハックがよく利用されていました。
+関数の中で引数全体は<code class="docutils literal notranslate"><span class="pre">arguments</span></code>という名前のちょっと配列っぽいオブジェクトで参照されます。
+そのままではちょっと使いにくいので一旦本物の配列に代入したいという時、 <code class="docutils literal notranslate"><span class="pre">call()</span></code>を使って配列のメソッドを<code class="docutils literal notranslate"><span class="pre">arguments</span></code>に適用するハックがよく利用されていました。
 これも引数リスト側にスプレッド構文を使うことで本体にロジックを書かずに実現できます。</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: 可変長配列の古いコード</span>
 <span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
