@@ -423,7 +423,10 @@ TypeScriptはインポートしたものが型だけの場合に、出力から�
 
 インポートだけではなく、\ ``export type { A, B } from "./modules";``\ といった、インポートして即エクスポートする文においては、\ ``export``\ にも利用できます。
 
+現在リリースされているtypescript-eslintにおいても、\ ``import type``\ を使う方が推奨値としてデフォルト設定されています\ [#]_\ 。
+
 .. [#] 他に迷惑な有名なライブラリとしては、Pythonのthisがあります。\ ``import this``\ をするとPythonの設計思想を表す詩が表示されます。
+.. [#] https://github.com/typescript-eslint/typescript-eslint/blob/v4.1.1/packages/eslint-plugin/docs/rules/consistent-type-imports.md
 
 まとめ
 --------------
