@@ -364,6 +364,67 @@ ES2015 modulesを利用して開発されたライブラリも、トランスパ
    // place==="小笠原";
    import place from "./cjs-lib";
 
+型のみのimport/export
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TypeScript 3.8から、型のみをインポートしたりエクスポートできるようになりました。
+
+.. code-block:: ts
+   :caption: 型のみのインポート
+
+   import type { AwesomeType } from "./type";
+
+読み込まれるファイルの中に何か副作用のある式があったとします。次のファイルはグローバルなところで\ ``console.log()``\ があります。このファイルがインポートされるだけで、今日の運勢が出力されるという迷惑なライブラリです\ [#]_\ 。
+
+.. code-block:: ts
+   :caption: fortunes.ts
+
+   export const fortunes = ["大吉", "吉", "中吉", "小吉", "末吉", "凶", "大凶" ];
+   console.log(`あなたの今日の運勢は${fortunes[Math.floor(Math.random() * 7)]}`);
+
+   export type Fortunes = "大吉" | "吉" | "中吉" | "小吉" | "末吉" | "凶" | "大凶";
+
+TypeScriptはインポートしたものが型だけの場合に、出力からはそのインポート文を丸ごと排除します。排除されると、nccやBabelなどのバンドラーの出力結果に、そのインポート先のファイルが含まれなくなるため、副作用はおきません。副作用を起こしたい場合は型ではなく値を読み込むか、読み込み対象を指定せずにインポートします。
+
+.. code-block:: ts
+
+   // 値を読み込むと副作用発生
+   import { fortunes } from "./fortunes";
+
+   // 型だけなら発生せず
+   import { Fortunes } from "./fortunes";
+
+   // 対象を絞らなくても副作用発生
+   import "./fortunes";
+
+そもそも副作用があるモジュールはあまりないとは思いますが、この副作用が発生しないことを明示的に指定するのが型のみのインポートです。
+
+この挙動を制御するオプションが3.8から増えました。\ ``tsc --init``\ しても出力されない、レアなオプションです。
+
+``compilerOptions.importsNotUsedAsValues: "remove" | "preserve" | "error"
+
+* "remove": 削除する（現行のデフォルトとおなじ）
+* "preserve": 型だけであってもインポートを残し、副作用が必ず発生するようになる
+* "error": 型だけを通常の名前束縛のインポート構文で読み込むとエラーにする
+
+この最後の\ ``preserve``\ や \ ``error``\ の時に、副作用なく型のインポートのみを許容する構文があります。それが次の書き方です。
+
+.. code-block:: ts
+
+   // 型だけなら発生せず
+   import type { Fortunes } from "./fortunes";
+
+   // compilerOptions.importsNotUsedAsValues: "error"だとエラーに
+   import { Fortunes } from "./fortunes";
+
+なお、この構文は読み込めるのは型だけなので、コロンの左側に来る要素で使うとエラーになります。
+
+型だけインポートを使うと今までも現在もインポート自体がなかったことにされますが、このオプションにより副作用の有無が明示的なコードを書くことができるようになります。strictを限界まで設定しているユーザーは\ ``compilerOptions.importsNotUsedAsValues: "error"``\ も追加すると良いでしょう。
+
+インポートだけではなく、\ ``export type { A, B } from "./modules";``\ といった、インポートして即エクスポートする文においては、\ ``export``\ にも利用できます。
+
+.. [#] 他に迷惑な有名なライブラリとしては、Pythonのthisがあります。\ ``import this``\ をするとPythonの設計思想を表す詩が表示されます。
+
 まとめ
 --------------
 
