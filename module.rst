@@ -401,7 +401,7 @@ TypeScriptはインポートしたものが型だけの場合に、出力から�
 
 この挙動を制御するオプションが3.8から増えました。\ ``tsc --init``\ しても出力されない、レアなオプションです。
 
-``compilerOptions.importsNotUsedAsValues: "remove" | "preserve" | "error"
+``compilerOptions.importsNotUsedAsValues: "remove" | "preserve" | "error"``
 
 * "remove": 削除する（現行のデフォルトとおなじ）
 * "preserve": 型だけであってもインポートを残し、副作用が必ず発生するようになる
