@@ -3,10 +3,6 @@ Vue.jsの環境構築
 
 Vue.jsは日本で人気のあるウェブフロントエンドのフレームワークです。柔軟な設定のできるCLIツールが特徴です。本書では3系についてとりあげます。
 
-.. note::
-
-   執筆時点で正式リリースはまだです。
-
 .. code-block:: bash
 
    $ npx @vue/cli@next create myapp
