@@ -367,7 +367,7 @@ distrolessはシェルが入っておらず、外部からログインされる�
 * ``gcr.io/distroless/nodejs:12-debug``
 * ``gcr.io/distroless/nodejs:14-debug``
 
-一般的な\ ``Dockerfile``\ は、\ ``ENTRYPOINT``\ がシェル、\ ``CMD``\ がそのシェルから呼び出されるプログラムです。distrolessはシェルがなく、\ ``ENTRYPOINT``\ にNode.jsが設定されている、\ ``CMD``\ にはJavaScriptのスクリプトを設定します。拡張を使わないコードなら簡単に動作します。先ほどの\ ``Dockerfile``\ と、ビルド部分はまったく同じです。
+一般的な\ ``Dockerfile``\ は、\ ``ENTRYPOINT``\ がシェル、\ ``CMD``\ がそのシェルから呼び出されるプログラムです。distrolessはシェルがなく、\ ``ENTRYPOINT``\ にNode.jsが設定されているので、\ ``CMD``\ にはJavaScriptのスクリプトを設定します。拡張を使わないコードなら簡単に動作します。先ほどの\ ``Dockerfile``\ と、ビルド部分はまったく同じです。
 
 .. code-block:: docker
    :caption: Dockerfile
