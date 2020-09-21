@@ -28,6 +28,15 @@ Pull Requestをくださった方々
 * `@ichikawa-hiroki <https://github.com/ichikawa-hiroki>`_
 * `@eduidl <https://github.com/eduidl>`_
 * `@inductor <https://github.com/inductor>`_
+* `@tamo <https://github.com/tamo>`_
+* `@ota-meshi <https://github.com/ota-meshi>`_
+* `@ravelll <https://github.com/ravelll>`_
+* `@mottox2 <https://github.com/mottox2>`_
+* `@masayuki0109 <https://github.com/masayuki0109>`_
+* `@hnakamur <https://github.com/hnakamur>`_
+* `@c-bata <https://github.com/c-bata>`_
+* `@Yu0614 <https://github.com/Yu0614>`_
+
 
 フィードバックをくださった方々
 ------------------------------------
