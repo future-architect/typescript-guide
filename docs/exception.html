@@ -236,7 +236,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>もし、回復処理で回復仕切れない場合は、再度例外を投げることもできます。</p>
+<p>もし、回復処理で回復し切れない場合は、再度例外を投げることもできます。</p>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text">例外の再送</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
@@ -363,7 +363,7 @@ JavaScriptでは1つしか書くことができません。型の種類による
 </div>
 </div>
 <p>実際に実行時に例外が起きうる（どんなにデバッグしても例外を抑制できない）ポイントは、外部の通信とかごく一部のはずです。あまりたくさん例外処理を書く必要もないと思いますし、書く場合もどこに書いたかがわかりやすくなります。</p>
-<p>広くする問題としては、原因の違う例外が混ざってしまう点もあります。例えば、JSONのパースを何箇所かで行なっていると、それぞれの箇所で <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> が投げられる可能性が出てきます。原因が違ってリカバリー処理が別の例外が同じ <code class="docutils literal notranslate"><span class="pre">catch</span></code> 節に入ってきてしまうと</p>
+<p>広くする問題としては、原因の違う例外が混ざってしまう点もあります。例えば、JSONのパースを何箇所かで行なっていると、それぞれの箇所で <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> が投げられる可能性が出てきます。原因が違ってリカバリー処理が別の例外が同じ <code class="docutils literal notranslate"><span class="pre">catch</span></code> 節に入ってきてしまうと、正確に例外を仕分けを行って漏れなく対応する必要が出てきます。しかし、どの例外が投げられるかを明示できる文法がなく、実装のコードを見ないとどのような例外が投げられてくるか分かりません。そのため、「間違いなく対処できているか？」を判断するコストが極めて高くなります。</p>
 </div>
 <div class="section" id="error-throw">
 <h3><code class="docutils literal notranslate"><span class="pre">Error</span></code> 以外を <code class="docutils literal notranslate"><span class="pre">throw</span></code> しない<a class="headerlink" href="#error-throw" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -550,7 +550,7 @@ JavaScriptでは1つしか書くことができません。型の種類による
 <h2>例外処理機構以外で例外を扱う<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>これまでTypeScriptにおける例外処理の方法や作法などを説明してきました。しかし、ベースとなっているJaavScriptの制約により、お世辞にも使いやすい機能とは言えません。理由は以下の3つです。</p>
 <ul class="simple">
-<li><p>Javaの <code class="docutils literal notranslate"><span class="pre">throws</span></code> のように、メソッドがなげうる例外の種類がわからなず、ソースの関数の実態やドキュメント（整備されていれば）を確認する必要がある</p></li>
+<li><p>Javaの <code class="docutils literal notranslate"><span class="pre">throws</span></code> のように、メソッドがなげうる例外の種類がわからず、ソースの関数の実態やドキュメント（整備されていれば）を確認する必要がある</p></li>
 <li><p>JavaやC++のように、 <code class="docutils literal notranslate"><span class="pre">catch</span></code> 節を複数書いて、型ごとの後処理を書くことができず、 <code class="docutils literal notranslate"><span class="pre">insteadof</span></code> を駆使してエラーの種類を見分けるコードを書く必要がある</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> や　<code class="docutils literal notranslate"><span class="pre">async</span></code> 関数で、何が <code class="docutils literal notranslate"><span class="pre">reejct</span></code> に渡されたり、どんな例外を投げるのかを型定義に書く方法がない</p></li>
 </ul>

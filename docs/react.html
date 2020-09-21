@@ -564,7 +564,7 @@ MyComponent.defaultProps = {
 <div class="section" id="reduxtypescript">
 <h2>ReduxとTypeScript<a class="headerlink" href="#reduxtypescript" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Reactの周辺のライブラリの作者の中にはTypeScriptを使わない人が多くいました。Reactは元々Facebookが開発していたflowtypeを使うことが多かったり、ReactのJavaScriptの記述法がかなりトリッキーだったり、と理由はいろいろ考えられます。その後、MicrosoftがReactを大々的に利用するように宣言し、TypeScriptの機能もかなり充実しました。近年ではTypeScriptの型定義ファイルが最初から付属するようになったり、TypeScriptで再実装されたり、TypeScriptとの親和性がどんどん上がっています。</p>
-<p>Reduxはアプリケーション内部で横断的に利用したいデータを保持したいり、その更新を行うための補助ライブラリです。データの更新にともない、必要な画面更新だけを効率的に行えるようにもしてくれます。大規模なアプリケーションではよく活用されていました。そのRedux本体も、TypeScriptで適切に型をつけていこうとするとかなり頭と手を使う必要がありましたが、公式サポートライブラリのRedux-Toolkitは、TypeScriptとの親和性が極めて高くなりました。素のReduxをこれから扱う理由は特にないので、本書ではRedux-Toolkit経由でのReduxの操作について紹介します。</p>
+<p>Reduxはアプリケーション内部で横断的に利用したいデータを保持したり、その更新を行うための補助ライブラリです。データの更新にともない、必要な画面更新だけを効率的に行えるようにもしてくれます。大規模なアプリケーションではよく活用されていました。そのRedux本体も、TypeScriptで適切に型をつけていこうとするとかなり頭と手を使う必要がありましたが、公式サポートライブラリのRedux-Toolkitは、TypeScriptとの親和性が極めて高くなりました。素のReduxをこれから扱う理由は特にないので、本書ではRedux-Toolkit経由でのReduxの操作について紹介します。</p>
 <p>Reduxはストアと呼ばれる中央のデータ庫を持ちます。データに変更を加えるためのreducerと呼ばれる変換ロジックを実装します。標準のReduxを使う場合は、reducerのみを実装します。この関数の返り値がステートになります。データの保管そのものはReduxが行い、開発者が触ることはできません。必要に応じてreducerをReduxが実行し、その結果をReduxが管理するという構成です。</p>
 <p>このreducerをトリガーするのに必要なのが、アクションと呼ばれるデータでした。これを<code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>という関数に投げ込むことでreducerが起動され、そのアクションに応じてデータを書き換えていました。</p>
 <p>しかし、まずJavaScriptの文化で、アクションクリエーターというアクションを作る関数を作っていました。この場合、型をつけるにはreducerの引数にはすべてのアクションの型（アクションクリエーターの返り値の型）の合併型を作る必要がありました。この「すべての」というのが大きなアプリケーションになると依存関係が循環しないように気をつけたり、漏れなく型を合成してあげないといけなかったりと、型のために人間が行う作業が膨大でした。多くの人が「Reduxに型をつけるには？」という文章を書いたりしましたが、その後、Reduxが公式で出してきた解答がRedux-Toookitでした。</p>
@@ -872,7 +872,7 @@ MyComponent.defaultProps = {
 </pre></div>
 </div>
 </div>
-<p>これ以降、JavaScriptやTypeScriptへの機能追加により、何段階か書き方の改善がありました。コンストラクタで<code class="docutils literal notranslate"><span class="pre">onClick</span></code>をbindしなおしている代わりに、class定義の中で代入できるようになったので、アロー演算子を使っているかもしれませんし、TypeScript化で<code class="docutils literal notranslate"><span class="pre">Component</span></code>の型変数でPropsやStateの型変数を設定するようになっているかもしれません。</p>
+<p>これ以降、JavaScriptやTypeScriptへの機能追加により、何段階か書き方の改善がありました。コンストラクタで<code class="docutils literal notranslate"><span class="pre">onClick</span></code>をbindしなおさずに、class定義の中で代入できるようになったので、アロー演算子を使っているかもしれませんし、TypeScript化で<code class="docutils literal notranslate"><span class="pre">Component</span></code>の型変数でPropsやStateの型変数を設定するようになっているかもしれません。</p>
 <div class="literal-block-wrapper docutils container" id="id23">
 <div class="code-block-caption"><span class="caption-text">ほどほどに古い書き方</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">interface</span> <span class="nx">Props</span> <span class="p">{</span>
@@ -901,7 +901,7 @@ MyComponent.defaultProps = {
 </pre></div>
 </div>
 </div>
-<p>古い書き方でTypeScriptを使わなくても、Reactレベルでさまざまなチェック機構で提供されており開発は便利ではありました。ただし、<code class="docutils literal notranslate"><span class="pre">state</span></code>の変更処理（<code class="docutils literal notranslate"><span class="pre">setState()</span></code>呼び出し）をした直後にはまだインスタンス変数の<code class="docutils literal notranslate"><span class="pre">this.state</span></code>が変更されておらず、状態がおかしくなってしまう、という問題があったり、イベントハンドラをJSXに渡すときに、thisの束縛を忘れてイベントが発火した後にエラーになるといったミスがおきやすい素地がありました。</p>
+<p>古い書き方でTypeScriptを使わなくても、Reactレベルでさまざまなチェック機構が提供されており開発は便利ではありました。ただし、<code class="docutils literal notranslate"><span class="pre">state</span></code>の変更処理（<code class="docutils literal notranslate"><span class="pre">setState()</span></code>呼び出し）をした直後にはまだインスタンス変数の<code class="docutils literal notranslate"><span class="pre">this.state</span></code>が変更されておらず、状態がおかしくなってしまう、という問題があったり、イベントハンドラをJSXに渡すときに、thisの束縛を忘れてイベントが発火した後にエラーになるといったミスがおきやすい素地がありました。</p>
 <p>現在主流になっているのが関数コンポーネントです。当初は状態を持たないコンポーネントのみだったため、クラスコンポーネントからの完全移行は大変でしたが、Hookという機能が追加されてクラスコンポーネントを完璧に置き換えられるようになりました。関数コンポーネントは状態管理をReact側におまかせして、<code class="docutils literal notranslate"><span class="pre">render()</span></code>のみにしたような書き方です。だいぶ、縦にも横にも圧縮されたことがわかります。</p>
 <div class="literal-block-wrapper docutils container" id="id24">
 <div class="code-block-caption"><span class="caption-text">新しい書き方</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
@@ -949,7 +949,7 @@ MyComponent.defaultProps = {
 </div>
 <div class="section" id="hooks">
 <h3>サードパーティのライブラリもHooksを使う<a class="headerlink" href="#hooks" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>関数コンポーネント自体もコードを文字書くする効能がありますが、新しいHooksスタイルにより、サードパーティのライブラリの組み込みも簡単になります。残念ながら、Hooksスタイルの関数は関数コンポーネントでしか利用できませんので、前述の関数コンポーネントへの書き換えがまず必要になります。</p>
+<p>関数コンポーネント自体もコードを短くする効能がありますが、新しいHooksスタイルにより、サードパーティのライブラリの組み込みも簡単になります。残念ながら、Hooksスタイルの関数は関数コンポーネントでしか利用できませんので、前述の関数コンポーネントへの書き換えがまず必要になります。</p>
 <p>例えば、React-RouterやReduxとの接続は、コンポーネントをラップしてpropsに要素を追加する関数呼び出しが必要でした。ユーザーコード側では、サードパーティのライブラリから何かしら情報をもらったり、サードパーティのライブラリの機能を呼び出しするには、<code class="docutils literal notranslate"><span class="pre">props</span></code>経由で扱う必要があり、この特殊なラッパーは<code class="docutils literal notranslate"><span class="pre">props</span></code>に新しい属性を増やす役割を果たしていました。しかし、ユーザーコード側でも<code class="docutils literal notranslate"><span class="pre">propsTypes</span></code>にこれを追加する必要があったりと、たくさんの転記作業が必要でした。コンポーネントの外の状態まで気を配る必要がありました。</p>
 <div class="literal-block-wrapper docutils container" id="id25">
 <div class="code-block-caption"><span class="caption-text">古いReact-Routerのラッパースタイルの書き方</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
@@ -996,7 +996,7 @@ MyComponent.defaultProps = {
 </pre></div>
 </div>
 </div>
-<p>よく不要論とかが取り沙汰されるReduxも、Reduxのストアにアクセスしたり、変更のために<code class="docutils literal notranslate"><span class="pre">dispatch</span></code>を呼ぶときにその準備コードが多くなる問題がありました。次のコードは、コンポーネント定義自体は全部省略して空ですが、これだけの準備コードが必要でした。</p>
+<p>よく不要論が取り沙汰されるReduxも、Reduxのストアにアクセスしたり、変更のために<code class="docutils literal notranslate"><span class="pre">dispatch</span></code>を呼ぶときにその準備コードが多くなる問題がありました。次のコードは、コンポーネント定義自体は全部省略して空ですが、これだけの準備コードが必要でした。</p>
 <div class="literal-block-wrapper docutils container" id="id27">
 <div class="code-block-caption"><span class="caption-text">Reduxの古い書き方</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
@@ -1063,7 +1063,7 @@ MyComponent.defaultProps = {
 <li><p><a class="reference external" href="https://2019.stateofjs.com/">https://2019.stateofjs.com/</a></p></li>
 </ul>
 <p>CoffeeScriptや6to5に始まり、Babel、TypeScriptと、AltJSもいろいろ登場してきましたが、TypeScriptの人気は現在伸び率がナンバーワンです。それに応じて、各種環境構築ツールもTypeScriptをオプションの一つに加えており、ドキュメントでも必ず言及があります。デフォルトでTypeScriptが利用できるというツールも増えてきています。</p>
-<p>本章の内容も、最初に書いたときよりも、どんどんコンパクトになってきています。もしかしたら、将来みなさんが環境構築をする時になったら本書の内容のほとんどの工程は不要になっているかもしれません。それはそれで望ましいので、早くそのような時代がきて、お詫びの訂正をしたいと思います。</p>
+<p>本章の内容も、最初に書いたときよりも、どんどんコンパクトになってきています。もしかしたら、将来みなさんが環境構築をする時になったら本書の内容のほとんどの工程は不要になっているかもしれません。それはそれで望ましいので、早くそのような時代がきて、お詫びと訂正をしたいと思います。</p>
 </div>
 </div>
 

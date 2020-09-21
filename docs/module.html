@@ -104,26 +104,26 @@
 <li class="toctree-l2"><a class="reference internal" href="#id2">用語の整理</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id3">パッケージ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#typescript">TypeScriptとパッケージ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">モジュール</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">モジュール</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">基本文法</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id6">エクスポート</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">インポート</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">基本文法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">エクスポート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">インポート</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#default"><code class="docutils literal notranslate"><span class="pre">default</span></code> エクスポートとインポート</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">パスの書き方 - 相対パスと絶対パス</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">動的インポート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">パスの書き方 - 相対パスと絶対パス</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">動的インポート</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#import">誰が <code class="docutils literal notranslate"><span class="pre">import</span></code> を行うのか？</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id11">中級向けの機能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id13">中級向けの機能</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#export">リネームして <code class="docutils literal notranslate"><span class="pre">export</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id12">複数のファイル内容をまとめてエクスポート</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id13">自動でライブラリを読み込ませる設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">複数のファイル内容をまとめてエクスポート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">自動でライブラリを読み込ませる設定</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id14">ちょっと上級の話題</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id15">パス名の読み替え</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id16">ちょっと上級の話題</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id17">パス名の読み替え</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#commonjs">CommonJSとの違い</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#import-export">型のみのimport/export</a></li>
 </ul>
@@ -249,7 +249,12 @@
 </pre></div>
 </div>
 </div>
-<p>新しいコンピュータや他人のコンピュータ上で作業フォルダを作る必要があるときは、その以前インストールしたファイル一覧を元に <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code> コマンドだけですべての必要なパッケージのダウンロードが完了します。 <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> と <code class="docutils literal notranslate"><span class="pre">devDependencies</span></code> のパッケージがダウンロードされます。そのパッケージが他のパッケージに依存していたら、それらもすべてダウンロードしてインストールされます。 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span> <span class="pre">--prod</span></code> だと、 <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> のみがダウンロードされます。初回にダウンロードされて <code class="docutils literal notranslate"><span class="pre">package.json</span></code> に登録されるときは、サブのパッケージも含めて <code class="docutils literal notranslate"><span class="pre">package-lock.json</span></code> というファイルに全バージョン情報が保存されます。 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">ci</span></code> コマンドを使って、これに記録されたバージョンと厳密に一致したバージョンのみをダウンロードすることもできます。</p>
+<p>新しいコンピュータや他人のコンピュータ上で作業フォルダを作る必要があるときは、その以前インストールしたファイル一覧を元に <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code> コマンドだけですべての必要なパッケージのダウンロードが完了します。 <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> と <code class="docutils literal notranslate"><span class="pre">devDependencies</span></code> のパッケージがダウンロードされます<a class="footnote-reference brackets" href="#id5" id="id4">1</a>。そのパッケージが他のパッケージに依存していたら、それらもすべてダウンロードしてインストールされます。 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span> <span class="pre">--prod</span></code> だと、 <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> のみがダウンロードされます。初回にダウンロードされて <code class="docutils literal notranslate"><span class="pre">package.json</span></code> に登録されるときは、サブのパッケージも含めて <code class="docutils literal notranslate"><span class="pre">package-lock.json</span></code> というファイルに全バージョン情報が保存されます。 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">ci</span></code> コマンドを使って、これに記録されたバージョンと厳密に一致したバージョンのみをダウンロードすることもできます。</p>
+<dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id4">1</a></span></dt>
+<dd><p>ただし環境変数 <code class="docutils literal notranslate"><span class="pre">NODE_ENV</span></code> が <code class="docutils literal notranslate"><span class="pre">production</span></code> に設定されていると、<code class="docutils literal notranslate"><span class="pre">--prod</span></code> オプションを付けた場合と同じ動作になります。</p>
+</dd>
+</dl>
 </div>
 <div class="section" id="typescript">
 <h3>TypeScriptとパッケージ<a class="headerlink" href="#typescript" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -273,8 +278,8 @@
 </div>
 <p>これで、 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code> のたびに、型定義ファイルも（あれば）ダウンロードされるようになります。</p>
 </div>
-<div class="section" id="id4">
-<h3>モジュール<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id6">
+<h3>モジュール<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>JavaScriptやTypeScript界隈でモジュールというと、ECMAScript2015で入ったモジュールの機能、およびその文法に準拠しているTypeScript/JavaScriptの1つのソースファイルのことを指します。もっとも、これらの界隈でも、Angularはまたそれ固有のモジュール機構などを持っていたりしますが、それはここでは置いておきます。</p>
 <p>簡単にいえば、1つの.ts/jsファイルがモジュールです。モジュール機能を使うと、ファイルを分割して、管理しやすいサイズのソースファイルに区切ってプロジェクトの開発をすすめることができます。モジュールは、外部に提供したい要素を <code class="docutils literal notranslate"><span class="pre">export</span></code> したり、外部のファイルの要素を <code class="docutils literal notranslate"><span class="pre">import</span></code> することができます。同一のフォルダ内の別のファイルを参照する場合にも、 <code class="docutils literal notranslate"><span class="pre">import</span></code> が必要です。</p>
 <p>パッケージの方がモジュールよりも大きな概念ですが、パッケージとモジュールの言葉が同じような文脈で利用されることがあります。パッケージ内部にたくさんのモジュール（ソースコード）が入ります。パッケージの設計時に、1つの代表となるモジュールに公開要素を集めることができます。パッケージの設定ファイルの中で、デフォルトで参照するモジュールが設定できます（ <code class="docutils literal notranslate"><span class="pre">main</span></code> 属性）。この場合、他のモジュールを <code class="docutils literal notranslate"><span class="pre">import</span></code> するのと同じように、パッケージの <code class="docutils literal notranslate"><span class="pre">import</span></code> ができるようになります。大抵のnpmjs.orgで公開されているパッケージは、このようにデフォルトで読み込まれるソースファイルにすべての要素を集める（ビルドツールで複数ファイルをまとめて結果として1ファイルになる場合も含む）のが一般的です。</p>
@@ -287,10 +292,10 @@
 </ul>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>基本文法<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<div class="section" id="id6">
-<h3>エクスポート<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id7">
+<h2>基本文法<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id8">
+<h3>エクスポート<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>ファイルの中の変数、関数、クラスをエクスポートすると、他のファイルからそれらが利用できるようになります。
 エクスポートを行うには<code class="docutils literal notranslate"><span class="pre">export</span></code>キーワードをそれぞれの要素の前に付与します。</p>
 <div class="literal-block-wrapper docutils container" id="id27">
@@ -307,8 +312,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="id7">
-<h3>インポート<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id9">
+<h3>インポート<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>エクスポートしたものは<code class="docutils literal notranslate"><span class="pre">import</span></code>を使って取り込みます。
 エクスポートされた名前をそのまま使いますが、シンボル名が衝突しそうな場合は<code class="docutils literal notranslate"><span class="pre">as</span></code>を使って別名をつけることができます。
 配布用のJavaScriptを作るバンドルツールは、この <code class="docutils literal notranslate"><span class="pre">import</span></code> 文を分析して、不要なコードを最終成果物から落としてファイルサイズを小さくするツリーシェイキングという機能を持っています。</p>
@@ -346,8 +351,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="id8">
-<h3>パスの書き方 - 相対パスと絶対パス<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id10">
+<h3>パスの書き方 - 相対パスと絶対パス<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>たいていのプログラミング言語でも同等ですが、パス名には、相対パスと絶対パスの2種類があります。</p>
 <ul class="simple">
 <li><p>相対パス: ピリオドからはじまる。 <code class="docutils literal notranslate"><span class="pre">import</span></code> 文が書かれたファイルのフォルダを起点にしてファイルを探す</p></li>
@@ -375,8 +380,8 @@
 <p>型情報ファイルの置き場は <code class="docutils literal notranslate"><span class="pre">compilerOptions.typeRoots</span></code> オプションで変更できます。既存のパッケージで型情報が提供されておらず、自分のプロジェクトの中で定義する場合に、置き場所を追加するときに使います。詳しくは型定義ファイルの作成の章で紹介します。</p>
 </div>
 </div>
-<div class="section" id="id9">
-<h3>動的インポート<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id11">
+<h3>動的インポート<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">import</span></code> / <code class="docutils literal notranslate"><span class="pre">export</span></code> は、コードの実行を開始するときにはすべて解決しており、すべての必要な情報へのアクセスが可能であるという前提で処理されます。
 一方で、巨大なウェブサービスで、特定のページでのみ必要とされるスクリプトをあとから読み込ませるようにして、初期ロード時間を減らしたい、ということがあります。
 この時に使うのは動的インポートです。</p>
@@ -386,7 +391,7 @@
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">zipUtil</span> <span class="o">=</span> <span class="nx">await</span> <span class="kr">import</span><span class="p">(</span><span class="s1">&#39;./utils/create-zip-file&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="id10">
+<div class="admonition-todo admonition" id="id12">
 <p class="admonition-title">課題</p>
 <p>要検証</p>
 </div>
@@ -406,8 +411,8 @@ TypeScriptも、この <code class="docutils literal notranslate"><span class="p
 それであればバンドラーをそのまま使った方が何かと効率的だと思われますので、実際に作られることになるかどうかはわかりません。</p>
 </div>
 </div>
-<div class="section" id="id11">
-<h2>中級向けの機能<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id13">
+<h2>中級向けの機能<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <div class="section" id="export">
 <h3>リネームして <code class="docutils literal notranslate"><span class="pre">export</span></code><a class="headerlink" href="#export" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">as</span></code>を使って別名でエクスポートも可能です。
@@ -424,8 +429,8 @@ export { favorite as favariteFood };
 </div>
 </div>
 </div>
-<div class="section" id="id12">
-<h3>複数のファイル内容をまとめてエクスポート<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id14">
+<h3>複数のファイル内容をまとめてエクスポート<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>TypeScriptで大規模なライブラリを作成する場合、1ファイルですべて実装することはないでしょう。
 アプリケーションから読み込まれるエントリーポイントとなるスクリプトを1つ書き、外部に公開したい要素をそこから再エクスポートすることにより、他の各ファイルに書かれた要素を集約することができます。</p>
 <p>記述方法は、 <code class="docutils literal notranslate"><span class="pre">import</span></code> 文の先頭のキーワードを <code class="docutils literal notranslate"><span class="pre">export</span></code> に変えるだけです。
@@ -443,8 +448,8 @@ export { favorite as favariteFood };
 </div>
 </div>
 </div>
-<div class="section" id="id13">
-<h3>自動でライブラリを読み込ませる設定<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id15">
+<h3>自動でライブラリを読み込ませる設定<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>TypeScriptでは、インポートの行を書かなくても、すべてのファイルですでにインポート行が書かれているとみなして読み込ませる機能があります。
 JavaScriptの処理系はどれも、標準のECMAScriptの機能だけが提供されているのではありません。
 JavaScriptは他のアプリケーション上で動くマクロ言語として使われることが多いので、環境用のクラスやら関数が提供されることがほとんどです。
@@ -463,10 +468,10 @@ JavaScriptは他のアプリケーション上で動くマクロ言語として�
 こちらについては環境構築のところで紹介します。</p>
 </div>
 </div>
-<div class="section" id="id14">
-<h2>ちょっと上級の話題<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<div class="section" id="id15">
-<h3>パス名の読み替え<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id16">
+<h2>ちょっと上級の話題<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id17">
+<h3>パス名の読み替え<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>ひとつのリポジトリに1つのパッケージだけを置いて開発するのではなく、関連するライブラリもすべて一緒のリポジトリに置いてしまう、というモノリポジトリという管理方法があります。
 この名前を提唱して、積極的に使い出したのはBabelで、コア機能と、それをサポートする大量のプラグインが1つのリポジトリに収まっています。
 この考え方自体は昔からあり、Javaの世界ではマルチプロジェクトと呼んでいました。</p>
@@ -500,7 +505,7 @@ pathsを使ったパスの読み替えを設定すると、各パッケージで
 </div>
 </div>
 <p>なお、テスティングフレームワークのJestの場合は、TypeScriptの設定と別途名前のマッピングルールの設定が必要です。次のように書けば大丈夫なはずが、テストコードの場合は相対パスで使ってしまっても問題ないでしょう。</p>
-<div class="admonition-todo admonition" id="id16">
+<div class="admonition-todo admonition" id="id18">
 <p class="admonition-title">課題</p>
 <p>ちょっとうまく動いていないので、要調査</p>
 </div>
@@ -564,7 +569,7 @@ pathsを使ったパスの読み替えを設定すると、各パッケージで
 </pre></div>
 </div>
 </div>
-<p>読み込まれるファイルの中に何か副作用のある式があったとします。次のファイルはグローバルなところで<code class="docutils literal notranslate"><span class="pre">console.log()</span></code>があります。このファイルがインポートされるだけで、今日の運勢が出力されるという迷惑なライブラリです<a class="footnote-reference brackets" href="#id21" id="id17">1</a>。</p>
+<p>読み込まれるファイルの中に何か副作用のある式があったとします。次のファイルはグローバルなところで<code class="docutils literal notranslate"><span class="pre">console.log()</span></code>があります。このファイルがインポートされるだけで、今日の運勢が出力されるという迷惑なライブラリです<a class="footnote-reference brackets" href="#id21" id="id19">2</a>。</p>
 <div class="literal-block-wrapper docutils container" id="id38">
 <div class="code-block-caption"><span class="caption-text">fortunes.ts</span><a class="headerlink" href="#id38" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">export</span> <span class="kr">const</span> <span class="nx">fortunes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;大吉&quot;</span><span class="p">,</span> <span class="s2">&quot;吉&quot;</span><span class="p">,</span> <span class="s2">&quot;中吉&quot;</span><span class="p">,</span> <span class="s2">&quot;小吉&quot;</span><span class="p">,</span> <span class="s2">&quot;末吉&quot;</span><span class="p">,</span> <span class="s2">&quot;凶&quot;</span><span class="p">,</span> <span class="s2">&quot;大凶&quot;</span> <span class="p">];</span>
@@ -587,7 +592,7 @@ pathsを使ったパスの読み替えを設定すると、各パッケージで
 </div>
 <p>そもそも副作用があるモジュールはあまりないとは思いますが、この副作用が発生しないことを明示的に指定するのが型のみのインポートです。</p>
 <p>この挙動を制御するオプションが3.8から増えました。<code class="docutils literal notranslate"><span class="pre">tsc</span> <span class="pre">--init</span></code>しても出力されない、レアなオプションです。</p>
-<p><a href="#id18"><span class="problematic" id="id19">``</span></a>compilerOptions.importsNotUsedAsValues: &quot;remove&quot; | &quot;preserve&quot; | &quot;error&quot;</p>
+<p><code class="docutils literal notranslate"><span class="pre">compilerOptions.importsNotUsedAsValues:</span> <span class="pre">&quot;remove&quot;</span> <span class="pre">|</span> <span class="pre">&quot;preserve&quot;</span> <span class="pre">|</span> <span class="pre">&quot;error&quot;</span></code></p>
 <ul class="simple">
 <li><p>&quot;remove&quot;: 削除する（現行のデフォルトとおなじ）</p></li>
 <li><p>&quot;preserve&quot;: 型だけであってもインポートを残し、副作用が必ず発生するようになる</p></li>
@@ -604,12 +609,12 @@ pathsを使ったパスの読み替えを設定すると、各パッケージで
 <p>なお、この構文は読み込めるのは型だけなので、コロンの左側に来る要素で使うとエラーになります。</p>
 <p>型だけインポートを使うと今までも現在もインポート自体がなかったことにされますが、このオプションにより副作用の有無が明示的なコードを書くことができるようになります。strictを限界まで設定しているユーザーは<code class="docutils literal notranslate"><span class="pre">compilerOptions.importsNotUsedAsValues:</span> <span class="pre">&quot;error&quot;</span></code>も追加すると良いでしょう。</p>
 <p>インポートだけではなく、<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">type</span> <span class="pre">{</span> <span class="pre">A,</span> <span class="pre">B</span> <span class="pre">}</span> <span class="pre">from</span> <span class="pre">&quot;./modules&quot;;</span></code>といった、インポートして即エクスポートする文においては、<code class="docutils literal notranslate"><span class="pre">export</span></code>にも利用できます。</p>
-<p>現在リリースされているtypescript-eslintにおいても、<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">type</span></code>を使う方が推奨値としてデフォルト設定されています<a class="footnote-reference brackets" href="#id22" id="id20">2</a>。</p>
+<p>現在リリースされているtypescript-eslintにおいても、<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">type</span></code>を使う方が推奨値としてデフォルト設定されています<a class="footnote-reference brackets" href="#id22" id="id20">3</a>。</p>
 <dl class="footnote brackets">
-<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id17">1</a></span></dt>
+<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id19">2</a></span></dt>
 <dd><p>他に迷惑な有名なライブラリとしては、Pythonのthisがあります。<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">this</span></code>をするとPythonの設計思想を表す詩が表示されます。</p>
 </dd>
-<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id20">2</a></span></dt>
+<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id20">3</a></span></dt>
 <dd><p><a class="reference external" href="https://github.com/typescript-eslint/typescript-eslint/blob/v4.1.1/packages/eslint-plugin/docs/rules/consistent-type-imports.md">https://github.com/typescript-eslint/typescript-eslint/blob/v4.1.1/packages/eslint-plugin/docs/rules/consistent-type-imports.md</a></p>
 </dd>
 </dl>

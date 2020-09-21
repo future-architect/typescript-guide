@@ -258,16 +258,36 @@ TypeScriptの\ ``Date``\ 型は数字に毛の生えたようなものですの�
 * サーバーでは常にエポック時刻で扱う（ただし、言語によっては秒単位だったり、ミリ秒単位だったり、マイクロ秒単位だったり違いはあるため、そこはルールを決めておきましょう）
 * サーバーからフロントに送った段階で\ ``new Date()``\ などを使って、ローカル時刻化する
 
-日付のフォーマット
+特定の日時の\ ``Date``\ インスタンスの作成
+-----------------------------------------------------
+
+特定の日時インスタンスを作成するには、\ ``Date()``\ コンストラクタの引数に数値を設定して作成します。月の数値が1少なく評価される（1月は0）な点に注意が必要です。この日時は現在のタイムゾーンで評価されます。
+
+.. code-block:: ts
+
+   // 2020年9月21日21時10分5秒
+   // 日本で実行すると日本時間21時（UTCでは9時間前の12時）に
+   const d = new Date(2020, 8, 21, 21, 10, 5)
+
+UTCの時刻から生成したい場合には、\ ``Date.UTC()``\ 関数を使います。これはエポック秒を返すのでこれを\ ``new Date()``\ に渡すことで、UTC指定の時刻のインスタンスが作成できます。
+
+   // UTCの2020年9月21日11時10分5秒
+   // 日本で実行すると日本時間20時（日本時間はUTCは9時間進んでいるように見える）に
+   const d = new Date(Date.UTC(2020, 8, 21, 11, 10, 5))
+
+日付のフォーマット出力
 -------------------------------------------
 
-RFC-3393形式にするには、\ ``toISOString()``\ メソッドを使います。
+:RFC:`3393`\ 形式にするには、\ ``toISOString()``\ メソッドを使います。\ ``toString()``\ だとECMAScriptの仕様書で定められたロケール情報も含む文字列で出力を行ます。後者の場合、ミリ秒単位のデータは丸められてしまいます。
 
 .. code-block:: ts
 
    const now = new Date()
-   const.toISOString()
-   // '2020-09-06T13:34:37.557Z'
+   now.toISOString()
+   // '2020-09-21T12:38:15.655Z'
+
+   now.toString()
+   // 'Mon Sep 21 2020 21:38:15 GMT+0900 (Japan Standard Time)'
 
 短い形式やオリジナルの形式にするには自分でコードを書く必要があります。短く日時を表現しようとする場合のコードは次のようになります。月のみカレンダーの表記と異なって、0が1月になる点に注意してください。
 
@@ -289,3 +309,121 @@ RFC-3393形式にするには、\ ``toISOString()``\ メソッドを使います
    // "2020/09/06 13:55:43"
 
 ``padStart()``\ と、テンプレート文字列のおかげで、以前よりははるかに書きやすくなりましたが、Day.jsなどの提供するフォーマット関数を使った方が短く可読性も高くなるでしょう。
+
+日付データの交換
+-------------------
+
+クライアントとサーバーの間ではJSONなどを通じてデータをやりとりします。JSONでデータを転送するときは数値か文字列で表現する必要があります。日付データは既に説明した通りに、ミリ秒か秒のどちらかの数値で交換するのがもっともコード的には少ない配慮で実現できます。しかし、一方で出力された数字の列を見ても、即座に現在の日時を暗算できる人はいないでしょう。可読性という点では文字列を使いたいこともあるでしょう。本節ではデータをやりとりする相手ごとのデータ変換の仕方について詳しく説明していきます。
+
+TypeScript（含むJavaScript同士）
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TypeScript（含むJavaScript）であれば、\ ``toISOString()``\ でも、\ ``toString()``\ でも、どちらの方式で出力した文字列であってもパースできます。\ ``new Date()``\ に渡すと\ ``Date``\ のインスタンスが、\ ``Date.parse()``\ に渡すと、エポック時刻が帰ってきます。
+
+.. code-block:: ts
+
+   const fromToISOString = new Date(`2020-09-21T12:38:15.655Z`)
+   // 2020-09-21T12:38:15.655Z
+   
+   const fromToString = new Date(`Mon Sep 21 2020 21:38:15 GMT+0900 (Japan Standard Time)`)
+   // 2020-09-21T12:38:15.000Z
+
+   const fromToISOStringEpoch = Date.parse(`2020-09-21T12:38:15.655Z`)
+   // 1600691895655
+
+   const fromToStringEpoch = Date.parse(`Mon Sep 21 2020 21:38:15 GMT+0900 (Japan Standard Time)`)
+   // 1600691895000
+
+Goとの交換の場合
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Goでは日付のフォーマットが何種類か選べますが、このうち、タイムゾーンの時差が数値で入っているフォーマットはTypeScriptでパース可能です。ナノ秒の情報がミリ秒に丸められてしまいますが、一番精度良く伝達できるのは\ ``time.RFC3339Nano``\ の出力です。
+
+* ``time.RubyDate``
+* ``time.RFC822Z``
+* ``time.RFC1123Z``
+* ``time.RFC3339``
+* ``time.RFC3339Nano``
+
+.. code-block:: go
+   :caption: GoでRFC3339Nanoで出力
+
+   package main
+
+   import (
+       "fmt"
+       "time"
+   )
+
+   func main() {
+       now := time.Now()
+       fmt.Println(now.Format(time.RFC3339Nano))
+       // 2020-09-21T21:35:45.057076+09:00
+   }
+
+.. code-block:: ts
+   :caption: TypeScriptでパース
+
+   const receivedFromGo = new Date(`2020-09-21T21:35:45.057076+09:00`)
+   // 2020-09-21T12:35:45.057Z
+
+他の言語に出力する場合、\ ``toISOString()``\ が無難でしょう。Goは\ ``time.RFC3339``\ か、\ ``time.RFC3339Nano``\ を使ってパースできます。結果はどちらも同じです。
+
+.. code-block:: go
+
+   package main
+
+   import (
+       "fmt"
+       "time"
+   )
+
+   func main() {
+       t, err := time.Parse(time.RFC3339, "2020-09-21T12:38:15.655Z")
+       fmt.Println(t)
+       // 2020-09-21 12:38:15.655 +0000 UTC
+   }
+
+Pythonとの交換の場合
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pythonで出力する場合は\ ``datetime.datetime.isoformat()``\ メソッドを使うと良いでしょう。このメソッドはタイムゾーン情報を取り払い、現在のタイムゾーンの表記そのものをフォーマットして出力します。TypeScriptの\ ``new Date()``\ はUTCであることを前提としてパースするため、出力時はUTCとして出すように心がける必要があります。このUTCで出色された文字列はTypeScriptでパースできます。
+
+.. code-block:: python
+
+   from datetime import datetime, timezone
+
+   # localの場合はastimezone()を呼んでUTCに
+   localtime = datetime.now()
+   utctime = localtime.astimezone(timezone.utc)
+   utctime.isoformat()
+   # 2020-09-21T13:42:58.279772+00:00
+
+   # あるいは、最初からUTCで扱う
+   utctime = datetime.utcnow()
+   utctime.isoformat()
+   # 2020-09-21T13:42:58.279772+00:00
+
+パースはやっかいです。Stack Overflowでスレッドが立つぐらいのネタです\ [#]_\ 。Python 3.7からは``fromisoformat()``\ というクラスメソッドが増えましたが、以前からの\ ``datetime.strptime()``\ にフォーマット指定を与えた方が高速とのことです。
+
+.. code-block:: python
+
+   from datetime import datetime
+
+   s = '2020-09-21T12:38:15.655Z'
+
+   datetime.fromisoformat(s.replace('Z', '+00:00'))
+   # datetime.datetime(2020, 9, 21, 12, 38, 15, 655000, tzinfo=datetime.timezone.utc)
+
+   datetime.strptime(s, '%Y-%m-%dT%H:%M:%S.%f%z')
+   # datetime.datetime(2020, 9, 21, 12, 38, 15, 655000, tzinfo=datetime.timezone.utc)
+
+いっそのこと、エポック時刻で扱う方法の方がシンプルでしょう。TypeScriptはミリ秒単位で、Pythonは秒単位なので、1000で割ってから渡す必要があるのと、UTCの数値であることを明示する必要があります。
+
+.. code-block:: python
+
+   from datetime import datetime
+   datetime.fromtimestamp(1600691895655 / 1000.0, timezone.utc)
+   # datetime.datetime(2020, 9, 21, 12, 38, 15, 655000, tzinfo=datetime.timezone.utc)
+
+.. [#] https://stackoverflow.com/questions/127803/how-do-i-parse-an-iso-8601-formatted-date

@@ -112,7 +112,14 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#date"><code class="docutils literal notranslate"><span class="pre">Date</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id8">現在時刻の取得・エポック時刻</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">日付のフォーマット</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">特定の日時の<code class="docutils literal notranslate"><span class="pre">Date</span></code>インスタンスの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">日付のフォーマット出力</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">日付データの交換</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#typescript-javascript">TypeScript（含むJavaScript同士）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#go">Goとの交換の場合</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#python">Pythonとの交換の場合</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -293,8 +300,8 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <div class="section" id="id4">
 <h3>文字列化<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>文字列化はJavaScriptのオブジェクト、配列、数値、文字列、boolean型などの値を渡すと、それを安全に伝送できる文字列にしてくれます。</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">JSON形式に文字列化</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">JSON形式に文字列化</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// bは文字列</span>
 <span class="kr">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">person</span><span class="o">:</span> <span class="s2">&quot;Graham Chapman&quot;</span><span class="p">)</span>
 <span class="c1">// &#39;{&quot;person&quot;:&quot;Graham Chapman&quot;}&#39;</span>
@@ -306,8 +313,8 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <div class="section" id="id5">
 <h4>インデント<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>デフォルトではインデントがなく、文字数最小で出力されます。インデントに数値、あるいは<code class="docutils literal notranslate"><span class="pre">&quot;</span>&#160;&#160;&#160; <span class="pre">&quot;</span></code>といった文字列を渡すことでインデントが行われて見やすくなります。ただし、Node.jsやブラウザの<code class="docutils literal notranslate"><span class="pre">console.log()</span></code>の場合はインデントを設定しなくても見やすく表示してくれるため、整形してファイル出力したい場合以外は使う必要はないと思います。</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">インデント</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">インデント</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">montyPython</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">members</span><span class="o">:</span> <span class="p">[</span>
         <span class="s2">&quot;John Cleese&quot;</span><span class="p">,</span>
@@ -341,8 +348,8 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <h4>JSONとデータロス<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>JSONは言語をまたいで使われるデータのシリアライズのための仕組みです。元はJavaScriptのオブジェクト表現をフォーマットにしたものではありますが（JSONは作成されたのではなく、発見されたと言われています）、いくつかTypeScriptと違うところもあります。</p>
 <p>JSONは単純な木構造であり、TypeScriptのメモリ上の表現のすべてを表現できるわけではありません。例えば、親が子を、子が親を参照しているような循環構造の場合、うまく文字列化できず、エラーになります。事前に変換する関数を使って、子から親方向の参照を切った新しいオブジェクト階層を作るなどして単方向の参照になるようにします。</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">循環参照があるとTypeError</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">循環参照があるとTypeError</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Terry Jones&quot;</span><span class="p">};</span>
 <span class="kr">const</span> <span class="nx">group</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Pythons&quot;</span><span class="p">,</span> <span class="nx">member</span><span class="o">:</span> <span class="p">[</span><span class="nx">person</span><span class="p">]};</span>
 <span class="nx">person</span><span class="p">.</span><span class="nx">group</span> <span class="o">=</span> <span class="nx">group</span><span class="p">;</span> <span class="c1">// お互いに参照しあっているため、循環参照になる</span>
@@ -362,8 +369,8 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <li><p>null</p></li>
 </ul>
 <p>例えば<code class="docutils literal notranslate"><span class="pre">undefined</span></code>の場合はそのキーがなかったことになります。クラスの場合はメンバーフィールドのみのオブジェクトになります。一応データとしては復元できますが、戻すときには単なるオブジェクトで、クラスのインスタンスではなくなります。各クラスに、オブジェクトからインスタンスを復元するファクトリーメソッドを用意してあげる必要があるでしょう。日付は文字列になります。これも、事前に<code class="docutils literal notranslate"><span class="pre">valueOf()</span></code>で数値化しても良いでしょう。<code class="docutils literal notranslate"><span class="pre">Map()</span></code>などは値が完全に失われたインスタンスになるため、注意が必要です。</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">クラス、日付</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">クラス、日付</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="kr">class</span> <span class="nx">C</span> <span class="p">{</span> <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="k">this</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span><span class="p">;</span> <span class="p">}</span> <span class="p">}</span>
 <span class="o">&gt;</span> <span class="kr">const</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">C</span><span class="p">();</span>
 <span class="o">&gt;</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
@@ -439,11 +446,29 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 </ul>
 </div>
 <div class="section" id="id9">
-<h3>日付のフォーマット<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>RFC-3393形式にするには、<code class="docutils literal notranslate"><span class="pre">toISOString()</span></code>メソッドを使います。</p>
+<h3>特定の日時の<code class="docutils literal notranslate"><span class="pre">Date</span></code>インスタンスの作成<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>特定の日時インスタンスを作成するには、<code class="docutils literal notranslate"><span class="pre">Date()</span></code>コンストラクタの引数に数値を設定して作成します。月の数値が1少なく評価される（1月は0）な点に注意が必要です。この日時は現在のタイムゾーンで評価されます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 2020年9月21日21時10分5秒</span>
+<span class="c1">// 日本で実行すると日本時間21時（UTCでは9時間前の12時）に</span>
+<span class="kr">const</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>UTCの時刻から生成したい場合には、<code class="docutils literal notranslate"><span class="pre">Date.UTC()</span></code>関数を使います。これはエポック秒を返すのでこれを<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date()</span></code>に渡すことで、UTC指定の時刻のインスタンスが作成できます。</p>
+<blockquote>
+<div><p>// UTCの2020年9月21日11時10分5秒
+// 日本で実行すると日本時間20時（日本時間はUTCは9時間進んでいるように見える）に
+const d = new Date(Date.UTC(2020, 8, 21, 11, 10, 5))</p>
+</div></blockquote>
+</div>
+<div class="section" id="id10">
+<h3>日付のフォーマット出力<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><span class="target" id="index-0"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc3393.html"><strong>RFC 3393</strong></a>形式にするには、<code class="docutils literal notranslate"><span class="pre">toISOString()</span></code>メソッドを使います。<code class="docutils literal notranslate"><span class="pre">toString()</span></code>だとECMAScriptの仕様書で定められたロケール情報も含む文字列で出力を行ます。後者の場合、ミリ秒単位のデータは丸められてしまいます。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">now</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
-<span class="kr">const</span><span class="p">.</span><span class="nx">toISOString</span><span class="p">()</span>
-<span class="c1">// &#39;2020-09-06T13:34:37.557Z&#39;</span>
+<span class="nx">now</span><span class="p">.</span><span class="nx">toISOString</span><span class="p">()</span>
+<span class="c1">// &#39;2020-09-21T12:38:15.655Z&#39;</span>
+
+<span class="nx">now</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+<span class="c1">// &#39;Mon Sep 21 2020 21:38:15 GMT+0900 (Japan Standard Time)&#39;</span>
 </pre></div>
 </div>
 <p>短い形式やオリジナルの形式にするには自分でコードを書く必要があります。短く日時を表現しようとする場合のコードは次のようになります。月のみカレンダーの表記と異なって、0が1月になる点に注意してください。</p>
@@ -464,6 +489,118 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">padStart()</span></code>と、テンプレート文字列のおかげで、以前よりははるかに書きやすくなりましたが、Day.jsなどの提供するフォーマット関数を使った方が短く可読性も高くなるでしょう。</p>
+</div>
+<div class="section" id="id11">
+<h3>日付データの交換<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>クライアントとサーバーの間ではJSONなどを通じてデータをやりとりします。JSONでデータを転送するときは数値か文字列で表現する必要があります。日付データは既に説明した通りに、ミリ秒か秒のどちらかの数値で交換するのがもっともコード的には少ない配慮で実現できます。しかし、一方で出力された数字の列を見ても、即座に現在の日時を暗算できる人はいないでしょう。可読性という点では文字列を使いたいこともあるでしょう。本節ではデータをやりとりする相手ごとのデータ変換の仕方について詳しく説明していきます。</p>
+<div class="section" id="typescript-javascript">
+<h4>TypeScript（含むJavaScript同士）<a class="headerlink" href="#typescript-javascript" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>TypeScript（含むJavaScript）であれば、<code class="docutils literal notranslate"><span class="pre">toISOString()</span></code>でも、<code class="docutils literal notranslate"><span class="pre">toString()</span></code>でも、どちらの方式で出力した文字列であってもパースできます。<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date()</span></code>に渡すと<code class="docutils literal notranslate"><span class="pre">Date</span></code>のインスタンスが、<code class="docutils literal notranslate"><span class="pre">Date.parse()</span></code>に渡すと、エポック時刻が帰ってきます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">fromToISOString</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="sb">`2020-09-21T12:38:15.655Z`</span><span class="p">)</span>
+<span class="c1">// 2020-09-21T12:38:15.655Z</span>
+
+<span class="kr">const</span> <span class="nx">fromToString</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="sb">`Mon Sep 21 2020 21:38:15 GMT+0900 (Japan Standard Time)`</span><span class="p">)</span>
+<span class="c1">// 2020-09-21T12:38:15.000Z</span>
+
+<span class="kr">const</span> <span class="nx">fromToISOStringEpoch</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="sb">`2020-09-21T12:38:15.655Z`</span><span class="p">)</span>
+<span class="c1">// 1600691895655</span>
+
+<span class="kr">const</span> <span class="nx">fromToStringEpoch</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="sb">`Mon Sep 21 2020 21:38:15 GMT+0900 (Japan Standard Time)`</span><span class="p">)</span>
+<span class="c1">// 1600691895000</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="go">
+<h4>Goとの交換の場合<a class="headerlink" href="#go" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Goでは日付のフォーマットが何種類か選べますが、このうち、タイムゾーンの時差が数値で入っているフォーマットはTypeScriptでパース可能です。ナノ秒の情報がミリ秒に丸められてしまいますが、一番精度良く伝達できるのは<code class="docutils literal notranslate"><span class="pre">time.RFC3339Nano</span></code>の出力です。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">time.RubyDate</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time.RFC822Z</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time.RFC1123Z</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time.RFC3339</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time.RFC3339Nano</span></code></p></li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">GoでRFC3339Nanoで出力</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;fmt&quot;</span>
+    <span class="s">&quot;time&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">Format</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">RFC3339Nano</span><span class="p">))</span>
+    <span class="c1">// 2020-09-21T21:35:45.057076+09:00</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">TypeScriptでパース</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">receivedFromGo</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="sb">`2020-09-21T21:35:45.057076+09:00`</span><span class="p">)</span>
+<span class="c1">// 2020-09-21T12:35:45.057Z</span>
+</pre></div>
+</div>
+</div>
+<p>他の言語に出力する場合、<code class="docutils literal notranslate"><span class="pre">toISOString()</span></code>が無難でしょう。Goは<code class="docutils literal notranslate"><span class="pre">time.RFC3339</span></code>か、<code class="docutils literal notranslate"><span class="pre">time.RFC3339Nano</span></code>を使ってパースできます。結果はどちらも同じです。</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;fmt&quot;</span>
+    <span class="s">&quot;time&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">t</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">RFC3339</span><span class="p">,</span> <span class="s">&quot;2020-09-21T12:38:15.655Z&quot;</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+    <span class="c1">// 2020-09-21 12:38:15.655 +0000 UTC</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="python">
+<h4>Pythonとの交換の場合<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Pythonで出力する場合は<code class="docutils literal notranslate"><span class="pre">datetime.datetime.isoformat()</span></code>メソッドを使うと良いでしょう。このメソッドはタイムゾーン情報を取り払い、現在のタイムゾーンの表記そのものをフォーマットして出力します。TypeScriptの<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date()</span></code>はUTCであることを前提としてパースするため、出力時はUTCとして出すように心がける必要があります。このUTCで出色された文字列はTypeScriptでパースできます。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+
+<span class="c1"># localの場合はastimezone()を呼んでUTCに</span>
+<span class="n">localtime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">utctime</span> <span class="o">=</span> <span class="n">localtime</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+<span class="n">utctime</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+<span class="c1"># 2020-09-21T13:42:58.279772+00:00</span>
+
+<span class="c1"># あるいは、最初からUTCで扱う</span>
+<span class="n">utctime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+<span class="n">utctime</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+<span class="c1"># 2020-09-21T13:42:58.279772+00:00</span>
+</pre></div>
+</div>
+<p>パースはやっかいです。Stack Overflowでスレッドが立つぐらいのネタです<a class="footnote-reference brackets" href="#id13" id="id12">1</a>。Python 3.7からは``fromisoformat()``というクラスメソッドが増えましたが、以前からの<code class="docutils literal notranslate"><span class="pre">datetime.strptime()</span></code>にフォーマット指定を与えた方が高速とのことです。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;2020-09-21T12:38:15.655Z&#39;</span>
+
+<span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;+00:00&#39;</span><span class="p">))</span>
+<span class="c1"># datetime.datetime(2020, 9, 21, 12, 38, 15, 655000, tzinfo=datetime.timezone.utc)</span>
+
+<span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S.</span><span class="si">%f</span><span class="s1">%z&#39;</span><span class="p">)</span>
+<span class="c1"># datetime.datetime(2020, 9, 21, 12, 38, 15, 655000, tzinfo=datetime.timezone.utc)</span>
+</pre></div>
+</div>
+<p>いっそのこと、エポック時刻で扱う方法の方がシンプルでしょう。TypeScriptはミリ秒単位で、Pythonは秒単位なので、1000で割ってから渡す必要があるのと、UTCの数値であることを明示する必要があります。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="mi">1600691895655</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+<span class="c1"># datetime.datetime(2020, 9, 21, 12, 38, 15, 655000, tzinfo=datetime.timezone.utc)</span>
+</pre></div>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id12">1</a></span></dt>
+<dd><p><a class="reference external" href="https://stackoverflow.com/questions/127803/how-do-i-parse-an-iso-8601-formatted-date">https://stackoverflow.com/questions/127803/how-do-i-parse-an-iso-8601-formatted-date</a></p>
+</dd>
+</dl>
+</div>
 </div>
 </div>
 </div>
