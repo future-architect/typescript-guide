@@ -354,7 +354,7 @@ Dockerfileができたらイメージをビルドして実行してみましょ�
 distrolessベースのDockerイメージの作成
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-distrolessはシェルが入っていおらず、外部からログインされることもなく安全というGoogle製のDockerイメージです。標準Linuxに入っているようなツールも含めて、最小限にカットされています。Node.js、Java、Python、.netなど言語のランタイムだけが入ったバージョン、llvmベースのコンパイラで作成したコードを動かすだけのバージョン、何もないバージョンなど、いくつかのバリエーションが用意されています。今回はNode.jsを使います。
+distrolessはシェルが入っておらず、外部からログインされることもなく安全というGoogle製のDockerイメージです。標準Linuxに入っているようなツールも含めて、最小限にカットされています。Node.js、Java、Python、.netなど言語のランタイムだけが入ったバージョン、llvmベースのコンパイラで作成したコードを動かすだけのバージョン、何もないバージョンなど、いくつかのバリエーションが用意されています。今回はNode.jsを使います。
 
 現在、8種類タグが定義されています。latestはLTSが終わるまでは10のままです。\ ``debug``\ がついているものはデバッグ用のシェルが内蔵されています。
 
@@ -367,7 +367,7 @@ distrolessはシェルが入っていおらず、外部からログインされ�
 * ``gcr.io/distroless/nodejs:12-debug``
 * ``gcr.io/distroless/nodejs:14-debug``
 
-一般的なの\ ``Dockerfile``\ は、\ ``ENTRYPOINT``\ がシェル、\ ``CMD``\ がそのシェルから呼び出されるプログラムです。distrolessはシェルがなく、\ ``ENTRYPOINT``\ にNode.jsが設定されている、\ ``CMD``\ にはJavaScriptのスクリプトを設定します。拡張を使わないコードなら簡単に動作します。先ほどの\ ``Dockerfile``\ と、ビルド部分はまったく同じです。
+一般的な\ ``Dockerfile``\ は、\ ``ENTRYPOINT``\ がシェル、\ ``CMD``\ がそのシェルから呼び出されるプログラムです。distrolessはシェルがなく、\ ``ENTRYPOINT``\ にNode.jsが設定されている、\ ``CMD``\ にはJavaScriptのスクリプトを設定します。拡張を使わないコードなら簡単に動作します。先ほどの\ ``Dockerfile``\ と、ビルド部分はまったく同じです。
 
 .. code-block:: docker
    :caption: Dockerfile
