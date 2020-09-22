@@ -597,7 +597,7 @@ minikubeのセットアップが終わったら、kubectlをインストール�
    kubernetes                      ClusterIP   10.96.0.1       <none>        443/TCP   35m
    typescript-kubernetes-service   ClusterIP   10.107.196.16   <none>        80/TCP    7m10s
 
-作成したDeployment(複数のコンテナアプリケーションをまとめで管理できるリソース)とService(複数のコンテナアプリケーションをロードバランスしてくれるネットワークリソース)が稼働していることを確認したら、今度は動作を確認します。手元のシェルで \ ``kubectl port-forward``\ を実行し、Kubernetes上のアプリケーションを手元のブラウザで接続できるようにします。
+作成したDeployment(複数のコンテナアプリケーションをまとめて管理できるリソース)とService(複数のコンテナアプリケーションをロードバランスしてくれるネットワークリソース)が稼働していることを確認したら、今度は動作を確認します。手元のシェルで \ ``kubectl port-forward``\ を実行し、Kubernetes上のアプリケーションを手元のブラウザで接続できるようにします。
 
 .. code-block:: bash
 
