@@ -609,7 +609,17 @@ pathsを使ったパスの読み替えを設定すると、各パッケージで
 <p>なお、この構文は読み込めるのは型だけなので、コロンの左側に来る要素で使うとエラーになります。</p>
 <p>型だけインポートを使うと今までも現在もインポート自体がなかったことにされますが、このオプションにより副作用の有無が明示的なコードを書くことができるようになります。strictを限界まで設定しているユーザーは<code class="docutils literal notranslate"><span class="pre">compilerOptions.importsNotUsedAsValues:</span> <span class="pre">&quot;error&quot;</span></code>も追加すると良いでしょう。</p>
 <p>インポートだけではなく、<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">type</span> <span class="pre">{</span> <span class="pre">A,</span> <span class="pre">B</span> <span class="pre">}</span> <span class="pre">from</span> <span class="pre">&quot;./modules&quot;;</span></code>といった、インポートして即エクスポートする文においては、<code class="docutils literal notranslate"><span class="pre">export</span></code>にも利用できます。</p>
-<p>現在リリースされているtypescript-eslintにおいても、<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">type</span></code>を使う方が推奨値としてデフォルト設定されています<a class="footnote-reference brackets" href="#id22" id="id20">3</a>。</p>
+<p>現在リリースされているtypescript-eslintの4.0以降においても、<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">type</span></code>を使うことを強制するルールが追加されました<a class="footnote-reference brackets" href="#id22" id="id20">3</a>。TypeScript 3.7以前ではすべてがエラーになってしまうため、デフォルトでは有効化されていません。</p>
+<div class="literal-block-wrapper docutils container" id="id39">
+<div class="code-block-caption"><span class="caption-text">eslintrc.json</span><a class="headerlink" href="#id39" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;rules&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;@typescript-eslint/consistent-type-imports&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 <dl class="footnote brackets">
 <dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id19">2</a></span></dt>
 <dd><p>他に迷惑な有名なライブラリとしては、Pythonのthisがあります。<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">this</span></code>をするとPythonの設計思想を表す詩が表示されます。</p>
