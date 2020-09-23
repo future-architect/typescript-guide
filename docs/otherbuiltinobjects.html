@@ -118,6 +118,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#typescript-javascript">TypeScript（含むJavaScript同士）</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#go">Goとの交換の場合</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#python">Pythonとの交換の場合</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#java-8">Javaとの交換の場合(8以降)</a></li>
 </ul>
 </li>
 </ul>
@@ -300,8 +301,8 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <div class="section" id="id4">
 <h3>文字列化<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>文字列化はJavaScriptのオブジェクト、配列、数値、文字列、boolean型などの値を渡すと、それを安全に伝送できる文字列にしてくれます。</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">JSON形式に文字列化</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">JSON形式に文字列化</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// bは文字列</span>
 <span class="kr">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">person</span><span class="o">:</span> <span class="s2">&quot;Graham Chapman&quot;</span><span class="p">)</span>
 <span class="c1">// &#39;{&quot;person&quot;:&quot;Graham Chapman&quot;}&#39;</span>
@@ -313,8 +314,8 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <div class="section" id="id5">
 <h4>インデント<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>デフォルトではインデントがなく、文字数最小で出力されます。インデントに数値、あるいは<code class="docutils literal notranslate"><span class="pre">&quot;</span>&#160;&#160;&#160; <span class="pre">&quot;</span></code>といった文字列を渡すことでインデントが行われて見やすくなります。ただし、Node.jsやブラウザの<code class="docutils literal notranslate"><span class="pre">console.log()</span></code>の場合はインデントを設定しなくても見やすく表示してくれるため、整形してファイル出力したい場合以外は使う必要はないと思います。</p>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">インデント</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">インデント</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">montyPython</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">members</span><span class="o">:</span> <span class="p">[</span>
         <span class="s2">&quot;John Cleese&quot;</span><span class="p">,</span>
@@ -348,8 +349,8 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <h4>JSONとデータロス<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>JSONは言語をまたいで使われるデータのシリアライズのための仕組みです。元はJavaScriptのオブジェクト表現をフォーマットにしたものではありますが（JSONは作成されたのではなく、発見されたと言われています）、いくつかTypeScriptと違うところもあります。</p>
 <p>JSONは単純な木構造であり、TypeScriptのメモリ上の表現のすべてを表現できるわけではありません。例えば、親が子を、子が親を参照しているような循環構造の場合、うまく文字列化できず、エラーになります。事前に変換する関数を使って、子から親方向の参照を切った新しいオブジェクト階層を作るなどして単方向の参照になるようにします。</p>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">循環参照があるとTypeError</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">循環参照があるとTypeError</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Terry Jones&quot;</span><span class="p">};</span>
 <span class="kr">const</span> <span class="nx">group</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Pythons&quot;</span><span class="p">,</span> <span class="nx">member</span><span class="o">:</span> <span class="p">[</span><span class="nx">person</span><span class="p">]};</span>
 <span class="nx">person</span><span class="p">.</span><span class="nx">group</span> <span class="o">=</span> <span class="nx">group</span><span class="p">;</span> <span class="c1">// お互いに参照しあっているため、循環参照になる</span>
@@ -369,8 +370,8 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <li><p>null</p></li>
 </ul>
 <p>例えば<code class="docutils literal notranslate"><span class="pre">undefined</span></code>の場合はそのキーがなかったことになります。クラスの場合はメンバーフィールドのみのオブジェクトになります。一応データとしては復元できますが、戻すときには単なるオブジェクトで、クラスのインスタンスではなくなります。各クラスに、オブジェクトからインスタンスを復元するファクトリーメソッドを用意してあげる必要があるでしょう。日付は文字列になります。これも、事前に<code class="docutils literal notranslate"><span class="pre">valueOf()</span></code>で数値化しても良いでしょう。<code class="docutils literal notranslate"><span class="pre">Map()</span></code>などは値が完全に失われたインスタンスになるため、注意が必要です。</p>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">クラス、日付</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">クラス、日付</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="kr">class</span> <span class="nx">C</span> <span class="p">{</span> <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="k">this</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span><span class="p">;</span> <span class="p">}</span> <span class="p">}</span>
 <span class="o">&gt;</span> <span class="kr">const</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">C</span><span class="p">();</span>
 <span class="o">&gt;</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
@@ -454,11 +455,11 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 </pre></div>
 </div>
 <p>UTCの時刻から生成したい場合には、<code class="docutils literal notranslate"><span class="pre">Date.UTC()</span></code>関数を使います。これはエポック秒を返すのでこれを<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date()</span></code>に渡すことで、UTC指定の時刻のインスタンスが作成できます。</p>
-<blockquote>
-<div><p>// UTCの2020年9月21日11時10分5秒
-// 日本で実行すると日本時間20時（日本時間はUTCは9時間進んでいるように見える）に
-const d = new Date(Date.UTC(2020, 8, 21, 11, 10, 5))</p>
-</div></blockquote>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// UTCの2020年9月21日11時10分5秒</span>
+<span class="c1">// 日本で実行すると日本時間20時（日本時間はUTCは9時間進んでいるように見える）に</span>
+<span class="kr">const</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">UTC</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="id10">
 <h3>日付のフォーマット出力<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
@@ -520,8 +521,8 @@ const d = new Date(Date.UTC(2020, 8, 21, 11, 10, 5))</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">time.RFC3339</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">time.RFC3339Nano</span></code></p></li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">GoでRFC3339Nanoで出力</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">GoでRFC3339Nanoで出力</span><a class="headerlink" href="#id20" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -537,8 +538,8 @@ const d = new Date(Date.UTC(2020, 8, 21, 11, 10, 5))</p>
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">TypeScriptでパース</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">TypeScriptでパース</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">receivedFromGo</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="sb">`2020-09-21T21:35:45.057076+09:00`</span><span class="p">)</span>
 <span class="c1">// 2020-09-21T12:35:45.057Z</span>
 </pre></div>
@@ -562,7 +563,7 @@ const d = new Date(Date.UTC(2020, 8, 21, 11, 10, 5))</p>
 </div>
 <div class="section" id="python">
 <h4>Pythonとの交換の場合<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク">¶</a></h4>
-<p>Pythonで出力する場合は<code class="docutils literal notranslate"><span class="pre">datetime.datetime.isoformat()</span></code>メソッドを使うと良いでしょう。このメソッドはタイムゾーン情報を取り払い、現在のタイムゾーンの表記そのものをフォーマットして出力します。TypeScriptの<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date()</span></code>はUTCであることを前提としてパースするため、出力時はUTCとして出すように心がける必要があります。このUTCで出色された文字列はTypeScriptでパースできます。</p>
+<p>Pythonで出力する場合は<code class="docutils literal notranslate"><span class="pre">datetime.datetime.isoformat()</span></code>メソッドを使うと良いでしょう。このメソッドはタイムゾーン情報を取り払い、現在のタイムゾーンの表記そのものをフォーマットして出力します。TypeScriptの<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date()</span></code>はUTCであることを前提としてパースするため、出力時はUTCとして出すように心がける必要があります。このUTCで出力された文字列はTypeScriptでパースできます。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
 
 <span class="c1"># localの場合はastimezone()を呼んでUTCに</span>
@@ -577,7 +578,7 @@ const d = new Date(Date.UTC(2020, 8, 21, 11, 10, 5))</p>
 <span class="c1"># 2020-09-21T13:42:58.279772+00:00</span>
 </pre></div>
 </div>
-<p>パースはやっかいです。Stack Overflowでスレッドが立つぐらいのネタです<a class="footnote-reference brackets" href="#id13" id="id12">1</a>。Python 3.7からは``fromisoformat()``というクラスメソッドが増えましたが、以前からの<code class="docutils literal notranslate"><span class="pre">datetime.strptime()</span></code>にフォーマット指定を与えた方が高速とのことです。</p>
+<p>パースはやっかいです。Stack Overflowでスレッドが立つぐらいのネタです<a class="footnote-reference brackets" href="#id13" id="id12">1</a>。Python 3.7からは<code class="docutils literal notranslate"><span class="pre">fromisoformat()</span></code>というクラスメソッドが増えましたが、以前からの<code class="docutils literal notranslate"><span class="pre">datetime.strptime()</span></code>にフォーマット指定を与えた方が高速とのことです。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
 <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;2020-09-21T12:38:15.655Z&#39;</span>
@@ -598,6 +599,51 @@ const d = new Date(Date.UTC(2020, 8, 21, 11, 10, 5))</p>
 <dl class="footnote brackets">
 <dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id12">1</a></span></dt>
 <dd><p><a class="reference external" href="https://stackoverflow.com/questions/127803/how-do-i-parse-an-iso-8601-formatted-date">https://stackoverflow.com/questions/127803/how-do-i-parse-an-iso-8601-formatted-date</a></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="java-8">
+<h4>Javaとの交換の場合(8以降)<a class="headerlink" href="#java-8" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Java8から標準になったクラス群<a class="footnote-reference brackets" href="#id15" id="id14">2</a>を使ってTypeScriptとの交換を行ってみます。ここで紹介するコードはJava8以降で動作するはずです。このサンプルはJava 11で検証しています。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Date.toISOString()</span></code>と同等の出力は<code class="docutils literal notranslate"><span class="pre">DateTimeFormatter</span></code>で作成できます。UTCのゾーンになるようにインスタンスを作成してから<code class="docutils literal notranslate"><span class="pre">format()</span></code>メソッドを使って変換します。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.time.Instant</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.time.ZonedDateTime</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.time.ZoneId</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.time.format.DateTimeFormatter</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ParseTest</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[</span> <span class="o">]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="n">RFC3339_FORMAT</span> <span class="o">=</span> <span class="n">DateTimeFormatter</span><span class="p">.</span><span class="na">ofPattern</span><span class="p">(</span><span class="s">&quot;yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;&quot;</span><span class="p">);</span>
+
+        <span class="kd">var</span> <span class="n">l</span> <span class="o">=</span> <span class="n">ZonedDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">();</span>
+        <span class="kd">var</span> <span class="n">isoString</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="na">withZoneSameInstant</span><span class="p">(</span><span class="n">ZoneOffset</span><span class="p">.</span><span class="na">UTC</span><span class="p">).</span><span class="na">format</span><span class="p">(</span><span class="n">RFC3339_FORMAT</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">isoString</span><span class="p">);</span>
+        <span class="c1">// &quot;2020-09-23T13:55:53.780Z&quot;</span>
+     <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>この文字列はTypeScriptでパースできます。</p>
+<p>TypeScriptで生成した文字列のパースには前述の<code class="docutils literal notranslate"><span class="pre">DateTimeFormatter</span></code>も使えますが、それ以外には<code class="docutils literal notranslate"><span class="pre">java.time.Instant</span></code>が使えます。これはある時点での時刻を表すクラスです。TypeScriptの<code class="docutils literal notranslate"><span class="pre">Date.toISOString()</span></code>の出力する文字列をパースできます。実際に日時の操作を行う<code class="docutils literal notranslate"><span class="pre">LocalDateTime</span></code>や<code class="docutils literal notranslate"><span class="pre">ZonedDateTime</span></code>へも、ここから変換できます。次のサンプルは<code class="docutils literal notranslate"><span class="pre">Instant</span></code>でパースし、<code class="docutils literal notranslate"><span class="pre">ZonedDateTime</span></code>に変換しています。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.time.Instant</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.time.ZonedDateTime</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.time.ZoneId</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.time.format.DateTimeFormatter</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">ParseTest</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[</span> <span class="o">]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="n">i</span> <span class="o">=</span> <span class="n">Instant</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="s">&quot;2020-09-23T14:06:11.027Z&quot;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="n">l</span> <span class="o">=</span> <span class="n">ZonedDateTime</span><span class="p">.</span><span class="na">ofInstant</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ZoneId</span><span class="p">.</span><span class="na">systemDefault</span><span class="p">());</span>
+
+        <span class="kd">var</span> <span class="n">f</span> <span class="o">=</span> <span class="n">DateTimeFormatter</span><span class="p">.</span><span class="na">ofPattern</span><span class="p">(</span><span class="s">&quot;yyyy/MM/dd HH:mm:ss&quot;</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="n">f</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id14">2</a></span></dt>
+<dd><p><a class="reference external" href="https://qiita.com/tag1216/items/91a471b33f383981bfaa">Java8の日時APIはとりあえずこれだけ覚えとけ</a></p>
 </dd>
 </dl>
 </div>

@@ -271,6 +271,8 @@ TypeScriptの\ ``Date``\ 型は数字に毛の生えたようなものですの�
 
 UTCの時刻から生成したい場合には、\ ``Date.UTC()``\ 関数を使います。これはエポック秒を返すのでこれを\ ``new Date()``\ に渡すことで、UTC指定の時刻のインスタンスが作成できます。
 
+.. code-block:: ts
+
    // UTCの2020年9月21日11時10分5秒
    // 日本で実行すると日本時間20時（日本時間はUTCは9時間進んでいるように見える）に
    const d = new Date(Date.UTC(2020, 8, 21, 11, 10, 5))
@@ -387,7 +389,7 @@ Goでは日付のフォーマットが何種類か選べますが、このうち
 Pythonとの交換の場合
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Pythonで出力する場合は\ ``datetime.datetime.isoformat()``\ メソッドを使うと良いでしょう。このメソッドはタイムゾーン情報を取り払い、現在のタイムゾーンの表記そのものをフォーマットして出力します。TypeScriptの\ ``new Date()``\ はUTCであることを前提としてパースするため、出力時はUTCとして出すように心がける必要があります。このUTCで出色された文字列はTypeScriptでパースできます。
+Pythonで出力する場合は\ ``datetime.datetime.isoformat()``\ メソッドを使うと良いでしょう。このメソッドはタイムゾーン情報を取り払い、現在のタイムゾーンの表記そのものをフォーマットして出力します。TypeScriptの\ ``new Date()``\ はUTCであることを前提としてパースするため、出力時はUTCとして出すように心がける必要があります。このUTCで出力された文字列はTypeScriptでパースできます。
 
 .. code-block:: python
 
@@ -404,7 +406,7 @@ Pythonで出力する場合は\ ``datetime.datetime.isoformat()``\ メソッド�
    utctime.isoformat()
    # 2020-09-21T13:42:58.279772+00:00
 
-パースはやっかいです。Stack Overflowでスレッドが立つぐらいのネタです\ [#]_\ 。Python 3.7からは``fromisoformat()``\ というクラスメソッドが増えましたが、以前からの\ ``datetime.strptime()``\ にフォーマット指定を与えた方が高速とのことです。
+パースはやっかいです。Stack Overflowでスレッドが立つぐらいのネタです\ [#]_\ 。Python 3.7からは\ ``fromisoformat()``\ というクラスメソッドが増えましたが、以前からの\ ``datetime.strptime()``\ にフォーマット指定を与えた方が高速とのことです。
 
 .. code-block:: python
 
@@ -427,3 +429,51 @@ Pythonで出力する場合は\ ``datetime.datetime.isoformat()``\ メソッド�
    # datetime.datetime(2020, 9, 21, 12, 38, 15, 655000, tzinfo=datetime.timezone.utc)
 
 .. [#] https://stackoverflow.com/questions/127803/how-do-i-parse-an-iso-8601-formatted-date
+
+Javaとの交換の場合(8以降)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Java8から標準になったクラス群\ [#]_\ を使ってTypeScriptとの交換を行ってみます。ここで紹介するコードはJava8以降で動作するはずです。このサンプルはJava 11で検証しています。
+
+``Date.toISOString()``\ と同等の出力は\ ``DateTimeFormatter``\ で作成できます。UTCのゾーンになるようにインスタンスを作成してから\ ``format()``\ メソッドを使って変換します。
+
+.. code-block:: java
+
+   import java.time.Instant;
+   import java.time.ZonedDateTime;
+   import java.time.ZoneId;
+   import java.time.format.DateTimeFormatter;
+
+   class ParseTest {
+       public static void main(String[ ] args) {
+           var RFC3339_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+           var l = ZonedDateTime.now();
+           var isoString = l.withZoneSameInstant(ZoneOffset.UTC).format(RFC3339_FORMAT);
+           System.out.println(isoString);
+           // "2020-09-23T13:55:53.780Z"
+        }
+   }
+
+この文字列はTypeScriptでパースできます。
+
+TypeScriptで生成した文字列のパースには前述の\ ``DateTimeFormatter``\ も使えますが、それ以外には\ ``java.time.Instant``\ が使えます。これはある時点での時刻を表すクラスです。TypeScriptの\ ``Date.toISOString()``\ の出力する文字列をパースできます。実際に日時の操作を行う\ ``LocalDateTime``\ や\ ``ZonedDateTime``\ へも、ここから変換できます。次のサンプルは\ ``Instant``\ でパースし、\ ``ZonedDateTime``\ に変換しています。
+
+.. code-block:: java
+
+   import java.time.Instant;
+   import java.time.ZonedDateTime;
+   import java.time.ZoneId;
+   import java.time.format.DateTimeFormatter;
+
+   class ParseTest {
+       public static void main(String[ ] args) {
+           var i = Instant.parse("2020-09-23T14:06:11.027Z");
+           var l = ZonedDateTime.ofInstant(i, ZoneId.systemDefault());
+
+           var f = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+           System.out.println(l.format(f));
+       }
+   }
+
+.. [#] `Java8の日時APIはとりあえずこれだけ覚えとけ <https://qiita.com/tag1216/items/91a471b33f383981bfaa>`_
