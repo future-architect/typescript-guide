@@ -95,7 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="syntax.html">基本的な構文</a></li>
 <li class="toctree-l1"><a class="reference internal" href="typing.html">基本的な型付け</a></li>
 <li class="toctree-l1"><a class="reference internal" href="function.html">関数</a></li>
-<li class="toctree-l1"><a class="reference internal" href="otherbuiltinobjects.html">その他の組み込み型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="otherbuiltinobjects.html">その他の組み込み型・関数</a></li>
 <li class="toctree-l1"><a class="reference internal" href="class.html">クラス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="async.html">非同期処理</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exception.html">例外処理</a></li>
@@ -110,17 +110,21 @@
 <li class="toctree-l1"><a class="reference internal" href="reactive.html">リアクティブ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advance.html">高度なテクニック</a></li>
 </ul>
-<p class="caption"><span class="caption-text">環境ごとのTips</span></p>
+<p class="caption"><span class="caption-text">環境ごとのTips（共通環境・ブラウザ以外）</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="prodenv.html">ソフトウェア開発の環境を考える</a></li>
 <li class="toctree-l1"><a class="reference internal" href="baseenv.html">基本の環境構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libenv.html">ライブラリ開発のための環境設定</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clienv.html">CLIツール・ウェブサーバー作成のための環境設定</a></li>
-<li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ci.html">CI（継続的インテグレーション）環境の構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deploy.html">成果物のデプロイ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">使用ライブラリのバージョン管理</a></li>
+</ul>
+<p class="caption"><span class="caption-text">環境ごとのTips（ブラウザ環境）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="browserobjects.html">ブラウザ関連の組み込み型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -289,9 +293,12 @@
 <li class="toctree-l2"><a class="reference internal" href="function.html#id8">まとめ</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="otherbuiltinobjects.html">その他の組み込み型</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="otherbuiltinobjects.html#json"><code class="docutils literal notranslate"><span class="pre">JSON</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="otherbuiltinobjects.html">その他の組み込み型・関数</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="otherbuiltinobjects.html#date"><code class="docutils literal notranslate"><span class="pre">Date</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="otherbuiltinobjects.html#regexp"><code class="docutils literal notranslate"><span class="pre">RegExp</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="otherbuiltinobjects.html#json"><code class="docutils literal notranslate"><span class="pre">JSON</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="otherbuiltinobjects.html#urlurlsearchparams"><code class="docutils literal notranslate"><span class="pre">URL</span></code>と<code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="otherbuiltinobjects.html#id19">時間のための関数</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="class.html">クラス</a><ul>
@@ -376,7 +383,7 @@
 </ul>
 </div>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">環境ごとのTips</span></p>
+<p class="caption"><span class="caption-text">環境ごとのTips（共通環境・ブラウザ以外）</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="prodenv.html">ソフトウェア開発の環境を考える</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="prodenv.html#id2">環境構築できるメンバーがいないときはどうするか？</a></li>
@@ -401,26 +408,6 @@
 <li class="toctree-l2"><a class="reference internal" href="clienv.html#deno">Deno</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="react.html#id1">ウェブアプリケーションにおけるビルドツールのゴール</a></li>
-<li class="toctree-l2"><a class="reference internal" href="react.html#id2">Reactについて</a></li>
-<li class="toctree-l2"><a class="reference internal" href="react.html#create-react-app">create-react-appによる環境構築</a></li>
-<li class="toctree-l2"><a class="reference internal" href="react.html#next-js">Next.js</a></li>
-<li class="toctree-l2"><a class="reference internal" href="react.html#id5">Reactの周辺ツールのインストールと設定</a></li>
-<li class="toctree-l2"><a class="reference internal" href="react.html#ui">UI部品の追加</a></li>
-<li class="toctree-l2"><a class="reference internal" href="react.html#react-material-ui-typescript">React+Material UI+TypeScriptのサンプル</a></li>
-<li class="toctree-l2"><a class="reference internal" href="react.html#reacttypescript">ReactとTypeScript</a></li>
-<li class="toctree-l2"><a class="reference internal" href="react.html#reduxtypescript">ReduxとTypeScript</a></li>
-<li class="toctree-l2"><a class="reference internal" href="react.html#reactredux">ReactとReduxの非同期アクセス</a></li>
-<li class="toctree-l2"><a class="reference internal" href="react.html#id6">Reactの新しい書き方</a></li>
-<li class="toctree-l2"><a class="reference internal" href="react.html#id8">まとめ</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="vue.html#id1">クラスベースのコンポーネント</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vue.html#id2">関数ベースのコンポーネント作成</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="ci.html">CI（継続的インテグレーション）環境の構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deploy.html">成果物のデプロイ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="deploy.html#npm">npmパッケージとしてデプロイ</a></li>
@@ -439,6 +426,40 @@
 <li class="toctree-l2"><a class="reference internal" href="version.html#id10">バージョンアップ時のトラブルを減らす</a></li>
 <li class="toctree-l2"><a class="reference internal" href="version.html#id15">なぜバージョンを管理する必要があるのか</a></li>
 <li class="toctree-l2"><a class="reference internal" href="version.html#id19">まとめ</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">環境ごとのTips（ブラウザ環境）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="browserobjects.html">ブラウザ関連の組み込み型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="browserobjects.html#polyfillponyfill">Polyfill、Ponyfill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="browserobjects.html#fetch"><code class="docutils literal notranslate"><span class="pre">fetch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="browserobjects.html#formdata"><code class="docutils literal notranslate"><span class="pre">FormData</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="browserobjects.html#eventlistener"><code class="docutils literal notranslate"><span class="pre">EventListener</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="browserobjects.html#eventsourcewebsocket"><code class="docutils literal notranslate"><span class="pre">EventSource</span></code>と<code class="docutils literal notranslate"><span class="pre">WebSocket</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="browserobjects.html#localstoragesessionstorage"><code class="docutils literal notranslate"><span class="pre">LocalStorage</span></code>と<code class="docutils literal notranslate"><span class="pre">SessionStorage</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="react.html#id1">ウェブアプリケーションにおけるビルドツールのゴール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#id2">Reactについて</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#create-react-app">create-react-appによる環境構築</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#next-js">Next.js</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#id5">Reactの周辺ツールのインストールと設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#ui">UI部品の追加</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#react-material-ui-typescript">React+Material UI+TypeScriptのサンプル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#reacttypescript">ReactとTypeScript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#reduxtypescript">ReduxとTypeScript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#reactredux">ReactとReduxの非同期アクセス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#id6">Reactの新しい書き方</a></li>
+<li class="toctree-l2"><a class="reference internal" href="react.html#id8">まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vue.html#id1">クラスベースのコンポーネント</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vue.html#id2">関数ベースのコンポーネント作成</a></li>
 </ul>
 </li>
 </ul>
@@ -490,27 +511,6 @@
 <p class="todo-source">(<a class="reference internal" href="ci.html#id1"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/ci.rst の 4 行目です)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">課題</p>
-<p>// browser/moduleなど
-// <a class="reference external" href="https://qiita.com/shinout/items/4c9854b00977883e0668">https://qiita.com/shinout/items/4c9854b00977883e0668</a></p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="libenv.html#id4"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/libenv.rst の 131 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>cashにexportがあるので、cross-envはいらないかも？</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="recommended.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/recommended.rst の 54 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>あとで書く</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="ecosystem.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/ecosystem.rst の 42 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
-<p>事例をつける</p>
-</div>
-<p class="todo-source">(<a class="reference internal" href="typing.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/typing.rst の 54 行目です)</p>
-<div class="admonition-todo admonition">
-<p class="admonition-title">課題</p>
 <p>npmパッケージ to npm
 npmパッケージ to nexus</p>
 <p><a class="reference external" href="https://qiita.com/kannkyo/items/5195069c65350b60edd9">https://qiita.com/kannkyo/items/5195069c65350b60edd9</a></p>
@@ -523,6 +523,17 @@ npmパッケージ to nexus</p>
 <p class="todo-source">(<a class="reference internal" href="deploy.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/deploy.rst の 208 行目です)</p>
 <div class="admonition-todo admonition">
 <p class="admonition-title">課題</p>
+<p>あとで書く</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="ecosystem.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/ecosystem.rst の 42 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>// browser/moduleなど
+// <a class="reference external" href="https://qiita.com/shinout/items/4c9854b00977883e0668">https://qiita.com/shinout/items/4c9854b00977883e0668</a></p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="libenv.html#id4"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/libenv.rst の 131 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
 <p>要検証</p>
 </div>
 <p class="todo-source">(<a class="reference internal" href="module.html#id12"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/module.rst の 190 行目です)</p>
@@ -531,6 +542,16 @@ npmパッケージ to nexus</p>
 <p>ちょっとうまく動いていないので、要調査</p>
 </div>
 <p class="todo-source">(<a class="reference internal" href="module.html#id18"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/module.rst の 313 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>cashにexportがあるので、cross-envはいらないかも？</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="recommended.html#id6"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/recommended.rst の 54 行目です)</p>
+<div class="admonition-todo admonition">
+<p class="admonition-title">課題</p>
+<p>事例をつける</p>
+</div>
+<p class="todo-source">(<a class="reference internal" href="typing.html#id2"><em>元のエントリ</em></a> は、 /Users/shibu/book/typescript-guide/typing.rst の 54 行目です)</p>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="このヘッドラインへのパーマリンク">¶</a></h1>

@@ -54,17 +54,23 @@
 
 .. toctree::
    :maxdepth: 2
-   :caption: 環境ごとのTips
+   :caption: 環境ごとのTips（共通環境・ブラウザ以外）
 
    prodenv
    baseenv
    libenv
    clienv
-   react
-   vue
    ci
    deploy
    version
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 環境ごとのTips（ブラウザ環境）
+
+   browserobjects
+   react
+   vue
 
 .. toctree::
    :maxdepth: 2
