@@ -388,7 +388,7 @@ TypeScriptで数値計算を行う場合、 ``Math`` オブジェクトの関数
    // シングルクオート、ダブルクオート、バッククオートでくくる
    console.log('hello world');
 
-   // 変数に代入。変数の型名はboolean
+   // 変数に代入。変数の型名はstring
    const name: string = "future";
 
    // 複数行
