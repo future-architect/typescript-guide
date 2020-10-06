@@ -114,8 +114,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#id5">例外処理を使わないエラー処理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id6">非同期と例外処理</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id7">例外とエラーの違い</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">例外処理機構以外で例外を扱う</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">まとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">例外処理のハンドリングの漏れ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">例外処理機構以外で例外を扱う</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">まとめ</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module.html">モジュール</a></li>
@@ -241,8 +242,8 @@
 </pre></div>
 </div>
 <p>もし、回復処理で回復し切れない場合は、再度例外を投げることもできます。</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">例外の再送</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">例外の再送</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
   <span class="c1">//</span>
 <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
@@ -255,8 +256,8 @@
 Javaの場合は、例外の <code class="docutils literal notranslate"><span class="pre">catch</span></code> 節を複数持つことができ、それぞれの節に例外のクラスの種類を書いておくと、飛んできた例外の種類に応じて適切な節が選択されます。
 JavaScriptでは1つしか書くことができません。型の種類による分岐というのも、 <code class="docutils literal notranslate"><span class="pre">catch</span></code> 節の中で <code class="docutils literal notranslate"><span class="pre">if</span></code> 文を使って行う必要があります。</p>
 <p>例外クラスを自分で作る必要はありますが、Javaと同じことを実現するには、以下のようなコードになります。</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Javaと似たような例外の分岐</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Javaと似たような例外の分岐</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
   <span class="c1">// 何かしらの処理</span>
 <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
@@ -337,8 +338,8 @@ JavaScriptでは1つしか書くことができません。型の種類による
 <h3><code class="docutils literal notranslate"><span class="pre">try</span></code> 節はなるべく狭くする<a class="headerlink" href="#try" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>「この関数を呼ぶと、AとBの例外が飛んでくる可能性がある」というのはできあがったソースコードを見ても情報はわかりません。
 次のコード例を見ても、AからEのどこでどんな例外が飛んでくるかわからないでしょう。</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">広すぎるtryは例外の出どころをわかりにくくする</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">広すぎるtryは例外の出どころをわかりにくくする</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
   <span class="nx">logicA</span><span class="p">();</span>
   <span class="nx">logicB</span><span class="p">();</span>
@@ -352,8 +353,8 @@ JavaScriptでは1つしか書くことができません。型の種類による
 </div>
 </div>
 <p>なるべく狭くすることで、どの処理がどの例外を投げるのかが明確になります。</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">tryの範囲を狭めると、どこで何がおきるのかがわかりやすくなる</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">tryの範囲を狭めると、どこで何がおきるのかがわかりやすくなる</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">logicA</span><span class="p">();</span>
 <span class="nx">logicB</span><span class="p">();</span>
 <span class="k">try</span> <span class="p">{</span>
@@ -457,8 +458,8 @@ JavaScriptでは1つしか書くことができません。型の種類による
 また、エラー処理の節だけを書く <code class="docutils literal notranslate"><span class="pre">catch()</span></code> 節もあります。
 複数の <code class="docutils literal notranslate"><span class="pre">then()</span></code> 節が連なっていても、1箇所だけエラー処理を書けば大丈夫です。
 なお、一箇所もエラー処理を書かずにいて、エラーが発生すると <code class="docutils literal notranslate"><span class="pre">unhandledRejection</span></code> というエラーがNode.jsのコンソールに表示されることになります。</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Promiseのエラー書き方</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Promiseのエラー書き方</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resp</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
 <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">json</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -471,8 +472,8 @@ JavaScriptでは1つしか書くことができません。型の種類による
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">async</span></code> 関数の場合はもっとシンプルで、何かしらの非同期処理を実行する場合、 <code class="docutils literal notranslate"><span class="pre">await</span></code> していれば、通常の <code class="docutils literal notranslate"><span class="pre">try</span></code> 文でエラーを捕まえることができます。</p>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">async関数内部のエラー処理の書き方</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">async関数内部のエラー処理の書き方</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">resp</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
   <span class="kr">const</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
@@ -498,8 +499,8 @@ JavaScriptでは1つしか書くことができません。型の種類による
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> 以前は非同期処理の場合は、コールバック関数の先頭の引数がエラー、という暗黙のルールで実装されていました。
 ただし、1つのコールバックでも <code class="docutils literal notranslate"><span class="pre">return</span></code> を忘れると動作しませんし、通常の例外が発生して <code class="docutils literal notranslate"><span class="pre">return</span></code> されなかったりすると、コールバックの伝搬が中断されてしまいます。</p>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">原始時代の非同期のエラー処理の書き方</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">原始時代の非同期のエラー処理の書き方</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: Promise以前</span>
 <span class="nx">func1</span><span class="p">(</span><span class="nx">引数</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">err</span><span class="p">;</span>
@@ -547,11 +548,25 @@ JavaScriptでは1つしか書くことができません。型の種類による
 </ul>
 <p>最終的には、実装ミスなのか、ユーザーが間違ってデータ入力したという実行時の値の不正なのか、ネットワークの接続がおかしい、クラウドサービスの秘密鍵が合わないみたいな環境の問題なのか、どれであったとしても、システムが自力でリカバリーする、ユーザーに通知して入力修正やWiFiのある環境で再実行などの人力リカバリーしてもらう、開発者に通知してプログラム修正するといった人力リカバリーなど、何かしらのリカバリーは絶対必要になります。</p>
 <p>Node.jsで <code class="docutils literal notranslate"><span class="pre">async</span></code> / <code class="docutils literal notranslate"><span class="pre">await</span></code> やら <code class="docutils literal notranslate"><span class="pre">Promise</span></code> を一切使っていないコードの場合、エラーを無視すると、Node.js自体が最後に <code class="docutils literal notranslate"><span class="pre">catch</span></code> して、エラー詳細を表示してプログラムが終了します。これはある意味プログラムとしては作戦放棄ではありますが、「プログラムの進行が不可能なので、OSに処理を返す」というリカバリーと言えなくもないでしょう。開発者にスタックトレースを表示して後を託す、というのも立派なリカバリーの戦術の1つです。</p>
-<p>ブラウザの場合、誰もキャッチしないと、開発者ツールのコンソールに表示されますが、開発者ツールを開いていない限りエラーを見ることはできません。ユーザーには正常に正常に処理が進んだのか、そうじゃなかったのかわかりませんので、かならずキャッチして画面に表示してあげる必要があるでしょう。</p>
+<p>ブラウザの場合、誰もキャッチしないと、開発者ツールのコンソールに表示されますが、開発者ツールを開いていない限りエラーを見ることはできません。普段から開発者コンソールを開いている人はまれだと思いますし、大部分のユーザーには正常に正常に処理が進んだのか、そうでなかったのかわかりませんので、かならずキャッチして画面に表示してあげる必要があるでしょう。</p>
 <p>どちらにしても何かしらのリカバリー処理が必要となりますので、本書ではエラーと例外の区別といったことはしません。</p>
 </div>
 <div class="section" id="id8">
-<h2>例外処理機構以外で例外を扱う<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2>例外処理のハンドリングの漏れ<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>例外処理が漏れた場合、ロジックが中断します。例えば、サーバー通信結果のJSONのパースでエラーが発生すると、<code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code>が発生し、その後の処理が行われなくなります。そのJSONをパースして画面に表示しようとしていた場合は、通信は行われるものの、画面表示が更新されずに何も発生していないように見えます。この場合、開発者ツールをみると、<code class="docutils literal notranslate"><span class="pre">Uncaught</span> <span class="pre">Error</span></code>が記録されています。なお、将来のNode.jsではエラーコード0以外で、プログラムが終了することになっています。</p>
+<div class="figure align-default" id="id18">
+<img alt="_images/unhandleexception.png" src="_images/unhandleexception.png" />
+<p class="caption"><span class="caption-text">キャッチしていない例外</span><a class="headerlink" href="#id18" title="この画像へのパーマリンク">¶</a></p>
+</div>
+<p>一方、やっかいなのが、サーバー通信のエラーです。XMLHttpRequestの場合は<code class="docutils literal notranslate"><span class="pre">onerror()</span></code>コールバックでエラーを取得してハンドルする必要がありますが、うまくハンドルしてもコンソールにはエラーが残ります。fetchの場合は<code class="docutils literal notranslate"><span class="pre">Uncaught</span> <span class="pre">(in</span> <span class="pre">promise)</span> <span class="pre">Error</span></code>が出ますが、これを適切に処理しても、やはり同様のエラーが出力されます。</p>
+<p>これは<a class="reference internal" href="console.html"><span class="doc">console.logによるログ出力</span></a>の章で紹介した<code class="docutils literal notranslate"><span class="pre">console.error()</span></code>出力と同じです。うまくハンドリングしても、キャッチしなかったときと同じように赤くエラーが表示されます。XHRを直接使う場合は<code class="docutils literal notranslate"><span class="pre">onerror</span></code>が設定されていなくて例外が握り潰されている可能性もゼロではないため注意しなければなりませんが、XHRをラップした<a class="reference external" href="https://www.npmjs.com/package/axios">axios</a>や、<code class="docutils literal notranslate"><span class="pre">fetch()</span></code>を使った場合には<code class="docutils literal notranslate"><span class="pre">Uncaught</span> <span class="pre">Error</span></code>の文字がなければ実装上は気にする必要はありません。</p>
+<div class="figure align-default" id="id19">
+<img alt="_images/consoleerror.png" src="_images/consoleerror.png" />
+<p class="caption"><span class="caption-text">うまく処理できていた場合にも同様に表示されるエラー</span><a class="headerlink" href="#id19" title="この画像へのパーマリンク">¶</a></p>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>例外処理機構以外で例外を扱う<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>これまでTypeScriptにおける例外処理の方法や作法などを説明してきました。しかし、ベースとなっているJaavScriptの制約により、お世辞にも使いやすい機能とは言えません。理由は以下の3つです。</p>
 <ul class="simple">
 <li><p>Javaの <code class="docutils literal notranslate"><span class="pre">throws</span></code> のように、メソッドがなげうる例外の種類がわからず、ソースの関数の実態やドキュメント（整備されていれば）を確認する必要がある</p></li>
@@ -597,8 +612,8 @@ TypeScriptでも、いくつか方法が考えられます。</p>
 </div>
 <p>この中でどれが良いかは好みの問題ですが、個人的なおすすめはオブジェクトです。タプルよりかは返り値の意味に名前をつけられるのと、合併と異なり、オプショナルチェイニングを使ってエラーチェックを簡単に書ける可能性があります。<code class="docutils literal notranslate"><span class="pre">instanceof</span></code>と毎回タイプする必要性もありません。ただ、どの書き方もマジョリティではなく、好みの問題ではあります。</p>
 </div>
-<div class="section" id="id9">
-<h2>まとめ<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id10">
+<h2>まとめ<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>例外についての文法の説明、組み込みのエラー型、エラー型を自作する方法、非同期処理の例外処理などを説明してきました。
 例外の設計も、一種のアーキテクチャ設計であるため、ちょっとした経験が必要になるかもしれません。</p>
 <p>TypeScript、特にフロントエンドの場合、例外を無視することはユーザーの使い勝手を悪くします。どのようなことが発生し、どのケースではどのようにリカバリーするか、というのをあらかじめ決めておくと実装は楽になるでしょう。</p>
