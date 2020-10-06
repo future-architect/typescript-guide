@@ -247,7 +247,7 @@ JavaScriptは動的言語の中でも、いろいろ制約がゆるく、無名�
 あとは、メインの引数ではなくて、挙動をコントロールするオプションの項目がかなり複雑で、型定義が複雑な場合などです。
 例えば、JSONSchemaを受け取るような引数があったら、JSONSchemaのすべての仕様を満たす型定義を記述するのはかなり時間を要します。
 将来やるにしても、まずはコンパイルだけは通したい、というときに使うと良いでしょう。</p>
-<p>ただし、これを使うと、TypeScriptが提供する型チェックの恩恵は受けられません。<code class="docutils literal notranslate"><span class="pre">any</span></code>から型情報つきのデータにするためには後述の型ガードや型アサーションで変換しなければなりません。利用する箇所で毎回必要になります。TypeScirptの型情報は伝搬するので、なるべく早めに、データが発生する場所で型情報を付ければ、変換が不要になります。そのため、よっぽどの理由がないかぎりは<code class="docutils literal notranslate"><span class="pre">any</span></code>を使わない方がトータルの実装コストは大きく減ります。</p>
+<p>ただし、これを使うと、TypeScriptが提供する型チェックの恩恵は受けられません。<code class="docutils literal notranslate"><span class="pre">any</span></code>から型情報つきのデータにするためには後述の型ガードや型アサーションで変換しなければなりません。利用する箇所で毎回必要になります。TypeScriptの型情報は伝搬するので、なるべく早めに、データが発生する場所で型情報を付ければ、変換が不要になります。そのため、よっぽどの理由がないかぎりは<code class="docutils literal notranslate"><span class="pre">any</span></code>を使わない方がトータルの実装コストは大きく減ります。</p>
 <p>それ以外だと、外部からやってくるデータなどはコンパイル時には型情報がわかりません。標準ライブラリのブラウザのサーバーアクセスAPIの<code class="docutils literal notranslate"><span class="pre">fetch</span></code>のレスポンスは<code class="docutils literal notranslate"><span class="pre">any</span></code>となっています。そのため、<code class="docutils literal notranslate"><span class="pre">fetch</span></code>のレスポンスに関しては何かしらの変換処理が必要になります。</p>
 </div>
 <div class="section" id="unknown">
