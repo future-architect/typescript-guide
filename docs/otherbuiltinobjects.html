@@ -108,23 +108,25 @@
 <li class="toctree-l4"><a class="reference internal" href="#java-8">Javaとの交換の場合(8以降)</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">同一日時かどうかの比較</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">1時間後、1日後、1ヶ月後、1年後の日時の取得</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#regexp"><code class="docutils literal notranslate"><span class="pre">RegExp</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id11">使い方</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id12">パターンのルール</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id13">キャプチャ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">使い方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">パターンのルール</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">キャプチャ</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#json"><code class="docutils literal notranslate"><span class="pre">JSON</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id14">JSONのパース</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id16">JSONのパース</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#syntaxerror"><code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code>例外</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id15">JSONとコメント</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">JSONとコメント</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id16">文字列化</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id17">インデント</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id18">JSONとデータロス</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">文字列化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id19">インデント</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">JSONとデータロス</a></li>
 </ul>
 </li>
 </ul>
@@ -134,7 +136,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#urlsearchparams"><code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id19">時間のための関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id21">時間のための関数</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="class.html">クラス</a></li>
@@ -398,8 +400,8 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">time.RFC3339</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">time.RFC3339Nano</span></code></p></li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text">GoでRFC3339Nanoで出力</span><a class="headerlink" href="#id20" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">GoでRFC3339Nanoで出力</span><a class="headerlink" href="#id22" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -415,8 +417,8 @@
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text">TypeScriptでパース</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">TypeScriptでパース</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">receivedFromGo</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="sb">`2020-09-21T21:35:45.057076+09:00`</span><span class="p">)</span>
 <span class="c1">// 2020-09-21T12:35:45.057Z</span>
 </pre></div>
@@ -525,6 +527,24 @@
 </dl>
 </div>
 </div>
+<div class="section" id="id11">
+<h3>同一日時かどうかの比較<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>2つの日時が同じ日かどうか確認したいことがあります。たとえば、チケットの日時が今日かどうか、といった比較です。<code class="docutils literal notranslate"><span class="pre">setHours()</span></code>に0を4つ設定すると、時、分、秒、ミリ秒のすべてがゼロになります。また、この関数を実行するとエポック時刻が帰ってくるので、これを比較するのがもっとも簡単でしょう。ただし、このメソッドはその日付を変更してしまうため、変更したくない場合は新しいインスタンスを作ってからこのメソッドを呼ぶと良いでしょう。</p>
+<p>この0時は現在のタイムゾーンでの日時になります。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 今日の0時0分0秒のエポック時刻</span>
+<span class="kr">const</span> <span class="nx">today</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()).</span><span class="nx">setHours</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">// 比較したい日時</span>
+<span class="kr">const</span> <span class="nx">someDate</span>: <span class="kt">Date</span>
+
+<span class="c1">// 同じ日ならtrue</span>
+<span class="kr">const</span> <span class="nx">isSameDay</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">someDate</span><span class="p">)).</span><span class="nx">setHours</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">===</span> <span class="nx">today</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>1時間後、1日後、1ヶ月後、1年後の日時の取得<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
 </div>
 <div class="section" id="regexp">
 <h2><code class="docutils literal notranslate"><span class="pre">RegExp</span></code><a class="headerlink" href="#regexp" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -539,8 +559,8 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="id11">
-<h3>使い方<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id13">
+<h3>使い方<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>正規表現は特定の目的を持って実行されます。検索であったり、ルールに従って分割だったり</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">文字列.match(正規表現)</span></code></p></li>
@@ -555,8 +575,8 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">正規表現.test(文字列)</span></code></p></li>
 </ul>
 </div>
-<div class="section" id="id12">
-<h3>パターンのルール<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id14">
+<h3>パターンのルール<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>正規表現の構成要素は主にこの3つです。</p>
 <ul class="simple">
 <li><p>文字種</p></li>
@@ -615,8 +635,8 @@
 </div>
 <p>2桁の一番上のものは、2桁目は3か4か5かなので、正確には <code class="docutils literal notranslate"><span class="pre">/0[3-5]/</span></code>とできると思います。正規表現だけでどこまでビジネスロジックを入れ込むかは設計次第です。正規表現だとマッチしたかどうかの0/1でしか判断できません。2桁だが09みたいな変則番号が来たときにエラーを通知する場合は、2桁で広くマッチさせておいて、次に桁をみるエラーチェックを行うなど、2段構成にする必要があるでしょう。</p>
 </div>
-<div class="section" id="id13">
-<h3>キャプチャ<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id15">
+<h3>キャプチャ<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>グループ化にはもう一つおまけがあります。<code class="docutils literal notranslate"><span class="pre">match()</span></code>の場合、どのカッコごとにマッチした結果を保存して返してくれます。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="kr">const</span> <span class="nx">tel</span> <span class="o">=</span> <span class="sr">/(^0\d-\d{4}-\d{4}$)|(^0\d{2}-\d{3}-\d{4}$)|(^0\d{3}-\d{2}-\d{4}$)|(^0\d{4}-\d-\d{4}$)/</span>
 <span class="o">&gt;</span> <span class="s2">&quot;042-234-1234&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">tel</span><span class="p">)</span>
@@ -667,8 +687,8 @@
 <h2><code class="docutils literal notranslate"><span class="pre">JSON</span></code><a class="headerlink" href="#json" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>JavaScriptで外部のAPIのやりとりなどで一番使うのはこのJSONでしょう。サーバーから帰ってくるJSON形式の文字列を、プログラム中で扱いやすいJavaScriptやTypeScriptのプリミティブなデータ型などに変換します。</p>
 <p>基本は<code class="docutils literal notranslate"><span class="pre">parse()</span></code>と<code class="docutils literal notranslate"><span class="pre">stringify()</span></code>を呼ぶだけですので使い方に迷うことはないでしょう。</p>
-<div class="section" id="id14">
-<h3>JSONのパース<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id16">
+<h3>JSONのパース<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>// aはany型
 const a = JSON.parse(‘{&quot;name&quot;: &quot;John Cleese&quot;}`);
 
@@ -702,8 +722,8 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 </div>
 <p>ほとんどの場合はステータスコードのチェックで防げますが、try文を使うとさらに安心です。</p>
 </div>
-<div class="section" id="id15">
-<h4>JSONとコメント<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<div class="section" id="id17">
+<h4>JSONとコメント<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>JSONの厳格な文法（<a class="reference external" href="https://json.org">json.org</a>）にはコメントはありません。しかし、入れたくなることがあります。</p>
 <p>TypeScriptの設定ファイルの<code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>や、VSCodeの設定ファイルなどはコメントが入れられます。前者はTypeScriptパーサーを流用したパーサーを使っていますので、TypeScriptと同じコメントが利用できます。後者はJSON with Comments(.jsonc)というモードを持っています。標準の<code class="docutils literal notranslate"><span class="pre">JSON.parse()</span></code>は仕様に従っているのでコメントがあるとエラーになります。次のようなライブラリを使う必要があるでしょう。</p>
 <ul class="simple">
@@ -718,11 +738,11 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 </div>
 </div>
 </div>
-<div class="section" id="id16">
-<h3>文字列化<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id18">
+<h3>文字列化<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>文字列化はJavaScriptのオブジェクト、配列、数値、文字列、boolean型などの値を渡すと、それを安全に伝送できる文字列にしてくれます。</p>
-<div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text">JSON形式に文字列化</span><a class="headerlink" href="#id22" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">JSON形式に文字列化</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// bは文字列</span>
 <span class="kr">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">person</span><span class="o">:</span> <span class="s2">&quot;Graham Chapman&quot;</span><span class="p">)</span>
 <span class="c1">// &#39;{&quot;person&quot;:&quot;Graham Chapman&quot;}&#39;</span>
@@ -731,11 +751,11 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">stringify()</span></code>には2つ追加の引数があります。1つは置換関数、もう1つはインデントです。</p>
 <p>このうち置換関数は<code class="docutils literal notranslate"><span class="pre">function(key:</span> <span class="pre">any,</span> <span class="pre">value:</span> <span class="pre">any):</span> <span class="pre">any</span></code>な関数で、キーと値を見て、実際に出力する値を決めますが、あまり使い勝手の良いものではありません。階層があったり、配列で同型のオブジェクトがあったりして、仮に同名のキーがあっても、渡される情報だけではどちらの値か区別できなかったりします。<code class="docutils literal notranslate"><span class="pre">bigint</span></code>などの変換できない型の場合はreplacerが実行される前にエラーになってしまうため、この関数で出力できるように文字列にするといった使い方もできません。事前に出力可能なオブジェクト・配列・プリミティブだけのきれいな情報に変換しておくべきです。そのため、忘れてしまっても構いません。</p>
-<div class="section" id="id17">
-<h4>インデント<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<div class="section" id="id19">
+<h4>インデント<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>デフォルトではインデントがなく、文字数最小で出力されます。インデントに数値、あるいは<code class="docutils literal notranslate"><span class="pre">&quot;</span>&#160;&#160;&#160; <span class="pre">&quot;</span></code>といった文字列を渡すことでインデントが行われて見やすくなります。ただし、Node.jsやブラウザの<code class="docutils literal notranslate"><span class="pre">console.log()</span></code>の場合はインデントを設定しなくても見やすく表示してくれるため、整形してファイル出力したい場合以外は使う必要はないと思います。</p>
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">インデント</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">インデント</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">montyPython</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">members</span><span class="o">:</span> <span class="p">[</span>
         <span class="s2">&quot;John Cleese&quot;</span><span class="p">,</span>
@@ -765,12 +785,12 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 </div>
 </div>
 </div>
-<div class="section" id="id18">
-<h4>JSONとデータロス<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<div class="section" id="id20">
+<h4>JSONとデータロス<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h4>
 <p>JSONは言語をまたいで使われるデータのシリアライズのための仕組みです。元はJavaScriptのオブジェクト表現をフォーマットにしたものではありますが（JSONは作成されたのではなく、発見されたと言われています）、いくつかTypeScriptと違うところもあります。</p>
 <p>JSONは単純な木構造であり、TypeScriptのメモリ上の表現のすべてを表現できるわけではありません。例えば、親が子を、子が親を参照しているような循環構造の場合、うまく文字列化できず、エラーになります。事前に変換する関数を使って、子から親方向の参照を切った新しいオブジェクト階層を作るなどして単方向の参照になるようにします。</p>
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">循環参照があるとTypeError</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">循環参照があるとTypeError</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Terry Jones&quot;</span><span class="p">};</span>
 <span class="kr">const</span> <span class="nx">group</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Pythons&quot;</span><span class="p">,</span> <span class="nx">member</span><span class="o">:</span> <span class="p">[</span><span class="nx">person</span><span class="p">]};</span>
 <span class="nx">person</span><span class="p">.</span><span class="nx">group</span> <span class="o">=</span> <span class="nx">group</span><span class="p">;</span> <span class="c1">// お互いに参照しあっているため、循環参照になる</span>
@@ -790,8 +810,8 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <li><p>null</p></li>
 </ul>
 <p>例えば<code class="docutils literal notranslate"><span class="pre">undefined</span></code>の場合はそのキーがなかったことになります。クラスの場合はメンバーフィールドのみのオブジェクトになります。一応データとしては復元できますが、戻すときには単なるオブジェクトで、クラスのインスタンスではなくなります。各クラスに、オブジェクトからインスタンスを復元するファクトリーメソッドを用意してあげる必要があるでしょう。日付は文字列になります。これも、事前に<code class="docutils literal notranslate"><span class="pre">valueOf()</span></code>で数値化しても良いでしょう。<code class="docutils literal notranslate"><span class="pre">Map()</span></code>などは値が完全に失われたインスタンスになるため、注意が必要です。</p>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">クラス、日付</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">クラス、日付</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="kr">class</span> <span class="nx">C</span> <span class="p">{</span> <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="k">this</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span><span class="p">;</span> <span class="p">}</span> <span class="p">}</span>
 <span class="o">&gt;</span> <span class="kr">const</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">C</span><span class="p">();</span>
 <span class="o">&gt;</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
@@ -819,10 +839,10 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <li><p>メソッド</p></li>
 <li><p>ボディ</p></li>
 </ul>
-<p>このうち、主にパスに使うのが本節で紹介する<code class="docutils literal notranslate"><span class="pre">URL</span></code>と<code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code>です。TypeScriptの元になっているECMAScriptには含まれないものですが、ブラウザには備わっていますし、Node.jsにも追加されました。</p>
+<p>このうち、主にパスに使うのが本節で紹介する<code class="docutils literal notranslate"><span class="pre">URL</span></code>と<code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code>です。TypeScriptの元になっているECMAScriptには含まれないものですが、ブラウザには備わっていますし、Node.jsにも追加されました。Node.jsはもともと別のURL解析関数を持っていましたが、そちらは非推奨になり、現在はこちらのブラウザ互換のクラスが推奨になっています。</p>
 <div class="section" id="url">
 <h3><code class="docutils literal notranslate"><span class="pre">URL</span></code><a class="headerlink" href="#url" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>使い方は簡単で、コンストラクタにパスを入れると、パスのそれぞれの構成要素（プロトコルやホスト名、パス）などに分解します。b</p>
+<p>使い方は簡単で、コンストラクタにパスを入れると、パスのそれぞれの構成要素（プロトコルやホスト名、パス）などに分解します。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">u</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="s2">&quot;https://developer.mozilla.org/en-US/docs/Web/API/URL#Methods&quot;</span><span class="p">)</span>
 <span class="nx">URL</span> <span class="p">{</span>
     <span class="nx">href</span><span class="o">:</span> <span class="s1">&#39;https://developer.mozilla.org/en-US/docs/Web/API/URL#Methods&#39;</span><span class="p">,</span>
@@ -907,8 +927,8 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <p>厳密にはURLのクエリーとフォームは少し異なり、フォームとクエリーの場合はスペースはプラス（<code class="docutils literal notranslate"><span class="pre">+</span></code>）で、パスの一部は<code class="docutils literal notranslate"><span class="pre">%20</span></code>だったりしますが、どちらも入れ替えてデコードすると正しく戻るため、そこまで厳密にみなくても大丈夫です。<code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code>はプラスにしますが、<code class="docutils literal notranslate"><span class="pre">encodeURIComponent()</span></code>は<code class="docutils literal notranslate"><span class="pre">%20</span></code>にします。</p>
 </div>
 </div>
-<div class="section" id="id19">
-<h2>時間のための関数<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id21">
+<h2>時間のための関数<a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">setInterval()</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">requestAnimationFrame()</span></code></p>
