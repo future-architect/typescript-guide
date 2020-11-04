@@ -125,22 +125,20 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="browserobjects.html">ブラウザ関連の組み込み型</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Reactの環境構築</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">ウェブアプリケーションにおけるビルドツールのゴール</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Reactについて</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#create-react-app">create-react-appによる環境構築</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#next-js">Next.js</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">Reactの周辺ツールのインストールと設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Reactの周辺ツールのインストールと設定</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ui">UI部品の追加</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#react-material-ui-typescript">React+Material UI+TypeScriptのサンプル</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reacttypescript">ReactとTypeScript</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reduxtypescript">ReduxとTypeScript</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reactredux">ReactとReduxの非同期アクセス</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">Reactの新しい書き方</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id7">クラスコンポーネントではなく、関数コンポーネントにする</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">Reactの新しい書き方</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">クラスコンポーネントではなく、関数コンポーネントにする</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hooks">サードパーティのライブラリもHooksを使う</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">まとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">まとめ</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
@@ -216,21 +214,8 @@
             
   <div class="section" id="react">
 <h1>Reactの環境構築<a class="headerlink" href="#react" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>ウェブフロントエンドが今のJavaScript/TypeScriptの主戦場です。本章ではそのウェブフロントエンドの環境構築について紹介します。しかし、本書を書き始めたときに比べて、TypeScriptユーザーが増えるにつれて環境構築のサポートがどんどん手厚くなっているため、章の内容は減っています。そのため、1章でメジャーなフレームワークをすべて紹介することにしました。</p>
-<p>本書で取り上げるのはReactとVue.jsです。React以外にReactをベースにした統合フロントエンドフレームワークとなっているNext.jsも取り上げます。
-Agularは2以降からTypeScriptに書き直されて、TypeScript以外では書けなくなり、最初からTypeScriptが有効な状態でプロジェクトが作成されるため、説明は割愛します。</p>
-<div class="section" id="id1">
-<h2>ウェブアプリケーションにおけるビルドツールのゴール<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>ウェブアプリケーションの環境構築は、ただコンパイルができるというだけではなく、TypeScriptからJavaScriptにトランスパイルされたファイルを1つや複数のチャンクにまとめるバンドラーというツールも必要です。また、開発サーバなどの設定も必要でしょう。開発サーバーはHTTPサーバーとして起動し、JavaScriptやHTML、CSSを配信するサーバーとしてブラウザからは見えます。その裏では、ファイルシステムのソースコードを監視し、変更があったら即座にビルドをして動作確認までのリードタイムを短くします。それだけではなく、その開発中のウェブサイトを見ているブラウザに対して強制リセットをしかけたり（ホットリロード）、起動中にJavaScriptのコードを差し替えたり（ホットモジュールリプレースメント）といったことを実現します。また、TypeScriptだけではなく、CSSでも、事前コンパイルでコーディングの効率をあげる方法が一般化しているため、この設定も必要でしょう。</p>
-<p>この分野では数多くのツールがあります。スキルのある人は自分の好みや要件に合わせてツールを選択すると良いでしょう。TypeScriptの対応についても、最初から対応していたり、後からプラグインで拡張など、いろいろなものがあります。</p>
-<p>webpackは細かくカスタマイズできますし、豊富な開発リソースで頻繁にリリースされています。ツリーシェイキングといった不要なコードを除外してサイズを小さくする機能にいち早く取り組んだり、業界をリードしています。困った時に検索すると情報も多く出てきます。一方で、TypeScript対応で開発サーバーやCSS対応など、機能を足していこうとすると設定やプラグインが増えていきます。特に、ReactのJSX構文を利用する場合は、バンドラーの処理の前段でTypeScriptをJavaScriptに変換したあとにBabelを使い、最後にバンドラーで1ファイルや複数ファイルにまとめるなど、ビルドのパイプラインが多段になりがちです。ReactやVueの環境構築ツールやNext.js、Nuxt.jsなどはwebpackを内包して、少ない設定の量で一定の機能を備えたビルド環境を整えてくれます。本書でも、webpackそのものを紹介することはしませんが、これらのツールの紹介をします。</p>
-<p>他にも数多くのバンドラーがあります。webpack以降に出てきたものの多くは設定が少ない、あるいは設定ファイルが不要（ゼロコンフィギュレーション）を売りにしたものが数多くあります。Rollupは人気のあるバンドラーで、TypeScriptを使うにはプラグインが必要ですが、そうでないのであれば設定がほとんど必要ありません。RollupをベースにTypeScriptサポートを最初から組み込んだmicrobundleもあります。HTMLやCSSのビルドもできて開発サーバーも全てついてくるオールインワンでビルド速度を重視したParcelや、Go製でビルド速度に特化したesbuildもあります。一方で、カスタマイズが必要なので最初からカスタマイズ前提でCLIを提供しないFuseboxなどもあります。</p>
-</div>
-<div class="section" id="id2">
-<h2>Reactについて<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ReactはFacebook製のウェブフロントエンドのライブラリで、宣言的UI、仮想DOMによる高速描画などの機能を備え、現在のフロントエンドで利用されるライブラリの中では世界シェアが一位となっています。Reactによって広まった宣言的UIはいまやウェブを超え、iOSのSwift UIやAndroidのJetpack Compose、Flutterなど、モバイルアプリの世界にも波及しており、このコミュニティが近年のムーブメントの発信源となることも増えています。</p>
 <p>JavaScriptは組み合わせが多くて流行がすぐに移り変わっていつも環境構築させられる（ように見える）とよく言われますが、組み合わせが増えても検証されてないものを一緒に使うのはなかなか骨の折れる作業で、結局中のコードまで読まないといけなかったりとか、環境構築の難易度ばかりが上がってしまいます。特にRouterとかすべてにおいて標準が定まっていないReactはそれが顕著です。それでも、もう2013年のリリースから長い期間が経ち、周辺ライブラリも自由競争の中で淘汰されたりして、定番と言われるものもかなり定まってきています。環境構築においてもほぼ全自動で済むツール<code class="docutils literal notranslate"><span class="pre">create-react-app</span></code>が登場しましたし、オールインワンなNext.jsも利用できます。そろそろ「枯れつつあるフレームワーク」としてReactを選ぶこともできるようになると感じています。</p>
-</div>
 <div class="section" id="create-react-app">
 <h2>create-react-appによる環境構築<a class="headerlink" href="#create-react-app" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Reactは標準で環境構築ツールcreate-react-appコマンドを提供しています。これを使って環境構築を行う場合、 <code class="docutils literal notranslate"><span class="pre">--template</span> <span class="pre">typescript</span></code> オプションをつけるとTypeScript用のプロジェクトが作成できます。</p>
@@ -256,11 +241,11 @@ Happy hacking!
 <h2>Next.js<a class="headerlink" href="#next-js" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Next.jsはVercel社が開発しているReactのオールインワンパッケージです。<code class="docutils literal notranslate"><span class="pre">next</span></code>コマンドでプロジェクトを作成すると、webpackによるビルドサーバーやコンパイルに必要な設定だけではなく、フロントエンド側の便利機能のCSS in JS、シングルページアプリケーションのためのRouterなどの開発環境整備が完了した環境が一発で作成できます。バージョン9からはTypeScriptにも対応済みのプロジェクトが作成されるようになりました。よく使う部品が最初から設定されているため、ツールやライブラリの調整に手間がかからないのが良い点です。</p>
 <p>デフォルトではサーバーサイドレンダリングを行うフロントエンド機能のみですが、カスタムサーバー機能を使えば、Express.jsなどのNode.jsのAPIサーバーにサーバーサイドレンダリング機能などを乗せることができます。Express.jsへの薄いラッパーになりますので、Express.jsの知識を利用して、APIサーバー機能も同一のサーバー上に追加できます。また、サーバーサイドレンダリングを使わずに静的なHTMLとJavaScriptコードを生成することも可能です。</p>
-<p>Next.jsの良いところは、よく使うツールやライブラリ一式が検証された状態で最初からテストされている点にくわえ、issueのところでもアクティブな中の人がガンガン回答してくれていますし、何よりも多種多様なライブラリとの組み合わせをexampleとして公開してくれている<a class="footnote-reference brackets" href="#id4" id="id3">1</a>のが一番強いです。
+<p>Next.jsの良いところは、よく使うツールやライブラリ一式が検証された状態で最初からテストされている点にくわえ、issueのところでもアクティブな中の人がガンガン回答してくれていますし、何よりも多種多様なライブラリとの組み合わせをexampleとして公開してくれている<a class="footnote-reference brackets" href="#id2" id="id1">1</a>のが一番強いです。
 お仕事でやっていて一番ありがたいのはこの相性問題の調査に取られる時間が少なくて済む点です。</p>
 <p>それにプラスして、自分で設定すると相当難易度の高いサーバーサイドレンダリング、静的コンテンツの生成など、さまざまなパフォーマンス改善のための機能に取り組んでいます。</p>
 <dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p><a class="reference external" href="https://github.com/zeit/next.js/tree/canary/examples">https://github.com/zeit/next.js/tree/canary/examples</a></p>
 </dd>
 </dl>
@@ -290,8 +275,8 @@ ReactもJSX構文をそのまま残す必要があるので&quot;preserve&quot;�
 </div>
 <p>詳しくはNext.jsの<a class="reference external" href="https://nextjs.org/docs/basic-features/built-in-css-support">組み込みCSSサポートページ（英語）</a>を参照してください。</p>
 </div>
-<div class="section" id="id5">
-<h2>Reactの周辺ツールのインストールと設定<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id3">
+<h2>Reactの周辺ツールのインストールと設定<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>create-react-appの方はすでに設定済みですが、Next.jsはESLintやテストの設定が行われませんので、品質が高いコードを実装するために環境整備をしましょう。
 ESLintを入れる場合は、ReactのJSXに対応させるために、<code class="docutils literal notranslate"><span class="pre">eslint-plugin-react</span></code>を忘れないようにしましょう。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># テスト関係</span>
@@ -305,8 +290,8 @@ $ npm install --save-dev prettier eslint
 </div>
 <p>ESLintはJSX関連の設定や、.tsxや.jsxのコードがあったらJSXとして処理する必要があるため、これも設定に含めます。
 あと、next.config.jsとかで一部Node.jsの機能をそのまま使うところがあって、CommonJSのrequireを有効にしてあげないとエラーになるので、そこも配慮します。</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">.eslintrc</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">.eslintrc</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;plugins&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;prettier&quot;</span>
@@ -330,8 +315,8 @@ $ npm install --save-dev prettier eslint
 </div>
 </div>
 <p>最後にnpmから実行できるように設定します。</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;jest&quot;</span><span class="p">,</span>
@@ -358,8 +343,8 @@ $ npm install --save-dev prettier eslint
 <li><p><a class="reference external" href="https://github.com/mui-org/material-ui/tree/master/examples/create-react-app-with-typescript">https://github.com/mui-org/material-ui/tree/master/examples/create-react-app-with-typescript</a></p></li>
 </ul>
 <p>まずは <code class="docutils literal notranslate"><span class="pre">src/theme.tsx</span></code>をダウンロードしてきて同じパスに配置します。これがテーマ設定を行うスクリプトなので色のカスタマイズなどはこのファイルを操作することで行ます。次に<code class="docutils literal notranslate"><span class="pre">src/index.tsx</span></code>のルート直下に<code class="docutils literal notranslate"><span class="pre">ThemeProvider</span></code>コンポーネントを起き、テーマを設定します。すべてのUIはこのルートの下に作られることになりますが、このコンポーネントが先祖にいると、すべての部品が同一テーマで描画されるようになります。</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">src/index.tsx</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">src/index.tsx</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>import React, { StrictMode } from &#39;react&#39;;
 import { render } from &#39;react-dom&#39;;
 import CssBaseline from &#39;@material-ui/core/CssBaseline&#39;;
@@ -407,8 +392,8 @@ render(
 <li><p><code class="docutils literal notranslate"><span class="pre">next/link</span></code>はシングルページアプリケーションのページ間遷移を実現する特殊なリンクを生成するコンポーネントです。create-react-appでシングルページアプリケーションを実現する場合は<a class="reference external" href="https://reactrouter.com/">React Router</a>などの別パッケージが必要となります。</p></li>
 </ul>
 <p>TypeScriptだからといって特殊なことはほとんどなく、世間のJavaScriptのコードのほとんどそのままコピーでも動くでしょう。唯一補完が聞かない<code class="docutils literal notranslate"><span class="pre">any</span></code>が設定されていたのが<code class="docutils literal notranslate"><span class="pre">makeStyle</span></code>でした。これはCSSを生成する時にパラメータとして任意の情報を設定できるのですが、今回はMaterial UIのテーマをそのまま渡すことにしたので、<code class="docutils literal notranslate"><span class="pre">Theme</span></code>を型として設定しています。</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">pages/index.tsx</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">pages/index.tsx</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>import { useState } from &#39;react&#39;;
 import Head from &#39;next/head&#39;;
 import Link from &#39;next/link&#39;;
@@ -492,9 +477,9 @@ export default function Home() {
 </pre></div>
 </div>
 </div>
-<div class="figure align-default" id="id13">
+<div class="figure align-default" id="id11">
 <img alt="_images/next-sample.png" src="_images/next-sample.png" />
-<p class="caption"><span class="caption-text">Next.js + Material UI + TypeScriptのサンプル</span><a class="headerlink" href="#id13" title="この画像へのパーマリンク">¶</a></p>
+<p class="caption"><span class="caption-text">Next.js + Material UI + TypeScriptのサンプル</span><a class="headerlink" href="#id11" title="この画像へのパーマリンク">¶</a></p>
 </div>
 </div>
 <div class="section" id="reacttypescript">
@@ -573,8 +558,8 @@ MyComponent.defaultProps = {
 <p>このreducerをトリガーするのに必要なのが、アクションと呼ばれるデータでした。これを<code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>という関数に投げ込むことでreducerが起動され、そのアクションに応じてデータを書き換えていました。</p>
 <p>しかし、まずJavaScriptの文化で、アクションクリエーターというアクションを作る関数を作っていました。この場合、型をつけるにはreducerの引数にはすべてのアクションの型（アクションクリエーターの返り値の型）の合併型を作る必要がありました。この「すべての」というのが大きなアプリケーションになると依存関係が循環しないように気をつけたり、漏れなく型を合成してあげないといけなかったりと、型のために人間が行う作業が膨大でした。多くの人が「Reduxに型をつけるには？」という文章を書いたりしましたが、その後、Reduxが公式で出してきた解答がRedux-Toookitでした。</p>
 <p>Redux-Toolkitは次のような実装になります。スライスというステートとreducer、アクションクリエーターがセットになったオブジェクトを作成します。Reducerの引数のstateは<code class="docutils literal notranslate"><span class="pre">Readonly&lt;&gt;</span></code>をつけておくと、デバッグで問題の追跡が難しい不測の事態が発生するのを未然に防げます。</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">スライスを作成</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">スライスを作成</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">createSlice</span><span class="p">,</span> <span class="nx">configureStore</span><span class="p">,</span> <span class="nx">PayloadAction</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@reduxjs/toolkit&#39;</span><span class="p">;</span>
 
 <span class="c1">// stateの型定義</span>
@@ -612,8 +597,8 @@ MyComponent.defaultProps = {
 </pre></div>
 </div>
 <p>スライスからストアを作るには<code class="docutils literal notranslate"><span class="pre">configureStore()</span></code>を使います。管理対象が少なければ、スライス作成からストア作成まで１ファイルでやりきってもいいでしょう。複雑になる場合は、スライス作成部分をファイルに切り出しましょう。</p>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">スライスからストアを作成</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">スライスからストアを作成</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// sliceからstoreを作る</span>
 <span class="kr">export</span> <span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">configureStore</span><span class="p">({</span>
   <span class="nx">reducer</span>: <span class="kt">counterSlice.reducer</span><span class="p">,</span>
@@ -630,8 +615,8 @@ MyComponent.defaultProps = {
 </div>
 </div>
 <p>さらに型チェックを強固にするために、コンポーネントとのインタフェースとなる関数群にもきちんと型をつけておきます。上記の<code class="docutils literal notranslate"><span class="pre">store</span></code>を作るファイルで一緒にやってしまうと良いでしょう。</p>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">利用側との接点となる型情報付き関数を生成</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">利用側との接点となる型情報付き関数を生成</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span>
   <span class="nx">useSelector</span> <span class="kr">as</span> <span class="nx">useReduxSelector</span><span class="p">,</span>
   <span class="nx">TypedUseSelectorHook</span><span class="p">,</span>
@@ -646,8 +631,8 @@ MyComponent.defaultProps = {
 <p>Reduxとの大きな違いは、内部で管理するステートの初期値とその型を明示的に宣言できるようになったことです。Reduxではreducerの引数とそのデフォルト値が初期値でした。いろいろなところで活用しますし、ステートの加工にあたってもチェックや補完が欲しいところなので、補完も期待通りに行われますし、エラーメッセージもわかりやすくなります。</p>
 <p><code class="docutils literal notranslate"><span class="pre">reducers</span></code>の中身が実際に値を加工する操作が入っています。この関数では変更前のステートを受け取り、それに値を設定して関数の返り値として返します。Reduxと違い、1つの関数の中に自分で<code class="docutils literal notranslate"><span class="pre">switch</span></code>文を書くのではなく、このオブジェクトのキー単位で操作の単位として独立しています。</p>
 <p>アプリケーション側との接点は2か所です。アプリケーション全体の設定と、値を利用したいコンポーネントです。</p>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">アプリ全体で一カ所、storeを設定</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">アプリ全体で一カ所、storeを設定</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-tsx notranslate"><div class="highlight"><pre><span></span>import { store } from &#39;../redux/store&#39;;
 import { Provider } from &#39;react-redux&#39;;
 
@@ -667,8 +652,8 @@ function App() {
 </div>
 </div>
 <p>各コンポーネントでは<code class="docutils literal notranslate"><span class="pre">useSelector()</span></code>と<code class="docutils literal notranslate"><span class="pre">useDispatch()</span></code>を使ってストアへの読み書きを行ます。</p>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">Reduxのステートを利用する関数側</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Reduxのステートを利用する関数側</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>// Reduxの提供のuseDispatch
 import { useDispatch } from &#39;react-redux&#39;;
 // スライス側からアクションクリエーター
@@ -727,8 +712,8 @@ export function MyComponent() {
 </pre></div>
 </div>
 <p>Redux-Toolkitのreducersにはそのままでは非同期処理が書けません。<code class="docutils literal notranslate"><span class="pre">createAsyncThunk()</span></code>を使い、それを<code class="docutils literal notranslate"><span class="pre">extraReducers</span></code>の中で登録します。</p>
-<div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">非同期のreducer</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">非同期のreducer</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">createAsyncThunk</span> <span class="p">}</span> <span class="kr">import</span> <span class="s1">&#39;@reduxjs/toolkit&#39;</span><span class="p">;</span>
 
 <span class="nx">type</span> <span class="nx">fetchLastCounterReturnType</span> <span class="o">=</span> <span class="p">{</span>
@@ -785,8 +770,8 @@ export function MyComponent() {
 <p>この非同期アクションからReduxのストアに値を設定する方法が2つあります。1つが上記の登録方法で紹介した<code class="docutils literal notranslate"><span class="pre">extraReducers</span></code>です。<code class="docutils literal notranslate"><span class="pre">pending</span></code>、<code class="docutils literal notranslate"><span class="pre">fulfilled</span></code>、<code class="docutils literal notranslate"><span class="pre">error</span></code>の3つの状態に対して<code class="docutils literal notranslate"><span class="pre">reducer</span></code>が書けます。それぞれ、実行開始直後、完了後、エラー発生のときに呼ばれます。これが一番簡単です。</p>
 <p>もう片方が、データ格納用のreducerを別個に作成し、非同期アクションから呼び出す方法です。2つ目の引数の<code class="docutils literal notranslate"><span class="pre">thunk</span></code>には<code class="docutils literal notranslate"><span class="pre">getState()</span></code>や<code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>といった、Redux本体とアクセスするメソッドがあります。これらを使い、ステートの状態を取得しつつ、<code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>で個別に作成したreducerに呼ぶことで、ステートに結果を書き込むことができます。基本的には前者の方法で済むことが多いでしょう。</p>
 <p>これらの非同期アクションを呼び出して結果をコンポーネントから利用する方法は2つあります。ひとつはすでに紹介した<code class="docutils literal notranslate"><span class="pre">useSelector()</span></code>経由で情報を取得してくる方法です。もう1つは、結果を直接受け取る方法です。後者は<code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>の結果を<code class="docutils literal notranslate"><span class="pre">unwrapResult()</span></code>に渡すことで、正常終了したときの結果が得られます。</p>
-<div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">unwrapResult</span></code>を使った例</span><a class="headerlink" href="#id20" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">unwrapResult</span></code>を使った例</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">unwrapResult</span> <span class="p">}</span> <span class="kr">import</span> <span class="s1">&#39;@reduxjs/toolkit&#39;</span><span class="p">;</span>
 
 <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -802,8 +787,8 @@ export function MyComponent() {
 <p>Reactの昔からよく発生するコーディングのミスとして、ステートへ格納した直後に結果を読み出そうとしてもまだ更新されていない、というものがあります。<code class="docutils literal notranslate"><span class="pre">useState()</span></code>のセッターで設定したステートやReduxのストアの状態は、次の更新時まで変更されません。更新してしまうと、一つのレンダリング関数の中で、変数の状態が複数存在する可能性が発生してしまい、整合性を保つのが困難になります。しかし、その副作用として、結果を更新したものを使う場合に、次の更新まで待たなければならなくなります。</p>
 <p>しかし、非同期の呼び出しがきちんと期待通りに呼ばれるかどうかというのはうまく動かなかった時の問題追跡が困難です。そのため、サーバーの結果を受けて再度何かサーバーアクセスを行う場合などは、途中でReactの再描画を待つのではなく、一つのasync関数の中で処理を完結させる方がバグが出にくく、コードの行数も短くなり、見通しの良いコードになります。</p>
 <p>次のコードはぱっと見たときに<code class="docutils literal notranslate"><span class="pre">useEffect()</span></code>同士の依存関係が見えません。コードを読み解くと、<code class="docutils literal notranslate"><span class="pre">fetchLastCounter()</span></code>の結果がReduxのステートに格納され、その数値が書き換わったことで、2つ目の<code class="docutils literal notranslate"><span class="pre">useEffect()</span></code>が呼ばれることが分かりますが、お世辞にも分かりやすいとは言えません。TypeScriptの可視性のすぐれた<code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code>を使うべきです。</p>
-<div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">unwrapResult</span></code>を使わない例</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">unwrapResult</span></code>を使わない例</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">counter</span> <span class="o">=</span> <span class="nx">useSelector</span><span class="p">(</span><span class="nx">state</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">counter</span><span class="p">);</span>
 
 <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -818,15 +803,15 @@ export function MyComponent() {
 </div>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>Reactの新しい書き方<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h2>Reactの新しい書き方<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Reactは歴史のあるコンポーネントで、途中でいくつも機能追加が行われたり改善されています。1つのことを実現するのに新旧何通りもやり方が提供されていたりします。新しい書き方が作られるのは、もちろん、そちらの方がミスが少なかったり、コードが短くなったりと改善が見込まれるからです。Reactの場合はTypeScript的にも優しい書き方となっているため、もし古いコーディング規約に従っている場合は新しい書き方に整理していくと良いでしょう。</p>
 <p>2019年2月にリリースされたReact 16.8のHooksにより、新しい書き方に大々的に移行可能になりました。もしこれ以前から続いているプロジェクトの場合、新しくつくるコンポーネントや、改修を行うコンポーネントから徐々に移行していくと良いでしょう。</p>
-<div class="section" id="id7">
-<h3>クラスコンポーネントではなく、関数コンポーネントにする<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id5">
+<h3>クラスコンポーネントではなく、関数コンポーネントにする<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>まずは古いTypeScript以前の書き方です。お決まりの書き方だけでもかなりの行数になってしまいます。</p>
-<div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text">古い書き方</span><a class="headerlink" href="#id22" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">古い書き方</span><a class="headerlink" href="#id20" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span>import React, { Component } from &quot;react&quot;;
 import propTypes from &quot;prop-types&quot;;
 
@@ -877,8 +862,8 @@ MyComponent.defaultProps = {
 </div>
 </div>
 <p>これ以降、JavaScriptやTypeScriptへの機能追加により、何段階か書き方の改善がありました。コンストラクタで<code class="docutils literal notranslate"><span class="pre">onClick</span></code>をbindしなおさずに、class定義の中で代入できるようになったので、アロー演算子を使っているかもしれませんし、TypeScript化で<code class="docutils literal notranslate"><span class="pre">Component</span></code>の型変数でPropsやStateの型変数を設定するようになっているかもしれません。</p>
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">ほどほどに古い書き方</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">ほどほどに古い書き方</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">interface</span> <span class="nx">Props</span> <span class="p">{</span>
     <span class="nx">label</span>: <span class="kt">string</span><span class="p">;</span>
     <span class="nx">onUpdated</span><span class="o">:</span> <span class="p">(</span><span class="nx">count</span>: <span class="kt">number</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
@@ -907,8 +892,8 @@ MyComponent.defaultProps = {
 </div>
 <p>古い書き方でTypeScriptを使わなくても、Reactレベルでさまざまなチェック機構が提供されており開発は便利ではありました。ただし、<code class="docutils literal notranslate"><span class="pre">state</span></code>の変更処理（<code class="docutils literal notranslate"><span class="pre">setState()</span></code>呼び出し）をした直後にはまだインスタンス変数の<code class="docutils literal notranslate"><span class="pre">this.state</span></code>が変更されておらず、状態がおかしくなってしまう、という問題があったり、イベントハンドラをJSXに渡すときに、thisの束縛を忘れてイベントが発火した後にエラーになるといったミスがおきやすい素地がありました。</p>
 <p>現在主流になっているのが関数コンポーネントです。当初は状態を持たないコンポーネントのみだったため、クラスコンポーネントからの完全移行は大変でしたが、Hookという機能が追加されてクラスコンポーネントを完璧に置き換えられるようになりました。関数コンポーネントは状態管理をReact側におまかせして、<code class="docutils literal notranslate"><span class="pre">render()</span></code>のみにしたような書き方です。だいぶ、縦にも横にも圧縮されたことがわかります。</p>
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">新しい書き方</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">新しい書き方</span><a class="headerlink" href="#id22" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>import React, { useState, useEffect } from &quot;react&quot;;
 
 type Props = {
@@ -955,8 +940,8 @@ MyComponent.defaultProps = {
 <h3>サードパーティのライブラリもHooksを使う<a class="headerlink" href="#hooks" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>関数コンポーネント自体もコードを短くする効能がありますが、新しいHooksスタイルにより、サードパーティのライブラリの組み込みも簡単になります。残念ながら、Hooksスタイルの関数は関数コンポーネントでしか利用できませんので、前述の関数コンポーネントへの書き換えがまず必要になります。</p>
 <p>例えば、React-RouterやReduxとの接続は、コンポーネントをラップしてpropsに要素を追加する関数呼び出しが必要でした。ユーザーコード側では、サードパーティのライブラリから何かしら情報をもらったり、サードパーティのライブラリの機能を呼び出しするには、<code class="docutils literal notranslate"><span class="pre">props</span></code>経由で扱う必要があり、この特殊なラッパーは<code class="docutils literal notranslate"><span class="pre">props</span></code>に新しい属性を増やす役割を果たしていました。しかし、ユーザーコード側でも<code class="docutils literal notranslate"><span class="pre">propsTypes</span></code>にこれを追加する必要があったりと、たくさんの転記作業が必要でした。コンポーネントの外の状態まで気を配る必要がありました。</p>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">古いReact-Routerのラッパースタイルの書き方</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">古いReact-Routerのラッパースタイルの書き方</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">withRouter</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;react-router-dom&quot;</span><span class="p">;</span>
 
@@ -981,8 +966,8 @@ MyComponent.defaultProps = {
 </div>
 </div>
 <p>Hooksに対応したReact-Routerのv5移行であればコンポーネントの中で履歴を触るためにコンポーネントの外にまで手を加える（ラップしたりPropsを変更する）必要はなくなりました。ここでも、縦にも横にも短くなったことがわかるでしょう。React-Routerの機能にアクセスするための壮大な準備コードが不要になりました。</p>
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">新しい履歴へのアクセス方法</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">新しい履歴へのアクセス方法</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">useHistory</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;react-router-dom&quot;</span><span class="p">;</span>
 
@@ -1001,8 +986,8 @@ MyComponent.defaultProps = {
 </div>
 </div>
 <p>よく不要論が取り沙汰されるReduxも、Reduxのストアにアクセスしたり、変更のために<code class="docutils literal notranslate"><span class="pre">dispatch</span></code>を呼ぶときにその準備コードが多くなる問題がありました。次のコードは、コンポーネント定義自体は全部省略して空ですが、これだけの準備コードが必要でした。</p>
-<div class="literal-block-wrapper docutils container" id="id27">
-<div class="code-block-caption"><span class="caption-text">Reduxの古い書き方</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">Reduxの古い書き方</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">connect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;react-redux&quot;</span>
 
@@ -1043,8 +1028,8 @@ MyComponent.defaultProps = {
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>のマッピングはしていませんが、<code class="docutils literal notranslate"><span class="pre">dispatch()</span></code>やReduxのストアへのアクセスは2つのHooksスタイルの関数で完了します。劇的ですね。Reduxのストア定義自体も、本章の中で紹介したRedux-Toolkitを使うことで大幅に短く書けるようになりました。</p>
-<div class="literal-block-wrapper docutils container" id="id28">
-<div class="code-block-caption"><span class="caption-text">Reduxの新しい書き方</span><a class="headerlink" href="#id28" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">Reduxの新しい書き方</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">useDispatch</span><span class="p">,</span> <span class="nx">useSelector</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-redux&#39;</span><span class="p">;</span>
 
 <span class="kr">export</span> <span class="kd">function</span> <span class="nx">MyComponent() {</span>
@@ -1059,8 +1044,8 @@ MyComponent.defaultProps = {
 <p>同じ機能を実装するにしても、コードが縦にも横にも短く、儀式的なコードが減れば、ライブラリや技術へのキャッチアップコストも減りますし、読んで理解するのも簡単になります。また、型の恩恵も受けやすいとなると、開発がかなり加速するでしょう。</p>
 </div>
 </div>
-<div class="section" id="id8">
-<h2>まとめ<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h2>まとめ<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>これで一通り、Reactを使う環境ができました。最低限の設定ですが、TypeScriptを使ったビルドや、開発サーバーの起動などもできるようになりました。</p>
 <p>フロントエンドは開発環境を整えるのが大変、すぐに変わる、みたいなことがよく言われますが、ここ10年の間、やりたいこと自体は変わっていません。1ファイルでの開発は大変なので複数ファイルに分けて、デプロイ用にはバンドルして1ファイルにまとめる。ブラウザにロードしてデバッグする以前にコード解析で問題をなるべく見つけるようにする。ここ5年ぐらいは主要なのコンポーネントもだいたい固定されてきているように思います。State of JavaScript Surveyという調査をみると、シェアが高いライブラリはますますシェアを高めていっており、変化は少なくなってきています。一方で、React自体はより良い書き方ができるように進歩しています。</p>
 <ul class="simple">

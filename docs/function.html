@@ -98,15 +98,16 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">関数</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id2">関数の引数と返り値の型定義</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">関数を扱う変数の型定義</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">デフォルト引数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">関数を含むオブジェクトの定義方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">関数を扱う変数に、デフォルトで何もしない関数を設定する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">デフォルト引数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">関数を含むオブジェクトの定義方法</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#this">クロージャと<code class="docutils literal notranslate"><span class="pre">this</span></code>とアロー関数</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id6">アロー関数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">アロー関数</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#this-1"><code class="docutils literal notranslate"><span class="pre">this</span></code>を操作するコードは書かない（1）</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">即時実行関数はもう使わない</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">まとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">即時実行関数はもう使わない</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">まとめ</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="otherbuiltinobjects.html">その他の組み込み型・関数</a></li>
@@ -251,8 +252,8 @@
 <p>TypeScriptでは関数やクラスのメソッドでは引数や返り値に型を定義できます。
 元となるJavaScriptで利用できる、すべての書き方に対応しています。</p>
 <p>なお、Javaなどとは異なり、同名のメソッドで、引数違いのバリエーションを定義するオーバーロードは使えません。</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">関数への型付け</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">関数への型付け</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 昔からあるfunctionの引数に型付け。書く引数の後ろに型を書く。</span>
 <span class="c1">// 返り値は引数リストの () の後に書く。</span>
 <span class="kd">function</span> <span class="nx">checkFlag</span><span class="p">(</span><span class="nx">flag</span>: <span class="kt">boolean</span><span class="p">)</span><span class="o">:</span> <span class="kt">string</span> <span class="p">{</span>
@@ -268,8 +269,8 @@
 </div>
 </div>
 <p>変数の宣言のときと同じように、型が明確な場合には省略が可能です。</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">関数への型付け</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">関数への型付け</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 文字列のtoLowerCase()メソッドの返り値は文字列なので</span>
 <span class="c1">// 省略してもstringが設定されたと見なされる</span>
 <span class="kr">const</span> <span class="nx">normalize</span> <span class="o">=</span> <span class="p">(</span><span class="nx">input</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -293,8 +294,8 @@
 </div>
 <p>関数が何も返さない場合は、 <code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">void</span></code> をつけることで明示的に表現できます。
 実装したコードで何も返していなければ、自動で <code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">void</span></code> がついているとみなされますが、これから先で紹介するインタフェースや抽象クラスなどで、関数の形だけ定義して実装を書かないケースでは、どのように判断すればいいのか材料がありません。 <code class="docutils literal notranslate"><span class="pre">compilerOptions.noImplicitAny</span></code> オプションが <code class="docutils literal notranslate"><span class="pre">true</span></code> の場合には、このようなケースで <code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">void</span></code> を書かないとエラーになりますので、忘れずに書くようにしましょう。</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">何も返さない時はvoid</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">何も返さない時はvoid</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">hello</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;ごきげんよう&quot;</span><span class="p">);</span>
 <span class="p">}</span>
@@ -343,7 +344,7 @@
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">arg2</span></code> がもし関数であったら、関数の引数の中に関数が出てくるということで、入れ子の宣言になります。
-多少わかりにくいのですが、内側から順番に剥がして理解していくのがコツです。</p>
+多少わかりにくいのですが、内側から順番に剥がして理解していくのがコツです。ネストが深くなり、理解が難しい場合はtype宣言で型定義を切り出して分解していく方が良いでしょう。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">check</span><span class="o">:</span> <span class="p">(</span><span class="nx">arg1</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">arg2</span><span class="o">:</span> <span class="p">(</span><span class="nx">arg3</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kt">number</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kr">boolean</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -354,8 +355,8 @@
 <p>まず、変換関数を通しながら、 <code class="docutils literal notranslate"><span class="pre">[オリジナル,</span> <span class="pre">比較用に変換した文字列]</span></code> という配列を作ります。
 その後、後半の変換済みの文字列を使ってソートを行います。
 最後に、そのソートされた配列を使い、オリジナルの配列に含まれていた要素だけの配列を再び作成しています。</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">一度だけ変換するソート</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">一度だけ変換するソート</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">sort</span><span class="p">(</span><span class="nx">a</span>: <span class="kt">string</span><span class="p">[],</span> <span class="nx">conv</span><span class="o">:</span> <span class="p">(</span><span class="nx">value</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">entries</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="nx">value</span><span class="p">,</span> <span class="nx">conv</span><span class="p">(</span><span class="nx">value</span><span class="p">)])</span>
   <span class="nx">entries</span><span class="p">.</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -377,7 +378,29 @@
 </div>
 </div>
 <div class="section" id="id4">
-<h2>デフォルト引数<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2>関数を扱う変数に、デフォルトで何もしない関数を設定する<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>コールバック関数を登録しておく変数に対し、何も代入されないときに呼び出し元が存在チェックをサボっていると、<code class="docutils literal notranslate"><span class="pre">undefined</span></code>に対して関数呼び出しをしたとエラーが発生します。その場合は、とりあえず何もしない関数を代入してエラーを回避したいと思うでしょう。</p>
+<p>JavaScriptの世界では型がないため、とりあえず引数を持たず、本体が空の無名関数を入れてしまうと回避はできます。</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 何もしない無名関数を入れておく</span>
+<span class="kd">var</span> <span class="nx">callback</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+</pre></div>
+</div>
+<p>TypeScriptでは、例え引数を利用しなかったとしても、また実際に実行されないのでreturn文を省略した場合でも、変数の関数の型と合わせる必要があります。わかりやすさのために、変数宣言と代入を分けたコードを提示します。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 変数宣言（代入はなし）</span>
+<span class="kd">let</span> <span class="nx">callback</span><span class="o">:</span> <span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">;</span>
+
+<span class="c1">// ダミー関数を設定</span>
+<span class="nx">callback</span> <span class="o">=</span> <span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{};</span>
+</pre></div>
+</div>
+<p>もちろん、1行にまとめることもできます。JavaScript的にはどれも違いのない「関数」ですが、引数と返り値が違う関数はTypeScriptの世界では「別の型」として扱われますし、何もしない無名関数は引数も返り値もない関数の型を持っている、という判断が行われます。実際のロジックが空でも定義が必要な点は要注意です。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 変数宣言（代入で推論で型を設定）</span>
+<span class="kd">let</span> <span class="nx">callback</span> <span class="o">=</span> <span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>デフォルト引数<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>TypeScriptは、他の言語と同じように関数宣言のところに引数のデフォルト値を簡単に書くことができます。
 また、TypeScriptは型定義通りに呼び出さないとエラーになるため、引数不足や引数が過剰になる、というエラーチェックも不要です。</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 新しいデフォルト引数</span>
@@ -419,13 +442,13 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>関数を含むオブジェクトの定義方法<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id6">
+<h2>関数を含むオブジェクトの定義方法<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ES2015以降、関数や定義の方法が増えました。
 JavaScriptではクラスを作るまでもない場合は、オブジェクトを作って関数をメンバーとして入れることがありますが、それが簡単にできるようになりました。
 setter/getterの宣言も簡単に行えるようになりました。</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">関数を含むオブジェクトの定義方法</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">関数を含むオブジェクトの定義方法</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: オブジェクトの関数</span>
 <span class="kd">var</span> <span class="nx">smallAnimal</span> <span class="o">=</span> <span class="p">{</span>
    <span class="nx">getName</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -476,13 +499,13 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 <p>実行時の親子関係ではなく、ソースコードという定義時の親子関係を元にしてスコープが決定されます。これをレキシカルスコープと呼びます。また、このように自分が定義された場所の外の変数を束縛した関数を「クロージャ」と呼びます。TypeScriptでは関数を駆使してロジックを組み上げていきますので、この機能はとても重要です。</p>
 <p>以前はJavaのようなオブジェクトを実装するために、関数内部の変数をプライベートメンバー変数のように扱うテクニックがかつてありました。クラスの機能が公式のサポートされたので、今では重要度は低くなっているし、そもそも隠す必要性もあまりなので使うことはありませんが、頭の体操にはなるので、興味がある方は調べてみてください。</p>
 <p>レキシカルスコープは今では多くの言語が持っている機能なので、わざわざ名前を呼ぶこともありませんが、TypeScriptでは、知らないと落とし穴に落ちる可能性のあるやや重要な機能となります。前項でオブジェクトの中の関数定義を紹介しました。ここでは、予め定義された変数のように<code class="docutils literal notranslate"><span class="pre">this</span></code>を使っています。しかしこれは変数ではなく、特別な識別子です。レキシカルスコープで束縛できません。クロージャかつ、<code class="docutils literal notranslate"><span class="pre">this</span></code>への束縛ができる新文法としてアロー関数が追加されました。</p>
-<div class="section" id="id6">
-<h3>アロー関数<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id7">
+<h3>アロー関数<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>JavaScriptでは、やっかいなのが<code class="docutils literal notranslate"><span class="pre">this</span></code>です。無名関数をコールバック関数に渡そうとすると、<code class="docutils literal notranslate"><span class="pre">this</span></code>がわからなくなってしまう問題があります。
 アロー関数を使うと、その関数が定義された場所の<code class="docutils literal notranslate"><span class="pre">this</span></code>の保持までセットで行いますので、無名関数の<code class="docutils literal notranslate"><span class="pre">this</span></code>由来の問題をかなり軽減できます。
 表記も短いため、コードの幅も短くなり、コールバックを多用するところで <code class="docutils literal notranslate"><span class="pre">function</span></code> という長いキーワードが頻出するのを減らすことができます。</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">アロー関数</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">アロー関数</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// アロー関数ならその外のthisが維持される。</span>
 <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">walkTo</span><span class="p">(</span><span class="s2">&quot;タコ公園&quot;</span><span class="p">);</span>
@@ -493,8 +516,8 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 <p>アロー関数にはいくつかの記法があります。
 引数が1つの場合は引数のカッコを、式の結果をそのまま <code class="docutils literal notranslate"><span class="pre">return</span></code> する場合は式のカッコを省略できます。
 ただし、引数の場所に型をつけたい場合は省略するとエラーになります。</p>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">アロー関数の表記方法のバリエーション</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">アロー関数の表記方法のバリエーション</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 基本形</span>
 <span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="cm">/* 式 */</span> <span class="p">};</span>
 
@@ -517,8 +540,8 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 </div>
 <p>以前は、 <code class="docutils literal notranslate"><span class="pre">this</span></code> がなくなってしまうため、 <code class="docutils literal notranslate"><span class="pre">bind()</span></code> を使って束縛したり、別の名前（ここでは <code class="docutils literal notranslate"><span class="pre">self</span></code> ）に退避する必要がありました。
 そのため、 <code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">self</span> <span class="pre">=</span> <span class="pre">this;</span></code> と他の変数に退避するコードがバッドノウハウとして有名でした。</p>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">this消失を避ける古い書き方</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">this消失を避ける古い書き方</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: 無名関数のイベントハンドラではその関数が宣言されたところのthisにアクセスできない</span>
 <span class="kd">var</span> <span class="nx">self</span><span class="o">=</span><span class="k">this</span><span class="p">;</span>
 <span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -579,13 +602,13 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 使っているフレームワークが特定の流儀を期待している場合はそれに従う必要があります。</p>
 <p><code class="docutils literal notranslate"><span class="pre">bind()</span></code> の排除はクラスの中で紹介します。</p>
 </div>
-<div class="section" id="id7">
-<h2>即時実行関数はもう使わない<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id8">
+<h2>即時実行関数はもう使わない<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>関数を作ってその場で実行することで、スコープ外に非公開にしたい変数などが見えないようにするテクニックがかつてありました。即時実行関数と呼びます。
 <code class="docutils literal notranslate"><span class="pre">function(){}</span></code>をかっこでくくって、その末尾に関数呼び出しのための<code class="docutils literal notranslate"><span class="pre">()</span></code>がさらに付いています。これで、エクスポートしたい特定の変数だけを<code class="docutils literal notranslate"><span class="pre">return</span></code>で返して公開をしていました。
 今時であれば、公開したい要素に明示的に<code class="docutils literal notranslate"><span class="pre">export</span></code>をつけると、webpackなどのツールがそれ以外の変数をファイル単位のスコープで隠してくれます。</p>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">古いテクニックである即時実行関数</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">古いテクニックである即時実行関数</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">lib</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">libBody</span> <span class="o">=</span> <span class="p">{};</span>
   <span class="kd">var</span> <span class="nx">localVariable</span><span class="p">;</span>
@@ -599,8 +622,8 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 </div>
 </div>
 </div>
-<div class="section" id="id8">
-<h2>まとめ<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id9">
+<h2>まとめ<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>関数についてさまざまなことを紹介してきました。</p>
 <ul class="simple">
 <li><p>関数の引数と返り値の型定義</p></li>

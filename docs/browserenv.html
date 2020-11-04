@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ブラウザ環境 &mdash; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> 仕事ですぐに使えるTypeScript
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">TypeScriptの世界を知る</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="preface.html">前書き</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Node.jsエコシステムを体験しよう</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TypeScriptの書き方</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variable.html">変数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="primitive.html">プリミティブ型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex.html">複合型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syntax.html">基本的な構文</a></li>
+<li class="toctree-l1"><a class="reference internal" href="typing.html">基本的な型付け</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function.html">関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="otherbuiltinobjects.html">その他の組み込み型・関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class.html">クラス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async.html">非同期処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html">例外処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">モジュール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="console.html"><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力</a></li>
+</ul>
+<p class="caption"><span class="caption-text">中級のテクニック</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generics.html">ジェネリクス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functional.html">関数型指向のプログラミング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class2.html">クラス上級編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reactive.html">リアクティブ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advance.html">高度なテクニック</a></li>
+</ul>
+<p class="caption"><span class="caption-text">環境ごとのTips（共通環境・ブラウザ以外）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prodenv.html">ソフトウェア開発の環境を考える</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseenv.html">基本の環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libenv.html">ライブラリ開発のための環境設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clienv.html">CLIツール・ウェブサーバー作成のための環境設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">CI（継続的インテグレーション）環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">成果物のデプロイ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">使用ライブラリのバージョン管理</a></li>
+</ul>
+<p class="caption"><span class="caption-text">環境ごとのTips（ブラウザ環境）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="browserobjects.html">ブラウザ関連の組み込み型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recommended.html">おすすめのパッケージ・ツール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">貢献者</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">仕事ですぐに使えるTypeScript</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>ブラウザ環境</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/browserenv.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>ブラウザ環境<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>今も昔も、ウェブフロントエンドが今のJavaScript/TypeScriptの主戦場です。本章ではそのウェブフロントエンドの環境について紹介します。</p>
+<p>現在、メジャーなウェブフロントエンドのフレームワークというと、React、Vue.js、Angularです。本書で取り上げるのはReactとVue.jsです。React以外にReactをベースにした統合フロントエンドフレームワークとなっているNext.jsも取り上げます。Angularは2以降からTypeScriptに書き直されて、TypeScript以外では書けなくなり、最初からTypeScriptが有効な状態でプロジェクトが作成されるため、説明は割愛します。</p>
+<p>本章では、それぞれの環境の共通部分について紹介します。</p>
+<div class="section" id="id2">
+<h2>ウェブアプリケーションにおけるビルドツールのゴール<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>JavaScriptでビルドといっても、いろいろなステップがあります。</p>
+<ol class="arabic simple">
+<li><p>TypeScriptやBabelを使って、ターゲットとなるバージョンのJavaScriptに変換</p></li>
+<li><p>SCSSとかPostCSSを使ってブラウザにない機能を使って書かれたCSSを素のCSSに変換</p></li>
+<li><p>webpackなどを使って、1つのJavaScriptファイル、もしくは遅延ロードをするJSファイル群を生成</p></li>
+</ol>
+<p>実際には綺麗にステップが分かれることはなくて、バンドラーがimport文を追跡しつつファイルを探し、.tsを見つけてはTypeScriptで処理して（コンパイル）、コード中にSCSSを見つけてはSCSSの処理系に投げて、一つのファイルにまとめる（バンドル）・・みたいな工程を行ったりきたりしながらビルドします。以前は、これにJake、Gulp、Gruntなどのタスクランナーも組み合わせてやってましたが、今はwebpack単体にts-loaderなどを組み合わせる感じで一通りできます。webpackがシェア80%で一強です。</p>
+<p>しかし、ファイルを集めてきてコンパイルしつつ1ファイルにバンドルし、必要に応じてminify化してサイズを小さくするといったタスクは、比較的重い処理です。そのため、ウェブのフロントエンドのビルド環境は、開発者のストレスを軽減するために、さまざまな機能を備えてきました。</p>
+<ul class="simple">
+<li><p>バンドルツールは毎回ファイルを読み込むのではなく、メモリに常駐し、変更されたファイルだけすばやく読み込んでバンドルを完成させる</p></li>
+<li><p>ブラウザに対して、変更検知を伝えるコードを差し込んでおくことで、すばやくブラウザをリロードして最新のファイルを読み込む仕組み</p></li>
+</ul>
+<p>これらを実現するのが開発サーバです。開発サーバーはHTTPサーバーとして起動し、JavaScriptやHTML、CSSを配信するサーバーとしてブラウザからは見えます。その裏では、ファイルシステムのソースコードを監視し、変更があったら即座にビルドをして動作確認までのリードタイムを短くします。それだけではなく、その開発中のウェブサイトを見ているブラウザに対して強制リセットをしかけたり（ホットリロード）、起動中にJavaScriptのコードを差し替えたり（ホットモジュールリプレースメント）といったことを実現します。また、TypeScriptだけではなく、CSSでも、事前コンパイルでコーディングの効率をあげる方法が一般化しているため、この設定も必要でしょう。</p>
+<p>この分野では数多くのツールがあります。スキルのある人は自分の好みや要件に合わせてツールを選択すると良いでしょう。TypeScriptの対応についても、最初から対応していたり、後からプラグインで拡張など、いろいろなものがあります。</p>
+<p>webpackは細かくカスタマイズできますし、豊富な開発リソースで頻繁にリリースされています。ツリーシェイキングといった不要なコードを除外してサイズを小さくする機能にいち早く取り組んだり、業界をリードしています。困った時に検索すると情報も多く出てきます。一方で、TypeScript対応で開発サーバーやCSS対応など、機能を足していこうとすると設定やプラグインが増えていきます。特に、ReactのJSX構文を利用する場合は、バンドラーの処理の前段でTypeScriptをJavaScriptに変換したあとにBabelを使い、最後にバンドラーで1ファイルや複数ファイルにまとめるなど、ビルドのパイプラインが多段になりがちです。ReactやVueの環境構築ツールやNext.js、Nuxt.jsなどはwebpackを内包して、少ない設定の量で一定の機能を備えたビルド環境を整えてくれます。本書でも、webpackそのものを紹介することはしませんが、これらのツールの紹介をします。</p>
+<p>他にも数多くのバンドラーがあります。webpack以降に出てきたものの多くは設定が少ない、あるいは設定ファイルが不要（ゼロコンフィギュレーション）を売りにしたものが数多くあります。Rollupは人気のあるバンドラーで、TypeScriptを使うにはプラグインが必要ですが、そうでないのであれば設定がほとんど必要ありません。RollupをベースにTypeScriptサポートを最初から組み込んだmicrobundleもあります。HTMLやCSSのビルドもできて開発サーバーも全てついてくるオールインワンでビルド速度を重視したParcelや、Go製でビルド速度に特化したesbuildもあります。一方で、カスタマイズが必要なので最初からカスタマイズ前提でCLIを提供しないFuseboxなどもあります。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 著作権 2019-2020, Future Corporation
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Parcelを使ったウェブ開発 &mdash; 仕事ですぐに使えるTypeScript  ドキュメント</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> 仕事ですぐに使えるTypeScript
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">TypeScriptの世界を知る</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="preface.html">前書き</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Node.jsエコシステムを体験しよう</a></li>
+</ul>
+<p class="caption"><span class="caption-text">TypeScriptの書き方</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="variable.html">変数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="primitive.html">プリミティブ型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex.html">複合型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syntax.html">基本的な構文</a></li>
+<li class="toctree-l1"><a class="reference internal" href="typing.html">基本的な型付け</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function.html">関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="otherbuiltinobjects.html">その他の組み込み型・関数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class.html">クラス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async.html">非同期処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html">例外処理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">モジュール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="console.html"><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力</a></li>
+</ul>
+<p class="caption"><span class="caption-text">中級のテクニック</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generics.html">ジェネリクス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functional.html">関数型指向のプログラミング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class2.html">クラス上級編</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reactive.html">リアクティブ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advance.html">高度なテクニック</a></li>
+</ul>
+<p class="caption"><span class="caption-text">環境ごとのTips（共通環境・ブラウザ以外）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prodenv.html">ソフトウェア開発の環境を考える</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseenv.html">基本の環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libenv.html">ライブラリ開発のための環境設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clienv.html">CLIツール・ウェブサーバー作成のための環境設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci.html">CI（継続的インテグレーション）環境の構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">成果物のデプロイ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">使用ライブラリのバージョン管理</a></li>
+</ul>
+<p class="caption"><span class="caption-text">環境ごとのTips（ブラウザ環境）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="browserobjects.html">ブラウザ関連の組み込み型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="recommended.html">おすすめのパッケージ・ツール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">貢献者</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">仕事ですぐに使えるTypeScript</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Parcelを使ったウェブ開発</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/webparcel.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="parcel">
+<h1>Parcelを使ったウェブ開発<a class="headerlink" href="#parcel" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>React開発であればcreate-react-appやNext.js、Vueであれば&#64;vue/cliやNuxt.js、Angularも&#64;angular/cliといった、それぞれのフレームワークごとに環境構築をまとめて行う環境整備ツールが近年では充実してきています。</p>
+<p>しかし、そこから多少離れるものであったり、あるいはより高速なビルドが欲しいなど、要件によっては他のビルドツールで環境を作る方がプロジェクトにはマッチする可能性もあります。本章ではParcelを使った環境構築について紹介します。</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>現時点ではリリースされていないParcel 2.0を対象に説明します。</p>
+</div>
+<div class="section" id="id1">
+<h2>Parcelとは<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://v2.parceljs.org/">https://v2.parceljs.org/</a></p></li>
+</ul>
+<p>Parcelはゼロコンフィグを目指したバンドラーです。ほとんど設定を書くことなく環境を準備できます。たとえプロダクション開発ではwebpackを使ったとしても、小さいコードをすばやく書き上げる場合などに知っておいて損はないでしょう。Parcelはビルド設定ファイルを作成することなく、エントリーポイントのファイルを指定するだけでビルドできます。エントリーポイントのファイルはウェブ開発であればHTMLファイルも使えます。そのHTMLから参照されているスクリプトファイルやCSSなどをすべて辿ってビルドしてくれます。</p>
+<p>TypeScriptも最初からサポートしています。tsconfig.jsonがあればそれを拾って解釈してくれますし、なくても動きます。単にtsファイルをscriptタグのsrcにするだけで、そのままTypeScriptの処理系をインストールしつつビルドしてくれます。最初のビルドも高速ですし、キャッシュもしてくれて2回目以降も速いです。TreeShakingとかの生成されたファイルの最適化機構も入っています。</p>
+<p>なお、ゼロコンフィグというか、設定ファイルがなかったので、ちょっと凝ったことをしようとすると、Parcelのビルド機能をAPIとして呼び出すウェブサーバーを書かねばならず、かえって大変になることもありましたが、Parcel 2からはちょっとした設定ファイルでデフォルト設定を変更できるようになりました。例えば次のようなことができるようになります。</p>
+<ul class="simple">
+<li><p>TypeScriptのビルドでエラーメッセージが出せるようになった</p></li>
+<li><p>APIサーバーへのプロキシができるようになった</p></li>
+</ul>
+</div>
+<div class="section" id="react">
+<h2>React環境<a class="headerlink" href="#react" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Parcelは環境構築は簡単ですが、全自動の環境構築ツールはありません。まずはプロジェクトフォルダを作り、package.jsonを作成します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm init -y
+</pre></div>
+</div>
+<p><a class="reference internal" href="baseenv.html"><span class="doc">基本の環境構築</span></a>で紹介したように、PrettierとESLintを設定しておきましょ。</p>
+<p>次にParcelを追加します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev parcel-bundler
+</pre></div>
+</div>
+<p>次にHTMLファイルを用意します。ポイントは前述のように、<code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code>タグに読み込ませたいTypeScriptのコードを書くことです。</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">src/index.html</span><a class="headerlink" href="#id2" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;ie=edge&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Parcel Project<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;root&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./index.tsx&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>最後にこのスクリプトを書き足します。</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">src/index.tsx</span><a class="headerlink" href="#id3" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>import React, { StrictMode } from &#39;react&#39;;
+import { render } from &#39;react-dom&#39;;
+
+render(
+  &lt;StrictMode&gt;
+    &lt;div&gt;test&lt;/div&gt;
+  &lt;/StrictMode&gt;,
+  document.getElementById(&#39;root&#39;)
+);
+</pre></div>
+</div>
+</div>
+<p>ビルドを実行すればそのタイミングで拡張子を見てTypeScriptをインストールして実行はしてくれますが、先にインストールしてtsconfig.jsonを作っておきます。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npx install --save-dev typescript
+$ npx tsc --init
+</pre></div>
+</div>
+<p>デフォルトではES2015 modulesが有効になっておらず、ビルドターゲットが古いのでそこを修正するのと、今回はReactなのでJSXもreactにしておきます。</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id4" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;ES2018&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;es2015&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;jsx&quot;</span><span class="p">:</span> <span class="s2">&quot;react&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;parcel serve src/index.html&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;parcel build src/index.html&quot;</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="typescript">
+<h3>TypeScriptのエラーを表示する<a class="headerlink" href="#typescript" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>これでビルドと開発はできますが、デフォルトのParcelは<code class="docutils literal notranslate"><span class="pre">&#64;babel/preset-typescript</span></code>を使って型情報を切り落とすだけで型のチェックは行ません。VSCodeで編集すればその場でエラーチェックはしてくれますが、変更したファイルが他のファイルに影響を与えていてエラーになっていたり、警告が出ていた、というのはなかなか気付きにくいです。バリデーションを有効化すると、このようなトラブルは防げます。</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">.parcelrc</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;extends&quot;</span><span class="p">:</span> <span class="s2">&quot;@parcel/config-default&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;validators&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;*.{ts,tsx}&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;@parcel/validator-typescript&quot;</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>なお、執筆時点ではこのプラグインで自動インストールされるバージョンではエラーになってしまいます。nightly.430というバージョンであれば問題なく実行できました。将来解決されると思いますが、先行して利用するのであればこちらを使ってください。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install @parcel/validator-typescript@2.0.0-nightly.430
+</pre></div>
+</div>
+</div>
+<div class="section" id="api">
+<h3>APIサーバーに対してプロキシする<a class="headerlink" href="#api" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>.proxyrcファイルを作成することで、一部のリクエストをAPIサーバーに受け流すといったことが可能です。これにより、フロントエンドとバックエンドが同じオリジンで動作するようになり、CORSなどのセキュリティの環境整備が簡単になります。もし、本番環境も別ホストで配信するのであれば、元々CORSの設定などは考慮されていて少ない労力でなんとかなると思われますが、そうでない場合、テスト環境のためにCORSを設定するといった大仰なことをしなくて済みます。</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">.proxyrc</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;/api&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:3000/&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>なお、パスのリライトなど、高度なこともできます。しかし、動作しなかったときの問題追跡が面倒になるため、ホスト名の転送だけで済むようにしておくと良いでしょう。</p>
+</div>
+</div>
+<div class="section" id="webcomponents">
+<h2>WebComponents開発環境<a class="headerlink" href="#webcomponents" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>あとで書く</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 著作権 2019-2020, Future Corporation
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

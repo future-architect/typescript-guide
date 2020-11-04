@@ -123,10 +123,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#eslint">ESLint</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id5">Visual Studio Codeの設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">ESLintの警告と特定の行だけ無効化する</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">テスト</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">Visual Studio Codeの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">テスト</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="libenv.html">ライブラリ開発のための環境設定</a></li>
@@ -213,8 +213,8 @@
   <div class="section" id="id1">
 <h1>基本の環境構築<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>環境構築の共通部分を紹介しておきます。</p>
-<p>プロジェクトでのコーディングであれば、誰が書いても同じスタイルになるなど、コード品質の統一が大切になりますので、単なる個人用の設定ではなく、それをシェアできるというのも目的として説明していきます。
-ここでは、基本的にすべてのプロジェクトでJest、ESLint、Prettierなどを選択しています。まあ、どれも相性問題が出にくい、数年前から安定して存在している、公式で推奨といった保守的な理由ですね。きちんと選べば、「JSはいつも変わっている」とは距離を置くことができます。</p>
+<p>プロジェクトでのコーディングであれば、誰が書いても同じスタイルになるなど、コード品質の統一が大切になりますので、単なる個人用の設定ではなく、それをシェアできるというのも目的として説明していきます。</p>
+<p>ここでは、基本的にすべてのプロジェクトでJest、ESLint、Prettierなどを選択しています。まあ、どれも相性問題が出にくい、数年前から安定して存在している、公式で推奨といった保守的な理由ですね。きちんと選べば、「JSはいつも変わっている」とは距離を置くことができます。</p>
 <ul>
 <li><p>Jest</p>
 <p>テスティングフレームワークはたくさんありますが、avaとJestがテスト並列実行などで抜きん出ています。JestはTypeScript用のアダプタが完備されています。avaはBabel/webpackに強く依存しており、単体で使うなら快適ですが、他のBabel Configと相性が厳しくなるのでJestにしています。</p>
@@ -444,21 +444,29 @@ src/main.ts 184ms
 </div>
 <div class="section" id="visual-studio-code">
 <h3>Visual Studio Codeの設定<a class="headerlink" href="#visual-studio-code" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>VSCodeから利用する場合は、拡張機能と、その設定をファイルに記述しておきます。まずは拡張機能です。</p>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">.vscode/extensions.json</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>
+<p>Visual Studio Codeから利用する場合は、拡張機能と、その設定をファイルに記述しておきます。まずは拡張機能です。</p>
+<p>Visual Studio Codeでフォルダを開いたときに、必要な拡張機能がインストールされるようにします。<code class="docutils literal notranslate"><span class="pre">.vscode</span></code>フォルダにファイルを作ることで、プロジェクトのソースコードと一緒に、プロジェクトの共有設定を共有できます。同じ拡張機能を入れてもらって、コードチェックなどのクオリティを統一し、コードインテグレーション時に無駄な調整をしなくて済むようにできます。ここではついでにコードのスペルチェックの拡張機能も入れておきます。</p>
+<p>この設定はこのJSONを書いても良いですし、拡張機能のページで該当する拡張機能を開いてから、コードパレットで<code class="docutils literal notranslate"><span class="pre">Extensions:</span> <span class="pre">Add</span> <span class="pre">to</span> <span class="pre">Recommended</span> <span class="pre">Extensions</span> <span class="pre">(Workspace</span> <span class="pre">Folder)</span></code>を選択すると追加されます。</p>
+<div class="figure align-default" id="id16">
+<img alt="_images/add-to-recommendation.png" src="_images/add-to-recommendation.png" />
+<p class="caption"><span class="caption-text">拡張機能をプロジェクト推奨に設定</span><a class="headerlink" href="#id16" title="この画像へのパーマリンク">¶</a></p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">.vscode/extensions.json</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;recommendations&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;esbenp.prettier-vscode&quot;</span><span class="p">,</span>
-        <span class="p">],</span>
+    <span class="s2">&quot;streetsidesoftware.code-spell-checker&quot;</span>
+  <span class="p">],</span>
   <span class="nt">&quot;unwantedRecommendations&quot;</span><span class="p">:</span> <span class="p">[]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
+<p>インストールができたら、次はその拡張機能の設定をします。こちらもプロジェクトのリポジトリにファイルを入れておくことでプロジェクトメンバー間で共通の設定をシェアできます。</p>
 <p>Prettierを標準のフォーマッターに指定し、VSCode自身の実行メカニズムを利用してファイル保存時にフォーマットがかかるようにします。</p>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">.vscode/settings.json</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">.vscode/settings.json</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;editor.defaultFormatter&quot;</span><span class="p">:</span> <span class="s2">&quot;esbenp.prettier-vscode&quot;</span><span class="p">,</span>
   <span class="nt">&quot;editor.formatOnSave&quot;</span><span class="p">:</span> <span class="kc">true</span>
@@ -481,9 +489,14 @@ src/main.ts 184ms
 </div>
 <p>最初に聞かれる三択の質問は<strong>To check syntax and find problems</strong>を選びましょう。最後のコードスタイルはAirBnBスタイルとかGoogleスタイルなどを選んでプロジェクトに適用するコードスタイルを決定できますが、すでにPrettierを使って設定済みですので不要です。</p>
 <p>モジュール形式はCommon.jsかES6 modulesか、使う場合はReactかVueか、Node.jsなのかブラウザなのか、TypeScriptを使うのかあたりを聞かれます。設定ファイルをどの形式で出力するか、最後に必要なパッケージをnpmでインストールするかも聞かれます。モジュール形式はES6 modulesを、TypeScriptの利用はYを、設定ファイルの形式はJavaScriptを、ツールのインストールはYを選択します。ウェブのフロントエンド、ブラウザ向けかNode.jsか向けかは環境に応じて選択してください。これインストールと設定は8割がた完了です。</p>
-<p>ESLintの設定は、機能を追加するプラグインと、設定をまとめて変更するextends、プロジェクト内部で個別に機能を切り替えるのはrulesに書きます。次のサンプルはブラウザ＆React、TypeScriptで生成したものに、Prettier関連の<code class="docutils literal notranslate"><span class="pre">extends</span></code>を2つ追加したのと（必ず末尾におくこと）、個別ルールで、開発時のみ<code class="docutils literal notranslate"><span class="pre">console.log()</span></code>を許可するように、返り値の型推論を許可しています。ESLintとPrettierでオーバーラップしている領域があり、ここで追加したextendsはそれらの設定が喧嘩しないようにするためのもので、ESLint側の重複機能をオフにします。React拡張を作成する場合は、Reactバージョンの設定をしないと警告を毎回見ることになるでしょう。</p>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">.eslintrc.js</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク">¶</a></div>
+<p>ESLintの設定は、機能を追加するプラグインと、設定をまとめて変更するextends、プロジェクト内部で個別に機能を切り替えるのはrulesに書きます。次のサンプルはブラウザ＆React、TypeScriptで生成したものに、Prettier関連の<code class="docutils literal notranslate"><span class="pre">extends</span></code>を2つ追加したのと（必ず末尾におくこと）、個別ルールで、開発時のみ<code class="docutils literal notranslate"><span class="pre">console.log()</span></code>を許可するように、返り値の型推論を許可しています。また、コールバック関数の利用でよくあるのですが、未使用引数で出る警告はライブラリ側の都合で避けようがなかったりするため、アンダースコアで始まる名前の変数に関しては未使用でも警告が出ないようにしています。</p>
+<p>ESLintとPrettierでオーバーラップしている領域があり、ここで追加したextendsはそれらの設定が喧嘩しないようにするためのもので、ESLint側の重複機能をオフにします。React拡張を作成する場合は、Reactバージョンの設定をしないと警告を毎回見ることになるでしょう。</p>
+<p>先ほどの初期化でほとんどのツールはインストール済みですが、Prettierとの連携用設定のパッケージは入っていないので追加します。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev eslint-config-prettier
+</pre></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">.eslintrc.js</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">env</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">browser</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -508,6 +521,7 @@ src/main.ts 184ms
     <span class="nx">rules</span><span class="o">:</span> <span class="p">{</span>
         <span class="s1">&#39;no-console&#39;</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">===</span> <span class="s1">&#39;production&#39;</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s1">&#39;@typescript-eslint/explicit-module-boundary-types&#39;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;no-unused-vars&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">argsIgnorePattern</span><span class="o">:</span> <span class="s1">&#39;^_&#39;</span> <span class="p">}</span> <span class="p">]</span>
     <span class="p">},</span>
     <span class="nx">settings</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">react</span><span class="o">:</span> <span class="p">{</span>
@@ -523,8 +537,8 @@ src/main.ts 184ms
 <li><p><a class="reference external" href="https://eslint.org/docs/2.0.0/user-guide/configuring#specifying-environments">https://eslint.org/docs/2.0.0/user-guide/configuring#specifying-environments</a></p></li>
 </ul>
 <p>コマンドラインは、Prettierの項目に追加して、4つ追加しました。2つはESLintのチェックと修正。のこりの2つはPrettierとESLintの一括実行です。</p>
-<div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id20" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;fix&quot;</span><span class="p">:</span> <span class="s2">&quot;run-s fix:prettier fix:eslint&quot;</span><span class="p">,</span>
@@ -551,8 +565,8 @@ $ npm run fix
 <div class="section" id="id5">
 <h3>Visual Studio Codeの設定<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>こちらも、Prettier同様にVSCodeに追加しましょう。recommendationsに以下の拡張機能を追加します。コードの品質向上を目的として、スペルチェッカーも入れておきましょう。これを入れると英語の単語として存在しないものに青線が引かれるようになります。固有名詞やプロジェクトのキーワードは</p>
-<div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text">.vscode/extensions.json</span><a class="headerlink" href="#id20" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">.vscode/extensions.json</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;recommendations&quot;</span><span class="p">:</span> <span class="p">[</span>
     <span class="s2">&quot;streetsidesoftware.code-spell-checker&quot;</span><span class="p">,</span>
@@ -564,8 +578,8 @@ $ npm run fix
 </div>
 </div>
 <p>次にプロジェクトでESLintを使うように設定します。</p>
-<div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text">.vscode/settings.json</span><a class="headerlink" href="#id21" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">.vscode/settings.json</span><a class="headerlink" href="#id22" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;eslint.lintTask.enable&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
    <span class="nt">&quot;editor.codeActionsOnSave&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -576,25 +590,49 @@ $ npm run fix
 </div>
 </div>
 <p>わざと引っかかるようなコードを書いてみて、赤線が表示され、保存時に<code class="docutils literal notranslate"><span class="pre">let</span></code>が<code class="docutils literal notranslate"><span class="pre">const</span></code>に書き換わるようになれば完了です。</p>
-<div class="figure align-default" id="id22">
+<div class="figure align-default" id="id23">
 <img alt="_images/eslint.png" src="_images/eslint.png" />
-<p class="caption"><span class="caption-text">赤線が引かれるようになった</span><a class="headerlink" href="#id22" title="この画像へのパーマリンク">¶</a></p>
+<p class="caption"><span class="caption-text">赤線が引かれるようになった</span><a class="headerlink" href="#id23" title="この画像へのパーマリンク">¶</a></p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
 <p>以前は次に紹介するPrettierをESLintの一部として組み込んで利用することがデファクトスタンダードでした。Lintのエラーもしかし、その場合、チェックのたびにコードをフォーマットしなおし、それからパースして文法のチェックが実行されます。ESLintはコーディングの中でなるべくリアルタイムに結果をプログラマーに提示する方が開発の流れが途切れずに品質の高いコードが量産できます。現在はフォーマッターとこのESLintは同期させないで個別に実行させるのが推奨となっています。</p>
 </div>
 </div>
-</div>
 <div class="section" id="id6">
-<h2>テスト<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h3>ESLintの警告と特定の行だけ無効化する<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ESLintの警告はなるべく適用したいが、特別なコードだけ除外したいことがあります。逆をやることは基本的になく、なるべく厳しくして、特別な箇所だけ緩めてあげるのが一番やりやすい方法でしょう。例えば、コードジェネレータで生成したコードの警告を無効化したり、変数名の規則はcamelCaseだが、サーバーのレスポンスのみsnake_caseを許容したい場合などがあります。</p>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">特定の行のみ無効化</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">status_code</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span> <span class="c1">// eslint-disable-line camelcase</span>
+
+<span class="c1">// eslint-disable-next-line camelcase</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">status_code</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">特定のブロック内のみ無効化</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="cm">/* eslint-disable camelcase */</span>
+
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">status_code</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+
+<span class="cm">/* eslint-enable camelcase */</span>
+</pre></div>
+</div>
+</div>
+<p>これ以外に、.eslintignoreでファイルごと無効化する方法など、さまざまな方法があります。</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>テスト<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>ユニットテスト環境も作ります。TypeScriptを事前に全部ビルドしてからJasmineとかも見かけますが、公式でTypeScriptを説明しているJestにしてみます。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev jest ts-jest @types/jest eslint-plugin-jest
 </pre></div>
 </div>
 <p>scripts/testと、jestの設定を追加します。古い資料だと、transformの値がnode_modules/ts-jest等になっているのがありますが、今はts-jestだけでいけます。</p>
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id23" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;jest&quot;</span>
@@ -603,8 +641,8 @@ $ npm run fix
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">jest.config.js</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">jest.config.js</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">transform</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;^.+\\.tsx?$&quot;</span><span class="o">:</span> <span class="s2">&quot;ts-jest&quot;</span>
@@ -620,9 +658,9 @@ $ npm run fix
 </pre></div>
 </div>
 </div>
-<p>最後にESLintの設定です。これでJest固有のキーワードがエラーならなくなります。</p>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">.eslintrc.js</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク">¶</a></div>
+<p>JestでもMochaでも、人気のフレームワークはテスト専用の関数などが定義されているものとしてテストコードを記述していきますが、これらの関数があるかどうかは、ESLintからは見えません。ESLintにさまざまな設定を追加することで、Jest固有のキーワードでもエラーがでなくなります。</p>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text">.eslintrc.js</span><a class="headerlink" href="#id28" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
   env: {
     :
@@ -641,38 +679,6 @@ $ npm run fix
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="id7">
-<h2>Visual Studio Codeの設定<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Visual Studio Codeでフォルダを開いたときに、eslintの拡張と、editorconfigの拡張がインストールされるようにします。<code class="docutils literal notranslate"><span class="pre">.vscode</span></code>フォルダにファイルを作ることで、プロジェクトのソースコードと一緒に、プロジェクトの共有設定を共有できます。同じ拡張機能を入れてもらって、コードチェックなどのクオリティを統一し、コードインテグレーション時に無駄な調整をしなくて済むようにできます。ここではついでにコードのスペルチェックの拡張機能も入れておきます。</p>
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">.vscode/extensions.json</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;recommendations&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="s2">&quot;dbaeumer.vscode-eslint&quot;</span><span class="p">,</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<p>この設定はこのJSONを書いても良いですし、拡張機能のページで該当する拡張機能を開いてから、コードパレットで<code class="docutils literal notranslate"><span class="pre">Extensions:</span> <span class="pre">Add</span> <span class="pre">to</span> <span class="pre">Recommended</span> <span class="pre">Extensions</span> <span class="pre">(Workspace</span> <span class="pre">Folder)</span></code>を選択すると追加されます。</p>
-<div class="figure align-default" id="id27">
-<img alt="_images/add-to-recommendation.png" src="_images/add-to-recommendation.png" />
-<p class="caption"><span class="caption-text">拡張機能をプロジェクト推奨に設定</span><a class="headerlink" href="#id27" title="この画像へのパーマリンク">¶</a></p>
-</div>
-<p>ファイル保存時にeslint --fixが自動実行されるように設定しておきましょう。これでVisual Studio Codeを使う限り、誰がプロジェクトを開いてもコードスタイルが保たれます。Visual Studio Codeのeditor.codeActionsOnSaveは、files.autoSaveがafterDelayのときは効かないので、offに設定しておきます。</p>
-<div class="literal-block-wrapper docutils container" id="id28">
-<div class="code-block-caption"><span class="caption-text">.vscode/settings.json</span><a class="headerlink" href="#id28" title="このコードへのパーマリンク">¶</a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;editor.codeActionsOnSave&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;source.fixAll.eslint&quot;</span><span class="p">:</span> <span class="kc">true</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;files.autoSave&quot;</span><span class="p">:</span> <span class="s2">&quot;off&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<p>ファイルを保存してみて修正されるか試してみましょう。もしされない場合は一度コマンドラインから実行してみてください。拡張で設定されているパッケージが足りない場合などはエラーが発生します。</p>
 <div class="admonition-todo admonition" id="id8">
 <p class="admonition-title">課題</p>
 <p>tsdocとかドキュメントツールを紹介</p>
