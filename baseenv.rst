@@ -5,6 +5,7 @@
 環境構築の共通部分を紹介しておきます。
 
 プロジェクトでのコーディングであれば、誰が書いても同じスタイルになるなど、コード品質の統一が大切になりますので、単なる個人用の設定ではなく、それをシェアできるというのも目的として説明していきます。
+
 ここでは、基本的にすべてのプロジェクトでJest、ESLint、Prettierなどを選択しています。まあ、どれも相性問題が出にくい、数年前から安定して存在している、公式で推奨といった保守的な理由ですね。きちんと選べば、「JSはいつも変わっている」とは距離を置くことができます。
 
 * Jest
@@ -214,7 +215,15 @@ Prettierの設定ファイルも作成します。シングルクオートの有
 Visual Studio Codeの設定
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-VSCodeから利用する場合は、拡張機能と、その設定をファイルに記述しておきます。まずは拡張機能です。
+Visual Studio Codeから利用する場合は、拡張機能と、その設定をファイルに記述しておきます。まずは拡張機能です。
+
+Visual Studio Codeでフォルダを開いたときに、必要な拡張機能がインストールされるようにします。\ ``.vscode``\ フォルダにファイルを作ることで、プロジェクトのソースコードと一緒に、プロジェクトの共有設定を共有できます。同じ拡張機能を入れてもらって、コードチェックなどのクオリティを統一し、コードインテグレーション時に無駄な調整をしなくて済むようにできます。ここではついでにコードのスペルチェックの拡張機能も入れておきます。
+
+この設定はこのJSONを書いても良いですし、拡張機能のページで該当する拡張機能を開いてから、コードパレットで\ ``Extensions: Add to Recommended Extensions (Workspace Folder)``\ を選択すると追加されます。
+
+.. figure:: images/add-to-recommendation.png
+
+   拡張機能をプロジェクト推奨に設定
 
 .. code-block:: json
    :caption: .vscode/extensions.json
@@ -222,9 +231,12 @@ VSCodeから利用する場合は、拡張機能と、その設定をファイ�
    {
      "recommendations": [
        "esbenp.prettier-vscode",
-	   ],
+       "streetsidesoftware.code-spell-checker"
+     ],
      "unwantedRecommendations": []
    }
+
+インストールができたら、次はその拡張機能の設定をします。こちらもプロジェクトのリポジトリにファイルを入れておくことでプロジェクトメンバー間で共通の設定をシェアできます。
 
 Prettierを標準のフォーマッターに指定し、VSCode自身の実行メカニズムを利用してファイル保存時にフォーマットがかかるようにします。  
 
@@ -255,7 +267,15 @@ ESLintのインストールと設定はウィザードで作ります。
 
 モジュール形式はCommon.jsかES6 modulesか、使う場合はReactかVueか、Node.jsなのかブラウザなのか、TypeScriptを使うのかあたりを聞かれます。設定ファイルをどの形式で出力するか、最後に必要なパッケージをnpmでインストールするかも聞かれます。モジュール形式はES6 modulesを、TypeScriptの利用はYを、設定ファイルの形式はJavaScriptを、ツールのインストールはYを選択します。ウェブのフロントエンド、ブラウザ向けかNode.jsか向けかは環境に応じて選択してください。これインストールと設定は8割がた完了です。
 
-ESLintの設定は、機能を追加するプラグインと、設定をまとめて変更するextends、プロジェクト内部で個別に機能を切り替えるのはrulesに書きます。次のサンプルはブラウザ＆React、TypeScriptで生成したものに、Prettier関連の\ ``extends``\ を2つ追加したのと（必ず末尾におくこと）、個別ルールで、開発時のみ\ ``console.log()``\ を許可するように、返り値の型推論を許可しています。ESLintとPrettierでオーバーラップしている領域があり、ここで追加したextendsはそれらの設定が喧嘩しないようにするためのもので、ESLint側の重複機能をオフにします。React拡張を作成する場合は、Reactバージョンの設定をしないと警告を毎回見ることになるでしょう。 
+ESLintの設定は、機能を追加するプラグインと、設定をまとめて変更するextends、プロジェクト内部で個別に機能を切り替えるのはrulesに書きます。次のサンプルはブラウザ＆React、TypeScriptで生成したものに、Prettier関連の\ ``extends``\ を2つ追加したのと（必ず末尾におくこと）、個別ルールで、開発時のみ\ ``console.log()``\ を許可するように、返り値の型推論を許可しています。また、コールバック関数の利用でよくあるのですが、未使用引数で出る警告はライブラリ側の都合で避けようがなかったりするため、アンダースコアで始まる名前の変数に関しては未使用でも警告が出ないようにしています。
+
+ESLintとPrettierでオーバーラップしている領域があり、ここで追加したextendsはそれらの設定が喧嘩しないようにするためのもので、ESLint側の重複機能をオフにします。React拡張を作成する場合は、Reactバージョンの設定をしないと警告を毎回見ることになるでしょう。 
+
+先ほどの初期化でほとんどのツールはインストール済みですが、Prettierとの連携用設定のパッケージは入っていないので追加します。
+
+.. code-block:: bash
+
+   $ npm install --save-dev eslint-config-prettier
 
 .. code-block:: js
    :caption: .eslintrc.js
@@ -284,6 +304,7 @@ ESLintの設定は、機能を追加するプラグインと、設定をまと�
        rules: {
            'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
            '@typescript-eslint/explicit-module-boundary-types': 0,
+           'no-unused-vars': ['error', { argsIgnorePattern: '^_' } ]
        },
        settings: {
            react: {
@@ -364,6 +385,31 @@ Visual Studio Codeの設定
 
     以前は次に紹介するPrettierをESLintの一部として組み込んで利用することがデファクトスタンダードでした。Lintのエラーもしかし、その場合、チェックのたびにコードをフォーマットしなおし、それからパースして文法のチェックが実行されます。ESLintはコーディングの中でなるべくリアルタイムに結果をプログラマーに提示する方が開発の流れが途切れずに品質の高いコードが量産できます。現在はフォーマッターとこのESLintは同期させないで個別に実行させるのが推奨となっています。
 
+ESLintの警告と特定の行だけ無効化する
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ESLintの警告はなるべく適用したいが、特別なコードだけ除外したいことがあります。逆をやることは基本的になく、なるべく厳しくして、特別な箇所だけ緩めてあげるのが一番やりやすい方法でしょう。例えば、コードジェネレータで生成したコードの警告を無効化したり、変数名の規則はcamelCaseだが、サーバーのレスポンスのみsnake_caseを許容したい場合などがあります。
+
+.. code-block:: ts
+   :caption: 特定の行のみ無効化
+
+   const { status_code } = await res.json(); // eslint-disable-line camelcase
+
+   // eslint-disable-next-line camelcase
+   const { status_code } = await res.json();
+
+
+.. code-block:: ts
+   :caption: 特定のブロック内のみ無効化
+
+   /* eslint-disable camelcase */
+
+   const { status_code } = await res.json();
+
+   /* eslint-enable camelcase */
+
+これ以外に、.eslintignoreでファイルごと無効化する方法など、さまざまな方法があります。
+
 テスト
 -----------
 
@@ -400,7 +446,7 @@ scripts/testと、jestの設定を追加します。古い資料だと、transfo
      ]
    };
 
-最後にESLintの設定です。これでJest固有のキーワードがエラーならなくなります。
+JestでもMochaでも、人気のフレームワークはテスト専用の関数などが定義されているものとしてテストコードを記述していきますが、これらの関数があるかどうかは、ESLintからは見えません。ESLintにさまざまな設定を追加することで、Jest固有のキーワードでもエラーがでなくなります。
 
 .. code-block:: json
    :caption: .eslintrc.js
@@ -421,40 +467,6 @@ scripts/testと、jestの設定を追加します。古い資料だと、transfo
      ]
    }
 
-
-Visual Studio Codeの設定
---------------------------------
-
-Visual Studio Codeでフォルダを開いたときに、eslintの拡張と、editorconfigの拡張がインストールされるようにします。\ ``.vscode``\ フォルダにファイルを作ることで、プロジェクトのソースコードと一緒に、プロジェクトの共有設定を共有できます。同じ拡張機能を入れてもらって、コードチェックなどのクオリティを統一し、コードインテグレーション時に無駄な調整をしなくて済むようにできます。ここではついでにコードのスペルチェックの拡張機能も入れておきます。
-
-.. code-block:: json
-   :caption: .vscode/extensions.json
-
-   {
-     "recommendations": [
-       "dbaeumer.vscode-eslint",
-     ]
-   }
-
-この設定はこのJSONを書いても良いですし、拡張機能のページで該当する拡張機能を開いてから、コードパレットで\ ``Extensions: Add to Recommended Extensions (Workspace Folder)``\ を選択すると追加されます。
-
-.. figure:: images/add-to-recommendation.png
-
-   拡張機能をプロジェクト推奨に設定
-
-ファイル保存時にeslint --fixが自動実行されるように設定しておきましょう。これでVisual Studio Codeを使う限り、誰がプロジェクトを開いてもコードスタイルが保たれます。Visual Studio Codeのeditor.codeActionsOnSaveは、files.autoSaveがafterDelayのときは効かないので、offに設定しておきます。
-
-.. code-block:: json
-   :caption: .vscode/settings.json
-
-   {
-     "editor.codeActionsOnSave": {
-       "source.fixAll.eslint": true
-     },
-     "files.autoSave": "off"
-   }
-
-ファイルを保存してみて修正されるか試してみましょう。もしされない場合は一度コマンドラインから実行してみてください。拡張で設定されているパッケージが足りない場合などはエラーが発生します。
 
 .. todo:: tsdocとかドキュメントツールを紹介
 
