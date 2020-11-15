@@ -71,6 +71,8 @@
    browserobjects
    react
    vue
+   webpercel
+   electron
 
 .. toctree::
    :maxdepth: 2
