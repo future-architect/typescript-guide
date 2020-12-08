@@ -68,10 +68,11 @@
    :maxdepth: 2
    :caption: 環境ごとのTips（ブラウザ環境）
 
+   browserenv
    browserobjects
    react
    vue
-   webpercel
+   webparcel
    electron
 
 .. toctree::
