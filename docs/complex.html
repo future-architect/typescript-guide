@@ -148,9 +148,11 @@
 </ul>
 <p class="caption"><span class="caption-text">環境ごとのTips（ブラウザ環境）</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="browserenv.html">ブラウザ環境</a></li>
 <li class="toctree-l1"><a class="reference internal" href="browserobjects.html">ブラウザ関連の組み込み型</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparcel.html">Parcelを使ったウェブ開発</a></li>
 <li class="toctree-l1"><a class="reference internal" href="electron.html">Electronアプリケーションの作成</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -274,9 +276,9 @@
 <h3>配列からのデータの取り出し<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>以前のJavaScriptは、配列やオブジェクトの中身を変数に取り出すには一つずつ取り出すしかありませんでした。
 現在のJavaScriptとTypeScriptは、分割代入（<code class="docutils literal notranslate"><span class="pre">=</span></code>の左に配列を書く記法）を使って複数の要素をまとめて取り出すことができます。
-<code class="docutils literal notranslate"><span class="pre">slice()</span></code>を使わずに、新しいスプレッド構文（<code class="docutils literal notranslate"><span class="pre">...</span></code>）を使って、複数の要素をまとめて取り出すことができます。</p>
-<p>スプレッド構文は省略記号のようにピリオドを3つ書く構文で、あたかも複数の要素がそこにあるかのように振る舞います。
-スプレッド構文は取り出し以外にも、配列やオブジェクトの加工、関数呼び出しの引数リストに対しても使える強力な構文です。
+<code class="docutils literal notranslate"><span class="pre">slice()</span></code>を使わずに、新しい残余（Rest）構文（<code class="docutils literal notranslate"><span class="pre">...</span></code>）を使って、複数の要素をまとめて取り出すことができます。</p>
+<p>残余構文は省略記号のようにピリオドを3つ書く構文で、あたかも複数の要素がそこにあるかのように振る舞います。
+残余構文は取り出し以外にも、配列やオブジェクトの加工、関数呼び出しの引数リストに対しても使える強力な構文です。
 ここでは、2つめ以降のすべての要素を<code class="docutils literal notranslate"><span class="pre">other</span></code>に格納しています。</p>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text">配列の要素の取り出し</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク">¶</a></div>

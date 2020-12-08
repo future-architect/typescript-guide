@@ -137,9 +137,11 @@
 </ul>
 <p class="caption"><span class="caption-text">環境ごとのTips（ブラウザ環境）</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="browserenv.html">ブラウザ環境</a></li>
 <li class="toctree-l1"><a class="reference internal" href="browserobjects.html">ブラウザ関連の組み込み型</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparcel.html">Parcelを使ったウェブ開発</a></li>
 <li class="toctree-l1"><a class="reference internal" href="electron.html">Electronアプリケーションの作成</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -581,7 +583,7 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 <p><code class="docutils literal notranslate"><span class="pre">call()</span></code>は配列の<code class="docutils literal notranslate"><span class="pre">push()</span></code>メソッドのように、引数を可変長にしたいときに使っていました。
 関数の中で引数全体は<code class="docutils literal notranslate"><span class="pre">arguments</span></code>という名前のちょっと配列っぽいオブジェクトで参照されます。
 そのままではちょっと使いにくいので一旦本物の配列に代入したいという時、 <code class="docutils literal notranslate"><span class="pre">call()</span></code>を使って配列のメソッドを<code class="docutils literal notranslate"><span class="pre">arguments</span></code>に適用するハックがよく利用されていました。
-これも引数リスト側にスプレッド構文を使うことで本体にロジックを書かずに実現できます。</p>
+これも引数リスト側に残余（Rest）構文を使うことで本体にロジックを書かずに実現できます。</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: 可変長配列の古いコード</span>
 <span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// この2は固定引数をスキップするためのもの</span>
