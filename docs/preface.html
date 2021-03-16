@@ -29,7 +29,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script src="_static/translations.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -133,9 +132,11 @@
 </ul>
 <p class="caption"><span class="caption-text">環境ごとのTips（ブラウザ環境）</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="browserenv.html">ブラウザ環境</a></li>
 <li class="toctree-l1"><a class="reference internal" href="browserobjects.html">ブラウザ関連の組み込み型</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparcel.html">Parcelを使ったウェブ開発</a></li>
 <li class="toctree-l1"><a class="reference internal" href="electron.html">Electronアプリケーションの作成</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -292,8 +293,7 @@ JavaScriptは2015年より前は保守的なアップデートがおこなわれ
 <h2>TypeScriptと互換性<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>インターネット上ですべてのユーザーが見られるサイトを作る場合、現在の機能的な下限はInternet Explorer 11 <a class="footnote-reference brackets" href="#id15" id="id10">2</a> です。
 Googleの検索エンジンのボットもこれとほぼ同等機能（<code class="docutils literal notranslate"><span class="pre">const</span></code>、 <code class="docutils literal notranslate"><span class="pre">let</span></code>ありのクラスなし）のChrome 41で固定されています <a class="footnote-reference brackets" href="#id16" id="id11">3</a> 。
-それ以外には、バージョンアップがもう提供されていないiOSやAndroidのスマートフォンの場合に最新の機能が使えないことがあります。
-ブラウザ以外ではGoogle Apps ScriptがECMAScript3にしか対応していません。</p>
+それ以外には、バージョンアップがもう提供されていないiOSやAndroidのスマートフォンの場合に最新の機能が使えないことがあります。</p>
 <p>100%のブラウザとの互換性を維持するのは開発リソースがいくらあっても足りないため、捻出できる工数と相談しながら、サポート範囲を決めます。
 ブラウザのバージョンごとにどの機能が対応しているかはECMAScript Compatibility Table<a class="footnote-reference brackets" href="#id17" id="id12">4</a>のサイトで調べられます。</p>
 <p>新しいブラウザのみに限定できるイントラネットのサービスや、Node.js以外は、Babelなり、TypeScriptなりのコンパイラを使い、変換後の出力として古いブラウザ向けのJavaScriptコードに変換して出力するのが現在では一般的です。Lambda、Cloud Functions、Google App Engineなどは、場合によっては少し古いバージョンのNode.jsを対象にしなければならないため、これも変換が必要になるかもしれません <a class="footnote-reference brackets" href="#id18" id="id13">5</a> 。</p>

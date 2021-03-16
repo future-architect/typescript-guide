@@ -290,7 +290,6 @@ ESLintとPrettierでオーバーラップしている領域があり、ここで
            'plugin:react/recommended',
            'plugin:@typescript-eslint/recommended',
            'prettier',
-           'prettier/@typescript-eslint',
        ],
        parser: '@typescript-eslint/parser',
        parserOptions: {

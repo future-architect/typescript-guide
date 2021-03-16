@@ -29,14 +29,15 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script src="_static/translations.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
     <link rel="index" title="索引" href="genindex.html" />
-    <link rel="search" title="検索" href="search.html" /> 
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="Electronアプリケーションの作成" href="electron.html" />
+    <link rel="prev" title="Vue.jsの環境構築" href="vue.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -120,10 +121,21 @@
 <li class="toctree-l1"><a class="reference internal" href="version.html">使用ライブラリのバージョン管理</a></li>
 </ul>
 <p class="caption"><span class="caption-text">環境ごとのTips（ブラウザ環境）</span></p>
-<ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="browserenv.html">ブラウザ環境</a></li>
 <li class="toctree-l1"><a class="reference internal" href="browserobjects.html">ブラウザ関連の組み込み型</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Parcelを使ったウェブ開発</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Parcelとは</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#react">React環境</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#typescript">TypeScriptのエラーを表示する</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api">APIサーバーに対してプロキシする</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#webcomponents">WebComponents開発環境</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="electron.html">Electronアプリケーションの作成</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -201,7 +213,7 @@
 <p>しかし、そこから多少離れるものであったり、あるいはより高速なビルドが欲しいなど、要件によっては他のビルドツールで環境を作る方がプロジェクトにはマッチする可能性もあります。本章ではParcelを使った環境構築について紹介します。</p>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
-<p>現時点ではリリースされていないParcel 2.0を対象に説明します。</p>
+<p>現時点ではリリースされていないParcel 2.0 beta 2を対象に説明します。なお、このバージョンでは、TypeScript 4系とは依存のバージョンがコンフリクトして同時にりようできませんが、インストール時に--forceをつけることで利用はできます。</p>
 </div>
 <div class="section" id="id1">
 <h2>Parcelとは<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
@@ -218,13 +230,13 @@
 </div>
 <div class="section" id="react">
 <h2>React環境<a class="headerlink" href="#react" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>Parcelは環境構築は簡単ですが、全自動の環境構築ツールはありません。まずはプロジェクトフォルダを作り、package.jsonを作成します。</p>
+<p>Parcelは環境構築は簡単ですが、全自動の環境構築ツールはありません。まずはプロジェクトフォルダを作り、<code class="docutils literal notranslate"><span class="pre">package.json</span></code>を作成します。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm init -y
 </pre></div>
 </div>
 <p><a class="reference internal" href="baseenv.html"><span class="doc">基本の環境構築</span></a>で紹介したように、PrettierとESLintを設定しておきましょ。</p>
-<p>次にParcelを追加します。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev parcel-bundler
+<p>次にParcelを追加します。<code class="docutils literal notranslate"><span class="pre">parcel-bundler</span></code>と言うパッケージ名はv1系列です。v2系列は<code class="docutils literal notranslate"><span class="pre">parcel</span></code>になりました。まだv2は正式リリースされていないため、インストール時は<code class="docutils literal notranslate"><span class="pre">&#64;next</span></code>（比較的安定板）、あるいは明示的に<code class="docutils literal notranslate"><span class="pre">&#64;2.0.0-beta.2</span></code>などのバージョンを指定するようにしてください。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev parcel@2.0.0-bata.2
 </pre></div>
 </div>
 <p>次にHTMLファイルを用意します。ポイントは前述のように、<code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code>タグに読み込ませたいTypeScriptのコードを書くことです。</p>
@@ -292,7 +304,10 @@ $ npx tsc --init
 </div>
 <div class="section" id="typescript">
 <h3>TypeScriptのエラーを表示する<a class="headerlink" href="#typescript" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>これでビルドと開発はできますが、デフォルトのParcelは<code class="docutils literal notranslate"><span class="pre">&#64;babel/preset-typescript</span></code>を使って型情報を切り落とすだけで型のチェックは行ません。VSCodeで編集すればその場でエラーチェックはしてくれますが、変更したファイルが他のファイルに影響を与えていてエラーになっていたり、警告が出ていた、というのはなかなか気付きにくいです。バリデーションを有効化すると、このようなトラブルは防げます。</p>
+<p>これでビルドと開発はできますが、デフォルトのParcelは<code class="docutils literal notranslate"><span class="pre">&#64;babel/preset-typescript</span></code>を使って型情報を切り落とすだけで型のチェックは行ません。VSCodeで編集すればその場でエラーチェックはしてくれますが、変更したファイルが他のファイルに影響を与えていてエラーになっていたり、警告が出ていた、というのはなかなか気付きにくいです。バリデーションを有効化すると、このようなトラブルは防げます。本体のバージョンと合ったバージョンをインストールします。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev @parcel/validator-typescript@2.0.0-beta.2
+</pre></div>
+</div>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">.parcelrc</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -303,10 +318,6 @@ $ npx tsc --init
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<p>なお、執筆時点ではこのプラグインで自動インストールされるバージョンではエラーになってしまいます。nightly.430というバージョンであれば問題なく実行できました。将来解決されると思いますが、先行して利用するのであればこちらを使ってください。</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install @parcel/validator-typescript@2.0.0-nightly.430
-</pre></div>
 </div>
 </div>
 <div class="section" id="api">
@@ -336,6 +347,15 @@ $ npx tsc --init
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="electron.html" class="btn btn-neutral float-right" title="Electronアプリケーションの作成" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="vue.html" class="btn btn-neutral float-left" title="Vue.jsの環境構築" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

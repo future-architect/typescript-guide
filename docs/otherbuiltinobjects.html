@@ -29,7 +29,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script src="_static/translations.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -536,7 +535,7 @@
 <h3>1時間後、1日後、1ヶ月後、1年後の日時の取得<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>バッチの次回実行時間の計算や、以前のバッチの間に含まれる情報のフィルタリングのために、1時間後や1日後、1ヶ月後、あるいは1時間前や1日前といった日時の演算が必要になることがあります。</p>
 <p>現在時刻の<code class="docutils literal notranslate"><span class="pre">Date</span></code>インスタンスを作成し、現在の情報を元に、期待する値のインクリメントを行うだけです。1時間後を計算するときに、12月31日の23時30分だから年月日をインクリメントしなければならない、今年の2月は閏年だから1年後の計算の日数が変わる、みたいなことは考慮する必要はなく、そのような演算はJavaScriptが行います。</p>
-<p>set系メソッドは値を変更してしまいますし、メソッドが返すのは<code class="docutils literal notranslate"><span class="pre">Date</span></code>インスタンスではなく、エポック病なので、必要に応じて新しいインスタンスを作りましょう。</p>
+<p>set系メソッドは値を変更してしまいますし、メソッドが返すのは<code class="docutils literal notranslate"><span class="pre">Date</span></code>インスタンスではなく、エポック秒なので、必要に応じて新しいインスタンスを作りましょう。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">now</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
 
 <span class="c1">// 1時間後</span>

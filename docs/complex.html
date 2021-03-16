@@ -29,7 +29,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script src="_static/translations.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -565,7 +564,7 @@ C言語由来のループは昔からあるものですがループ変数が必�
 </div>
 <div class="section" id="id9">
 <h3>配列のようで配列でない、ちょっと配列なオブジェクト<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>TypeScriptがメインターゲットとしてるブラウザ環境では、配列に似たオブジェクトがあります。HTMLのDOMを操作したときに得られる、<code class="docutils literal notranslate"><span class="pre">HTMLCollection</span></code>と、<code class="docutils literal notranslate"><span class="pre">NodeList</span></code>です。前者は<code class="docutils literal notranslate"><span class="pre">document.forms</span></code>などでフォームを取得してきたときにも得られます。どちらも<code class="docutils literal notranslate"><span class="pre">.length</span></code>で長さが取得でき、インデックスアクセスができるため、一見配列のようですが、配列よりもメソッドがかなり少なくなっています。<code class="docutils literal notranslate"><span class="pre">NodeList</span></code>は<code class="docutils literal notranslate"><span class="pre">forEach()</span></code>はありますが、HTMLCollection``にはありません。<code class="docutils literal notranslate"><span class="pre">map()</span></code>や<code class="docutils literal notranslate"><span class="pre">some()</span></code>はどちらにもありません。</p>
+<p>TypeScriptがメインターゲットとしてるブラウザ環境では、配列に似たオブジェクトがあります。HTMLのDOMを操作したときに得られる、<code class="docutils literal notranslate"><span class="pre">HTMLCollection</span></code>と、<code class="docutils literal notranslate"><span class="pre">NodeList</span></code>です。前者は<code class="docutils literal notranslate"><span class="pre">document.forms</span></code>などでフォームを取得してきたときにも得られます。どちらも<code class="docutils literal notranslate"><span class="pre">.length</span></code>で長さが取得でき、インデックスアクセスができるため、一見配列のようですが、配列よりもメソッドがかなり少なくなっています。<code class="docutils literal notranslate"><span class="pre">NodeList</span></code>は<code class="docutils literal notranslate"><span class="pre">forEach()</span></code>はありますが、<code class="docutils literal notranslate"><span class="pre">HTMLCollection</span></code>にはありません。<code class="docutils literal notranslate"><span class="pre">map()</span></code>や<code class="docutils literal notranslate"><span class="pre">some()</span></code>はどちらにもありません。</p>
 <p>どちらもイテレータは利用できますので、次のようなコードは利用できます。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">..</span> <span class="pre">of</span></code>ループ</p></li>

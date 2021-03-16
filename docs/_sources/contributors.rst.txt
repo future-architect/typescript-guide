@@ -2,8 +2,8 @@
 ===========
 
 
-Pull Requestをくださった方々
------------------------------------
+Pull Request/Issueをくださった方々
+----------------------------------------
 
 * `@called-d <https://github.com/called-d>`_
 * `@tkihira <https://github.com/tkihira>`_
@@ -36,6 +36,13 @@ Pull Requestをくださった方々
 * `@hnakamur <https://github.com/hnakamur>`_
 * `@c-bata <https://github.com/c-bata>`_
 * `@Yu0614 <https://github.com/Yu0614>`_
+* `@bubusuke <https://github.com/bubusuke>`_
+* `@mendelssohnbach <https://github.com/mendelssohnbach>`_
+* `@maito1201 <https://github.com/maito1201>`_
+* `@aliyome <https://github.com/aliyome>`_
+* `@mimosafa <https://github.com/mimosafa>`_
+* `@irtfrm <https://github.com/irtfrm>`_
+
 
 
 フィードバックをくださった方々

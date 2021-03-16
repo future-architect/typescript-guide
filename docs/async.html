@@ -29,7 +29,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script src="_static/translations.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -104,7 +103,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#id6">非同期と制御構文</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#promise"><code class="docutils literal notranslate"><span class="pre">Promise</span></code> の分岐と待ち合わせの制御</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#await">ループの中の <code class="docutils literal notranslate"><span class="pre">await</span></code> に注意</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">まとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">非同期で繰り返し呼ばれる処理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">まとめ</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="exception.html">例外処理</a></li>
@@ -131,9 +131,11 @@
 </ul>
 <p class="caption"><span class="caption-text">環境ごとのTips（ブラウザ環境）</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="browserenv.html">ブラウザ環境</a></li>
 <li class="toctree-l1"><a class="reference internal" href="browserobjects.html">ブラウザ関連の組み込み型</a></li>
 <li class="toctree-l1"><a class="reference internal" href="react.html">Reactの環境構築</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vue.html">Vue.jsの環境構築</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webparcel.html">Parcelを使ったウェブ開発</a></li>
 <li class="toctree-l1"><a class="reference internal" href="electron.html">Electronアプリケーションの作成</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -254,8 +256,8 @@ JavaScriptは、そのような時間のかかる処理は基本的に「非同�
 <div class="section" id="id3">
 <h2>コールバックは使わない<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>以前はJavaScriptで数多くの非同期処理を実装しようとすると、多数のコールバック関数を扱う必要があり、以前はコールバック地獄と揶揄されていました。</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">非同期の書き方</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">非同期の書き方</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: Promise以前</span>
 <span class="nx">func1</span><span class="p">(</span><span class="nx">引数</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">err</span><span class="p">;</span>
@@ -276,8 +278,8 @@ JavaScriptは、そのような時間のかかる処理は基本的に「非同�
 <p>この <code class="docutils literal notranslate"><span class="pre">Promise</span></code> の実装は、文法の進化に頼ることなく、既存のJavaScriptの文法の上で実装されたトリックで実現できました。
 コミュニティベースで実現されたソリューションです。
 この <code class="docutils literal notranslate"><span class="pre">Promise</span></code> は現在も生き続けている方法です。直接書く機会は減ると思いますが、 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> について学んだことは無駄にはなりません。</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">非同期の書き方</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">非同期の書き方</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 中: Promise以後</span>
 <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resp</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
@@ -304,8 +306,8 @@ JavaScriptは、そのような時間のかかる処理は基本的に「非同�
 内部的には、<code class="docutils literal notranslate"><span class="pre">await</span></code>はまったく新しい機構というわけではなく、<code class="docutils literal notranslate"><span class="pre">Promise</span></code>を扱いやすくする糖衣構文で、<code class="docutils literal notranslate"><span class="pre">then()</span></code>を呼び出し、その引数で渡される値が関数の返り値となるように動作します。
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> 対応のコードを書くのと、 <code class="docutils literal notranslate"><span class="pre">await</span></code> 対応のコードを書くのは差がありません。
 <code class="docutils literal notranslate"><span class="pre">Promise</span></code> でない返り値の関数の前に <code class="docutils literal notranslate"><span class="pre">await</span></code> を書いても処理が止まることはありません（エラーになることはありません）。</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">非同期の書き方</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">非同期の書き方</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 新: 非同期処理をawaitで待つ（ただし、awaitはasync関数の中でのみ有効）</span>
 <span class="kr">const</span> <span class="nx">resp</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
@@ -478,7 +480,12 @@ const [a味噌汁, aご飯] = await Promise.all([味噌汁温め(), ご飯温め
 ただし、それ以外の用途は今のところ見かけませんし、この用途で使うところも見たことがありませんので、基本的にはループの中の <code class="docutils literal notranslate"><span class="pre">await</span></code> は要注意であることは変わりありません。</p>
 </div>
 <div class="section" id="id9">
-<h2>まとめ<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2>非同期で繰り返し呼ばれる処理<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">async</span></code>/<code class="docutils literal notranslate"><span class="pre">await</span></code>は便利なものですが、ワンショットで終わるイベント向けです。繰り返し行われるイベント（<code class="docutils literal notranslate"><span class="pre">addEventListener()</span></code>を使うようなスクロールイベントとか、画面のリサイズ、<code class="docutils literal notranslate"><span class="pre">setInterval()</span></code>の繰り返しタイマー）に対しては引き続きコールバック関数を登録して使います。</p>
+<p>そこをモダンにしようという動きには<a class="reference external" href="https://rxjs-dev.firebaseapp.com/guide/overview">RxJS</a>があります。</p>
+</div>
+<div class="section" id="id10">
+<h2>まとめ<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">Promise</span></code> と <code class="docutils literal notranslate"><span class="pre">await</span></code> について紹介しました。
 非同期は本質的に、難しい処理です。
 その難しい処理をなるべく簡単に表現しよう、という試みがむかしから試行錯誤されてきました。
