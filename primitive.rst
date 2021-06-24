@@ -515,7 +515,7 @@ printfのような数値の変換などのフォーマットはなく、あく�
 .. code-block:: js
 
    // 古いコード
-   console.log("[Debug]:" + variable);
+   console.log("[Debug]: " + variable);
 
    // 新しいコード
    console.log(`[Debug]: ${variable}`);
