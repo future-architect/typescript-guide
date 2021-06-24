@@ -232,6 +232,7 @@ TypeScriptでは組み込みの型変換のためのジェネリクスのユー�
      return function(): any {
        if (!isInit) {
          cache = init();
+         isInit = true;
        } 
        return cache;
      }
@@ -260,6 +261,7 @@ TypeScriptでは組み込みの型変換のためのジェネリクスのユー�
      return function(): T {
        if (!isInit) {
          cache = init();
+         isInit = true;
        } 
        return cache;
      }
