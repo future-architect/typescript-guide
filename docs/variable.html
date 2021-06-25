@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -26,6 +28,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -349,7 +352,7 @@
 <h2>変数の巻き上げ<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">var</span></code>、<code class="docutils literal notranslate"><span class="pre">const</span></code>、<code class="docutils literal notranslate"><span class="pre">let</span></code> では変数の巻き上げの挙動が多少異なります。
 <code class="docutils literal notranslate"><span class="pre">var</span></code> はスコープ内で宣言文の前では、変数はあるが初期化はされてない（ <code class="docutils literal notranslate"><span class="pre">undefined</span></code> ）になりますが、他の2つはコンパイルエラーになります。
-宣言前に触るのは行儀が良いとは言えないため、 <code class="docutils literal notranslate"><span class="pre">const</span></code> の挙動の方が適切でしょう。</p>
+宣言前に触るのは行儀が良いとは言えないため、<code class="docutils literal notranslate"><span class="pre">const</span></code>、<code class="docutils literal notranslate"><span class="pre">let</span></code>の挙動の方が適切でしょう。</p>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text">変数の巻き上げ（変数の存在するスコープの宣言行前の挙動）</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: varはundefinedになる</span>

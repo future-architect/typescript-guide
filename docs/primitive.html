@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -26,6 +28,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -353,7 +356,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <td><p>16</p></td>
 <td><p>16</p></td>
 <td><p>radixが16以外は0</p></td>
-<td><p>8 (8進数)</p></td>
+<td><p>16 (16進数)</p></td>
 </tr>
 <tr class="row-odd"><td><p>&quot;0o10&quot;</p></td>
 <td><p>8</p></td>
@@ -365,7 +368,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <td><p>2</p></td>
 <td><p>0</p></td>
 <td><p>0</p></td>
-<td><p>2 (8進数)</p></td>
+<td><p>2 (2進数)</p></td>
 </tr>
 </tbody>
 </table>
@@ -715,7 +718,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 printfのような数値の変換などのフォーマットはなく、あくまでも文字列結合をスマートにやるためのものですが、複数行のテキストを表現できますし、プレースホルダ内には自由に式が書けます。
 もちろん、数が決まらない配列などは従来どおり<code class="docutils literal notranslate"><span class="pre">.join()</span></code>を使います。</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 古いコード</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;[Debug]:&quot;</span> <span class="o">+</span> <span class="nx">variable</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;[Debug]: &quot;</span> <span class="o">+</span> <span class="nx">variable</span><span class="p">);</span>
 
 <span class="c1">// 新しいコード</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`[Debug]: </span><span class="si">${</span><span class="nx">variable</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>

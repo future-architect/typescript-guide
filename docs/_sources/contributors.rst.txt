@@ -42,7 +42,10 @@ Pull Request/Issueをくださった方々
 * `@aliyome <https://github.com/aliyome>`_
 * `@mimosafa <https://github.com/mimosafa>`_
 * `@irtfrm <https://github.com/irtfrm>`_
-
+* `@yasuda0320 <https://github.com/yasuda0320>`_
+* `@kesoji <https://github.com/kesoji>`_
+* `@maguroguma <https://github.com/maguroguma>`_
+* `@nukopy <https://github.com/nukopy>`_
 
 
 フィードバックをくださった方々

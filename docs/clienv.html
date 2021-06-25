@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -26,6 +28,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -219,8 +222,8 @@
 <div class="section" id="node-js">
 <h2>Node.jsの環境構築<a class="headerlink" href="#node-js" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>Node.js向けには&#64;zeit/nccを利用します。</p>
-<p>&#64;zeit/nccはTypeScriptに最初から対応したコンパイラで、コマンドラインツールやウェブサーバーなどのNode.jsアプリケーションを1ファイルにするために作られています。&#64;zeit/ncc自体も自分自身を使ってバンドル化されており、ごく小さいサイズですばやくインストールできます。Goを参考にしており、<code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>以外の設定は不要です。もちろん、</p>
-<p>他に実績のあるツールとしてはBrowserifyがあります。これも、tsifyというプラグインと併用することでTypeScript製アプリケーションをバンドルして1ファイルにできます。このツールはメインの目的としてはNode.js製アプリケーションをブラウザでも動くようにするために作られました。後発の&#64;zeit/nccに比べると設定が多いのと、TypeScriptの設定を変えてcommon.js形式のパッケージにしないと扱えないのがnccと比べると煩雑です。また、<code class="docutils literal notranslate"><span class="pre">tsc</span></code>を使いバンドルせずにTypeScriptをJavaScriptに変換するだけを行って配布する方法もありますが、バンドルをしないとさまざまなファイルが入ってくるため、配布サイズも大きくなりがちです。</p>
+<p>&#64;zeit/nccはTypeScriptに最初から対応したコンパイラで、コマンドラインツールやウェブサーバーなどのNode.jsアプリケーションを1ファイルにするために作られています。&#64;zeit/ncc自体も自分自身を使ってバンドル化されており、ごく小さいサイズですばやくインストールできます。Goを参考にしており、<code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>以外の設定は不要です。</p>
+<p>他に実績のあるツールとしてはBrowserifyがあります。これも、tsifyというプラグインと併用することでTypeScript製アプリケーションをバンドルして1ファイルにできます。このツールは、Node.js製アプリケーションをブラウザでも動くようにすることをメインの目的として作られました。後発の&#64;zeit/nccに比べると設定が多いのと、TypeScriptの設定を変えてcommon.js形式のパッケージにしないと扱えないのがnccと比べると煩雑です。また、<code class="docutils literal notranslate"><span class="pre">tsc</span></code>を使いバンドルせずにTypeScriptをJavaScriptに変換するだけを行って配布する方法もありますが、バンドルをしないとさまざまなファイルが入ってくるため、配布サイズも大きくなりがちです。</p>
 <div class="section" id="id1">
 <h3>作業フォルダを作る<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>フォルダを作成し、JavaScriptのいつものプロジェクトのように<code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">init</span> <span class="pre">-y</span></code>を実行して<code class="docutils literal notranslate"><span class="pre">package.json</span></code>を作成しましょう。</p>

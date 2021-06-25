@@ -13,8 +13,7 @@ Polyfill、Ponyfill
 ``fetch``
 ----------------------------------------
 
-確実にNode.jsだけでしか使われないコードであれば\ `node-fetch <https://www.npmjs.com/package/node-fetch
->`_\ をインポートして利用すれば十分です。
+確実にNode.jsだけでしか使われないコードであれば\ `node-fetch <https://www.npmjs.com/package/node-fetch>`_\ をインポートして利用すれば十分です。
 
 もし、ブラウザでもサーバーでも実行されるコードの場合
 https://www.npmjs.com/package/isomorphic-unfetch

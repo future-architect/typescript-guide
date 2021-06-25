@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -26,6 +28,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -474,7 +477,7 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
 </div>
 <div class="section" id="id3">
 <h3>クリックイベントの定義<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
-<p>Vueの作法でクリックイベントを設定しましょう。jQueryはHTMLの外でタグとイベントん関連付けを<code class="docutils literal notranslate"><span class="pre">$.click()</span></code>を使って行っていました。Vue.jsの場合は、テンプレートの中で関数を設定します。呼び出す関数は<code class="docutils literal notranslate"><span class="pre">setup</span></code>の中で作成します。テンプレートで<code class="docutils literal notranslate"><span class="pre">clicked</span></code>という名前で呼びたい場合には次のように作成します。</p>
+<p>Vueの作法でクリックイベントを設定しましょう。jQueryはHTMLの外でタグとイベントの関連付けを<code class="docutils literal notranslate"><span class="pre">$.click()</span></code>を使って行っていました。Vue.jsの場合は、テンプレートの中で関数を設定します。呼び出す関数は<code class="docutils literal notranslate"><span class="pre">setup</span></code>の中で作成します。テンプレートで<code class="docutils literal notranslate"><span class="pre">clicked</span></code>という名前で呼びたい場合には次のように作成します。</p>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text">/src/views/mypage.vue</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク">¶</a></div>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">defineComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;vue&quot;</span><span class="p">;</span>

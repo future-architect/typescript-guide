@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -26,6 +28,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -430,6 +433,7 @@ C++の場合は、例えば要素が32ビットの数値で要素数が4の場�
   <span class="k">return</span> <span class="kd">function</span><span class="p">()</span><span class="o">:</span> <span class="nx">any</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isInit</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">cache</span> <span class="o">=</span> <span class="nx">init</span><span class="p">();</span>
+      <span class="nx">isInit</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nx">cache</span><span class="p">;</span>
   <span class="p">}</span>
@@ -457,6 +461,7 @@ C++の場合は、例えば要素が32ビットの数値で要素数が4の場�
   <span class="k">return</span> <span class="kd">function</span><span class="p">()</span><span class="o">:</span> <span class="nx">T</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isInit</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">cache</span> <span class="o">=</span> <span class="nx">init</span><span class="p">();</span>
+      <span class="nx">isInit</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nx">cache</span><span class="p">;</span>
   <span class="p">}</span>

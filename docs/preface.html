@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -26,6 +28,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -228,7 +231,7 @@
 JavaScriptは2015年より前は保守的なアップデートがおこなわれていました。Netscape社(現Mozilla)が開発し、企業間のコンソーシアムで当初仕様が策定されていました。クラスを導入するという大規模アップデートを一度は目指したものの(ECMAScript 4)、その時は頓挫しました。しかし、ECMAScript 2015時点で大幅なアップデートが加えられ、よりオープンなコミュニティ、TC39で議論されるようになりました。</p>
 <p>しかし、ブラウザの組み込み言語である以上、サーバーアプリケーションのJavaやPythonのようにランタイムをアプリケーションに合わせて維持したり更新するといったことはできません。そのため、高度な文法を備える言語でコードを書き、トラディショナルなJavaScriptに変換するというアプローチが好まれるようになりました。CoffeeScriptなどが一時広く使われたものの、現在よく利用されているのはBabelとTypeScriptです。</p>
 <p>Babel（旧名6to5）はオープンソースで開発されている処理系で、ECMAScriptの最新の文法を解釈し、古いJavaScript環境でも動作するように変換します。プラグインを使うことで、まだ規格に正式に取り入れられていない実験的な文法を有効にすることもできます。実際、言語の仕様策定の場でも参考実装として活発に使われています。TypeScriptはMicrosoft社が開発した言語で、ECMAScriptを土台にして、型情報を付与できるようにしたものです。一部例外はありますが、TypeScriptのコードから型情報を外すとほぼそのままJavaScriptになります。言語仕様の策定においても、参考実装の1つとして扱われています。</p>
-<p>大規模になってくると、型があるとコーディングが楽になります。型を書く文の手間は多少増えますが、昔の静的型付き言語と異なり、TypeScriptは「明示的に型がわかる場面」では型を省略して書くことができます。また、動的なオブジェクトなど、JavaScriptでよく登場する型もうまく扱えるように設計されています。そのような使い勝手の良さもあり、現在は採用数が伸びています。有名なOSSも実装をTypeScriptに置き換えたり、企業でも積極的な活用が進んでいます。</p>
+<p>大規模になってくると、型があるとコーディングが楽になります。型を書く分の手間は多少増えますが、昔の静的型付き言語と異なり、TypeScriptは「明示的に型がわかる場面」では型を省略して書くことができます。また、動的なオブジェクトなど、JavaScriptでよく登場する型もうまく扱えるように設計されています。そのような使い勝手の良さもあり、現在は採用数が伸びています。有名なOSSも実装をTypeScriptに置き換えたり、企業でも積極的な活用が進んでいます。</p>
 <p>Babelにも、プラグインを追加して型情報を追加できるflowtypeというFacebook製の拡張文法がありますが、ライブラリに型情報をつけるのは、手作業で整備していかなければならず、シェアが高いほど型情報が手に入りやすく、開発の準備のために型定義ファイルを作る時間を別途かけなくて済みます。現時点で型定義ファイルの充実度が高いのはTypeScriptです。</p>
 <p>まとめると</p>
 <ul class="simple">
