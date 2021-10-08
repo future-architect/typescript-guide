@@ -408,7 +408,7 @@ TypeScriptで数値計算を行う場合、 ``Math`` オブジェクトの関数
    const year = 2019;
    console.log((2019).toString(2));     // numberはtoStringの引数で2進数-36進数にできる
    console.log((true).toString());      // boolean型を'true'/'false'の文字列に変換
-   console.log(Stirng(false));          // こちらでも可
+   console.log(String(false));          // こちらでも可
 
 JavaScriptはUTF-16という文字コードを採用しています。Javaと同じです。絵文字など、一部の文字列は1文字分のデータでは再現できずに、2文字使って1文字を表現することがあります。これをサロゲートペアと呼びます。範囲アクセスなどで文字列の一部を扱おうとすると、絵文字の一部だけを拾ってしまう可能性がある点には要注意です。何かしらの文字列のロジックのテストをする場合には、絵文字も入れるようにすると良いでしょう。
 
@@ -548,7 +548,7 @@ printfのような数値の変換などのフォーマットはなく、あく�
 
 JavaScript/TypeScriptでは、 ``undefined`` と ``null`` があります。他の言語では ``null`` （もしくは ``None`` 、 ``nil`` と呼ぶことも）だけの場合がほとんどですが、JavaScript/TypeScriptでは2種類登場します。
 
-このうち、 ``undefined`` は未定義やまだ値が代入されていない変数を参照したり、オブジェクトの未定義の属性に触ると帰ってくる値です。
+このうち、 ``undefined`` は未定義やまだ値が代入されていない変数を参照したり、オブジェクトの未定義の属性に触ると返ってくる値です。
 TypeScriptはクラスなどで型定義を行い、コーディングがしやすくなるとよく宣伝されますが、「 ``undefined`` に遭遇するとわかっているコードを事前にチェックしてくれる」ということがその本質だと思われます。
 
 .. code-block:: ts
@@ -574,7 +574,7 @@ TypeScriptでは「これは無効な値をとる可能性がありますよ」�
 .. code-block:: ts
 
    // stringかnullを入れられるという宣言をしてnullを入れる
-   let favaoriteGame: string | null = null;
+   let favoriteGame: string | null = null;
 
 ``undefined`` と ``null`` は別のものなので、コンパイラオプションで ``compilerOptions.strict: true`` もしくは、 ``compilerOptions.strictNullChecks: true`` の場合は、 ``null`` 型の変数に ``undefined`` を入れようとしたり、その逆をするとエラーになります。
 これらのオプションを両方とも ``false`` にすれば、エラーにはならなくなりますが、副作用が大きいため、これらのオプションは有効にして、普段から正しくコードを書く方が健全です。

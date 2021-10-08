@@ -122,7 +122,7 @@ package.jsonで手を加えるべきは次のところぐらいですね。
      "module": "dist-esm/index.js",
      "types": "dist-cjs/index.d.ts",
      "scripts": {
-       "build": "npm-run-all -s build:cjs buid:esm",
+       "build": "npm-run-all -s build:cjs build:esm",
        "build:cjs": "tsc --project . --module commonjs --outDir ./dist-cjs",
        "build:esm": "tsc --project . --module es2015 --outDir ./dist-esm"
      }
@@ -158,7 +158,7 @@ package.jsonで手を加えるべきは次のところぐらいですね。
 
 * TypeScriptでライブラリのコードを記述する
 * 使う人は普段通りrequire/importすれば、特別なツールやライブラリの設定をしなくても適切なファイルがロードされる。
-* 使う人は、別途型定義ファイルを自作したり、別パッケージをインストールしなくても、普段通りrequire/importするだけでTypeScriptの処理系やVisual Stuido Codeが型情報を認識する
+* 使う人は、別途型定義ファイルを自作したり、別パッケージをインストールしなくても、普段通りrequire/importするだけでTypeScriptの処理系やVisual Studio Codeが型情報を認識する
 * Tree Shakingの恩恵も受けられる
 
 ``package.json`` の ``scripts`` のところに、開発に必要なタスクがコマンドとして定義されています。npmコマンドを使って行うことができます。
