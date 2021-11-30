@@ -29,6 +29,31 @@ JavaScriptでビルドといっても、いろいろなステップがありま�
 
 webpackは細かくカスタマイズできますし、豊富な開発リソースで頻繁にリリースされています。ツリーシェイキングといった不要なコードを除外してサイズを小さくする機能にいち早く取り組んだり、業界をリードしています。困った時に検索すると情報も多く出てきます。一方で、TypeScript対応で開発サーバーやCSS対応など、機能を足していこうとすると設定やプラグインが増えていきます。特に、ReactのJSX構文を利用する場合は、バンドラーの処理の前段でTypeScriptをJavaScriptに変換したあとにBabelを使い、最後にバンドラーで1ファイルや複数ファイルにまとめるなど、ビルドのパイプラインが多段になりがちです。ReactやVueの環境構築ツールやNext.js、Nuxt.jsなどはwebpackを内包して、少ない設定の量で一定の機能を備えたビルド環境を整えてくれます。本書でも、webpackそのものを紹介することはしませんが、これらのツールの紹介をします。
 
-他にも数多くのバンドラーがあります。webpack以降に出てきたものの多くは設定が少ない、あるいは設定ファイルが不要（ゼロコンフィギュレーション）を売りにしたものが数多くあります。Rollupは人気のあるバンドラーで、TypeScriptを使うにはプラグインが必要ですが、そうでないのであれば設定がほとんど必要ありません。RollupをベースにTypeScriptサポートを最初から組み込んだmicrobundleもあります。HTMLやCSSのビルドもできて開発サーバーも全てついてくるオールインワンでビルド速度を重視したParcelや、Go製でビルド速度に特化したesbuildもあります。一方で、カスタマイズが必要なので最初からカスタマイズ前提でCLIを提供しないFuseboxなどもあります。
+他にも数多くのバンドラーがあります。webpack以降に出てきたものの多くは設定が少ない、あるいは設定ファイルが不要（ゼロコンフィギュレーション）を売りにしたものが数多くあります。Rollupは人気のあるバンドラーで、TypeScriptを使うにはプラグインが必要ですが、そうでないのであれば設定がほとんど必要ありません。
 
+Angular/Vue/Reactを使う場合は、それぞれの公式のツールも利用できます。AngularはTypeScript必須なので、TypeScriptしかサポートしていません。他の2つはオプションやテンプレートでTypeScript設定済みのプロジェクトが作成できます。Vue.jsとReactについては本書でも触れます。
 
+* Angularの\ `@angular/cli <https://angular.io/cli>`_
+* Reactの\ `create-react-app <https://create-react-app.dev/>`_
+* Vue.jsの\ `@vue/cli <https://cli.vuejs.org/>`_
+
+ReactとVue.js, Svelteにいろいろなコンポーネントを付与してオールインワンになった\ `Next.js <https://nextjs.org/docs>`_\ と\ `Nuxt.js <https://v3.nuxtjs.org/getting-started/installation>`_\ , \ `SvelteKit <https://kit.svelte.dev/docs>`_\ を使う場合はそれぞれ公式の初期化方法があり、必要なものが設定済みの環境が作られます。
+
+* Next.jsは\ `npx create-next-app`
+* Nuxt.jsは\ `npx nuxi init`
+* SvelteKitは\ `npm init svelte@next`
+
+webpackとRollup以外だと次のようなツールがあります。以下もすべてTypeScriptに対応しています。Parcelについては本書で解説しています。
+
+* RollupをベースにTypeScriptサポートを最初から組み込んだ\ `microbundle <https://www.npmjs.com/package/microbundle>`_
+* .js/.tsの変換に特化して高速なビルド応答性を重視し、本番環境のバンドル作成はプラグインを使ったオプション(webpack/Rollup)としている\ `Snowpack <https://www.snowpack.dev/>`_
+* HTMLやCSSのビルドもできて、package.jsonに書かれた定義(mainやtypesなど)をもとにビルドを行い、開発サーバーも全てついてくるオールインワンでビルド速度を重視した\ `Parcel V2<https://v2.parceljs.org/>`_
+* Go製でビルド速度に特化した\ `esbuild <https://esbuild.github.io/>`_
+* microbundleに似ているが、React/Vue.js/Svelte/Lit-Element/素のHTML+JS(Vanilla)向けの環境構築までやってくれる\ `vite.js <https://vitejs.dev/>`_
+
+どのツールを使っても、コードを書く側のタスクはあまり変わりません。まずはESLint, Prettier, Jestあたりの設定をきちんと独立して作りましょう。ツールはたくさんありますし、日々いろいろ登場しますが、ツールの完成度やレベルは上がっており、細かい設定を書かなくてもいい世界になっていってきています。基本の設定がしっかりしていれば、良さそうなツールがあれば自由に移行できます。
+
+ツールの選択は個人の好みもありますが、筆者の場合は2021年現在、次のように決めています。
+
+* Next.js, Nuxt.js, SvelteKit, Angular, Vue.jsはそれぞれ固有のツール
+* React単体、Svelte単体、その他はvite.js

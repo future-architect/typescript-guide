@@ -38,8 +38,6 @@
 
   TypeScript対応の環境で、最小設定ですぐに使い始められるのはVisual Studio Codeです。しかも、必要な拡張機能をプロジェクトファイルで指定して、チーム内で統一した環境を用意しやすいので、推奨環境として最適です。EclipseなどのIDEの時代とは異なり、フォーマッターなどはコマンドラインでも使えるものを起動するケースが多いため、腕に覚えのある人はVimでもEmacsでもなんでも利用は可能です。
 
-.. todo:: lyntのTypeScript対応状況を注視する
-
 これらのツールを組み合わせて環境を作っていきます。昔のJavaScriptの開発環境は、ビルドツール（GruntやGulp）を使ってこれらのツールの組み合わせを手作業をで行う必要がありましたが、ツールが複雑になってプロジェクトのテンプレート化が進んだことや、TypeScriptの人気が上がるにつれてTypeScriptを考慮したツールが増えてきました。そのため、現在は比較的簡単に導入できます。
 
 ツールは日々改良されているため、どの目的に対してどのツールを利用するのがベストかは一概には言えませんが、比較的に広く使われていて、安定していて、かつ利便性が高い物はいくつかピックアップできます。次の表はその対応表になります。フォルダ作成は\ ``package.json``\ を含むプロジェクトのフォルダを作成することを意味します。
@@ -73,12 +71,17 @@
    - * React + SSR
      * `Next.js <https://nextjs.org/>`_
      * ○
-     * (オプション)
+     * (tsconfig.jsonを作成したら有効)
      * -
    - * Vue.js
      * `@vue/cli <https://cli.vuejs.org/>`_
      * ○
      * (オプション)
+     * (オプション)
+   - * Nuxt.js
+     * `nuxi <https://v3.nuxtjs.org/getting-started/installation>`_
+     * ○
+     * ○
      * (オプション)
    - * Angular
      * `@angular/cli <https://angular.io/>`_
@@ -86,15 +89,22 @@
      * ○
      * ○
    - * ウェブ全般
-     * `Parcel <https://en.parceljs.org/>`_
+     * `Parcel <https://parceljs.org/>`_
      * -
      * ○
+     * -
+   - * ウェブ全般
+     * `Vite.js <https://vaitejs.dev/>`_
+     * ○
+     * (オプション)
      * -
 
 本章では、これらのツール間で共通となる情報を紹介します。
 
 作業フォルダの作成
 -------------------------
+
+この作業はツールによっては行ってくれるため不要です。
 
 出力先フォルダの作成はプロジェクト構成ごとに変わってくるため、入力側だけをここでは説明します。プロジェクトごとにフォルダを作成します。ウェブだろうがライブラリだろうが、 ``package.json`` が必要なツールのインストールなど、すべてに必要になるため、 ``npm init`` でファイルを作成します。ツールによってはこのフォルダの作成と\ ``package.json``\ の作成を勝手にやるものもあります。
 
@@ -414,9 +424,19 @@ ESLintの警告はなるべく適用したいが、特別なコードだけ除�
 
 ユニットテスト環境も作ります。TypeScriptを事前に全部ビルドしてからJasmineとかも見かけますが、公式でTypeScriptを説明しているJestにしてみます。
 
+Jest、Jestの型定義、TypeScriptを読み込めるようにするトランスレータの3つはセットで入れます。
+
 .. code-block:: bash
 
-   $ npm install --save-dev jest ts-jest @types/jest eslint-plugin-jest
+   $ npm install jest @types/jest ts-jest --save-dev
+
+``jest --init``\ を起動するといくつか質問されて設定ファイルの雛形が生成されます。
+
+.. code-block:: bash
+
+   $ npx jest --init
+
+``npm test``\ で実行できるようにするかの質問が最初にされるのでYを選択します。TypeScriptを\ **設定ファイルに**\ 使うかの質問はどちらでも良いです。こちらを選んでもTypeScriptを有効化する設定は必要です。Nodeかjs-domかは、純粋なロジックのテストがしたいか、ブラウザのテストをしたいか次第です。必要であれば後から足せます。あとはカバレッジ計測、モックのリセットを毎回行うかといった質問です。
 
 scripts/testと、jestの設定を追加します。古い資料だと、transformの値がnode_modules/ts-jest等になっているのがありますが、今はts-jestだけでいけます。
 
@@ -471,3 +491,40 @@ JestでもMochaでも、人気のフレームワークはテスト専用の関�
 
 .. todo:: eslintやテストの書き方の紹介
 
+.. _change_import_path:
+
+プロジェクト内のファイルの参照方法を\ ``@/``\ にする
+-------------------------------------------------------------------
+
+プロジェクト内のファイルの\ ``import``\ では、現在のファイルから相対パスで書く方法と、\ ``tsconfig.json``\ の\ ``compilerOptions.baseDir``\ を起点とした絶対パスで書く方法がありました。
+
+それ以外に近年広く使われている記法が、プロジェクトのベースフォルダを\ ``@/``\ と表記する方法です。
+
+.. code-block:: ts
+
+   import { MyComponent } from "@/components/mycomponents";
+
+もし、すべてのコードが\ ``src``\ フォルダ以下にあるのであれば、次のように\ ``tsconfig.json``\ を変更します。もしプロジェクトにJavaScriptファイルものこっているのであれば、同一の内容を\ ``jsconfig.json``\ に書けば、Visual Studio Code、Next.js、Veterなどが解釈してくれますし、\ ``babel-plugin-module-resolver``\ を入れれば他のプロジェクトでもこの表記が可能です。
+
+.. code-block:: json
+   :caption: tsconfig.json
+
+   {
+     "compilerOptions": {
+       "baseUrl": ".",
+       "paths": {
+         "@/src/*": ["src/*"]
+       }
+     }
+   }
+
+Jestはこのファイルから情報を取得してくれませんので専用の設定が必要です。
+
+.. code-block:: json
+
+   {
+     "moduleNameMapper": {
+       "^@/(.*)$": "<rootDir>/src/$1"
+   }
+
+単なるエイリアスなので、この設定を入れなくてもできることは変わりませんが、特にテストコードからプロジェクトのファイルを参照したい場合など、\ ``import { Targert } from "../../../../src/components/Target";``\ のように\ ``import``\ が長くなる可能性があります。\ ``import``\ 文を他のファイルからコピーするときも、どのフォルダであってもそのまま使えるというメリットもあります。

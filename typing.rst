@@ -20,6 +20,12 @@ JavaScriptは動的言語の中でも、いろいろ制約がゆるく、無名�
    // 型には文字列や数値の値も設定できる
    let favoriteFood: "北極" | "冷やし味噌";
 
+.. note::
+
+   型を学ぶコンテンツとしてType Challengesがあります。高度な型定義についても学べます。
+
+   * https://tsch.js.org/
+
 一番手抜きな型付け: ``any``
 ------------------------------
 
@@ -30,33 +36,81 @@ JavaScriptは動的言語の中でも、いろいろ制約がゆるく、無名�
 .. code-block:: ts
 
    function someFunction(opts: any) {
-     console.log(opts.debug); // debugがあるかどうかチェックしないのでエラーにならない
+     // debugがあるかどうかチェックしないので
+     // コンパイルエラーにならない
+     console.log(opts.debug);
    }
 
 ただし、これを使うと、TypeScriptが提供する型チェックの恩恵は受けられません。\ ``any``\ から型情報つきのデータにするためには後述の型ガードや型アサーションで変換しなければなりません。利用する箇所で毎回必要になります。TypeScriptの型情報は伝搬するので、なるべく早めに、データが発生する場所で型情報を付ければ、変換が不要になります。そのため、よっぽどの理由がないかぎりは\ ``any``\ を使わない方がトータルの実装コストは大きく減ります。実際にTypeScriptできちんと回っているプロジェクトの場合、ESLintで\ ``any``\ を使っていたらエラーにすることになるでしょう。
-
-``any``\ を積極的に使う場面は2つあります。
-
-1つは後述するユーザー定義の型ガードの引数です。これは「型がわからないデータの型を診断する」関数ですので、引数は\ ``any``\ となります。
-
-それ以外だと、外部からやってくるデータなどはコンパイル時には型情報がわかりません。標準ライブラリのブラウザのサーバーアクセスAPIの\ ``fetch``\ のレスポンスの\ ``json()``\ メソッドの返り値は\ ``any``\ となっています。そのため、\ ``fetch``\ のレスポンスに関しては何かしらの変換処理が必要になります。ただし、このケースは\ ``any``\ が利用されているだけでユーザーコードの中で\ ``any``\ とタイプすることはありません。
 
 消極的な利用方法としては、すでにJavaScriptとして動作していて実績があるコードをTypeScriptにまずは持ってくる、というケースが考えられます。
 あとは、メインの引数ではなくて、挙動をコントロールするオプションの項目がかなり複雑で、型定義が複雑な場合などです。
 例えば、JSONSchemaを受け取るような引数があったら、JSONSchemaのすべての仕様を満たす型定義を記述するのはかなり時間を要します。
 将来やるにしても、まずはコンパイルだけは通したい、というときに使うと良いでしょう。
 
+以前は\ ``any``\ の用途だったところの大部分は\ ``unknown``\ でカバーできます。
 
 未知の型: ``unknown``
 ------------------------------
 
 ``unknown`` は ``any`` と似ています。 ``unknown`` 型の変数にはどのようなデータもチェックなしに入れることができます。
 違うのは ``unknown`` の場合は、その変数を利用する場合には、型アサーションを使ってチェックを行わないとエラーになる点です。
-型アサーションについてはこの章の最後で扱います。
+型アサーションについてはこの章の最後で扱います。後述するユーザー定義の型ガードの引数は\ ``unknown``\ とするとよいでしょう。これは「型がわからないデータの型を診断する」関数ですので、引数は\ ``unknown``\ となります。
 
 ``unknown``\ はもう一箇所出てくる可能性のある場所があります。ジェネリクスを使ったクラスや関数のうち、自動で型推論で設定できなかったものは\ ``unknown``\ となります。この型変数の\ ``unknown``\ に関してはエラーチェックなどが行われることがなく、\ ``any``\ のように振舞います。型推論で自動設定される予定の型変数が\ ``unknown``\ になってしまったのであれば、コーディングのミスが発生したものと考えられます。
 
-.. todo:: 事例をつける
+``unknown``\ に対して許可される操作はかなり限定されます。ピリオドを使ってメンバーアクセスをしたり、メソッド呼び出しをしようとするとコンパイルエラーになります。
+
+.. code-block:: ts
+
+   // nullチェックやArray.isArray, typeof, instanceofは可能
+   u !== null;            // OK
+   Array.isArray(u);      // OK
+   typeof u === "string"; // OK
+   arg instanceof Map;    // OK
+
+   // 属性のinチェックはobjectでなおかつnullでない確認をしたらOK
+   "param" in obj;             // エラー
+
+   typeof obj === "object" &&
+      "param" in obj;          // エラー
+
+   typeof obj === "object" &&
+      obj !== null &&
+      "param" in obj;          // OK
+
+なお、オブジェクトの属性アクセスはそのままではどのような検証を行ってもエラーになります。
+
+.. code-block:: ts
+
+   if (typeof obj === "object" &&
+      obj !== null &&
+      "param" in obj) {
+      // この書き方はエラーになる
+      if (typeof(obj.param) === "string") {
+        return true;
+      }
+      // この書き方もエラーになる
+      if (typeof(obj["param"]) === "string") {
+        return true;
+      }
+   }
+
+この動作は厳しすぎると思われますが、現状の実装ではこうなっています。\ `改善の要望 <https://github.com/Microsoft/TypeScript/issues/25720>`_\ もでていたりします。
+
+型ガードの実装などで、属性の型もチェックしたいのであれば、現状は\ ``as``\ を使う方法がシンプルです。
+
+.. code-block:: ts
+
+   function isPerson(arg: unknown): arg is Person {
+     if (typeof(arg) === "object" && arg !== null) {
+       // ここで任意のキーを持つオブジェクト型にする
+       const obj: {[key: string]: any} = arg;
+       // そうすると、ここで属性へのアクセスがエラーとならなくなる
+       return typeof(obj["name"]) === "string" && typeof(obj["age"]) === "number";
+     }
+     return false
+   }
 
 型に名前をつける
 ------------------------------
@@ -435,8 +489,7 @@ TypeScriptのベースになっているJavaScriptでは、長らくオブジェ
 .. code-block:: ts
    :caption: ユーザー定義の型ガード
 
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   function isArray(arg: any): arg is Array {
+   function isArray(arg: unknown): arg is Array<any> {
      return Array.isArray(arg);
    }
 
