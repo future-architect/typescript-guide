@@ -438,7 +438,7 @@ JSONをパースすると、オブジェクトと配列で階層構造になっ�
    //   省略可能。通常はnull
    // 3つめは配列やオブジェクトでインデントするときのインデント幅
    //   省略可能。省略すると改行なしの1行で出力される
-   const json = JSON.stringfy(smallAnimal, null, 2);
+   const json = JSON.stringify(smallAnimal, null, 2);
 
    // これは複製されて出てくるので、元のsmallAnimalとは別物
    const smallAnimal2 = JSON.parse(json);
