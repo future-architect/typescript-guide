@@ -90,7 +90,7 @@ TypeScriptのビルド設定のポイントは、ブラウザからは使わな�
      },
      "scripts": {
        "build": "ncc build main.ts --minify --v8-cache --source-map",
-       ”watch": "ncc build main.ts --watch",
+       "watch": "ncc build main.ts --watch",
        "start": "ncc run main.ts",
        "lint": "eslint .",
        "fix": "eslint --fix ."
