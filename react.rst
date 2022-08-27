@@ -113,7 +113,7 @@ ESLintはJSX関連の設定や、.tsxや.jsxのコードがあったらJSXとし
        "no-console": 0,
        "prettier/prettier": "error",
        "@typescript-eslint/no-var-requires": false,
-       "@typescript-eslint/indent": "ingore",
+       "@typescript-eslint/indent": "ignore",
        "react/jsx-filename-extension": [1, {
          "extensions": [".ts", ".tsx", ".js", ".jsx"]
        }]
@@ -186,7 +186,7 @@ Next.jsも同じようなことをする必要がありますが、サーバー�
 
 Material UI以外の選択肢としては、React専用でないWeb Components製のUI部品もあります。
 
-* Material Web Compoennts: https://github.com/material-components/material-components-web-components
+* Material Web Components: https://github.com/material-components/material-components-web-components
 * Ionic: https://ionicframework.com/
 * Fast: https://github.com/microsoft/fast
 
@@ -377,7 +377,7 @@ Reduxはストアと呼ばれる中央のデータ庫を持ちます。データ
 
 このreducerをトリガーするのに必要なのが、アクションと呼ばれるデータでした。これを\ ``dispatch()``\ という関数に投げ込むことでreducerが起動され、そのアクションに応じてデータを書き換えていました。
 
-しかし、まずJavaScriptの文化で、アクションクリエーターというアクションを作る関数を作っていました。この場合、型をつけるにはreducerの引数にはすべてのアクションの型（アクションクリエーターの返り値の型）の合併型を作る必要がありました。この「すべての」というのが大きなアプリケーションになると依存関係が循環しないように気をつけたり、漏れなく型を合成してあげないといけなかったりと、型のために人間が行う作業が膨大でした。多くの人が「Reduxに型をつけるには？」という文章を書いたりしましたが、その後、Reduxが公式で出してきた解答がRedux-Toookitでした。
+しかし、まずJavaScriptの文化で、アクションクリエーターというアクションを作る関数を作っていました。この場合、型をつけるにはreducerの引数にはすべてのアクションの型（アクションクリエーターの返り値の型）の合併型を作る必要がありました。この「すべての」というのが大きなアプリケーションになると依存関係が循環しないように気をつけたり、漏れなく型を合成してあげないといけなかったりと、型のために人間が行う作業が膨大でした。多くの人が「Reduxに型をつけるには？」という文章を書いたりしましたが、その後、Reduxが公式で出してきた解答がRedux-Toolkitでした。
 
 Redux-Toolkitは次のような実装になります。スライスというステートとreducer、アクションクリエーターがセットになったオブジェクトを作成します。Reducerの引数のstateは\ ``Readonly<>``\ をつけておくと、デバッグで問題の追跡が難しい不測の事態が発生するのを未然に防げます。
 
@@ -573,7 +573,7 @@ Redux-Toolkitのreducersにはそのままでは非同期処理が書けませ�
      initialState,
      reducers: {},
      extraReducers: builder => {
-       builder.addCase(fetchLastCounter.fullfilled,
+       builder.addCase(fetchLastCounter.fulfilled,
          (state, action) => {
            return {
              ...state,
@@ -775,7 +775,7 @@ Reactは歴史のあるコンポーネントで、途中でいくつも機能追
        label: "押して下さい"
    };
 
-一番短くなってミスがおきにくくなったのは\ ``state``\ 周りです。\ ``useState()``\ に初期値を渡すと、現在の値を保持する変数と、変更する関数がペアで帰ってきます。初期値から型推論で設定されるため、Stateの型定義を外で行う必要はなくなります。\ ``setState()``\ で変更したものが直後に変更されているはず、と誤解されることもなくなりました。もう一度レンダリングが実行されないと変数の値が変更されないのは\ ``useState()``\ の宣言を見ればあきらかです。
+一番短くなってミスがおきにくくなったのは\ ``state``\ 周りです。\ ``useState()``\ に初期値を渡すと、現在の値を保持する変数と、変更する関数がペアで返ってきます。初期値から型推論で設定されるため、Stateの型定義を外で行う必要はなくなります。\ ``setState()``\ で変更したものが直後に変更されているはず、と誤解されることもなくなりました。もう一度レンダリングが実行されないと変数の値が変更されないのは\ ``useState()``\ の宣言を見ればあきらかです。
 
 イベントハンドラの\ ``this``\ の束縛もなくなります。もはや単なる関数であって、オブジェクトではないため、\ ``this``\ を扱う必要もなくなります。横方向に圧縮されたのは\ ``this.``\ がたくさん省略されたからです。
 
@@ -845,7 +845,7 @@ Hooksに対応したReact-Routerのv5移行であればコンポーネントの�
    }
 
    // PropTypesへの追加が必要
-   MyComponent.porpTypes = {
+   MyComponent.propTypes = {
        counter: PropTypes.object,
        onClick: PropTypes.func,
        dispatch: PropTypes.func,
