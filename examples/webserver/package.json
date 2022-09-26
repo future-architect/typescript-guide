@@ -14,7 +14,7 @@
   "author": "Yoshiki Shibukawa",
   "license": "ISC",
   "dependencies": {
-    "pm2": "^4.4.0"
+    "pm2": "^5.2.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
