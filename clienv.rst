@@ -82,7 +82,7 @@ TypeScriptのビルド設定のポイントは、ブラウザからは使わな�
 このキー名が実行ファイル名になります。
 
 .. code-block:: json
-   :caption: package.js
+   :caption: package.json
 
    {
      "bin": {
