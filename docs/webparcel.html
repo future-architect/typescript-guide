@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -114,8 +116,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Parcelを使ったウェブ開発</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Parcelを使ったウェブ開発</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/webparcel.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -126,11 +128,11 @@
            <div itemprop="articleBody">
              
   <section id="parcel">
-<h1>Parcelを使ったウェブ開発<a class="headerlink" href="#parcel" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>Parcelを使ったウェブ開発<a class="headerlink" href="#parcel" title="この見出しへのパーマリンク"></a></h1>
 <p>React開発であればcreate-react-appやNext.js、Vueであれば&#64;vue/cliやNuxt.js、Angularも&#64;angular/cliといった、それぞれのフレームワークごとに環境構築をまとめて行う環境整備ツールが近年では充実してきています。</p>
 <p>しかし、そこから多少離れるものであったり、あるいはより高速なビルドが欲しいなど、要件によっては他のビルドツールで環境を作る方がプロジェクトにはマッチする可能性もあります。本章ではParcelを使った環境構築について紹介します。</p>
 <section id="id1">
-<h2>Parcelとは<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>Parcelとは<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://parceljs.org/">https://parceljs.org/</a></p></li>
 </ul>
@@ -143,7 +145,7 @@
 </ul>
 </section>
 <section id="id2">
-<h2>Parcelのインストールと環境の構築<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>Parcelのインストールと環境の構築<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
 <p>Parcelは環境構築は簡単ですが、全自動の環境構築ツールはありません。まずはプロジェクトフォルダを作り、<code class="docutils literal notranslate"><span class="pre">package.json</span></code>を作成します。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm init -y
 </pre></div>
@@ -160,7 +162,7 @@
 $ npx tsc --init</p>
 </div></blockquote>
 <section id="typescript">
-<h3>TypeScriptの動作をレベルアップする<a class="headerlink" href="#typescript" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>TypeScriptの動作をレベルアップする<a class="headerlink" href="#typescript" title="この見出しへのパーマリンク"></a></h3>
 <p>これでビルドと開発はできますが、デフォルトのParcelは<code class="docutils literal notranslate"><span class="pre">&#64;babel/preset-typescript</span></code>を使って型情報を切り落とすだけで型のチェックは行ません。VSCodeで編集すればその場でエラーチェックはしてくれますが、変更したファイルが他のファイルに影響を与えていてエラーになっていたり、警告が出ていた、というのはなかなか気付きにくいです。バリデーションを有効化すると、このようなトラブルは防げます。本体のバージョンと合ったバージョンをインストールします。</p>
 <p>また、公式の<code class="docutils literal notranslate"><span class="pre">tsc</span></code>を実際のビルド時にも利用させる設定があります。これを利用すると、デコレータを利用するようなLitのようなフレームワークのビルドも正しくできるようになります。</p>
 <p>この2つは独立しているので、片方だけ入れることも可能です。次のサンプルでは同時に有効化しています。</p>
@@ -172,29 +174,29 @@ $ npx tsc --init</p>
 <p>次に、設定ファイルを書き換えます。</p>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">.parcelrc</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;extends&quot;</span><span class="p">:</span> <span class="s2">&quot;@parcel/config-default&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;validators&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;*.{ts,tsx}&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;@parcel/validator-typescript&quot;</span><span class="p">]</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;transformers&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;*.{ts,tsx}&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;@parcel/transformer-typescript-tsc&quot;</span><span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;extends&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@parcel/config-default&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;validators&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;*.{ts,tsx}&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;@parcel/validator-typescript&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;transformers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;*.{ts,tsx}&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;@parcel/transformer-typescript-tsc&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="api">
-<h3>APIサーバーに対してプロキシする<a class="headerlink" href="#api" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>APIサーバーに対してプロキシする<a class="headerlink" href="#api" title="この見出しへのパーマリンク"></a></h3>
 <p>.proxyrcファイルを作成することで、一部のリクエストをAPIサーバーに受け流すといったことが可能です。これにより、フロントエンドとバックエンドが同じオリジンで動作するようになり、CORSなどのセキュリティの環境整備が簡単になります。もし、本番環境も別ホストで配信するのであれば、元々CORSの設定などは考慮されていて少ない労力でなんとかなると思われますが、そうでない場合、テスト環境のためにCORSを設定するといった大仰なことをしなくて済みます。</p>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">.proxyrc</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;/api&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:3000/&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;/api&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost:3000/&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -202,7 +204,7 @@ $ npx tsc --init</p>
 </section>
 </section>
 <section id="react">
-<h2>React環境<a class="headerlink" href="#react" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>React環境<a class="headerlink" href="#react" title="この見出しへのパーマリンク"></a></h2>
 <p>まずHTMLファイルを用意します。ポイントは前述のように、<code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code>タグに読み込ませたいTypeScriptのコードを書くことです。</p>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">src/index.html</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク"></a></div>
@@ -240,30 +242,30 @@ render(
 <p><code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>のデフォルトではES2015 modulesが有効になっておらず、ビルドターゲットが古いのでそこを修正するのと、今回はReactなのでJSXもreactにしておきます。</p>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;ES2018&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;es2015&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;jsx&quot;</span><span class="p">:</span> <span class="s2">&quot;react&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ES2018&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;es2015&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;jsx&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;react&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;parcel serve src/index.html&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;parcel build src/index.html&quot;</span><span class="p">,</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;parcel serve src/index.html&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;parcel build src/index.html&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="web-components">
-<h2>Web Components開発環境<a class="headerlink" href="#web-components" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>Web Components開発環境<a class="headerlink" href="#web-components" title="この見出しへのパーマリンク"></a></h2>
 <p>Web Componentsはブラウザ標準のコンポーネントを作成するAPIの集合です。この形式で作ったコンポーネントは、フレームワークの力を借りずに表示できます。CDNにアップロードしておけば追加して静的なHTMLの中でタグを書くだけで表示したりもできますし、他のフレームワークとも組み合わせられます<a class="footnote-reference brackets" href="#id4" id="id3">1</a>。</p>
 <p>Web Componentsを作成するためのフレームワークにはさまざまな種類があります。ここではWeb Componentsを推進しているGoogleが開発する、Litを使ってみます。</p>
 <ul class="simple">
@@ -280,64 +282,64 @@ render(
 <span class="cm"> * @license</span>
 <span class="cm"> * Copyright 2019 Google LLC</span>
 <span class="cm"> * SPDX-License-Identifier: BSD-3-Clause</span>
-<span class="cm"> */</span>
+<span class="cm"> */</span><span class="w"></span>
 
-<span class="k">import</span> <span class="p">{</span><span class="nx">LitElement</span><span class="p">,</span> <span class="nx">html</span><span class="p">,</span> <span class="nx">css</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;lit&#39;</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span><span class="nx">customElement</span><span class="p">,</span> <span class="nx">property</span><span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;lit/decorators.js&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">LitElement</span><span class="p">,</span><span class="w"> </span><span class="nx">html</span><span class="p">,</span><span class="w"> </span><span class="nx">css</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;lit&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">customElement</span><span class="p">,</span><span class="w"> </span><span class="nx">property</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;lit/decorators.js&#39;</span><span class="p">;</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * An example element.</span>
 <span class="cm"> *</span>
 <span class="cm"> * @slot - This element has a slot</span>
 <span class="cm"> * @csspart button - The button</span>
-<span class="cm"> */</span>
-<span class="kd">@customElement</span><span class="p">(</span><span class="s1">&#39;my-element&#39;</span><span class="p">)</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">MyElement</span> <span class="k">extends</span> <span class="nx">LitElement</span> <span class="p">{</span>
-  <span class="k">static</span> <span class="nx">styles</span> <span class="o">=</span> <span class="nx">css</span><span class="sb">`</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="kd">@customElement</span><span class="p">(</span><span class="s1">&#39;my-element&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">MyElement</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">LitElement</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="nx">styles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">css</span><span class="sb">`</span>
 <span class="sb">    :host {</span>
 <span class="sb">      display: block;</span>
 <span class="sb">      border: solid 1px gray;</span>
 <span class="sb">      padding: 16px;</span>
 <span class="sb">      max-width: 800px;</span>
 <span class="sb">    }</span>
-<span class="sb">  `</span><span class="p">;</span>
+<span class="sb">  `</span><span class="p">;</span><span class="w"></span>
 
-  <span class="cm">/**</span>
+<span class="w">  </span><span class="cm">/**</span>
 <span class="cm">   * The name to say &quot;Hello&quot; to.</span>
-<span class="cm">   */</span>
-  <span class="kd">@property</span><span class="p">()</span>
-  <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;World&#39;</span><span class="p">;</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="kd">@property</span><span class="p">()</span><span class="w"></span>
+<span class="w">  </span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;World&#39;</span><span class="p">;</span><span class="w"></span>
 
-  <span class="cm">/**</span>
+<span class="w">  </span><span class="cm">/**</span>
 <span class="cm">   * The number of times the button has been clicked.</span>
-<span class="cm">   */</span>
-  <span class="kd">@property</span><span class="p">({</span><span class="kr">type</span><span class="o">:</span> <span class="nb">Number</span><span class="p">})</span>
-  <span class="nx">count</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="kd">@property</span><span class="p">({</span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">})</span><span class="w"></span>
+<span class="w">  </span><span class="nx">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"></span>
 
-  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">html</span><span class="sb">`</span>
+<span class="w">  </span><span class="nx">render</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">html</span><span class="sb">`</span>
 <span class="sb">      &lt;h1&gt;Hello, </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">!&lt;/h1&gt;</span>
 <span class="sb">      &lt;button @click=</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">_onClick</span><span class="si">}</span><span class="sb"> part=&quot;button&quot;&gt;</span>
 <span class="sb">        Click Count: </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">count</span><span class="si">}</span><span class="sb"></span>
 <span class="sb">      &lt;/button&gt;</span>
 <span class="sb">      &lt;slot&gt;&lt;/slot&gt;</span>
-<span class="sb">    `</span><span class="p">;</span>
-  <span class="p">}</span>
+<span class="sb">    `</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="k">private</span> <span class="nx">_onClick</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">count</span><span class="o">++</span><span class="p">;</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">_onClick</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">count</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="nx">foo</span><span class="p">()</span><span class="o">:</span> <span class="kt">string</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="s1">&#39;foo&#39;</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="nx">foo</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kr">declare</span> <span class="nb">global</span> <span class="p">{</span>
-  <span class="kd">interface</span> <span class="nx">HTMLElementTagNameMap</span> <span class="p">{</span>
-    <span class="s1">&#39;my-element&#39;</span><span class="o">:</span> <span class="nx">MyElement</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="kr">declare</span><span class="w"> </span><span class="nb">global</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">interface</span><span class="w"> </span><span class="nx">HTMLElementTagNameMap</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="s1">&#39;my-element&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">MyElement</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -362,11 +364,11 @@ render(
 <p>最後にparcelのビルド設定をを追加します。</p>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;parcel serve src/index.html&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;parcel serve src/index.html&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>

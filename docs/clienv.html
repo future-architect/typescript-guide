@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -114,8 +116,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>CLIツール・ウェブサーバー作成のための環境設定</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">CLIツール・ウェブサーバー作成のための環境設定</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/clienv.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -126,7 +128,7 @@
            <div itemprop="articleBody">
              
   <section id="cli">
-<h1>CLIツール・ウェブサーバー作成のための環境設定<a class="headerlink" href="#cli" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>CLIツール・ウェブサーバー作成のための環境設定<a class="headerlink" href="#cli" title="この見出しへのパーマリンク"></a></h1>
 <p>TypeScriptを使ってCLIツールやウェブサーバーなどのNode.jsやDenoがある環境で動作するソフトウェアを作成するための環境構築方法を紹介していきます。2つ方法があります。</p>
 <ul class="simple">
 <li><p>Node.jsがインストールされている環境向け</p></li>
@@ -134,17 +136,17 @@
 </ul>
 <p>どちらも、TypeScriptをJavaScript変換して1ファイルにまとめたファイルを作成します。</p>
 <section id="node-js">
-<h2>Node.jsの環境構築<a class="headerlink" href="#node-js" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>Node.jsの環境構築<a class="headerlink" href="#node-js" title="この見出しへのパーマリンク"></a></h2>
 <p>Node.js向けには&#64;zeit/nccを利用します。</p>
 <p>&#64;zeit/nccはTypeScriptに最初から対応したコンパイラで、コマンドラインツールやウェブサーバーなどのNode.jsアプリケーションを1ファイルにするために作られています。&#64;zeit/ncc自体も自分自身を使ってバンドル化されており、ごく小さいサイズですばやくインストールできます。Goを参考にしており、<code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>以外の設定は不要です。</p>
 <p>他に実績のあるツールとしてはBrowserifyがあります。これも、tsifyというプラグインと併用することでTypeScript製アプリケーションをバンドルして1ファイルにできます。このツールは、Node.js製アプリケーションをブラウザでも動くようにすることをメインの目的として作られました。後発の&#64;zeit/nccに比べると設定が多いのと、TypeScriptの設定を変えてcommon.js形式のパッケージにしないと扱えないのがnccと比べると煩雑です。また、<code class="docutils literal notranslate"><span class="pre">tsc</span></code>を使いバンドルせずにTypeScriptをJavaScriptに変換するだけを行って配布する方法もありますが、バンドルをしないとさまざまなファイルが入ってくるため、配布サイズも大きくなりがちです。</p>
 <section id="id1">
-<h3>作業フォルダを作る<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>作業フォルダを作る<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h3>
 <p>フォルダを作成し、JavaScriptのいつものプロジェクトのように<code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">init</span> <span class="pre">-y</span></code>を実行して<code class="docutils literal notranslate"><span class="pre">package.json</span></code>を作成しましょう。</p>
 <p>ライブラリの時は、ES2015 modulesとCommonJSの2通り準備しましたが、CLIの場合はNode.jsだけ動かせば良いので、出力先は一つになります。コンパイルしたファイル置き場は<code class="docutils literal notranslate"><span class="pre">dist</span></code>フォルダになりますが、コンパイル時に自動で作られるので作成しておく必要はありませんが、<code class="docutils literal notranslate"><span class="pre">.gitignore</span></code>には登録しておきましょう。</p>
 </section>
 <section id="id2">
-<h3>ビルド設定<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>ビルド設定<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h3>
 <p>まずは&#64;zeit/nccをインストールします。</p>
 <p>Node.jsの機能を使うことになるため、Node.jsのAPIの型定義ファイルは入れておきましょう。TypeScriptはnccにバンドルされていますが、バンドルされている処理系のバージョンが古いことがあります。インストールしてあるTypeScriptを優先的に使ってくれるので入れておくと良いでしょう。</p>
 <p>コマンドラインで良く使うであろうライブラリを追加しておきます。
@@ -166,25 +168,25 @@ $ npm install --save cli-color command-line-args
 <p>ライブラリのときとは異なり、成果物を利用するのはNode.jsの処理系だけなので、.d.tsファイルを生成する必要はありません。</p>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
-  &quot;compilerOptions&quot;: {
-    &quot;target&quot;: &quot;es2018&quot;,        // お好みで変更
-    &quot;declaration&quot;: false,      // 生成したものを他から使うことはないのでfalseに
-    &quot;declarationMap&quot;: false,   // 同上
-    &quot;sourceMap&quot;: true,         //
-    &quot;strict&quot;: true,
-    &quot;noUnusedLocals&quot;: true,
-    &quot;noUnusedParameters&quot;: true,
-    &quot;noImplicitReturns&quot;: true,
-    &quot;noFallthroughCasesInSwitch&quot;: true,
-    &quot;esModuleInterop&quot;: true,
-    &quot;experimentalDecorators&quot;: true,
-    &quot;emitDecoratorMetadata&quot;: true,
-    &quot;module&quot;: &quot;commonjs&quot;,      // Node.jsで使うため
-    &quot;outDir&quot;: &quot;./dist&quot;         // 出力先を設定
-  },
-  &quot;include&quot;: [&quot;src/**/*&quot;]
-}
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;es2018&quot;</span><span class="p">,</span><span class="w">        </span><span class="c1">// お好みで変更</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;declaration&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">      </span><span class="c1">// 生成したものを他から使うことはないのでfalseに</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;declarationMap&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">   </span><span class="c1">// 同上</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;sourceMap&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">         </span><span class="c1">//</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;strict&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;noUnusedLocals&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;noUnusedParameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;noImplicitReturns&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;noFallthroughCasesInSwitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;esModuleInterop&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;experimentalDecorators&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;emitDecoratorMetadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;commonjs&quot;</span><span class="p">,</span><span class="w">      </span><span class="c1">// Node.jsで使うため</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;outDir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./dist&quot;</span><span class="w">         </span><span class="c1">// 出力先を設定</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;include&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;src/**/*&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -192,19 +194,19 @@ $ npm install --save cli-color command-line-args
 代わりに、 <code class="docutils literal notranslate"><span class="pre">bin</span></code> 項目でエントリーポイント（ビルド結果の方）のファイルを指定します。
 このキー名が実行ファイル名になります。</p>
 <div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">package.js</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
-  &quot;bin&quot;: {
-    &quot;awesome-cmd&quot;: &quot;dist/index.js&quot;
-  },
-  &quot;scripts&quot;: {
-    &quot;build&quot;: &quot;ncc build main.ts --minify --v8-cache --source-map&quot;,
-    ”watch&quot;: &quot;ncc build main.ts --watch&quot;,
-    &quot;start&quot;: &quot;ncc run main.ts&quot;,
-    &quot;lint&quot;: &quot;eslint .&quot;,
-    &quot;fix&quot;: &quot;eslint --fix .&quot;
-  }
-}
+<div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク"></a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;bin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;awesome-cmd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dist/index.js&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ncc build main.ts --minify --v8-cache --source-map&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;watch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ncc build main.ts --watch&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ncc run main.ts&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;lint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eslint .&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;fix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eslint --fix .&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -226,12 +228,12 @@ $ npm install --save cli-color command-line-args
 <p>low.jsはES5までしか対応しないため、出力ターゲットをES5にする必要があります。</p>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text">tsconfig.json (low.jsを使う場合)</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
-  &quot;compilerOptions&quot;: {
-    &quot;target&quot;: &quot;es5&quot;,             // もしlow.jsを使うなら
-    &quot;lib&quot;: [&quot;dom&quot;, &quot;es2017&quot;]     // もしlow.jsで新しいクラスなどを使うなら
-  }
-}
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;es5&quot;</span><span class="p">,</span><span class="w">             </span><span class="c1">// もしlow.jsを使うなら</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;lib&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;dom&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;es2017&quot;</span><span class="p">]</span><span class="w">     </span><span class="c1">// もしlow.jsで新しいクラスなどを使うなら</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -244,7 +246,7 @@ $ npm install --save cli-color command-line-args
 </dl>
 </section>
 <section id="id5">
-<h3>CLIツールのソースコード<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>CLIツールのソースコード<a class="headerlink" href="#id5" title="この見出しへのパーマリンク"></a></h3>
 <p>TypeScriptはシェバング(#!)があると特別扱いしてくれます。
 必ず入れておきましょう。
 ここで紹介したcommand-line-argsとcommand-line-usageはWikiで用例などが定義されているので、実装イメージに近いものをベースに加工していけば良いでしょう。</p>
@@ -267,7 +269,7 @@ main();
 </div>
 </section>
 <section id="id6">
-<h3>Node.jsのまとめ<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>Node.jsのまとめ<a class="headerlink" href="#id6" title="この見出しへのパーマリンク"></a></h3>
 <p>コマンドラインツールの場合は、npmで配布する場合はライブラリ同様、バンドラーを使わずに、TypeScriptだけを使えば大丈夫です。
 ここにある設定で、次のようなことが達成できました。</p>
 <ul class="simple">
@@ -297,7 +299,7 @@ $ npm run fix
 </section>
 </section>
 <section id="deno">
-<h2>Deno<a class="headerlink" href="#deno" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>Deno<a class="headerlink" href="#deno" title="この見出しへのパーマリンク"></a></h2>
 <p>Denoは新しい処理系です。Node.jsと同じくV8をベースとしている兄弟処理系ですが、TypeScriptにデフォルトで対応していたり、ネイティブコード部分はRustを使って実装されています。
 サードパーティのパッケージはnpmコマンドではなくdenoコマンドを使ってダウンロードします。</p>
 <p>Node.jsを置き換えるものかというと、現時点ではまだパッケージやツールが足りていません。特にNode.jsのnpmはウェブフロントエンドのライブラリなどの配布にも使われており、ウェブフロントエンドの開発のためのプラットフォームとしても活用されています。Denoはコマンドラインツールやウェブサービスの開発に特化しています。</p>

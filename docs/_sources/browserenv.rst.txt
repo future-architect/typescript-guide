@@ -47,7 +47,7 @@ webpackとRollup以外だと次のようなツールがあります。以下も�
 
 * RollupをベースにTypeScriptサポートを最初から組み込んだ\ `microbundle <https://www.npmjs.com/package/microbundle>`_
 * .js/.tsの変換に特化して高速なビルド応答性を重視し、本番環境のバンドル作成はプラグインを使ったオプション(webpack/Rollup)としている\ `Snowpack <https://www.snowpack.dev/>`_
-* HTMLやCSSのビルドもできて、package.jsonに書かれた定義(mainやtypesなど)をもとにビルドを行い、開発サーバーも全てついてくるオールインワンでビルド速度を重視した\ `Parcel V2<https://v2.parceljs.org/>`_
+* HTMLやCSSのビルドもできて、package.jsonに書かれた定義(mainやtypesなど)をもとにビルドを行い、開発サーバーも全てついてくるオールインワンでビルド速度を重視した\ `Parcel V2 <https://v2.parceljs.org/>`_
 * Go製でビルド速度に特化した\ `esbuild <https://esbuild.github.io/>`_
 * microbundleに似ているが、React/Vue.js/Svelte/Lit-Element/素のHTML+JS(Vanilla)向けの環境構築までやってくれる\ `vite.js <https://vitejs.dev/>`_
 

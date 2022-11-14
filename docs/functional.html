@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -107,8 +109,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>関数型指向のプログラミング</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">関数型指向のプログラミング</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/functional.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -119,7 +121,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>関数型指向のプログラミング<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>関数型指向のプログラミング<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h1>
 <p>JavaScriptの世界には長らく、クラスはありませんでした。プロトタイプを使ったクラスのようなものはありましたが、Javaなどに慣れた人からは不満を持たれていました。
 プロトタイプが分かっていれば、インスタンス作成能力には問題はなく、親を継承したオブジェクトも作れるため、能力が劣っていたわけではありませんでしたが、オブジェクト指向としては使いにくい。
 そんなふうに言われることも多々ありました。</p>
@@ -133,24 +135,24 @@
 JavaScriptで実現できる関数型プログラミングのテクニックはかなり限られています。ループを再帰で書くと、すぐにスタックを使い果たしてエラーになります。
 関数型でコードを書くと言っても、あまり極端なことはできずに、オブジェクト指向と組み合わせたハイブリッドな実装方法になりますし、バグを産みにくいコードを書くための指針集といった趣になります。</p>
 <section id="id2">
-<h2>イミュータブル<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>イミュータブル<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
 <p>イミュータブル（immutable）は「変更できない」という意味です。
 データを加工するのではなく、元のデータはそのままに、複製しつつ変化させたバージョンを作ります。
 ここで活躍するのが、配列のメソッドの、 <code class="docutils literal notranslate"><span class="pre">map()</span></code> 、 <code class="docutils literal notranslate"><span class="pre">forEach()</span></code> 、 <code class="docutils literal notranslate"><span class="pre">filter()</span></code> です。</p>
 <p>たとえば、1から10までの数値が入った配列があったとして、それぞれの値を2倍にした配列を作ります。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 元のデータ</span>
-<span class="kd">const</span> <span class="nx">source</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">6</span><span class="p">,</span> <span class="mf">7</span><span class="p">,</span> <span class="mf">8</span><span class="p">,</span> <span class="mf">9</span><span class="p">,</span> <span class="mf">10</span><span class="p">];</span>
-<span class="c1">// 2倍の要素を作る</span>
-<span class="kd">const</span> <span class="nx">doubles</span> <span class="o">=</span> <span class="nx">source</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">value</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">value</span> <span class="o">*</span> <span class="mf">2</span><span class="p">;</span>
-<span class="p">});</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 元のデータ</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="mf">6</span><span class="p">,</span><span class="w"> </span><span class="mf">7</span><span class="p">,</span><span class="w"> </span><span class="mf">8</span><span class="p">,</span><span class="w"> </span><span class="mf">9</span><span class="p">,</span><span class="w"> </span><span class="mf">10</span><span class="p">];</span><span class="w"></span>
+<span class="c1">// 2倍の要素を作る</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">doubles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">source</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 <p>変換処理の関数を書き、 <code class="docutils literal notranslate"><span class="pre">map()</span></code> に渡すと、要素1つずつをその関数にわたし、その結果の配列を新たに作って返します。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">map()</span></code>: 元のデータの各要素に何かしらの加工を行った新しい配列を作る</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">forEach()</span></code>: 元のデータの各要素に対するループを行う</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fileter</span></code>: 元のデータの書く要素を評価し、選択されたものだけを保持する新しい配列を作る</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filter</span></code>: 元のデータの書く要素を評価し、選択されたものだけを保持する新しい配列を作る</p></li>
 </ul>
 <p>これは配列の例ですが、複合型の場合に値そのものを書き換えるのではなく、書き換えた別のバージョンを作っていくのがポイントです。
 オブジェクト指向はデータと操作が結びついていますが、関数型はデータとそれに対する操作を切り離すと共に、データを複製するという異なったアプローチを取ります。

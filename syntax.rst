@@ -196,7 +196,7 @@ ES2018で導入されました。ループごとに非同期の待ち処理を�
 .. code-block:: ts
    :caption: Reactの中の条件分岐
 
-   render() {
+   function Component() {
      return (
        <div>
          { this.state.loggedIn ? <p>ようこそ</p> : <p>ログインが必要です</p> }
@@ -209,7 +209,7 @@ ES2018で導入されました。ループごとに非同期の待ち処理を�
 .. code-block:: ts
    :caption: Reactの中のループ
 
-   render() {
+   function Component() {
      return (
        <ul>
          { this.state.users.map(user => {

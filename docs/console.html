@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -110,8 +112,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/console.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -122,9 +124,9 @@
            <div itemprop="articleBody">
              
   <section id="console-log">
-<h1><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力<a class="headerlink" href="#console-log" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1><code class="docutils literal notranslate"><span class="pre">console.log</span></code>によるログ出力<a class="headerlink" href="#console-log" title="この見出しへのパーマリンク"></a></h1>
 <p>基本編のおまけでログ出力について紹介します。言語を学ぶときやデバッグ時には変数を出力することで状態を知ろうとするでしょう。その時に使えるのがConsole APIです。これらは特にTypeScript特有のものではありませんが、覚えておいて損はないので紹介します。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;ログ出力&quot;</span><span class="p">);</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;ログ出力&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>これが一番使われるものだと思いますが、他にもいろいろあります。これを実装すべきといった仕様はないのですが、現状で各環境で実装されている仕様はLiving StandardとしてWHATWGにあります。しかし、どの環境でも使えるとは限りません。特に、TypeScript Playgroundで使えないものが多数ありますが、これらは何もしないだけでエラーになるわけではありません。</p>
@@ -135,7 +137,7 @@
 </div></blockquote>
 <p>本章ではいくつかをピックアップして紹介します。</p>
 <section id="console-log-info-warn-error">
-<h2><code class="docutils literal notranslate"><span class="pre">console.log/info/warn/error()</span></code><a class="headerlink" href="#console-log-info-warn-error" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">console.log/info/warn/error()</span></code><a class="headerlink" href="#console-log-info-warn-error" title="この見出しへのパーマリンク"></a></h2>
 <blockquote>
 <div><table class="colwidths-given docutils align-default">
 <colgroup>
@@ -157,25 +159,25 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">console.log()</span></code></p></td>
 <td><p>✔</p></td>
 <td><p>✔</p></td>
-<td><p>✔</p></td>
+<td><p>標準出力</p></td>
 <td><p>✔</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">console.info()</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">log()</span></code>と同じ</p></td>
 <td><p>✔</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">log()</span></code>と同じ</p></td>
+<td><p>標準出力</p></td>
 <td><p>✔</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">console.warn()</span></code></p></td>
 <td><p>✔</p></td>
 <td><p>✔</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">log()</span></code>と同じ</p></td>
+<td><p>標準エラー出力</p></td>
 <td><p>✔</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">console.error()</span></code></p></td>
 <td><p>✔</p></td>
 <td><p>✔</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">log()</span></code>と同じ</p></td>
+<td><p>標準エラー出力</p></td>
 <td><p>✔</p></td>
 </tr>
 </tbody>
@@ -207,8 +209,8 @@
 </figcaption>
 </figure>
 <p>どの環境でも使えるテクニックですが、何かしらの変数を出力したい場合、<code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">}</span></code>でくくると、変数名と値がペアになって出力されます。これはオブジェクトの短縮記法によるもので、オブジェクトの中に変数だけを書くと、その変数と同じ名前のキーに、その変数の値が格納されます。オブジェクトはキーと値をセットで出力されるため、変数名と値が両方出力されます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">({</span><span class="nx">name</span><span class="p">});</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span> <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;wozozo&quot;</span> <span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">({</span><span class="nx">name</span><span class="p">});</span><span class="w"></span>
+<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;wozozo&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -217,7 +219,7 @@
 </div>
 </section>
 <section id="console-table-dir">
-<h2><code class="docutils literal notranslate"><span class="pre">console.table/dir()</span></code><a class="headerlink" href="#console-table-dir" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">console.table/dir()</span></code><a class="headerlink" href="#console-table-dir" title="この見出しへのパーマリンク"></a></h2>
 <blockquote>
 <div><table class="colwidths-given docutils align-default">
 <colgroup>
@@ -261,15 +263,15 @@
 <p>ただし、この両方がフルでサポートされているのはブラウザの開発者ツールのみです。Node.jsは<code class="docutils literal notranslate"><span class="pre">console.table()</span></code>はサポートしています。TypeScript Playgroundはエラーにはなりませんが、何も表示されません。</p>
 </section>
 <section id="id1">
-<h2>その他のメソッド<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>その他のメソッド<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h2>
 <p>他にもたくさん機能はありますが、特に使う必要がないと思われるものです。</p>
 <p><code class="docutils literal notranslate"><span class="pre">console.assert()</span></code>は、他の言語のライブラリや組み込み機能で提供されているのと同じく、条件式が開発者の想定通りかどうかを確認する関数です。最初の引数が<code class="docutils literal notranslate"><span class="pre">true</span></code>でなければエラーとしてログに出力されます。しかし、開発者ツールでもNode.jsでも、エラーが発生したことしかわかりません。実行時にエラーにするよりは、ユニットテストでカバーすべき内容でしょう。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">a</span> <span class="o">===</span> <span class="mf">1</span><span class="p">);</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="id2">
-<h2>まとめ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>まとめ<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
 <p>デバッグログで使える機能を紹介しました。 いろいろ紹介しましたが、基本的にはテキスト出力がユーザーインタフェースの一部となっているNode.js以外は本番コードには残すべきものではありません。あくまでもデバッグの補助です。環境ごとに使えたり使えなかったり結果が異なる点にも注意が必要です。</p>
 </section>
 </section>

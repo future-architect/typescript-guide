@@ -27,7 +27,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath('ext'))
-extensions = [ 'pageinfo', 'sphinx.ext.todo', 'sphinx.ext.githubpages', 'sphinx_rtd_theme' ]
+extensions = [ 'pageinfo', 'sphinx.ext.todo', 'sphinx.ext.githubpages', 'sphinx_rtd_theme', 'sphinxcontrib.blockdiag' ]
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags

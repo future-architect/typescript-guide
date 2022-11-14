@@ -120,7 +120,7 @@ JavaScript時代との違いは、 ``let`` で定義された変数の範囲で�
 * ``map.values()`` （ ``Map`` の値が返ってくる）
 * ``map.entries()`` （ ``Map`` のキーと値が返ってくる）
 
-キーと値の両方が帰ってくるメソッドは、分割代入を用いて変数に入れます。
+キーと値の両方が返ってくるメソッドは、分割代入を用いて変数に入れます。
 
 .. code-block:: ts
    :caption: for of
@@ -196,7 +196,7 @@ ES2018で導入されました。ループごとに非同期の待ち処理を�
 .. code-block:: ts
    :caption: Reactの中の条件分岐
 
-   render() {
+   function Component() {
      return (
        <div>
          { this.state.loggedIn ? <p>ようこそ</p> : <p>ログインが必要です</p> }
@@ -209,7 +209,7 @@ ES2018で導入されました。ループごとに非同期の待ち処理を�
 .. code-block:: ts
    :caption: Reactの中のループ
 
-   render() {
+   function Component() {
      return (
        <ul>
          { this.state.users.map(user => {

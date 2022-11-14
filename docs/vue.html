@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -117,8 +119,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Vue.jsの環境構築</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Vue.jsの環境構築</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/vue.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -129,7 +131,7 @@
            <div itemprop="articleBody">
              
   <section id="vue-js">
-<h1>Vue.jsの環境構築<a class="headerlink" href="#vue-js" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>Vue.jsの環境構築<a class="headerlink" href="#vue-js" title="この見出しへのパーマリンク"></a></h1>
 <p>Vue.jsは日本で人気のあるウェブフロントエンドのフレームワークです。柔軟な設定のできるCLIツールが特徴です。本書では3系についてとりあげます。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npx @vue/cli@next create myapp
 </pre></div>
@@ -159,16 +161,16 @@
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
   HTMLテンプレート
 <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ts&quot;</span><span class="p">&gt;</span>
-  <span class="nx">コンポーネントのソースコード</span><span class="p">(</span><span class="nx">TypeScript</span><span class="p">)</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ts&quot;</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="nx">コンポーネントのソースコード</span><span class="p">(</span><span class="nx">TypeScript</span><span class="p">)</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
-  <span class="nt">CSS</span>
+<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">CSS</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 <section id="id1">
-<h2>クラスベースのコンポーネント<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>クラスベースのコンポーネント<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h2>
 <p>クラスベースのコンポーネントはvue-class-componentパッケージを使い、デコレータをつけたクラスとして実装します。クラスのインスタンスのフィールドがデータ、ゲッターが算出プロパティになっているなど、TypeScriptのプレーンな文法とVueの機能がリンクしており、ウェブフロントエンドを最初に学んだのではなく、言語としてのTypeScriptやJavaScript、他の言語の経験が豊富な人には親しみやすいでしょう。環境構築のCLIのオプションではデフォルトでこちらになるような選択肢になっています。</p>
 <p>以下のコードはVue.js 3系のクラスベースのコンポーネント実装です。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>&lt;script lang=&quot;ts&quot;&gt;
@@ -217,7 +219,7 @@ export default class Counter extends Vue {
 </div>
 </section>
 <section id="id2">
-<h2>関数ベースのコンポーネント作成<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>関数ベースのコンポーネント作成<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
 <p>Vue本体で提供されている<code class="docutils literal notranslate"><span class="pre">defineComponent()</span></code>関数を使いコンポーネントを定義します。今までのオブジェクトをそのまま公開する方法と違い、この関数の引数のオブジェクトの型は定まっているため、以前よりもTypeScriptとの相性が改善されています。このオブジェクトの属性で名前や他の依存コンポーネント、Propsなどを定義するとともに、<code class="docutils literal notranslate"><span class="pre">setup()</span></code>メソッドでコンポーネント内部で利用される属性などを定義します。</p>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>&lt;script lang=&quot;ts&quot;&gt;
 import { defineComponent, SetupContext, reactive } from &quot;vue&quot;;
@@ -267,7 +269,7 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
 </div>
 </section>
 <section id="vue-jsjquery">
-<h2>Vue.jsを使ったjQueryのリプレース<a class="headerlink" href="#vue-jsjquery" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>Vue.jsを使ったjQueryのリプレース<a class="headerlink" href="#vue-jsjquery" title="この見出しへのパーマリンク"></a></h2>
 <p>jQueryは歴史があるライブラリで、使い勝手の良さから、非フロントエンド開発者にも広く普及しました。一方で、開発が大規模化する場合に整合性をとるのが難しくなってくることが多く、フロントエンドの比重が高まるにつれて、ReactやVue.jsを使う人が増えています。</p>
 <p>jQueryからVue.jsへはパラダイムがかなり違うので、多少コーディングが必要となります。jQueryは、セレクタでマッチしたHTMLのタグを直接変更していきます。一方、最近のウェブフロントエンドのフレームワークはTypeScript内部に状態を持ち、それを画面に反映させる、という形をとります。反映するときはテンプレートエンジンのような記法を用いて表現します。VueやReactは仮想DOMという仕組みを使っており、ビュー関数を頻繁に実行し、その結果を画面に反映します。</p>
 <p>jQueryの方が、極めて簡単なことをする場合は短いコードで済むことがあります。一方、変更が多くなると更新が複雑になります。</p>
@@ -283,20 +285,20 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
    hidden
  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
-  <span class="p">.</span><span class="nc">clickedButton</span> <span class="p">{</span>
-    <span class="k">background-color</span><span class="p">:</span> <span class="s2">&quot;yellow&quot;</span><span class="p">;</span>
-  <span class="p">}</span>
- <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="p">.</span><span class="nc">clickedButton</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yellow&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w"> </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 
- <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-  <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.pushbutton&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.pushbutton&quot;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;clickedButton&quot;</span><span class="p">);</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.panel&quot;</span><span class="p">).</span><span class="nx">fadeIn</span><span class="p">();</span>
-    <span class="p">});</span>
-  <span class="p">});</span>
- <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.pushbutton&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.pushbutton&quot;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;clickedButton&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.panel&quot;</span><span class="p">).</span><span class="nx">fadeIn</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="w">  </span><span class="p">});</span><span class="w"></span>
+<span class="w"> </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 <p>ここで使っているjQueryの機能は3つです。</p>
@@ -306,7 +308,7 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
 <li><p>クリック時に、<code class="docutils literal notranslate"><span class="pre">fadeIn()</span></code>を使って隠された要素の表示</p></li>
 </ul>
 <section id="vue">
-<h3>まずはそのまま.vueファイル化<a class="headerlink" href="#vue" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>まずはそのまま.vueファイル化<a class="headerlink" href="#vue" title="この見出しへのパーマリンク"></a></h3>
 <p>まずはプロジェクトを作り、既存のHTMLファイルを取り込みます。この説明では次の想定で進めます。</p>
 <ul class="simple">
 <li><p>プロジェクトはvue-cliで作成</p></li>
@@ -343,28 +345,28 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span>
-  <span class="p">.</span><span class="nc">clickedButton</span> <span class="p">{</span>
-    <span class="k">background-color</span><span class="p">:</span> <span class="s2">&quot;yellow&quot;</span><span class="p">;</span>
-  <span class="p">}</span>
+<span class="p">&lt;</span><span class="nt">style</span> <span class="na">scoped</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="p">.</span><span class="nc">clickedButton</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yellow&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ts&quot;</span><span class="p">&gt;</span>
-<span class="k">import</span> <span class="nx">$</span> <span class="kr">from</span> <span class="s2">&quot;jquery&quot;</span><span class="p">;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ts&quot;</span><span class="p">&gt;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;jquery&quot;</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">import</span> <span class="p">{</span> <span class="nx">defineComponent</span><span class="p">,</span> <span class="nx">onMounted</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;vue&quot;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">defineComponent</span><span class="p">,</span><span class="w"> </span><span class="nx">onMounted</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vue&quot;</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="nx">defineComponent</span><span class="p">({</span>
-  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;MyPage&quot;</span><span class="p">,</span>
-  <span class="nx">setup</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">onMounted</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.pushbutton&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.pushbutton&quot;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s2">&quot;background-color&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">);</span>
-        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.panel&quot;</span><span class="p">).</span><span class="nx">fadeIn</span><span class="p">();</span>
-      <span class="p">});</span>
-    <span class="p">});</span>
-  <span class="p">}</span>
-<span class="p">});</span>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">defineComponent</span><span class="p">({</span><span class="w"></span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;MyPage&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">onMounted</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.pushbutton&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.pushbutton&quot;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s2">&quot;background-color&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;yellow&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.panel&quot;</span><span class="p">).</span><span class="nx">fadeIn</span><span class="p">();</span><span class="w"></span>
+<span class="w">      </span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
@@ -373,49 +375,49 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
 <p>ページを作ったら、そのファイルが表示可能になるように、ルーターに登録します。そのページのURLと、その時に使われるコンポーネントのペアを関連づけるものです。これで表示できるようになりました。</p>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text">/src/router/router.ts</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="p">{</span> <span class="nx">createRouter</span><span class="p">,</span> <span class="nx">createWebHistory</span><span class="p">,</span> <span class="nx">RouteRecordRaw</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;vue-router&quot;</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">MyPage</span> <span class="kr">from</span> <span class="s2">&quot;../views/mypage.vue&quot;</span><span class="p">;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createRouter</span><span class="p">,</span><span class="w"> </span><span class="nx">createWebHistory</span><span class="p">,</span><span class="w"> </span><span class="nx">RouteRecordRaw</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vue-router&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nx">MyPage</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;../views/mypage.vue&quot;</span><span class="p">;</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">routes</span>: <span class="kt">Array</span><span class="o">&lt;</span><span class="nx">RouteRecordRaw</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nx">path</span><span class="o">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;MyPage&quot;</span><span class="p">,</span>
-    <span class="nx">component</span>: <span class="kt">MyPage</span>
-  <span class="p">},</span>
-<span class="p">];</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">routes</span><span class="o">:</span><span class="w"> </span><span class="kt">Array</span><span class="o">&lt;</span><span class="nx">RouteRecordRaw</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;MyPage&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="kt">MyPage</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="p">];</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">createRouter</span><span class="p">({</span>
-  <span class="nx">history</span>: <span class="kt">createWebHistory</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BASE_URL</span><span class="p">),</span>
-  <span class="nx">routes</span>
-<span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">router</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">createRouter</span><span class="p">({</span><span class="w"></span>
+<span class="w">  </span><span class="nx">history</span><span class="o">:</span><span class="w"> </span><span class="kt">createWebHistory</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">BASE_URL</span><span class="p">),</span><span class="w"></span>
+<span class="w">  </span><span class="nx">routes</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="nx">router</span><span class="p">;</span>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">router</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <p>まずはここまでで動作することを確認しましょう。</p>
 </section>
 <section id="id3">
-<h3>クリックイベントの定義<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>クリックイベントの定義<a class="headerlink" href="#id3" title="この見出しへのパーマリンク"></a></h3>
 <p>Vueの作法でクリックイベントを設定しましょう。jQueryはHTMLの外でタグとイベントの関連付けを<code class="docutils literal notranslate"><span class="pre">$.click()</span></code>を使って行っていました。Vue.jsの場合は、テンプレートの中で関数を設定します。呼び出す関数は<code class="docutils literal notranslate"><span class="pre">setup</span></code>の中で作成します。テンプレートで<code class="docutils literal notranslate"><span class="pre">clicked</span></code>という名前で呼びたい場合には次のように作成します。</p>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text">/src/views/mypage.vue</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="p">{</span> <span class="nx">defineComponent</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;vue&quot;</span><span class="p">;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">defineComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vue&quot;</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="nx">defineComponent</span><span class="p">({</span>
-  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;MyPage&quot;</span><span class="p">,</span>
-  <span class="nx">setup</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// イベントハンドラを作成</span>
-    <span class="kd">const</span> <span class="nx">clicked</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.pushbutton&quot;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s2">&quot;background-color&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">);</span>
-      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.panel&quot;</span><span class="p">).</span><span class="nx">fadeIn</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="c1">// テンプレートで使う要素はsetupのレスポンスのオブジェクトとして返す</span>
-    <span class="k">return</span> <span class="p">{</span>
-      <span class="nx">clicked</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">});</span>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">defineComponent</span><span class="p">({</span><span class="w"></span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;MyPage&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// イベントハンドラを作成</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.pushbutton&quot;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s2">&quot;background-color&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;yellow&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.panel&quot;</span><span class="p">).</span><span class="nx">fadeIn</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// テンプレートで使う要素はsetupのレスポンスのオブジェクトとして返す</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">clicked</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -429,30 +431,30 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
 <p>jQueryとの大きな違いとしては、変更対象のHTMLタグの発見方法があります。jQueryはすでにあるHTMLのタグの中から変更対象を見つける必要があります。そのため、セレクターという機能に磨きをかけて、変更対象をすばやく確実に見つける機能を備えました。一方のVue.jsは、生成時に差し込みます。そのため、タグを探してくる「セレクター」という概念がありません。</p>
 </section>
 <section id="id4">
-<h3>クリックによるインタラクションをVue.js化<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>クリックによるインタラクションをVue.js化<a class="headerlink" href="#id4" title="この見出しへのパーマリンク"></a></h3>
 <p>Vueでは一元管理されたデータを元にビューを更新するとすでに説明しました。その本丸に攻め入ります。その状態管理で利用するのが<code class="docutils literal notranslate"><span class="pre">reactive</span></code>関数です。引数にオブジェクトを渡すと、それがコンポーネントのデータ源として利用できます。これもテンプレートから利用するため、<code class="docutils literal notranslate"><span class="pre">setup()</span></code>の返り値で返します。</p>
 <p>今回のサンプルは小さいので問題ありませんが、実用的なコンポーネントの場合、この<code class="docutils literal notranslate"><span class="pre">reactive()</span></code>の各要素にコメントを書いておいても良いでしょう。</p>
 <p><code class="docutils literal notranslate"><span class="pre">clicked()</span></code>の中は、単にこの状態を更新するだけになりました。</p>
 <div class="literal-block-wrapper docutils container" id="id17">
 <div class="code-block-caption"><span class="caption-text">/src/views/mypage.vue</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="p">{</span> <span class="nx">defineComponent</span><span class="p">,</span> <span class="nx">reactive</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;vue&quot;</span><span class="p">;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">defineComponent</span><span class="p">,</span><span class="w"> </span><span class="nx">reactive</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;vue&quot;</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="nx">defineComponent</span><span class="p">({</span>
-  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;jQuery&quot;</span><span class="p">,</span>
-  <span class="nx">setup</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">state</span> <span class="o">=</span> <span class="nx">reactive</span><span class="p">({</span>
-      <span class="nx">show</span>: <span class="kt">false</span> <span class="c1">// パネルの表示制御に使う</span>
-    <span class="p">});</span>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">defineComponent</span><span class="p">({</span><span class="w"></span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;jQuery&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">reactive</span><span class="p">({</span><span class="w"></span>
+<span class="w">      </span><span class="nx">show</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="w"> </span><span class="c1">// パネルの表示制御に使う</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
 
-    <span class="kd">const</span> <span class="nx">clicked</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="nx">state</span><span class="p">.</span><span class="nx">show</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="p">};</span>
-    <span class="k">return</span> <span class="p">{</span>
-      <span class="nx">clicked</span><span class="p">,</span>
-      <span class="nx">state</span>
-    <span class="p">};</span>
-  <span class="p">}</span>
-<span class="p">});</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">clicked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">state</span><span class="p">.</span><span class="nx">show</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">clicked</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nx">state</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -480,21 +482,21 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
 </dl>
 </section>
 <section id="id7">
-<h3>フェードイン効果を実現する<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>フェードイン効果を実現する<a class="headerlink" href="#id7" title="この見出しへのパーマリンク"></a></h3>
 <p>クリックしたタイミングでスタイルシートや表示のON/OFFの切り替え方法は学びました。本節のラストとして、フェードインを実現します。</p>
 <p>jQueryのフェードインはふわっと表示させるときに利用します。デフォルト値は0.4秒での表示になります。また、透明度の変化のカーブの選択もできます。このあたりの複雑なパラメータの時間変化は、最新のCSSを使えば造作もありません。まずはフェードインのCSSクラスです。<code class="docutils literal notranslate"><span class="pre">opacity</span></code>と<code class="docutils literal notranslate"><span class="pre">visibility</span></code>が非表示状態で開始します。その後、クリックで追加のクラス設定があると最終的には完全表示になりますが、その途中経過で0.4秒かけて表示するための<code class="docutils literal notranslate"><span class="pre">transition</span></code>が含まれています。</p>
 <div class="literal-block-wrapper docutils container" id="id19">
 <div class="code-block-caption"><span class="caption-text">/src/views/mypage.vue</span><a class="headerlink" href="#id19" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">hiddenPanel</span> <span class="p">{</span>
-  <span class="k">opacity</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">visibility</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">hiddenPanel</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">opacity</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">visibility</span><span class="p">:</span><span class="w"> </span><span class="kc">hidden</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="p">.</span><span class="nc">hiddenPanel</span><span class="p">.</span><span class="nc">fadeIn</span> <span class="p">{</span>
-  <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="k">visibility</span><span class="p">:</span> <span class="kc">visible</span><span class="p">;</span>
-  <span class="k">transition</span><span class="p">:</span> <span class="k">opacity</span> <span class="mf">0.4</span><span class="kt">s</span><span class="p">,</span> <span class="k">visibility</span> <span class="mf">0.4</span><span class="kt">s</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="p">.</span><span class="nc">hiddenPanel</span><span class="p">.</span><span class="nc">fadeIn</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">opacity</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">visibility</span><span class="p">:</span><span class="w"> </span><span class="kc">visible</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">transition</span><span class="p">:</span><span class="w"> </span><span class="k">opacity</span><span class="w"> </span><span class="mf">0.4</span><span class="kt">s</span><span class="p">,</span><span class="w"> </span><span class="k">visibility</span><span class="w"> </span><span class="mf">0.4</span><span class="kt">s</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -512,7 +514,7 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
 <p>これで、クリックされた瞬間に<code class="docutils literal notranslate"><span class="pre">fadeIn</span></code>クラスが付与されるようになりました。このCSSクラスは0.4秒かけて切り替えると実装されているため、<code class="docutils literal notranslate"><span class="pre">jQuery</span></code>の<code class="docutils literal notranslate"><span class="pre">fadeIn</span></code>同等の処理が実現できました。</p>
 </section>
 <section id="id8">
-<h3>Vue.jsの方が行数が長くなる？<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>Vue.jsの方が行数が長くなる？<a class="headerlink" href="#id8" title="この見出しへのパーマリンク"></a></h3>
 <p>jQueryの移植の基本について説明してきました。イベントのハンドリングとスタイルの切り替えはこれで問題がなくなったでしょう。</p>
 <p>これらの処理はjQueryがもっとも得意とするものであり、Vue.jsの方がかなり行数が増えてしまっています。ここだけみるとVue.jsのメリットが少なく感じます。</p>
 <p>しかし、Ajax的なロジックの実装を開始しはじめると複雑度は逆転します。サーバー通信して、取得してきたJSONを元にリストを表示するようなケースでは、jQueryの場合はプログラムの中でHTMLのDOM要素を作って挿入という処理になります。適切なHTML片を作って挿入するのは大変ですし、雑に実装するとXSSというセキュリティの穴があく恐れもでてくるため、jQueryでも<a class="reference external" href="http://mustache.github.io/">mustache</a>や<a class="reference external" href="http://underscorejs.org/#template">underscore.jsのtemplate</a>、<a class="reference external" href="https://handlebarsjs.com/">handlebars</a>といったテンプレートエンジンの導入を検討し始めるところです。ロジックと表示の元データと表示のテンプレートが分離しにくいといった問題も出てきますし、コードの行数も爆発し始めます。表示以外に、編集や削除をしたいといった要件が出てきたらもうお手上げでしょう。</p>
@@ -522,7 +524,7 @@ Nuxt.jsの場合は、通常の設定の後に、いくつか追加のパッケ�
 </section>
 </section>
 <section id="id9">
-<h2>まとめ<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>まとめ<a class="headerlink" href="#id9" title="この見出しへのパーマリンク"></a></h2>
 <p>Vue.jsについて紹介してきました。まずはVueの使い勝手の良さの源泉であるvue-cliによるプロジェクト作成の方法について紹介しました。TypeScriptフレンドリーな書き方については2系で相性が良いクラス形式の実装方法と、3系のcomposition APIの2種類紹介しました。</p>
 <p>せめて、2系にバックポートされた3系 APIを実現するプラグインの<a class="reference external" href="https://github.com/vuejs/composition-api">&#64;vue/composition-api</a>のバージョンからベータが外れると、プロダクション開発もすべてcomposition APIを利用する方針で決定できると思いますが、現時点ではどちらを使うかはプロジェクトの寿命やリリース時期を勘案してどちらか決める必要があるかもしれません。</p>
 <p>そのあとで、よくありそうなユースケースとして、jQueryで書かれたウェブフロントエンドをVue.jsで置き換える方法について紹介しました。一見すると行数が増えますが、ロジックが増えても複雑度が増えていかないので、のちのちにありがたみを感じやすくなるでしょう。</p>

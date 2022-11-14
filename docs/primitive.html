@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -127,8 +129,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>プリミティブ型</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">プリミティブ型</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/primitive.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -139,7 +141,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>プリミティブ型<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>プリミティブ型<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h1>
 <p>プログラムの解説にはよく、リテラルという言葉がでてきます。
 リテラルというのは、専用の文法を持ち、ソースコード中に直接記述できるデータのことです。TypeScriptには何種類かあります。</p>
 <ul class="simple">
@@ -156,26 +158,26 @@
 ここでは、よく出てくるプリミティブ型を紹介します。</p>
 <p>配列とオブジェクトは次章の<a class="reference internal" href="complex.html"><span class="doc">複合型</span></a>で、関数は<a class="reference internal" href="function.html"><span class="doc">関数</span></a>で紹介します。</p>
 <section id="boolean">
-<h2><code class="docutils literal notranslate"><span class="pre">boolean</span></code> リテラル<a class="headerlink" href="#boolean" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">boolean</span></code> リテラル<a class="headerlink" href="#boolean" title="この見出しへのパーマリンク"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">boolean</span></code>型は <code class="docutils literal notranslate"><span class="pre">true</span></code>/<code class="docutils literal notranslate"><span class="pre">false</span></code> の2つの真偽値を取るデータ型です。 <code class="docutils literal notranslate"><span class="pre">if</span></code> 文、<code class="docutils literal notranslate"><span class="pre">while</span></code> ループなどの制御構文や、三項演算子などを使ってプログラムの挙動をコントロールするために大切な型です。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 値を表示</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 値を表示</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// 変数に代入。変数の型名はboolean</span>
-<span class="kd">const</span> <span class="nx">flag</span>: <span class="kt">boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="c1">// 変数に代入。変数の型名はboolean</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">flag</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
 
-<span class="c1">// 他のデータ型への変換</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">flag</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span> <span class="c1">// &#39;true&#39; / &#39;false&#39; になる</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">String</span><span class="p">(</span><span class="nx">flag</span><span class="p">));</span>    <span class="c1">// こちらでも変換可能</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">flag</span><span class="p">));</span>    <span class="c1">// 1, 0になる</span>
+<span class="c1">// 他のデータ型への変換</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">flag</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span><span class="w"> </span><span class="c1">// &#39;true&#39; / &#39;false&#39; になる</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">String</span><span class="p">(</span><span class="nx">flag</span><span class="p">));</span><span class="w">    </span><span class="c1">// こちらでも変換可能</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="nx">flag</span><span class="p">));</span><span class="w">    </span><span class="c1">// 1, 0になる</span><span class="w"></span>
 
-<span class="c1">// 他のデータ型をtrue/falseに変換</span>
-<span class="kd">const</span> <span class="nx">notEmpty</span> <span class="o">=</span> <span class="nb">Boolean</span><span class="p">(</span><span class="s2">&quot;test string&quot;</span><span class="p">);</span> <span class="c1">// 変換ルールは後述</span>
-<span class="kd">const</span> <span class="nx">flag</span> <span class="o">=</span> <span class="nx">flagStr</span> <span class="o">===</span> <span class="s1">&#39;true&#39;</span><span class="p">;</span>         <span class="c1">// &#39;true&#39;の文字をtrueにするなら</span>
-<span class="kd">const</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;not empty string&quot;</span><span class="p">;</span>          <span class="c1">// true/false反転するが演算子一つで変換可能</span>
-<span class="kd">const</span> <span class="nx">isEmpty</span> <span class="o">=</span> <span class="o">!</span><span class="nx">str</span><span class="p">;</span>                    <span class="c1">// 反転すると!Boolean()と同じ</span>
-<span class="kd">const</span> <span class="nx">notEmpty</span> <span class="o">=</span> <span class="o">!!</span><span class="nx">str</span><span class="p">;</span>                  <span class="c1">// もう1つ使うと反転せずにboolean型に</span>
+<span class="c1">// 他のデータ型をtrue/falseに変換</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">notEmpty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">(</span><span class="s2">&quot;test string&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 変換ルールは後述</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">flagStr</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="p">;</span><span class="w">         </span><span class="c1">// &#39;true&#39;の文字をtrueにするなら</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;not empty string&quot;</span><span class="p">;</span><span class="w">          </span><span class="c1">// true/false反転するが演算子一つで変換可能</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">isEmpty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="nx">str</span><span class="p">;</span><span class="w">                    </span><span class="c1">// 反転すると!Boolean()と同じ</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">notEmpty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!!</span><span class="nx">str</span><span class="p">;</span><span class="w">                  </span><span class="c1">// もう1つ使うと反転せずにboolean型に</span><span class="w"></span>
 </pre></div>
 </div>
 <p>TypeScriptでは、数字のゼロ（負も含む）、空文字列、 <code class="docutils literal notranslate"><span class="pre">null</span></code> 、 <code class="docutils literal notranslate"><span class="pre">undefined</span></code> 、 <code class="docutils literal notranslate"><span class="pre">NaN</span></code> を変換すると <code class="docutils literal notranslate"><span class="pre">false</span></code> 、それ以外を変換すると <code class="docutils literal notranslate"><span class="pre">true</span></code> になります <a class="footnote-reference brackets" href="#id3" id="id2">1</a> 。</p>
@@ -185,13 +187,13 @@
 </dd>
 </dl>
 <section id="id4">
-<h3>ド・モルガンの法則<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>ド・モルガンの法則<a class="headerlink" href="#id4" title="この見出しへのパーマリンク"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">if</span></code> 文の条件式が複雑なときに、それを簡単にするのにごくたまに役立つのがド・モルガンの法則です。
 次のような法則でNOTとANDとORの組みを変換できます。</p>
 <div class="literal-block-wrapper docutils container" id="id24">
 <div class="code-block-caption"><span class="caption-text">ド・モルガンの法則</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="p">(</span><span class="nx">P</span> <span class="o">||</span> <span class="nx">Q</span><span class="p">)</span> <span class="o">==</span> <span class="o">!</span><span class="nx">P</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">Q</span>
-<span class="o">!</span><span class="p">(</span><span class="nx">P</span> <span class="o">&amp;&amp;</span> <span class="nx">Q</span><span class="p">)</span> <span class="o">==</span> <span class="o">!</span><span class="nx">P</span> <span class="o">||</span> <span class="o">!</span><span class="nx">Q</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="p">(</span><span class="nx">P</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">Q</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">!</span><span class="nx">P</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="nx">Q</span><span class="w"></span>
+<span class="o">!</span><span class="p">(</span><span class="nx">P</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">Q</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">!</span><span class="nx">P</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="nx">Q</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -202,10 +204,10 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </section>
 </section>
 <section id="id5">
-<h2>数値型<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>数値型<a class="headerlink" href="#id5" title="この見出しへのパーマリンク"></a></h2>
 <p>TypeScriptには組み込みで2種類の数値型があります。ほとんどの場合は <code class="docutils literal notranslate"><span class="pre">number</span></code> だけで済むでしょう。</p>
 <section id="number">
-<h3><code class="docutils literal notranslate"><span class="pre">number</span></code><a class="headerlink" href="#number" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">number</span></code><a class="headerlink" href="#number" title="この見出しへのパーマリンク"></a></h3>
 <p>TypeScript（というか、その下で動作しているJavaScript）は64ビットの浮動小数点数で扱います。これはどのCPUを使っても基本的に同じ精度を持ちます <a class="footnote-reference brackets" href="#id7" id="id6">2</a> 。整数をロスなく格納できるのは53ビット(-1)までなので、±約9007兆までの整数を扱えます。それ以上の数値を入れると、末尾が誤差としてカットされたりして、整数を期待して扱うと問題が生じる可能性があります。正確な上限と下限は <code class="docutils literal notranslate"><span class="pre">Number.MAX_SAFE_INTEGER</span></code> 、 <code class="docutils literal notranslate"><span class="pre">Number.MIN_SAFE_INTEGER</span></code> という定数で見ることができます。また、 <code class="docutils literal notranslate"><span class="pre">Number.isSafeInteger(数値)</span></code> という関数で、その範囲内に収まっているかどうかを確認できます。</p>
 <figure class="align-default" id="id25">
 <img alt="_images/double.png" src="_images/double.png" />
@@ -218,25 +220,25 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <dd><p>IEEE 754という規格で決まっています。</p>
 </dd>
 </dl>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 値を表示</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">10.5</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">128</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mb">0b11</span><span class="p">);</span>  <span class="c1">// 0bから始まると2進数</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mo">0o777</span><span class="p">);</span> <span class="c1">// 0oから始まると8進数</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mh">0xf7</span><span class="p">);</span>  <span class="c1">// 0xから始まると16進数</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 値を表示</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">10.5</span><span class="p">);</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">128</span><span class="p">);</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mb">0b11</span><span class="p">);</span><span class="w">  </span><span class="c1">// 0bから始まると2進数</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mo">0o777</span><span class="p">);</span><span class="w"> </span><span class="c1">// 0oから始まると8進数</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mh">0xf7</span><span class="p">);</span><span class="w">  </span><span class="c1">// 0xから始まると16進数</span><span class="w"></span>
 
-<span class="c1">// 変数に代入。変数の型名はnumber</span>
-<span class="kd">const</span> <span class="nx">year</span>: <span class="kt">number</span> <span class="o">=</span> <span class="mf">2019</span><span class="p">;</span>
+<span class="c1">// 変数に代入。変数の型名はnumber</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">year</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2019</span><span class="p">;</span><span class="w"></span>
 
-<span class="c1">// 他のデータ型への変換</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">year</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>  <span class="c1">// &#39;2019&#39;になる</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">year</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mf">2</span><span class="p">));</span> <span class="c1">// toStringの引数で2進数-36進数にできる</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Boolean</span><span class="p">(</span><span class="nx">year</span><span class="p">));</span>    <span class="c1">// 0以外はtrue</span>
+<span class="c1">// 他のデータ型への変換</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">year</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span><span class="w">  </span><span class="c1">// &#39;2019&#39;になる</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">year</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mf">2</span><span class="p">));</span><span class="w"> </span><span class="c1">// toStringの引数で2進数-36進数にできる</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Boolean</span><span class="p">(</span><span class="nx">year</span><span class="p">));</span><span class="w">    </span><span class="c1">// 0以外はtrue</span><span class="w"></span>
 
-<span class="c1">// 他のデータ型を数値に変換</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;010&quot;</span><span class="p">));</span>     <span class="c1">// →10 文字列はparseIntで10進数/16進数変換</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;010&quot;</span><span class="p">,</span> <span class="mf">8</span><span class="p">));</span>  <span class="c1">// →8 2つめの数値で何進数として処理するか決められる</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span>        <span class="c1">// boolean型はNumber関数で0/1になる</span>
+<span class="c1">// 他のデータ型を数値に変換</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;010&quot;</span><span class="p">));</span><span class="w">     </span><span class="c1">// →10 文字列はparseIntで10進数/16進数変換</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s2">&quot;010&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">8</span><span class="p">));</span><span class="w">  </span><span class="c1">// →8 2つめの数値で何進数として処理するか決められる</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Number</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span><span class="w">        </span><span class="c1">// boolean型はNumber関数で0/1になる</span><span class="w"></span>
 </pre></div>
 </div>
 <p>変換の処理は、方法によって結果が変わります。10進数を期待するものはradix無しの <code class="docutils literal notranslate"><span class="pre">parseInt()</span></code> で使っておけば間違いありません。</p>
@@ -296,7 +298,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </div>
 </section>
 <section id="id8">
-<h3>数値型の使い分け<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>数値型の使い分け<a class="headerlink" href="#id8" title="この見出しへのパーマリンク"></a></h3>
 <p>TypeScriptには組み込みで2種類の数値型があります。
 2つの型を混ぜて計算することはできません。</p>
 <ul class="simple">
@@ -310,10 +312,10 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <p><code class="docutils literal notranslate"><span class="pre">number</span></code> は2進数で表した数値表現なので、 0.2 + 0.1などのようなきれいに2進数で表現できない数値は誤差が出てしまいます。金額計算など、多少遅くても正確な計算が必要な場合はdecimal.js <a class="footnote-reference brackets" href="#id10" id="id9">3</a> などの外部ライブラリを使います。</p>
 <div class="literal-block-wrapper docutils container" id="id27">
 <div class="code-block-caption"><span class="caption-text">numberの誤差</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">);</span>
-<span class="c1">// 0.30000000000000004</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2</span><span class="p">;</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// 0.30000000000000004</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -324,7 +326,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </dl>
 </section>
 <section id="id11">
-<h3>演算子<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>演算子<a class="headerlink" href="#id11" title="この見出しへのパーマリンク"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">+</span></code> 、 <code class="docutils literal notranslate"><span class="pre">-</span></code> 、 <code class="docutils literal notranslate"><span class="pre">*</span></code> 、 <code class="docutils literal notranslate"><span class="pre">/</span></code> 、 <code class="docutils literal notranslate"><span class="pre">%</span></code> （剰余）のよくある数値計算用の演算子が使えます。これ以外に、 <code class="docutils literal notranslate"><span class="pre">**</span></code> というベキ乗の演算子がES2016で追加されています <a class="footnote-reference brackets" href="#id15" id="id12">4</a> 。</p>
 <p>また、 <code class="docutils literal notranslate"><span class="pre">number</span></code> は整数としても扱えますのでビット演算も可能です。ビット演算は2進数として表現した表を使って、計算するイメージを持ってもらえると良いでしょう。コンピュータの内部はビット単位での処理になるため、高速なロジックの実装で使われることがよくあります <a class="footnote-reference brackets" href="#id16" id="id13">5</a> 。</p>
 <p>ただし、ビット演算時には精度は32ビット整数にまで丸められてから行われるため、その点は要注意です。</p>
@@ -385,7 +387,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </dl>
 </section>
 <section id="id18">
-<h3>特殊な数値<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>特殊な数値<a class="headerlink" href="#id18" title="この見出しへのパーマリンク"></a></h3>
 <p>数値計算の途中で、正常な数値として扱えない数値が出てくることがあります。業務システムでハンドリングすることはあまりないと思います。もし意図せず登場することがあればロジックの不具合の可能性が高いでしょう。</p>
 <ul class="simple">
 <li><p>無限大: <code class="docutils literal notranslate"><span class="pre">Infinity</span></code></p></li>
@@ -393,7 +395,7 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </ul>
 </section>
 <section id="math">
-<h3><code class="docutils literal notranslate"><span class="pre">Math</span></code> オブジェクト<a class="headerlink" href="#math" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">Math</span></code> オブジェクト<a class="headerlink" href="#math" title="この見出しへのパーマリンク"></a></h3>
 <p>TypeScriptで数値計算を行う場合、 <code class="docutils literal notranslate"><span class="pre">Math</span></code> オブジェクトの関数や定数を使います。</p>
 <table class="colwidths-given docutils align-default" id="id28">
 <caption><span class="caption-text">数値の最大値、最小値</span><a class="headerlink" href="#id28" title="このテーブルへのパーマリンク"></a></caption>
@@ -572,49 +574,49 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 </section>
 </section>
 <section id="string">
-<h2><code class="docutils literal notranslate"><span class="pre">string</span></code> リテラル<a class="headerlink" href="#string" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">string</span></code> リテラル<a class="headerlink" href="#string" title="この見出しへのパーマリンク"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">string</span></code> リテラルは文字列を表現します。シングルクオート、ダブルクオートでくくると表現できます。
 シングルクオートとダブルクオートは、途中で改行が挟まると「末尾がない」とエラーになってしまいますが、
 バッククオートでくくると、改行が中にあっても大丈夫なので、複数行あるテキストをそのまま表現できます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 値を表示</span>
-<span class="c1">// シングルクオート、ダブルクオート、バッククオートでくくる</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hello world&#39;</span><span class="p">);</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 値を表示</span><span class="w"></span>
+<span class="c1">// シングルクオート、ダブルクオート、バッククオートでくくる</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hello world&#39;</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// 変数に代入。変数の型名はstring</span>
-<span class="kd">const</span> <span class="nx">name</span>: <span class="kt">string</span> <span class="o">=</span> <span class="s2">&quot;future&quot;</span><span class="p">;</span>
+<span class="c1">// 変数に代入。変数の型名はstring</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;future&quot;</span><span class="p">;</span><span class="w"></span>
 
-<span class="c1">// 複数行</span>
-<span class="c1">// シングルクオート、ダブルクオートだとエラーになる</span>
-<span class="c1">// error TS1002: Unterminated string literal.</span>
-<span class="kd">const</span> <span class="nx">address</span> <span class="o">=</span> <span class="s1">&#39;東京都</span>
-<span class="s1">品川区&#39;</span><span class="p">;</span>
-<span class="c1">// バッククオートならOK。ソースコード上の改行はデータ上も改行となる</span>
-<span class="kd">const</span> <span class="nx">address</span> <span class="o">=</span> <span class="sb">`東京都</span>
-<span class="sb">品川区`</span><span class="p">;</span>
+<span class="c1">// 複数行</span><span class="w"></span>
+<span class="c1">// シングルクオート、ダブルクオートだとエラーになる</span><span class="w"></span>
+<span class="c1">// error TS1002: Unterminated string literal.</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;東京都</span>
+<span class="s1">品川区&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// バッククオートならOK。ソースコード上の改行はデータ上も改行となる</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`東京都</span>
+<span class="sb">品川区`</span><span class="p">;</span><span class="w"></span>
 
-<span class="c1">// 他のデータ型への変換</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s1">&#39;0100&#39;</span><span class="p">,</span> <span class="mf">10</span><span class="p">));</span> <span class="c1">// 100になる</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Boolean</span><span class="p">(</span><span class="nx">name</span><span class="p">));</span>        <span class="c1">// 空文字列はfalse、それ以外はtrueになる</span>
+<span class="c1">// 他のデータ型への変換</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="s1">&#39;0100&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">10</span><span class="p">));</span><span class="w"> </span><span class="c1">// 100になる</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Boolean</span><span class="p">(</span><span class="nx">name</span><span class="p">));</span><span class="w">        </span><span class="c1">// 空文字列はfalse、それ以外はtrueになる</span><span class="w"></span>
 
-<span class="c1">// 他のデータ型をstringに変換</span>
-<span class="kd">const</span> <span class="nx">year</span> <span class="o">=</span> <span class="mf">2019</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">((</span><span class="mf">2019</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mf">2</span><span class="p">));</span>     <span class="c1">// numberはtoStringの引数で2進数-36進数にできる</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">((</span><span class="kc">true</span><span class="p">).</span><span class="nx">toString</span><span class="p">());</span>      <span class="c1">// boolean型を&#39;true&#39;/&#39;false&#39;の文字列に変換</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Stirng</span><span class="p">(</span><span class="kc">false</span><span class="p">));</span>          <span class="c1">// こちらでも可</span>
+<span class="c1">// 他のデータ型をstringに変換</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2019</span><span class="p">;</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">((</span><span class="mf">2019</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mf">2</span><span class="p">));</span><span class="w">     </span><span class="c1">// numberはtoStringの引数で2進数-36進数にできる</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">((</span><span class="kc">true</span><span class="p">).</span><span class="nx">toString</span><span class="p">());</span><span class="w">      </span><span class="c1">// boolean型を&#39;true&#39;/&#39;false&#39;の文字列に変換</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">String</span><span class="p">(</span><span class="kc">false</span><span class="p">));</span><span class="w">          </span><span class="c1">// こちらでも可</span><span class="w"></span>
 </pre></div>
 </div>
 <p>JavaScriptはUTF-16という文字コードを採用しています。Javaと同じです。絵文字など、一部の文字列は1文字分のデータでは再現できずに、2文字使って1文字を表現することがあります。これをサロゲートペアと呼びます。範囲アクセスなどで文字列の一部を扱おうとすると、絵文字の一部だけを拾ってしまう可能性がある点には要注意です。何かしらの文字列のロジックのテストをする場合には、絵文字も入れるようにすると良いでしょう。</p>
 <section id="id19">
-<h3>文字列のメソッド<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>文字列のメソッド<a class="headerlink" href="#id19" title="この見出しへのパーマリンク"></a></h3>
 <p>文字列には、その内部で持っている文字列を加工したり、一部を取り出したりするメソッドがいくつもあります。
 かなり古いJavaScriptの紹介だと、HTMLタグをつけるためのメソッドが紹介されていたりもします、TypeScriptの型定義ファイルにも未だに存在はしますが、それらのメソッドは言語標準ではないためここでは説明しません。</p>
 </section>
 <section id="id20">
-<h3>文字コードの正規化<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>文字コードの正規化<a class="headerlink" href="#id20" title="この見出しへのパーマリンク"></a></h3>
 <p>ユニコードには、同じ意味だけどコードポイントが異なり、字形が似ているけど少し異なる文字というものが存在します。たとえば、全角のアルファベットのＡと、半角アルファベットのAがこれにあたります。
 それらを統一してきれいにするのが正規化です。文字列の <code class="docutils literal notranslate"><span class="pre">normalize(&quot;NFKC&quot;)</span></code> というメソッド呼び出しをすると、これがすべてきれいになります。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="s2">&quot;ＡＢＣｱｲｳｴｵ㍻&quot;</span><span class="p">.</span><span class="nx">normalize</span><span class="p">(</span><span class="s2">&quot;NFKC&quot;</span><span class="p">)</span>
-<span class="s1">&#39;ABCアイウエオ平成&#39;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="w"> </span><span class="s2">&quot;ＡＢＣｱｲｳｴｵ㍻&quot;</span><span class="p">.</span><span class="nx">normalize</span><span class="p">(</span><span class="s2">&quot;NFKC&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="s1">&#39;ABCアイウエオ平成&#39;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>正規化を行わないと、例えば、「６月６日議事録.md」という全角数字のファイル名を検索しようとして、「6月6日議事録」という検索ワードで検索しようとしたときにひっかからない、ということがおきます。検索対象と検索ワードの両方を正規化しておけば、このような表記のブレがなくなるため、ひっかかりそうでひっかからない、ということが減らせます。</p>
@@ -629,80 +631,80 @@ NOTの集合同士の演算というのは普段の生活ではあまり出て�
 <p>ただし、長音、ハイフンとマイナス、漢数字の１、横罫線など、字形が似ているものの意味としても違うものはこの正規化でも歯が立たないので、別途対処が必要です。</p>
 </section>
 <section id="id21">
-<h3>文字列の結合<a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>文字列の結合<a class="headerlink" href="#id21" title="この見出しへのパーマリンク"></a></h3>
 <p>従来のJavaScriptは他の言語でいうprintf系の関数がなく、文字列を<code class="docutils literal notranslate"><span class="pre">+</span></code>で結合したり、配列に入れて<code class="docutils literal notranslate"><span class="pre">.join()</span></code>で結合したりしましたが、いまどきは文字列テンプレートリテラルがありますので、ちょっとした結合は簡単に扱えます。
 printfのような数値の変換などのフォーマットはなく、あくまでも文字列結合をスマートにやるためのものですが、複数行のテキストを表現できますし、プレースホルダ内には自由に式が書けます。
 もちろん、数が決まらない配列などは従来どおり<code class="docutils literal notranslate"><span class="pre">.join()</span></code>を使います。</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 古いコード</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;[Debug]: &quot;</span> <span class="o">+</span> <span class="nx">variable</span><span class="p">);</span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 古いコード</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;[Debug]: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">variable</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// 新しいコード</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`[Debug]: </span><span class="si">${</span><span class="nx">variable</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="c1">// 新しいコード</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`[Debug]: </span><span class="si">${</span><span class="nx">variable</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>このバッククオートを使う場合は、関数を前置することで、文字列を加工することができます。
 国際化でメッセージを置き換える場面などで利用されます。</p>
 </section>
 <section id="id22">
-<h3>文字列の事前処理<a class="headerlink" href="#id22" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>文字列の事前処理<a class="headerlink" href="#id22" title="この見出しへのパーマリンク"></a></h3>
 <p>テンプレートリテラルに関数を指定すると（タグ付きテンプレートリテラル）、文字列を加工する処理を挟めます。よく使われるケースは翻訳などでしょう。
 テンプレートリテラルの前に置かれた関数は、最初に文字列の配列がきて、その後はプレースホルダの数だけ引数が付く構造になっています。
 文字列の配列は、プレースホルダに挟まれた部分のテキストになります。
 自作する機会は多くないかもしれませんが、コード理解のために覚えておいて損はないでしょう。</p>
 <div class="literal-block-wrapper docutils container" id="id34">
 <div class="code-block-caption"><span class="caption-text">タグ付きテンプレートリテラル</span><a class="headerlink" href="#id34" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">i18n</span><span class="p">(</span><span class="nx">texts</span><span class="p">,</span> <span class="p">...</span><span class="nx">placeholders</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// texts = [&#39;小動物は&#39;, &#39;が好きです&#39;]</span>
-  <span class="c1">// placeholders = [&#39;小旅行&#39;]</span>
-  <span class="k">return</span> <span class="c1">// 翻訳処理</span>
-<span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">i18n</span><span class="p">(</span><span class="nx">texts</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="nx">placeholders</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// texts = [&#39;小動物は&#39;, &#39;が好きです&#39;]</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// placeholders = [&#39;小旅行&#39;]</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="c1">// 翻訳処理</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">hobby</span> <span class="o">=</span> <span class="s2">&quot;小旅行&quot;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i18n</span><span class="sb">`小動物は</span><span class="si">${</span><span class="nx">hobby</span><span class="si">}</span><span class="sb">が好きです`</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">hobby</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;小旅行&quot;</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i18n</span><span class="sb">`小動物は</span><span class="si">${</span><span class="nx">hobby</span><span class="si">}</span><span class="sb">が好きです`</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 </section>
 </section>
 <section id="undefined-null">
-<h2><code class="docutils literal notranslate"><span class="pre">undefined</span></code> と <code class="docutils literal notranslate"><span class="pre">null</span></code><a class="headerlink" href="#undefined-null" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">undefined</span></code> と <code class="docutils literal notranslate"><span class="pre">null</span></code><a class="headerlink" href="#undefined-null" title="この見出しへのパーマリンク"></a></h2>
 <p>JavaScript/TypeScriptでは、 <code class="docutils literal notranslate"><span class="pre">undefined</span></code> と <code class="docutils literal notranslate"><span class="pre">null</span></code> があります。他の言語では <code class="docutils literal notranslate"><span class="pre">null</span></code> （もしくは <code class="docutils literal notranslate"><span class="pre">None</span></code> 、 <code class="docutils literal notranslate"><span class="pre">nil</span></code> と呼ぶことも）だけの場合がほとんどですが、JavaScript/TypeScriptでは2種類登場します。</p>
-<p>このうち、 <code class="docutils literal notranslate"><span class="pre">undefined</span></code> は未定義やまだ値が代入されていない変数を参照したり、オブジェクトの未定義の属性に触ると帰ってくる値です。
+<p>このうち、 <code class="docutils literal notranslate"><span class="pre">undefined</span></code> は未定義やまだ値が代入されていない変数を参照したり、オブジェクトの未定義の属性に触ると返ってくる値です。
 TypeScriptはクラスなどで型定義を行い、コーディングがしやすくなるとよく宣伝されますが、「 <code class="docutils literal notranslate"><span class="pre">undefined</span></code> に遭遇するとわかっているコードを事前にチェックしてくれる」ということがその本質だと思われます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">favoriteGame</span>: <span class="kt">string</span><span class="p">;</span> <span class="c1">// まだ代入してないのでundefined;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">favoriteGame</span><span class="p">);</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">favoriteGame</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="c1">// まだ代入してないのでundefined;</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">favoriteGame</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>このコードは、 <code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code> で <code class="docutils literal notranslate"><span class="pre">strict:</span> <span class="pre">true</span></code> （もしくは <code class="docutils literal notranslate"><span class="pre">strictNullChecks:</span> <span class="pre">true</span></code> ）の場合にはコンパイルエラーになります。</p>
 <p>JavaScriptはメソッドや関数呼び出し時に数が合わなくてもエラーにはならず、指定されなかった引数には <code class="docutils literal notranslate"><span class="pre">undefined</span></code> が入っていました。
 TypeScriptでは数が合わないとエラーになりますが、 <code class="docutils literal notranslate"><span class="pre">?</span></code> を変数名の最後に付与すると、省略可能になります。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">print</span><span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">age?</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`name: </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">, age: </span><span class="si">${</span><span class="nx">age</span> <span class="o">||</span> <span class="s1">&#39;empty&#39;</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">print</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">age?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`name: </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">, age: </span><span class="si">${</span><span class="nx">age</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;empty&#39;</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>意図せずうっかりな「未定義」が <code class="docutils literal notranslate"><span class="pre">undefined</span></code> であれば、意図をもって「これは無効な値だ」と設定するのが <code class="docutils literal notranslate"><span class="pre">null</span></code> です。
 ただし、Javaと違って、気軽に <code class="docutils literal notranslate"><span class="pre">null</span></code> を入れることはできません。 変数の章でも紹介した、「AもしくはBのデータが格納できる」という合併型（Union Type）の型宣言ができるので、これをつかって <code class="docutils literal notranslate"><span class="pre">null</span></code> を代入します。
 TypeScriptでは「これは無効な値をとる可能性がありますよ」というのは意識して許可してあげなければなりません。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// stringかnullを入れられるという宣言をしてnullを入れる</span>
-<span class="kd">let</span> <span class="nx">favaoriteGame</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kc">null</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// stringかnullを入れられるという宣言をしてnullを入れる</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">favoriteGame</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">undefined</span></code> と <code class="docutils literal notranslate"><span class="pre">null</span></code> は別のものなので、コンパイラオプションで <code class="docutils literal notranslate"><span class="pre">compilerOptions.strict:</span> <span class="pre">true</span></code> もしくは、 <code class="docutils literal notranslate"><span class="pre">compilerOptions.strictNullChecks:</span> <span class="pre">true</span></code> の場合は、 <code class="docutils literal notranslate"><span class="pre">null</span></code> 型の変数に <code class="docutils literal notranslate"><span class="pre">undefined</span></code> を入れようとしたり、その逆をするとエラーになります。
 これらのオプションを両方とも <code class="docutils literal notranslate"><span class="pre">false</span></code> にすれば、エラーにはならなくなりますが、副作用が大きいため、これらのオプションは有効にして、普段から正しくコードを書く方が健全です。</p>
 <div class="literal-block-wrapper docutils container" id="id35">
 <div class="code-block-caption"><span class="caption-text">nullとundefinedは別物</span><a class="headerlink" href="#id35" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">a</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kc">null</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
-<span class="c1">// error TS2322: Type &#39;undefined&#39; is not assignable to type &#39;string | null&#39;.</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">a</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">undefined</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// error TS2322: Type &#39;undefined&#39; is not assignable to type &#39;string | null&#39;.</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">b</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kc">undefined</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-<span class="c1">// error TS2322: Type &#39;null&#39; is not assignable to type &#39;string | undefined&#39;.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">b</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// error TS2322: Type &#39;null&#39; is not assignable to type &#39;string | undefined&#39;.</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="id23">
-<h2>まとめ<a class="headerlink" href="#id23" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>まとめ<a class="headerlink" href="#id23" title="この見出しへのパーマリンク"></a></h2>
 <p>TypeScript（とJavaScript）で登場する、プリミティブ型を紹介してきました。
 これらはプログラムを構成する上でのネジやクギとなるデータです。</p>
 </section>

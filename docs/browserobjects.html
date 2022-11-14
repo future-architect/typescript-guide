@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -81,7 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="browserenv.html">ブラウザ環境</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ブラウザ関連の組み込み型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#polyfillponyfill">Polyfill、Ponyfill</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#fetch"><code class="docutils literal notranslate"><span class="pre">fetch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fetch"><code class="docutils literal notranslate"><span class="pre">fetch()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#formdata"><code class="docutils literal notranslate"><span class="pre">FormData</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#eventlistener"><code class="docutils literal notranslate"><span class="pre">EventListener</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#eventsourcewebsocket"><code class="docutils literal notranslate"><span class="pre">EventSource</span></code>と<code class="docutils literal notranslate"><span class="pre">WebSocket</span></code></a></li>
@@ -112,8 +114,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ブラウザ関連の組み込み型</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">ブラウザ関連の組み込み型</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/browserobjects.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -124,7 +126,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>ブラウザ関連の組み込み型<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>ブラウザ関連の組み込み型<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h1>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">fetch</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">FormData</span></code></p></li>
@@ -133,31 +135,33 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">LocalStorage</span></code>と<code class="docutils literal notranslate"><span class="pre">SessionStorage</span></code></p></li>
 </ul>
 <section id="polyfillponyfill">
-<h2>Polyfill、Ponyfill<a class="headerlink" href="#polyfillponyfill" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>Polyfill、Ponyfill<a class="headerlink" href="#polyfillponyfill" title="この見出しへのパーマリンク"></a></h2>
 </section>
 <section id="fetch">
-<h2><code class="docutils literal notranslate"><span class="pre">fetch</span></code><a class="headerlink" href="#fetch" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">fetch()</span></code><a class="headerlink" href="#fetch" title="この見出しへのパーマリンク"></a></h2>
+<p>Node.js 18からは標準で組み込まれました。2022年10月にLTSになった以降は特に設定せずに利用できます。</p>
+<p>クラウドのランタイムなど、それ以前のバージョンを扱う必要があれば追加のパッケージが必要です。</p>
 <p>確実にNode.jsだけでしか使われないコードであれば<a class="reference external" href="https://www.npmjs.com/package/node-fetch">node-fetch</a>をインポートして利用すれば十分です。</p>
-<p>もし、ブラウザでもサーバーでも実行されるコードの場合
-<a class="reference external" href="https://www.npmjs.com/package/isomorphic-unfetch">https://www.npmjs.com/package/isomorphic-unfetch</a>
+<p>もし、ブラウザでもサーバーでも実行されるコードを書く必要があれば、次のパッケージを利用すると、Node.js環境ではPolyfillが使われ、ブラウザではネイティブの <code class="docutils literal notranslate"><span class="pre">fetch()</span></code> 関数が利用されます。</p>
+<p><a class="reference external" href="https://www.npmjs.com/package/isomorphic-unfetch">https://www.npmjs.com/package/isomorphic-unfetch</a>
 <a class="reference external" href="https://www.npmjs.com/package/isomorphic-fetch">https://www.npmjs.com/package/isomorphic-fetch</a>
 <a class="reference external" href="https://www.npmjs.com/package/fetch-ponyfill">https://www.npmjs.com/package/fetch-ponyfill</a></p>
 </section>
 <section id="formdata">
-<h2><code class="docutils literal notranslate"><span class="pre">FormData</span></code><a class="headerlink" href="#formdata" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">FormData</span></code><a class="headerlink" href="#formdata" title="この見出しへのパーマリンク"></a></h2>
 <p><a class="reference external" href="https://www.npmjs.com/package/form-data">https://www.npmjs.com/package/form-data</a></p>
 </section>
 <section id="eventlistener">
-<h2><code class="docutils literal notranslate"><span class="pre">EventListener</span></code><a class="headerlink" href="#eventlistener" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">EventListener</span></code><a class="headerlink" href="#eventlistener" title="この見出しへのパーマリンク"></a></h2>
 </section>
 <section id="eventsourcewebsocket">
-<h2><code class="docutils literal notranslate"><span class="pre">EventSource</span></code>と<code class="docutils literal notranslate"><span class="pre">WebSocket</span></code><a class="headerlink" href="#eventsourcewebsocket" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">EventSource</span></code>と<code class="docutils literal notranslate"><span class="pre">WebSocket</span></code><a class="headerlink" href="#eventsourcewebsocket" title="この見出しへのパーマリンク"></a></h2>
 <p><a class="reference external" href="https://www.npmjs.com/package/eventsource">https://www.npmjs.com/package/eventsource</a>
 <a class="reference external" href="https://www.npmjs.com/package/ws">https://www.npmjs.com/package/ws</a>
 <a class="reference external" href="https://www.npmjs.com/package/isomorphic-ws">https://www.npmjs.com/package/isomorphic-ws</a></p>
 </section>
 <section id="localstoragesessionstorage">
-<h2><code class="docutils literal notranslate"><span class="pre">LocalStorage</span></code>と<code class="docutils literal notranslate"><span class="pre">SessionStorage</span></code><a class="headerlink" href="#localstoragesessionstorage" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">LocalStorage</span></code>と<code class="docutils literal notranslate"><span class="pre">SessionStorage</span></code><a class="headerlink" href="#localstoragesessionstorage" title="この見出しへのパーマリンク"></a></h2>
 <p><a class="reference external" href="https://www.npmjs.com/package/localstorage-memory">https://www.npmjs.com/package/localstorage-memory</a>
 <a class="reference external" href="https://www.npmjs.com/package/node-localstorage">https://www.npmjs.com/package/node-localstorage</a></p>
 </section>

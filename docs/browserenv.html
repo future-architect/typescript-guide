@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -107,8 +109,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ブラウザ環境</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">ブラウザ環境</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/browserenv.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -119,12 +121,12 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>ブラウザ環境<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>ブラウザ環境<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h1>
 <p>今も昔も、ウェブフロントエンドが今のJavaScript/TypeScriptの主戦場です。本章ではそのウェブフロントエンドの環境について紹介します。</p>
 <p>現在、メジャーなウェブフロントエンドのフレームワークというと、React、Vue.js、Angularです。本書で取り上げるのはReactとVue.jsです。React以外にReactをベースにした統合フロントエンドフレームワークとなっているNext.jsも取り上げます。Angularは2以降からTypeScriptに書き直されて、TypeScript以外では書けなくなり、最初からTypeScriptが有効な状態でプロジェクトが作成されるため、説明は割愛します。</p>
 <p>本章では、それぞれの環境の共通部分について紹介します。</p>
 <section id="id2">
-<h2>ウェブアプリケーションにおけるビルドツールのゴール<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>ウェブアプリケーションにおけるビルドツールのゴール<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
 <p>JavaScriptでビルドといっても、いろいろなステップがあります。</p>
 <ol class="arabic simple">
 <li><p>TypeScriptやBabelを使って、ターゲットとなるバージョンのJavaScriptに変換</p></li>
@@ -157,7 +159,7 @@
 <ul class="simple">
 <li><p>RollupをベースにTypeScriptサポートを最初から組み込んだ<a class="reference external" href="https://www.npmjs.com/package/microbundle">microbundle</a></p></li>
 <li><p>.js/.tsの変換に特化して高速なビルド応答性を重視し、本番環境のバンドル作成はプラグインを使ったオプション(webpack/Rollup)としている<a class="reference external" href="https://www.snowpack.dev/">Snowpack</a></p></li>
-<li><p>HTMLやCSSのビルドもできて、package.jsonに書かれた定義(mainやtypesなど)をもとにビルドを行い、開発サーバーも全てついてくるオールインワンでビルド速度を重視した<a href="#id3"><span class="problematic" id="id4">`Parcel V2&lt;https://v2.parceljs.org/&gt;`_</span></a></p></li>
+<li><p>HTMLやCSSのビルドもできて、package.jsonに書かれた定義(mainやtypesなど)をもとにビルドを行い、開発サーバーも全てついてくるオールインワンでビルド速度を重視した<a class="reference external" href="https://v2.parceljs.org/">Parcel V2</a></p></li>
 <li><p>Go製でビルド速度に特化した<a class="reference external" href="https://esbuild.github.io/">esbuild</a></p></li>
 <li><p>microbundleに似ているが、React/Vue.js/Svelte/Lit-Element/素のHTML+JS(Vanilla)向けの環境構築までやってくれる<a class="reference external" href="https://vitejs.dev/">vite.js</a></p></li>
 </ul>

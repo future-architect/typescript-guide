@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -109,8 +111,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>クラス上級編</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">クラス上級編</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/class2.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -121,11 +123,11 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>クラス上級編<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>クラス上級編<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h1>
 <p>本章では、アプリケーション開発者は使わないかもしれないが、ライブラリやフレームワーク開発者が使うかもしれない機能を紹介します。</p>
 <section id="id2">
-<h2>アクセッサ<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
-<p>プロパティのように見えるけど、実際には裏でメソッド呼び出しが行われ、ちょっとした気の利いたをできるようにすることをするのがアクセッサです。
+<h2>アクセッサ<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
+<p>プロパティのように見えるけど、実際には裏でメソッド呼び出しが行われ、ちょっとした気の利いたことをできるようにするのがアクセッサです。
 メンバーのプロパティへの直接操作はさせないが、その読み込み、変更時に処理を挟むといったことが可能です。
 登場する概念としては基本的には次の3つです。 <code class="docutils literal notranslate"><span class="pre">get</span></code> だけを設定すれば取得のみができる読み込み専用とかもできます。</p>
 <ul class="simple">
@@ -137,30 +139,30 @@
 <p>例えば、金額を入れたら、入り口と出口でビット演算で難読化（と言えないような雑な処理ですが）をする銀行口座クラスは次のようになります。</p>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">アクセッサ</span><a class="headerlink" href="#id5" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nx">BankAccount</span> <span class="p">{</span>
-  <span class="k">private</span> <span class="nx">_money</span>: <span class="kt">number</span><span class="p">;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span><span class="w"> </span><span class="nx">BankAccount</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">_money</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w"></span>
 
-  <span class="nx">get</span> <span class="nx">money</span><span class="p">()</span><span class="o">:</span> <span class="kt">number</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_money</span> <span class="o">^</span> <span class="mh">0x4567</span><span class="p">;</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="nx">get</span><span class="w"> </span><span class="nx">money</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">_money</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="mh">0x4567</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="nx">set</span> <span class="nx">money</span><span class="p">(</span><span class="nx">money</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_money</span> <span class="o">=</span> <span class="nx">money</span> <span class="o">^</span> <span class="mh">0x4567</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="nx">set</span><span class="w"> </span><span class="nx">money</span><span class="p">(</span><span class="nx">money</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">_money</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">money</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="mh">0x4567</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">account</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">BankAccount</span><span class="p">()</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BankAccount</span><span class="p">()</span><span class="w"></span>
 
-<span class="c1">// 1000円入れた！</span>
-<span class="nx">account</span><span class="p">.</span><span class="nx">money</span> <span class="o">=</span> <span class="mf">1000</span><span class="p">;</span>
+<span class="c1">// 1000円入れた！</span><span class="w"></span>
+<span class="nx">account</span><span class="p">.</span><span class="nx">money</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1000</span><span class="p">;</span><span class="w"></span>
 
-<span class="c1">// 表示すると...</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">account</span><span class="p">);</span>
-<span class="c1">//   BankAccount { _money: 18063 }</span>
+<span class="c1">// 表示すると...</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">account</span><span class="p">);</span><span class="w"></span>
+<span class="c1">//   BankAccount { _money: 18063 }</span><span class="w"></span>
 
-<span class="c1">// 金額を参照すると正しく出力</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">account</span><span class="p">.</span><span class="nx">money</span><span class="p">);</span>
-<span class="c1">// 1000</span>
+<span class="c1">// 金額を参照すると正しく出力</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">account</span><span class="p">.</span><span class="nx">money</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// 1000</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -178,7 +180,7 @@ Javaはバイトコードエンハンサーを使って処理を挟むなどを�
 </ul>
 </section>
 <section id="id3">
-<h2>抽象クラス<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>抽象クラス<a class="headerlink" href="#id3" title="この見出しへのパーマリンク"></a></h2>
 <p>インタフェースとクラスの間ぐらいの特性を持つのが抽象クラスです。
 インタフェースとは異なり実装を持つことができます。
 メソッドに <code class="docutils literal notranslate"><span class="pre">abstract</span></code> というキーワードをつけることで、子クラスで継承しなければならないメソッドを決めることができます。
@@ -186,31 +188,31 @@ Javaはバイトコードエンハンサーを使って処理を挟むなどを�
 <code class="docutils literal notranslate"><span class="pre">abstract</span></code> メソッドを定義するには、クラスの宣言の前にも <code class="docutils literal notranslate"><span class="pre">abstract</span></code> が必要です。</p>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">抽象クラスは実装も渡せるインタフェース</span><a class="headerlink" href="#id6" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span> <span class="kd">class</span> <span class="nx">Living</span> <span class="p">{</span>
-  <span class="k">abstract</span> <span class="nx">doMorningTask</span><span class="p">()</span><span class="o">:</span> <span class="ow">void</span><span class="p">;</span>
-  <span class="nx">doNightTask</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;寝る&quot;</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Living</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">abstract</span><span class="w"> </span><span class="nx">doMorningTask</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="nx">doNightTask</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;寝る&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">class</span> <span class="nx">SalaryMan</span> <span class="k">extends</span> <span class="nx">Living</span> <span class="p">{</span>
-  <span class="nx">doMorningTask</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;山手線に乗って出勤する&quot;</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">SalaryMan</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Living</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">doMorningTask</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;山手線に乗って出勤する&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">class</span> <span class="nx">Dog</span> <span class="k">extends</span> <span class="nx">Living</span> <span class="p">{</span>
-  <span class="nx">doMorningTask</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;散歩する&quot;</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">Dog</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Living</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">doMorningTask</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;散歩する&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <p>Javaではおなじみの機能ですが、TypeScriptで使うことはほぼないでしょう。</p>
 </section>
 <section id="id4">
-<h2>まとめ<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>まとめ<a class="headerlink" href="#id4" title="この見出しへのパーマリンク"></a></h2>
 <p>クラスの文法のうち、アプリケーション開発者が触れる機会がすくないと思うものを取り上げました。</p>
 <ul class="simple">
 <li><p>アクセッサ</p></li>

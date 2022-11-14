@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -110,8 +112,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ライブラリ開発のための環境設定</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">ライブラリ開発のための環境設定</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/libenv.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -122,7 +124,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>ライブラリ開発のための環境設定<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>ライブラリ開発のための環境設定<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h1>
 <p>現在、JavaScript系のものは、コマンドラインのNode.js用であっても、Web用であっても、なんでも一切合切npmjsにライブラリとしてアップロードされます。
 ここでのゴールは可用性の高いライブラリの実現で、具体的には次の3つの目標を達成します。</p>
 <ul class="simple">
@@ -137,17 +139,17 @@
 つまり、配布ライブラリは、古いブラウザなどでも動作する形式でnpmにアップロードしなければならないということです。</p>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">webpack.config.js</span><a class="headerlink" href="#id7" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">rules</span><span class="o">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.js$/</span><span class="p">,</span>
-        <span class="nx">use</span><span class="o">:</span> <span class="s2">&quot;babel-loader&quot;</span><span class="p">,</span>
-        <span class="nx">exclude</span><span class="o">:</span> <span class="sr">/node_modules/</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">};</span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">module</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="sr">/\.js$/</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;babel-loader&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nx">exclude</span><span class="o">:</span><span class="w"> </span><span class="sr">/node_modules/</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -161,7 +163,7 @@ webpackやrollup.jsのTree ShakingではES2015 modules形式のライブラリ�
 また、Browserifyを使いたいユーザーもいると思いますのでCommonJS形式も必須です。</p>
 <p>そのため、モジュール方式の違いで2種類のライブラリを出力する必要があります。</p>
 <section id="id2">
-<h2>ディレクトリの作成<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>ディレクトリの作成<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
 <p>前章のディレクトリ作成に追加して、2つのディレクトリを作成します。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir dist-cjs
 $ mkdir dist-esm
@@ -171,7 +173,7 @@ $ mkdir dist-esm
 <p>これらのファイルはソースコード管理からは外すため、 <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> に入れておきましょう。</p>
 </section>
 <section id="id3">
-<h2>ビルド設定<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>ビルド設定<a class="headerlink" href="#id3" title="この見出しへのパーマリンク"></a></h2>
 <p>開発したいパッケージがNode.js環境に依存したものであれば、Node.jsの型定義ファイルをインストールして入れておきます。
 これでコンパイルのエラーがなくなり、コーディング時にコード補完が行われるようになります。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ npm install --save-dev @types/node
@@ -182,24 +184,24 @@ $ mkdir dist-esm
 ユーザー環境でデバッグしたときにきちんと表示されるようにsource-mapもついでに設定しました。あとはお好みで設定してください。</p>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">tsconfig.json</span><a class="headerlink" href="#id8" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
-  &quot;compilerOptions&quot;: {
-    &quot;target&quot;: &quot;es5&quot;,           // 大事
-    &quot;declaration&quot;: true,       // 大事
-    &quot;declarationMap&quot;: true,
-    &quot;sourceMap&quot;: true,         // 大事
-    &quot;lib&quot;: [&quot;dom&quot;, &quot;ES2018&quot;],
-    &quot;strict&quot;: true,
-    &quot;noUnusedLocals&quot;: true,
-    &quot;noUnusedParameters&quot;: true,
-    &quot;noImplicitReturns&quot;: true,
-    &quot;noFallthroughCasesInSwitch&quot;: true,
-    &quot;esModuleInterop&quot;: true,
-    &quot;experimentalDecorators&quot;: true,
-    &quot;emitDecoratorMetadata&quot;: true
-  },
-  &quot;include&quot;: [&quot;src/**/*&quot;]      // 大事
-}
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;es5&quot;</span><span class="p">,</span><span class="w">           </span><span class="c1">// 大事</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;declaration&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">       </span><span class="c1">// 大事</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;declarationMap&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;sourceMap&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">         </span><span class="c1">// 大事</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;lib&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;dom&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ES2018&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;strict&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;noUnusedLocals&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;noUnusedParameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;noImplicitReturns&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;noFallthroughCasesInSwitch&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;esModuleInterop&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;experimentalDecorators&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;emitDecoratorMetadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;include&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;src/**/*&quot;</span><span class="p">]</span><span class="w">      </span><span class="c1">// 大事</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -217,16 +219,16 @@ Polyfillをライブラリレベルで設定しても良いのですが、最終
 </ul>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id9" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;dist-cjs/index.js&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;dist-esm/index.js&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;types&quot;</span><span class="p">:</span> <span class="s2">&quot;dist-cjs/index.d.ts&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;npm-run-all -s build:cjs buid:esm&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;build:cjs&quot;</span><span class="p">:</span> <span class="s2">&quot;tsc --project . --module commonjs --outDir ./dist-cjs&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;build:esm&quot;</span><span class="p">:</span> <span class="s2">&quot;tsc --project . --module es2015 --outDir ./dist-esm&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;main&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dist-cjs/index.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dist-esm/index.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;types&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dist-cjs/index.d.ts&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npm-run-all -s build:cjs build:esm&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;build:cjs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tsc --project . --module commonjs --outDir ./dist-cjs&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;build:esm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tsc --project . --module es2015 --outDir ./dist-esm&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -237,28 +239,28 @@ Polyfillをライブラリレベルで設定しても良いのですが、最終
 </div>
 </section>
 <section id="id5">
-<h2>ライブラリコード<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>ライブラリコード<a class="headerlink" href="#id5" title="この見出しへのパーマリンク"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">...</span> <span class="pre">from</span> <span class="pre">&quot;ライブラリ名&quot;</span></code> のようにアプリケーションや他のライブラリから使われる場合、最初に読み込まれるエントリーポイントは <code class="docutils literal notranslate"><span class="pre">package.json</span></code> で指定していました。</p>
 <p>拡張子の前のファイル名が、TypeScriptのファイルのファイル名となる部分です。前述の例では、 <code class="docutils literal notranslate"><span class="pre">index.js</span></code> や <code class="docutils literal notranslate"><span class="pre">index.d.ts</span></code> が <code class="docutils literal notranslate"><span class="pre">main</span></code> 、 <code class="docutils literal notranslate"><span class="pre">module</span></code> , <code class="docutils literal notranslate"><span class="pre">types</span></code> で設定されていましたので、 <code class="docutils literal notranslate"><span class="pre">index.ts</span></code> というファイルでファイルを作成します。
 <code class="docutils literal notranslate"><span class="pre">main.ts</span></code> に書きたい場合は、 <code class="docutils literal notranslate"><span class="pre">package.json</span></code> の記述を修正します。</p>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text">src/index.ts</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">export</span> <span class="kd">function</span> <span class="nx">hello</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello from TypeScript Library&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello from TypeScript Library&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <p>ここで <code class="docutils literal notranslate"><span class="pre">export</span></code> したものが、ライブラリユーザーが触れられるものになります。</p>
 </section>
 <section id="id6">
-<h2>まとめ<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>まとめ<a class="headerlink" href="#id6" title="この見出しへのパーマリンク"></a></h2>
 <p>アルゴリズムなどのロジックのライブラリの場合、webpackなどのバンドラーを使わずに、TypeScriptだけを使えば良いことがわかりました。
 ここにある設定で、次のようなことが達成できました。</p>
 <ul class="simple">
 <li><p>TypeScriptでライブラリのコードを記述する</p></li>
 <li><p>使う人は普段通りrequire/importすれば、特別なツールやライブラリの設定をしなくても適切なファイルがロードされる。</p></li>
-<li><p>使う人は、別途型定義ファイルを自作したり、別パッケージをインストールしなくても、普段通りrequire/importするだけでTypeScriptの処理系やVisual Stuido Codeが型情報を認識する</p></li>
+<li><p>使う人は、別途型定義ファイルを自作したり、別パッケージをインストールしなくても、普段通りrequire/importするだけでTypeScriptの処理系やVisual Studio Codeが型情報を認識する</p></li>
 <li><p>Tree Shakingの恩恵も受けられる</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">package.json</span></code> の <code class="docutils literal notranslate"><span class="pre">scripts</span></code> のところに、開発に必要なタスクがコマンドとして定義されています。npmコマンドを使って行うことができます。</p>

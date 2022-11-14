@@ -223,7 +223,7 @@ Node.js向けに出力する場合は、 ``import`` と ``export`` を、CommonJ
    }
 
    // リネームしてエクスポート
-   export { favorite as favariteFood };
+   export { favorite as favoriteFood };
 
 複数のファイル内容をまとめてエクスポート
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

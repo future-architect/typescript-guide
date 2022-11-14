@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -118,8 +120,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>関数</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">関数</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/function.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -130,10 +132,10 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>関数<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>関数<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h1>
 <p>関数は一連の処理に名前をつけてまとめたものです。他の人の作ったものを利用するだけでは関数などなくても、必要な処理を必要なだけ列挙すれば期待する結果が得られるコードは理論上は実現可能です。しかし、数万行の一連のコードを扱うのは事実上不可能です。</p>
 <p>そこで理解できる大きさにグループ化して、名前をつけたものが関数です。関数呼び出しはネストできるので、難しいロジックに名前をつけて関数を作り、それらのロジックを並べたちょっと複雑なタスクを人間の仕事に近い高水準な関数にできます。関数は決まった処理を単純に実行するだけではなく、引数をとって、柔軟に動作させることもできますし、返り値を返すこともできます。</p>
-<p>どの程度の分量が適切かはロジックの複雑さによります。単純な仕事を延々と行っている（Reactのコンポーネントのレンダリングなど）であれば、数画面分のコードでもなんとかなるでしょうし、帰って細かく分け過ぎてしまうと、全体像の把握が難しくなります。一方で複雑なロジックだと20行でも難しいかもしれません。</p>
+<p>どの程度の分量が適切かはロジックの複雑さによります。単純な仕事を延々と行っている（Reactのコンポーネントのレンダリングなど）であれば、数画面分のコードでもなんとかなるでしょうし、かえって細かく分け過ぎてしまうと、全体像の把握が難しくなります。一方で複雑なロジックだと20行でも難しいかもしれません。</p>
 <p>関数の基本形態は以下の通りです。</p>
 <ul class="simple">
 <li><p>関数は名前を持ちます。何かに代入したり、引数で渡す場合は省略可能です。</p></li>
@@ -167,47 +169,47 @@
 </div>
 <p>関数はTypeScriptの中では、プログラムの構成をつくるための重要な部品です。いたるところで使われます。言語のバージョンアップとともに、定義、使い方などもいろいろ追加されました。表現したい機能のために、ややこしい直感的でないコードを書く必要性がかなり減っています。</p>
 <section id="id2">
-<h2>関数の引数と返り値の型定義<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>関数の引数と返り値の型定義<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
 <p>TypeScriptでは関数やクラスのメソッドでは引数や返り値に型を定義できます。
 元となるJavaScriptで利用できる、すべての書き方に対応しています。</p>
 <p>なお、Javaなどとは異なり、同名のメソッドで、引数違いのバリエーションを定義するオーバーロードは使えません。</p>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text">関数への型付け</span><a class="headerlink" href="#id10" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 昔からあるfunctionの引数に型付け。書く引数の後ろに型を書く。</span>
-<span class="c1">// 返り値は引数リストの () の後に書く。</span>
-<span class="kd">function</span> <span class="nx">checkFlag</span><span class="p">(</span><span class="nx">flag</span>: <span class="kt">boolean</span><span class="p">)</span><span class="o">:</span> <span class="kt">string</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">flag</span><span class="p">);</span>
-  <span class="k">return</span> <span class="s2">&quot;check done&quot;</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 昔からあるfunctionの引数に型付け。書く引数の後ろに型を書く。</span><span class="w"></span>
+<span class="c1">// 返り値は引数リストの () の後に書く。</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">checkFlag</span><span class="p">(</span><span class="nx">flag</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">flag</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;check done&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// アロー関数も同様</span>
-<span class="kd">const</span> <span class="nx">normalize</span> <span class="o">=</span> <span class="p">(</span><span class="nx">input</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="kt">string</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">input</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="c1">// アロー関数も同様</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">normalize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">input</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">input</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <p>変数の宣言のときと同じように、型が明確な場合には省略が可能です。</p>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text">関数への型付け</span><a class="headerlink" href="#id11" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 文字列のtoLowerCase()メソッドの返り値は文字列なので</span>
-<span class="c1">// 省略してもstringが設定されたと見なされる</span>
-<span class="kd">const</span> <span class="nx">normalize</span> <span class="o">=</span> <span class="p">(</span><span class="nx">input</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">input</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
-<span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 文字列のtoLowerCase()メソッドの返り値は文字列なので</span><span class="w"></span>
+<span class="c1">// 省略してもstringが設定されたと見なされる</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">normalize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">input</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">input</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// 文字配列の降順ソート</span>
-<span class="c1">// ソートに渡される比較関数の型は、配列の型から明らかなので省略してもOK</span>
-<span class="c1">// 文字列のtoLowerCase()メソッドも、エディタ上で補完が効く</span>
-<span class="kd">const</span> <span class="nx">list</span>: <span class="kt">string</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;小学生&quot;</span><span class="p">,</span> <span class="s2">&quot;小心者&quot;</span><span class="p">,</span> <span class="s2">&quot;小判鮫&quot;</span><span class="p">];</span>
-<span class="nx">list</span><span class="p">.</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="mf">1</span><span class="p">;</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">&gt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">-</span><span class="mf">1</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="mf">0</span><span class="p">;</span>
-<span class="p">});</span>
+<span class="c1">// 文字配列の降順ソート</span><span class="w"></span>
+<span class="c1">// ソートに渡される比較関数の型は、配列の型から明らかなので省略してもOK</span><span class="w"></span>
+<span class="c1">// 文字列のtoLowerCase()メソッドも、エディタ上で補完が効く</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">list</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;小学生&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;小心者&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;小判鮫&quot;</span><span class="p">];</span><span class="w"></span>
+<span class="nx">list</span><span class="p">.</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -215,16 +217,16 @@
 実装したコードで何も返していなければ、自動で <code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">void</span></code> がついているとみなされますが、これから先で紹介するインタフェースや抽象クラスなどで、関数の形だけ定義して実装を書かないケースでは、どのように判断すればいいのか材料がありません。 <code class="docutils literal notranslate"><span class="pre">compilerOptions.noImplicitAny</span></code> オプションが <code class="docutils literal notranslate"><span class="pre">true</span></code> の場合には、このようなケースで <code class="docutils literal notranslate"><span class="pre">:</span> <span class="pre">void</span></code> を書かないとエラーになりますので、忘れずに書くようにしましょう。</p>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text">何も返さない時はvoid</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">hello</span><span class="p">()</span><span class="o">:</span> <span class="ow">void</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;ごきげんよう&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;ごきげんよう&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">interface</span> <span class="nx">Greeter</span> <span class="p">{</span>
-  <span class="c1">// noImplicitAny: trueだとエラー</span>
-  <span class="c1">// error TS7010: &#39;hello&#39;, which lacks return-type annotation,</span>
-  <span class="c1">//    implicitly has an &#39;any&#39; return type.</span>
-  <span class="nx">hello</span><span class="p">();</span>
-<span class="p">}</span>
+<span class="kd">interface</span><span class="w"> </span><span class="nx">Greeter</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// noImplicitAny: trueだとエラー</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// error TS7010: &#39;hello&#39;, which lacks return-type annotation,</span><span class="w"></span>
+<span class="w">  </span><span class="c1">//    implicitly has an &#39;any&#39; return type.</span><span class="w"></span>
+<span class="w">  </span><span class="nx">hello</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -236,22 +238,22 @@
 バグを生み出しやすくなるため、返り値の型は特定の型1つに限定すべきです。
 バリエーションがあるとしても、 <code class="docutils literal notranslate"><span class="pre">|</span> <span class="pre">null</span></code> をつけるぐらいにしておきます。</p>
 <p>内部関数で明らかな場合は省略しても問題ありませんが、公開関数の場合はなるべく省略をやめた方が良いでしょう。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 返り値の型がたくさんある、行儀の悪い関数</span>
-<span class="kd">function</span> <span class="nx">yearLabel</span><span class="p">(</span><span class="nx">year</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">year</span> <span class="o">===</span> <span class="mf">2019</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="s1">&#39;今年&#39;</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">year</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 返り値の型がたくさんある、行儀の悪い関数</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">yearLabel</span><span class="p">(</span><span class="nx">year</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">year</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">2019</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;今年&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">year</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">label</span>: <span class="kt">number</span> <span class="o">=</span> <span class="nx">yearLabel</span><span class="p">(</span><span class="mf">2018</span><span class="p">);</span>
-<span class="c1">//  error TS2322: Type &#39;number | &quot;今年&quot;&#39; is not assignable to type &#39;number&#39;.</span>
-<span class="c1">//    Type &#39;&quot;今年&quot;&#39; is not assignable to type &#39;number&#39;.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">yearLabel</span><span class="p">(</span><span class="mf">2018</span><span class="p">);</span><span class="w"></span>
+<span class="c1">//  error TS2322: Type &#39;number | &quot;今年&quot;&#39; is not assignable to type &#39;number&#39;.</span><span class="w"></span>
+<span class="c1">//    Type &#39;&quot;今年&quot;&#39; is not assignable to type &#39;number&#39;.</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="id3">
-<h2>関数を扱う変数の型定義<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>関数を扱う変数の型定義<a class="headerlink" href="#id3" title="この見出しへのパーマリンク"></a></h2>
 <p>関数に型をつけることはできるようになりました。
 次は、その関数を代入できる変数の型を定義して見ましょう。</p>
 <p>例えば、文字列と数値を受け取り、booleanを返す関数を扱いたいとします。その関数は <code class="docutils literal notranslate"><span class="pre">check</span></code> という変数に入れます。
@@ -259,12 +261,12 @@
 引数はアロー関数のままですが、返り値だけは <code class="docutils literal notranslate"><span class="pre">=&gt;</span></code> の右につけ、 <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">}</span></code> は外します。
 型定義ではなく、実際のアロー関数の定義の返り値は <code class="docutils literal notranslate"><span class="pre">=&gt;</span></code> の左につきます。
 ここが逆転する点に注意してください。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">check</span><span class="o">:</span> <span class="p">(</span><span class="nx">arg1</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">arg2</span>: <span class="kt">number</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="kt">boolean</span><span class="p">;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">check</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">arg1</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">arg2</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">arg2</span></code> がもし関数であったら、関数の引数の中に関数が出てくるということで、入れ子の宣言になります。
 多少わかりにくいのですが、内側から順番に剥がして理解していくのがコツです。ネストが深くなり、理解が難しい場合はtype宣言で型定義を切り出して分解していく方が良いでしょう。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">check</span><span class="o">:</span> <span class="p">(</span><span class="nx">arg1</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">arg2</span><span class="o">:</span> <span class="p">(</span><span class="nx">arg3</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="kt">number</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="kt">boolean</span><span class="p">;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">check</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">arg1</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">arg2</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">arg3</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>サンプルとしてカスタマイズ可能なソート関数を作りました。
@@ -276,135 +278,135 @@
 最後に、そのソートされた配列を使い、オリジナルの配列に含まれていた要素だけの配列を再び作成しています。</p>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text">一度だけ変換するソート</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">sort</span><span class="p">(</span><span class="nx">a</span>: <span class="kt">string</span><span class="p">[],</span> <span class="nx">conv</span><span class="o">:</span> <span class="p">(</span><span class="nx">value</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">entries</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">value</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">[</span><span class="nx">value</span><span class="p">,</span> <span class="nx">conv</span><span class="p">(</span><span class="nx">value</span><span class="p">)])</span>
-  <span class="nx">entries</span><span class="p">.</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">b</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="mf">1</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">b</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="o">-</span><span class="mf">1</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="mf">0</span><span class="p">;</span>
-  <span class="p">});</span>
-  <span class="k">return</span> <span class="nx">entries</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">entry</span> <span class="p">=&gt;</span> <span class="nx">entry</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
-<span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">sort</span><span class="p">(</span><span class="nx">a</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[],</span><span class="w"> </span><span class="nx">conv</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">entries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">[</span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">conv</span><span class="p">(</span><span class="nx">value</span><span class="p">)])</span><span class="w"></span>
+<span class="w">  </span><span class="nx">entries</span><span class="p">.</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nx">b</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">b</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">});</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">entries</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">entry</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">entry</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">a</span>: <span class="kt">string</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">];</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sort</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">s</span> <span class="p">=&gt;</span> <span class="nx">s</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()))</span>
-<span class="c1">// [&quot;a&quot;, &quot;B&quot;, &quot;c&quot;, &quot;D&quot;]</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">a</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;B&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;D&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;c&quot;</span><span class="p">];</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sort</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()))</span><span class="w"></span>
+<span class="c1">// [&quot;a&quot;, &quot;B&quot;, &quot;c&quot;, &quot;D&quot;]</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="id4">
-<h2>関数を扱う変数に、デフォルトで何もしない関数を設定する<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>関数を扱う変数に、デフォルトで何もしない関数を設定する<a class="headerlink" href="#id4" title="この見出しへのパーマリンク"></a></h2>
 <p>コールバック関数を登録しておく変数に対し、何も代入されないときに呼び出し元が存在チェックをサボっていると、<code class="docutils literal notranslate"><span class="pre">undefined</span></code>に対して関数呼び出しをしたとエラーが発生します。その場合は、とりあえず何もしない関数を代入してエラーを回避したいと思うでしょう。</p>
 <p>JavaScriptの世界では型がないため、とりあえず引数を持たず、本体が空の無名関数を入れてしまうと回避はできます。</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 何もしない無名関数を入れておく</span>
-<span class="kd">var</span> <span class="nx">callback</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 何もしない無名関数を入れておく</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>TypeScriptでは、例え引数を利用しなかったとしても、また実際に実行されないのでreturn文を省略した場合でも、変数の関数の型と合わせる必要があります。わかりやすさのために、変数宣言と代入を分けたコードを提示します。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 変数宣言（代入はなし）</span>
-<span class="kd">let</span> <span class="nx">callback</span><span class="o">:</span> <span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="ow">void</span><span class="p">;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 変数宣言（代入はなし）</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">callback</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span><span class="w"></span>
 
-<span class="c1">// ダミー関数を設定</span>
-<span class="nx">callback</span> <span class="o">=</span> <span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+<span class="c1">// ダミー関数を設定</span><span class="w"></span>
+<span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
 </pre></div>
 </div>
 <p>もちろん、1行にまとめることもできます。JavaScript的にはどれも違いのない「関数」ですが、引数と返り値が違う関数はTypeScriptの世界では「別の型」として扱われますし、何もしない無名関数は引数も返り値もない関数の型を持っている、という判断が行われます。実際のロジックが空でも定義が必要な点は要注意です。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 変数宣言（代入で推論で型を設定）</span>
-<span class="kd">let</span> <span class="nx">callback</span> <span class="o">=</span> <span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="ow">void</span> <span class="p">=&gt;</span> <span class="p">{};</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 変数宣言（代入で推論で型を設定）</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="id5">
-<h2>デフォルト引数<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>デフォルト引数<a class="headerlink" href="#id5" title="この見出しへのパーマリンク"></a></h2>
 <p>TypeScriptは、他の言語と同じように関数宣言のところに引数のデフォルト値を簡単に書くことができます。
 また、TypeScriptは型定義通りに呼び出さないとエラーになるため、引数不足や引数が過剰になる、というエラーチェックも不要です。</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 新しいデフォルト引数</span>
-<span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">name</span><span class="o">=</span><span class="s2">&quot;小動物&quot;</span><span class="p">,</span> <span class="nx">favorite</span><span class="o">=</span><span class="s2">&quot;小豆餅&quot;</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">は</span><span class="si">${</span><span class="nx">favorite</span><span class="si">}</span><span class="sb">が好きです`</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="nx">f</span><span class="p">();</span> <span class="c1">// 省略して呼べる</span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 新しいデフォルト引数</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">f</span><span class="p">(</span><span class="nx">name</span><span class="o">=</span><span class="s2">&quot;小動物&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">favorite</span><span class="o">=</span><span class="s2">&quot;小豆餅&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">は</span><span class="si">${</span><span class="nx">favorite</span><span class="si">}</span><span class="sb">が好きです`</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="nx">f</span><span class="p">();</span><span class="w"> </span><span class="c1">// 省略して呼べる</span><span class="w"></span>
 </pre></div>
 </div>
 <p>オブジェクトの分割代入を利用すると、デフォルト値つきの柔軟なパラメータも簡単に実現できます。
 以前は、オプショナルな引数は<code class="docutils literal notranslate"><span class="pre">opts</span></code>という名前のオブジェクトを渡すこともよくありました。
 今時であれば、完全省略時にはデフォルト値が設定され、部分的な設定も可能な引数が次のように書けます。</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 分割代入を使って配列やオブジェクトを変数に展開＆デフォルト値も設定</span>
-<span class="c1">// 最後の={}がないとエラーになるので注意</span>
-<span class="kd">function</span> <span class="nx">f</span><span class="p">({</span><span class="nx">name</span><span class="o">=</span><span class="s2">&quot;小動物&quot;</span><span class="p">,</span> <span class="nx">favorite</span><span class="o">=</span><span class="s2">&quot;小豆餅&quot;</span><span class="p">}</span><span class="o">=</span><span class="p">{})</span> <span class="p">{</span>
-    <span class="o">:</span>
-<span class="p">}</span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 分割代入を使って配列やオブジェクトを変数に展開＆デフォルト値も設定</span><span class="w"></span>
+<span class="c1">// 最後の={}がないとエラーになるので注意</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">f</span><span class="p">({</span><span class="nx">name</span><span class="o">=</span><span class="s2">&quot;小動物&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">favorite</span><span class="o">=</span><span class="s2">&quot;小豆餅&quot;</span><span class="p">}</span><span class="o">=</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="o">:</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>JavaScriptは同じ動的言語のPythonとかよりもはるかにゆるく、引数不足でも呼び出すこともでき、その場合には変数に<code class="docutils literal notranslate"><span class="pre">undefined</span></code>が設定されました。
 <code class="docutils literal notranslate"><span class="pre">undefined</span></code>の場合は省略されたとみなして、デフォルト値を設定するコードが書かれたりしました。
 どの引数が省略可能で、省略したら引数を代入しなおしたり・・・とか面倒ですし、同じ型の引数があったら判別できなかったりもありますし、関数の先頭行付近が引数の処理で1画面分埋まる、ということも多くありました。
 また、可変長引数があってもコールバック関数がある場合は必ず末尾にあるというスタイルが一般的でしたが、この後に説明する<code class="docutils literal notranslate"><span class="pre">Promise</span></code>を返す手法が一般的になったので、こちらも取扱いが簡単になりました。</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// デフォルト引数の古いコード</span>
-<span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">favorite</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">favorite</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">favorite</span> <span class="o">=</span> <span class="s2">&quot;小豆餅&quot;</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// デフォルト引数の古いコード</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">f</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">favorite</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">favorite</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">undefined</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">favorite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;小豆餅&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// 古くてやっかいな、コールバック関数の扱い</span>
-<span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">favorite</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="ow">typeof</span> <span class="nx">favorite</span> <span class="o">===</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">cb</span> <span class="o">=</span> <span class="nx">favorite</span><span class="p">;</span>
-        <span class="nx">favorite</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="o">:</span>
-<span class="p">}</span>
+<span class="c1">// 古くてやっかいな、コールバック関数の扱い</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">f</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">favorite</span><span class="p">,</span><span class="w"> </span><span class="nx">cb</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">favorite</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;function&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">cb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">favorite</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nx">favorite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">undefined</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="o">:</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="id6">
-<h2>関数を含むオブジェクトの定義方法<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>関数を含むオブジェクトの定義方法<a class="headerlink" href="#id6" title="この見出しへのパーマリンク"></a></h2>
 <p>ES2015以降、関数や定義の方法が増えました。
 JavaScriptではクラスを作るまでもない場合は、オブジェクトを作って関数をメンバーとして入れることがありますが、それが簡単にできるようになりました。
 setter/getterの宣言も簡単に行えるようになりました。</p>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text">関数を含むオブジェクトの定義方法</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: オブジェクトの関数</span>
-<span class="kd">var</span> <span class="nx">smallAnimal</span> <span class="o">=</span> <span class="p">{</span>
-   <span class="nx">getName</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-     <span class="k">return</span> <span class="s2">&quot;小動物&quot;</span><span class="p">;</span>
-   <span class="p">}</span>
-<span class="p">};</span>
-<span class="c1">// 旧: setter/getter追加</span>
-<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">smallAnimal</span><span class="p">,</span> <span class="s2">&quot;favorite&quot;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_favorite</span><span class="p">;</span>
-  <span class="p">},</span>
-  <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">favorite</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_favorite</span> <span class="o">=</span> <span class="nx">favorite</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">});</span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: オブジェクトの関数</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">smallAnimal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nx">getName</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;小動物&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="c1">// 旧: setter/getter追加</span><span class="w"></span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">smallAnimal</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;favorite&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">get</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">_favorite</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nx">set</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">favorite</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">_favorite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">favorite</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 
-<span class="c1">// 新: オブジェクトの関数</span>
-<span class="c1">//     functionを省略</span>
-<span class="c1">//     setter/getterも簡単に</span>
-<span class="kd">const</span> <span class="nx">smallAnimal</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">getName</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="s2">&quot;小動物&quot;</span>
-  <span class="p">},</span>
-  <span class="nx">_favorite</span><span class="o">:</span> <span class="s2">&quot;小笠原&quot;</span><span class="p">,</span>
-  <span class="nx">get</span> <span class="nx">favorite</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_favorite</span><span class="p">;</span>
-  <span class="p">},</span>
-  <span class="nx">set</span> <span class="nx">favorite</span><span class="p">(</span><span class="nx">favorite</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_favorite</span> <span class="o">=</span> <span class="nx">favorite</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">};</span>
+<span class="c1">// 新: オブジェクトの関数</span><span class="w"></span>
+<span class="c1">//     functionを省略</span><span class="w"></span>
+<span class="c1">//     setter/getterも簡単に</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">smallAnimal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">getName</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;小動物&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nx">_favorite</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;小笠原&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">get</span><span class="w"> </span><span class="nx">favorite</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">_favorite</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nx">set</span><span class="w"> </span><span class="nx">favorite</span><span class="p">(</span><span class="nx">favorite</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">_favorite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">favorite</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="this">
-<h2>クロージャと<code class="docutils literal notranslate"><span class="pre">this</span></code>とアロー関数<a class="headerlink" href="#this" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>クロージャと<code class="docutils literal notranslate"><span class="pre">this</span></code>とアロー関数<a class="headerlink" href="#this" title="この見出しへのパーマリンク"></a></h2>
 <p>関数の中で関数を定義したときに、関数は自分の定義の外にある変数を参照できます。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">function</span> <span class="n">a</span><span class="p">()</span> <span class="p">{</span>
   <span class="n">const</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
@@ -419,16 +421,16 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 <p>以前はJavaのようなオブジェクトを実装するために、関数内部の変数をプライベートメンバー変数のように扱うテクニックがかつてありました。クラスの機能が公式のサポートされたので、今では重要度は低くなっているし、そもそも隠す必要性もあまりなので使うことはありませんが、頭の体操にはなるので、興味がある方は調べてみてください。</p>
 <p>レキシカルスコープは今では多くの言語が持っている機能なので、わざわざ名前を呼ぶこともありませんが、TypeScriptでは、知らないと落とし穴に落ちる可能性のあるやや重要な機能となります。前項でオブジェクトの中の関数定義を紹介しました。ここでは、予め定義された変数のように<code class="docutils literal notranslate"><span class="pre">this</span></code>を使っています。しかしこれは変数ではなく、特別な識別子です。レキシカルスコープで束縛できません。クロージャかつ、<code class="docutils literal notranslate"><span class="pre">this</span></code>への束縛ができる新文法としてアロー関数が追加されました。</p>
 <section id="id7">
-<h3>アロー関数<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>アロー関数<a class="headerlink" href="#id7" title="この見出しへのパーマリンク"></a></h3>
 <p>JavaScriptでは、やっかいなのが<code class="docutils literal notranslate"><span class="pre">this</span></code>です。無名関数をコールバック関数に渡そうとすると、<code class="docutils literal notranslate"><span class="pre">this</span></code>がわからなくなってしまう問題があります。
 アロー関数を使うと、その関数が定義された場所の<code class="docutils literal notranslate"><span class="pre">this</span></code>の保持までセットで行いますので、無名関数の<code class="docutils literal notranslate"><span class="pre">this</span></code>由来の問題をかなり軽減できます。
 表記も短いため、コードの幅も短くなり、コールバックを多用するところで <code class="docutils literal notranslate"><span class="pre">function</span></code> という長いキーワードが頻出するのを減らすことができます。</p>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text">アロー関数</span><a class="headerlink" href="#id15" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// アロー関数ならその外のthisが維持される。</span>
-<span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">walkTo</span><span class="p">(</span><span class="s2">&quot;タコ公園&quot;</span><span class="p">);</span>
-<span class="p">});</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// アロー関数ならその外のthisが維持される。</span><span class="w"></span>
+<span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">walkTo</span><span class="p">(</span><span class="s2">&quot;タコ公園&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -437,23 +439,23 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 ただし、引数の場所に型をつけたい場合は省略するとエラーになります。</p>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text">アロー関数の表記方法のバリエーション</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 基本形</span>
-<span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="cm">/* 式 */</span> <span class="p">};</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 基本形</span><span class="w"></span>
+<span class="p">(</span><span class="nx">arg1</span><span class="p">,</span><span class="w"> </span><span class="nx">arg2</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* 式 */</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
-<span class="c1">// 引数が1つの場合は引数のカッコを省略できる</span>
-<span class="c1">// ただし型を書くとエラーになる</span>
-<span class="nx">arg1</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="cm">/* 式 */</span> <span class="p">};</span>
+<span class="c1">// 引数が1つの場合は引数のカッコを省略できる</span><span class="w"></span>
+<span class="c1">// ただし型を書くとエラーになる</span><span class="w"></span>
+<span class="nx">arg1</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* 式 */</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
-<span class="c1">// 引数が0の場合はカッコが必要</span>
-<span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="cm">/* 式 */</span> <span class="p">};</span>
+<span class="c1">// 引数が0の場合はカッコが必要</span><span class="w"></span>
+<span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* 式 */</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
-<span class="c1">// 式の { } を省略すると、式の結果が return される</span>
-<span class="nx">arg</span> <span class="p">=&gt;</span> <span class="nx">arg</span> <span class="o">*</span> <span class="mf">2</span><span class="p">;</span>
+<span class="c1">// 式の { } を省略すると、式の結果が return される</span><span class="w"></span>
+<span class="nx">arg</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">arg</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w"></span>
 
-<span class="c1">// { } をつける場合は、値を返すときは return を書かなければならない</span>
-<span class="nx">arg</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">arg</span> <span class="o">*</span> <span class="mf">2</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="c1">// { } をつける場合は、値を返すときは return を書かなければならない</span><span class="w"></span>
+<span class="nx">arg</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">arg</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -461,60 +463,60 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 そのため、 <code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">self</span> <span class="pre">=</span> <span class="pre">this;</span></code> と他の変数に退避するコードがバッドノウハウとして有名でした。</p>
 <div class="literal-block-wrapper docutils container" id="id17">
 <div class="code-block-caption"><span class="caption-text">this消失を避ける古い書き方</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: 無名関数のイベントハンドラではその関数が宣言されたところのthisにアクセスできない</span>
-<span class="kd">var</span> <span class="nx">self</span><span class="o">=</span><span class="k">this</span><span class="p">;</span>
-<span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">self</span><span class="p">.</span><span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">walkTo</span><span class="p">(</span><span class="s2">&quot;タコ公園&quot;</span><span class="p">);</span>
-<span class="p">});</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: 無名関数のイベントハンドラではその関数が宣言されたところのthisにアクセスできない</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">self</span><span class="o">=</span><span class="k">this</span><span class="p">;</span><span class="w"></span>
+<span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">self</span><span class="p">.</span><span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">walkTo</span><span class="p">(</span><span class="s2">&quot;タコ公園&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 
-<span class="c1">// 旧: bind()で現在のthisに強制束縛</span>
-<span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">walkTo</span><span class="p">(</span><span class="s2">&quot;タコ公園&quot;</span><span class="p">);</span>
-<span class="p">}).</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+<span class="c1">// 旧: bind()で現在のthisに強制束縛</span><span class="w"></span>
+<span class="k">this</span><span class="p">.</span><span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">smallAnimal</span><span class="p">.</span><span class="nx">walkTo</span><span class="p">(</span><span class="s2">&quot;タコ公園&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}).</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 </section>
 </section>
 <section id="this-1">
-<h2><code class="docutils literal notranslate"><span class="pre">this</span></code>を操作するコードは書かない（1）<a class="headerlink" href="#this-1" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">this</span></code>を操作するコードは書かない（1）<a class="headerlink" href="#this-1" title="この見出しへのパーマリンク"></a></h2>
 <p>読者のみなさんはJavaScriptの <code class="docutils literal notranslate"><span class="pre">this</span></code> が何種類あるか説明できるでしょうか？
 <code class="docutils literal notranslate"><span class="pre">apply()</span></code> や<code class="docutils literal notranslate"><span class="pre">call()</span></code>で実行時に外部から差し込み、何も設定しない（グローバル）、 <code class="docutils literal notranslate"><span class="pre">bind()</span></code> で固定、メソッドのピリオドの右辺が実行時に設定、といったバリエーションがあります。
 これらの<code class="docutils literal notranslate"><span class="pre">this</span></code>の違いを知り、使いこなせるのがかつてのJavaScript上級者でしたが、このようなコードはなるべく使わないように済ませたいものです。</p>
 <p>無名関数で<code class="docutils literal notranslate"><span class="pre">this</span></code>がグローバル変数になってはずれてしまうのはアロー関数で解決できます。</p>
 <p><code class="docutils literal notranslate"><span class="pre">apply()</span></code>は、関数に引数セットを配列で引き渡したいときに使っていました。
 配列展開の文法のスプレッド構文<code class="docutils literal notranslate"><span class="pre">...</span></code>を使うと、もっと簡単にできます。</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="kd">const</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">];</span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">];</span><span class="w"></span>
 
-<span class="c1">// 旧: a=1, b=2, c=3として実行される</span>
-<span class="nx">f</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">params</span><span class="p">);</span>
+<span class="c1">// 旧: a=1, b=2, c=3として実行される</span><span class="w"></span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="nx">params</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// 新: スプレッド構文を使うと同じことが簡単に行える</span>
-<span class="nx">f</span><span class="p">(...</span><span class="nx">params</span><span class="p">);</span>
+<span class="c1">// 新: スプレッド構文を使うと同じことが簡単に行える</span><span class="w"></span>
+<span class="nx">f</span><span class="p">(...</span><span class="nx">params</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">call()</span></code>は配列の<code class="docutils literal notranslate"><span class="pre">push()</span></code>メソッドのように、引数を可変長にしたいときに使っていました。
 関数の中で引数全体は<code class="docutils literal notranslate"><span class="pre">arguments</span></code>という名前のちょっと配列っぽいオブジェクトで参照されます。
 そのままではちょっと使いにくいので一旦本物の配列に代入したいという時、 <code class="docutils literal notranslate"><span class="pre">call()</span></code>を使って配列のメソッドを<code class="docutils literal notranslate"><span class="pre">arguments</span></code>に適用するハックがよく利用されていました。
 これも引数リスト側に残余（Rest）構文を使うことで本体にロジックを書かずに実現できます。</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: 可変長配列の古いコード</span>
-<span class="kd">function</span> <span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// この2は固定引数をスキップするためのもの</span>
-    <span class="kd">var</span> <span class="nx">list</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mf">2</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">list</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="nx">f</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">6</span><span class="p">);</span>
-<span class="c1">// 1, 2, [3, 4, 5, 6];</span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 旧: 可変長配列の古いコード</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// この2は固定引数をスキップするためのもの</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">list</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="nx">f</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="mf">6</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// 1, 2, [3, 4, 5, 6];</span><span class="w"></span>
 
-<span class="c1">// 新: スプレッド構文。固定属性との共存もラクラク</span>
-<span class="kd">const</span> <span class="nx">f</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="p">...</span><span class="nx">c</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span>
-<span class="p">};</span>
-<span class="nx">f</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">6</span><span class="p">);</span>
-<span class="c1">// 1, 2, [3, 4, 5, 6];</span>
+<span class="c1">// 新: スプレッド構文。固定属性との共存もラクラク</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="nx">c</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+<span class="nx">f</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="mf">6</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// 1, 2, [3, 4, 5, 6];</span><span class="w"></span>
 </pre></div>
 </div>
 <p>ただし、jQueryなどのライブラリでは、 <code class="docutils literal notranslate"><span class="pre">this</span></code> がカレントのオブジェクトを指すのではなく、選択されているカレントノードを表すという別解釈を行います。
@@ -522,27 +524,27 @@ setter/getterの宣言も簡単に行えるようになりました。</p>
 <p><code class="docutils literal notranslate"><span class="pre">bind()</span></code> の排除はクラスの中で紹介します。</p>
 </section>
 <section id="id8">
-<h2>即時実行関数はもう使わない<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>即時実行関数はもう使わない<a class="headerlink" href="#id8" title="この見出しへのパーマリンク"></a></h2>
 <p>関数を作ってその場で実行することで、スコープ外に非公開にしたい変数などが見えないようにするテクニックがかつてありました。即時実行関数と呼びます。
 <code class="docutils literal notranslate"><span class="pre">function(){}</span></code>をかっこでくくって、その末尾に関数呼び出しのための<code class="docutils literal notranslate"><span class="pre">()</span></code>がさらに付いています。これで、エクスポートしたい特定の変数だけを<code class="docutils literal notranslate"><span class="pre">return</span></code>で返して公開をしていました。
 今時であれば、公開したい要素に明示的に<code class="docutils literal notranslate"><span class="pre">export</span></code>をつけると、webpackなどのツールがそれ以外の変数をファイル単位のスコープで隠してくれます。</p>
 <div class="literal-block-wrapper docutils container" id="id18">
 <div class="code-block-caption"><span class="caption-text">古いテクニックである即時実行関数</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">lib</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">libBody</span> <span class="o">=</span> <span class="p">{};</span>
-  <span class="kd">var</span> <span class="nx">localVariable</span><span class="p">;</span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">lib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">libBody</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">localVariable</span><span class="p">;</span><span class="w"></span>
 
-  <span class="nx">libBody</span><span class="p">.</span><span class="nx">method</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">localVariable</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">libBody</span><span class="p">;</span>
-<span class="p">})();</span>
+<span class="w">  </span><span class="nx">libBody</span><span class="p">.</span><span class="nx">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">localVariable</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">libBody</span><span class="p">;</span><span class="w"></span>
+<span class="p">})();</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="id9">
-<h2>まとめ<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>まとめ<a class="headerlink" href="#id9" title="この見出しへのパーマリンク"></a></h2>
 <p>関数についてさまざまなことを紹介してきました。</p>
 <ul class="simple">
 <li><p>関数の引数と返り値の型定義</p></li>

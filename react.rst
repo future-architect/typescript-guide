@@ -43,20 +43,13 @@ Next.jsの良いところは、よく使うツールやライブラリ一式が�
 
 .. [#] https://github.com/zeit/next.js/tree/canary/examples
 
-本書執筆時点のバージョンは9.4です。バージョンが変わると、方法が変わる可能性があります。
+本書執筆時点のバージョンは13です。バージョンが変わると、方法が変わる可能性があります。
 
 次のようにコマンドをタイプし、質問に答えると（プロジェクト名、標準構成で作るかサンプルを作るか）、プロジェクトフォルダが作成されます。
 
 .. code-block:: bash
 
-   $ npx create-next-app
-
-TypeScriptには対応していますが、設定ファイルを置いて拡張子を変える必要があります。作成されたプロジェクトフォルダの中で次のコマンドをタイプします。
-
-.. code-block:: bash
-
-   $ touch tsconfig.json
-   $ npm install --save-dev typescript @types/react @types/node
+   $ npx create-next-app@latest --ts
 
 次のコマンドが使えます。
 
@@ -64,10 +57,10 @@ TypeScriptには対応していますが、設定ファイルを置いて拡張�
 * ``npm run build``: ビルドして本番モードのHTML/CSS/JSファイルを生成
 * ``npm start``: ビルドしたアプリを本番モードのアプリケーションを起動
 
-一度、開発サーバーを起動すると、\ ``tsconfig.json``\ を認知して、それに初期値を設定したり、\ ``next-env.d.ts``\ というアンビエント型を書くファイルを作成します。あとは手動で、\ ``.js``\ ファイルをリネームしていけば設定完了です。JSXが含まれるファイルは\ ``.tsx``\ に、それ以外のファイルは\ ``.ts``\ にします。
+以前のバージョンでは少し追加作業が必要でしたが、最新バージョンでは ``--ts`` をつけるだけで設定が終わります。
 
-``tsconfig.json``\ は今までと少し異なります。後段でBabelが処理してくれる、ということもあって、モジュールタイプはES6 modules形式、ファイルを生成することはせず、Babelに投げるので\ ``noEmit: true``\ 。
-ReactもJSX構文をそのまま残す必要があるので"preserve"となっています。JSで書かれたコードも一部あるので、\ ``allowJs: true``\ でなければなりません。
+``tsconfig.json``\ は今までと少し異なります。後段でBabelやSWCといったツールが処理してくれる、ということもあって、モジュールタイプはES6 modules形式、ファイル生成も後続ツールが処理するため\ ``noEmit: true``\ 。
+ReactもJSX構文をそのまま残す必要があるので ``"preserve"`` となっています。JSで書かれたコードも一部あるので、\ ``allowJs: true``\ でなければなりません。
 
 Next.jsは\ `CSS Modules <https://github.com/css-modules/css-modules>`_\ に対応しているため、button.tsxの場合、button.module.cssといった名前にすることで、そのファイル専用のCSSを作成できます。
 もし、SCSSを使う場合は次のコマンドをタイプすると.module.scssが使えるようになります。
@@ -305,7 +298,7 @@ Reactはこのテンプレートの変換を処理系が直々に行うので、
 * 初期化コード、終了コード（\ ``useEffect()``\ ）
 * デフォルト値
 
-.. code-block:: tsx
+.. code-block:: jsx
 
    import React, { useState, useEffect } from 'react'
 
@@ -458,7 +451,7 @@ Reduxとの大きな違いは、内部で管理するステートの初期値と
 
 アプリケーション側との接点は2か所です。アプリケーション全体の設定と、値を利用したいコンポーネントです。
 
-.. code-block:: tsx
+.. code-block:: jsx
    :caption: アプリ全体で一カ所、storeを設定
 
    import { store } from '../redux/store';

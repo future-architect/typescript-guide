@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -126,8 +128,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>成果物のデプロイ</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">成果物のデプロイ</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/deploy.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -138,7 +140,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>成果物のデプロイ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>成果物のデプロイ<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h1>
 <p>TypeScriptで作ったアプリケーションの開発環境の作り方を、バリエーションごとに紹介してきました。それぞれの環境でビルド方法についても紹介しました。本章ではデプロイについて紹介します。</p>
 <div class="admonition-todo admonition" id="id2">
 <p class="admonition-title">課題</p>
@@ -147,7 +149,7 @@ npmパッケージ to nexus</p>
 <p><a class="reference external" href="https://qiita.com/kannkyo/items/5195069c65350b60edd9">https://qiita.com/kannkyo/items/5195069c65350b60edd9</a></p>
 </div>
 <section id="npm">
-<h2>npmパッケージとしてデプロイ<a class="headerlink" href="#npm" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>npmパッケージとしてデプロイ<a class="headerlink" href="#npm" title="この見出しへのパーマリンク"></a></h2>
 <p>この方法でデプロイする対象は以下の通りです。</p>
 <ul class="simple">
 <li><p>Node.js用のライブラリ</p></li>
@@ -170,7 +172,7 @@ npmパッケージ to nexus</p>
 <p>パッケージリポジトリはnpm以外にもあります。例えば、Nexusを使えばローカルにパッケージリポジトリが建てられます。GitHubもパッケージリポジトリを提供しています。</p>
 </section>
 <section id="id3">
-<h2>サーバーにアプリケーションをデプロイ<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>サーバーにアプリケーションをデプロイ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク"></a></h2>
 <p>Node.jsはシングルコアを効率よく使う処理系です。サーバーアプリケーションでマルチコアを効率よく使うには、プロセスマネージャを利用します。本書ではpm2を利用します。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/">https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/</a></p></li>
@@ -178,72 +180,72 @@ npmパッケージ to nexus</p>
 <p>サンプルとしては次のコードを使います。</p>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text">src/main.ts</span><a class="headerlink" href="#id12" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="nx">express</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Request</span><span class="p">,</span> <span class="nx">Response</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&quot;express&quot;</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">compression</span> <span class="kr">from</span> <span class="s2">&quot;compression&quot;</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">bodyParser</span> <span class="kr">from</span> <span class="s2">&quot;body-parser&quot;</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">gracefulShutdown</span> <span class="kr">from</span> <span class="s2">&quot;http-graceful-shutdown&quot;</span><span class="p">;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="nx">express</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Request</span><span class="p">,</span><span class="w"> </span><span class="nx">Response</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;express&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nx">compression</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;compression&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nx">bodyParser</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;body-parser&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nx">gracefulShutdown</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;http-graceful-shutdown&quot;</span><span class="p">;</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
-<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">compression</span><span class="p">());</span>
-<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
-<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="nx">extended</span>: <span class="kt">true</span> <span class="p">}));</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">express</span><span class="p">();</span><span class="w"></span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">compression</span><span class="p">());</span><span class="w"></span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span><span class="w"></span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span><span class="w"> </span><span class="nx">extended</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">}));</span><span class="w"></span>
 
-<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span>: <span class="kt">Request</span><span class="p">,</span> <span class="nx">res</span>: <span class="kt">Response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
-        <span class="nx">message</span><span class="o">:</span> <span class="sb">`hello </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s2">&quot;user-agent&quot;</span><span class="p">]</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
-    <span class="p">});</span>
-<span class="p">});</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="o">:</span><span class="w"> </span><span class="kt">Request</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="o">:</span><span class="w"> </span><span class="kt">Response</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span><span class="w"></span>
+<span class="w">        </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="sb">`hello </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s2">&quot;user-agent&quot;</span><span class="p">]</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">host</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">HOST</span> <span class="o">||</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mf">3000</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">HOST</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="mf">3000</span><span class="p">;</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Server is running at http://%s:%d&quot;</span><span class="p">,</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">port</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;  Press CTRL-C to stop\n&quot;</span><span class="p">);</span>
-<span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Server is running at http://%s:%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">host</span><span class="p">,</span><span class="w"> </span><span class="nx">port</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;  Press CTRL-C to stop\n&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 
-<span class="nx">gracefulShutdown</span><span class="p">(</span><span class="nx">server</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">signals</span><span class="o">:</span> <span class="s2">&quot;SIGINT SIGTERM&quot;</span><span class="p">,</span>
-    <span class="nx">timeout</span>: <span class="kt">30000</span><span class="p">,</span>
-    <span class="nx">development</span>: <span class="kt">false</span><span class="p">,</span>
-    <span class="nx">onShutdown</span>: <span class="kt">async</span> <span class="p">(</span><span class="nx">signal</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;... called signal: &quot;</span> <span class="o">+</span> <span class="nx">signal</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;... in cleanup&quot;</span><span class="p">);</span>
-        <span class="c1">// shutdown DB or something</span>
-    <span class="p">},</span>
-    <span class="k">finally</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Server gracefulls shutted down.....&quot;</span><span class="p">);</span>
-    <span class="p">},</span>
-<span class="p">});</span>
+<span class="nx">gracefulShutdown</span><span class="p">(</span><span class="nx">server</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">signals</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;SIGINT SIGTERM&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="kt">30000</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">development</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">onShutdown</span><span class="o">:</span><span class="w"> </span><span class="kt">async</span><span class="w"> </span><span class="p">(</span><span class="nx">signal</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;... called signal: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">signal</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;... in cleanup&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// shutdown DB or something</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="k">finally</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Server gracefulls shutted down.....&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>は<code class="docutils literal notranslate"><span class="pre">npx</span> <span class="pre">tsc</span> <span class="pre">--init</span></code>で生成したものをひとまず使います。<code class="docutils literal notranslate"><span class="pre">package.json</span></code>は以下のものを利用します。nccを使ってビルドする前提となっています。</p>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text">package.json</span><a class="headerlink" href="#id13" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;webserver&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;ncc build src/main.ts&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;Yoshiki Shibukawa&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;ISC&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;pm2&quot;</span><span class="p">:</span> <span class="s2">&quot;^4.4.0&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;@types/body-parser&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.19.0&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;@types/compression&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.7.0&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;@types/express&quot;</span><span class="p">:</span> <span class="s2">&quot;^4.17.7&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;@zeit/ncc&quot;</span><span class="p">:</span> <span class="s2">&quot;^0.22.3&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;body-parser&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.19.0&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;compression&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.7.4&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;express&quot;</span><span class="p">:</span> <span class="s2">&quot;^4.17.1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;http-graceful-shutdown&quot;</span><span class="p">:</span> <span class="s2">&quot;^2.3.2&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;typescript&quot;</span><span class="p">:</span> <span class="s2">&quot;^3.9.7&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webserver&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ncc build src/main.ts&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Yoshiki Shibukawa&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;license&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ISC&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;pm2&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.4.0&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;@types/body-parser&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.19.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;@types/compression&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.7.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;@types/express&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.17.7&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;@zeit/ncc&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^0.22.3&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;body-parser&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.19.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;compression&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.7.4&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;express&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.17.1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;http-graceful-shutdown&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^2.3.2&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;typescript&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^3.9.7&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -255,7 +257,7 @@ npmパッケージ to nexus</p>
 <p>デーモン化させないでフォアグラウンドで動作させる場合は<code class="docutils literal notranslate"><span class="pre">--no-daemon</span></code>をつけて起動します。</p>
 </section>
 <section id="docker">
-<h2>Dockerイメージの作成<a class="headerlink" href="#docker" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>Dockerイメージの作成<a class="headerlink" href="#docker" title="この見出しへのパーマリンク"></a></h2>
 <p>この方法でデプロイする対象は以下の通りです。</p>
 <ul class="simple">
 <li><p>Node.js用のCLIツール</p></li>
@@ -264,7 +266,7 @@ npmパッケージ to nexus</p>
 </ul>
 <p>なお、本章のサンプルはベースイメージのバージョンは細かく指定していませんが、突然メジャーバージョンが上がってビルドできなくなることもあります。特に業務開発ではDocker Hubのイメージ情報のタグを見て、適宜バージョンを固定することをお勧めします。</p>
 <section id="id4">
-<h3>コンテナとは何か<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>コンテナとは何か<a class="headerlink" href="#id4" title="この見出しへのパーマリンク"></a></h3>
 <p>コンテナは1アプリケーションだけが格納されたミニOS環境です。Linux上でもmacOS上でもWindows上でもクラウド環境でも、アプリケーションからは同じOS環境のように見えます。ポータブルなアプリケーション配布・実行環境としてますます地位が高まっています。コンテナは動いている環境のことを指します。コンテナは実行時にイメージを読み込んで環境を構築します。これは実行に必要なファイルと起動時のコマンドなどがセットになったものです。開発者が作るのはイメージです。</p>
 <p>コンテナ関係のシステムは、実行のランタイムやビルド方法など、それぞれにいくつか選択肢がありますが、開発時の環境として一番ポピュラーなのがDockerです。本書ではコンテナ=Dockerコンテナとして説明をします。</p>
 <p>ローカルではコンテナはDocker for Desktopを使ってイメージの作成や動作のテストができます。運用環境として、どのクラウド事業者もKubernetesを使ってコンテナベースで本番運用環境の維持管理できるサービスを提供しています。1つのノードにリソースが許すかぎり多数のコンテナを配置することができ、実行時の効率も上がります。
@@ -285,7 +287,7 @@ npmパッケージ to nexus</p>
 <p>複数のコンテナに必要な設定を与えてまとめて起動するツール（コンテナオーケストレーションツール）もあります。それがdocker-composeやKubernetesです。</p>
 </section>
 <section id="id5">
-<h3>Dockerのベースイメージの選択<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>Dockerのベースイメージの選択<a class="headerlink" href="#id5" title="この見出しへのパーマリンク"></a></h3>
 <p>Dockerイメージを作成するには<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>という設定ファイルを作成し、<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code>コマンドを使ってイメージを作成します。ベースイメージと呼ばれる土台となるイメージを選択して、それに対して必要なファイルを追加します。ビルド済みのアプリケーションを単に置く、という構築方法もありますが（公式イメージの多くはそれに近いことをしている）、アプリケーション開発の場合はソースコードをDocker内部に送り、それをDocker内部でビルドして、実行用イメージを作成します。できあがったイメージをコンパクトにするために、ビルド用イメージと、実行用イメージを分ける（マルチステージビルド）が今の主流です。</p>
 <p>Node.jsの公式のイメージは以下のサイトにあります。</p>
 <ul class="simple">
@@ -347,7 +349,7 @@ npmパッケージ to nexus</p>
 </section>
 </section>
 <section id="cli">
-<h2>CLI/ウェブアプリケーションのイメージ作成<a class="headerlink" href="#cli" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>CLI/ウェブアプリケーションのイメージ作成<a class="headerlink" href="#cli" title="この見出しへのパーマリンク"></a></h2>
 <p>CLIとウェブアプリケーションの場合の手順はあまり変わらないので一緒に説明します。ベースイメージの選択では3種類の組み合わせがありました。</p>
 <ul class="simple">
 <li><p>C拡張あり（Debian系でビルド）</p></li>
@@ -357,7 +359,7 @@ npmパッケージ to nexus</p>
 <p>前2つ目はベースイメージが<code class="docutils literal notranslate"><span class="pre">node:12-buster</span></code>から<code class="docutils literal notranslate"><span class="pre">node:12-buster-slim</span></code>に変わるだけですので、まとめて紹介します。</p>
 <p>なお、Node.jsはシングルコアで動作する処理系ですので、マルチコアを生かしたい場合はインスタンスを複数起動し、ロードバランスをする仕組みを外部に起動する必要があります。</p>
 <section id="debiandocker">
-<h3>Debianベースのイメージ作成とDockerの基礎<a class="headerlink" href="#debiandocker" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>Debianベースのイメージ作成とDockerの基礎<a class="headerlink" href="#debiandocker" title="この見出しへのパーマリンク"></a></h3>
 <p>まず、イメージにするアプリケーションを作成します。コンテナの中のアプリケーションは終了時にシグナルが呼ばれますので、シグナルに応答して終了するように実装する必要があります。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>はコンテナのイメージを作成するためのレシピです。行志向のスクリプトになっています。WindowsやmacOSでは、Linuxが動作している仮想PCの中でDockerのサーバーが動作しており（Windowsの場合はWindowsも動作しますが、ここでは無視します）、ビルドを実行すると、実行されているフォルダの配下のファイル（コンテキスト）と<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>が、まとめてサーバーに送られます。サーバーの中で、<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>に書かれた命令に従ってベースとなるディスクイメージに手を加えていきます。実行されるのはローカルコンピュータではないので、記述できるコマンドも、そのベースイメージのLinuxで使えるものに限られます。</p>
 <p>そのため、<code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>に問題があれば、Windows上でビルドや実行をしても、macOS上でビルドや実行をしても、まったく同じエラーが発生するはずです。バージョン番号や内部で使われるパッケージのバージョンはその時の最新を使うこともできるため、いつでもまったく同じにはならないかもしれませんが、どこで誰がどのOSで実行しても、同じイメージが作られます。この冪等性がDockerが重宝されるポイントです。</p>
@@ -366,23 +368,23 @@ npmパッケージ to nexus</p>
 <div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id14" title="このコードへのパーマリンク"></a></div>
 <div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="c"># ここから下がビルド用イメージ</span>
 
-<span class="k">FROM</span> <span class="s">node:12-buster</span> <span class="k">AS</span> <span class="s">builder</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:12-buster</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">builder</span>
 
-<span class="k">WORKDIR</span><span class="s"> app</span>
-<span class="k">COPY</span> package.json package-lock.json ./
-<span class="k">RUN</span> npm ci
-<span class="k">COPY</span> tsconfig.json ./
-<span class="k">COPY</span> src ./src
-<span class="k">RUN</span> npm run build
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">app</span>
+<span class="k">COPY</span><span class="w"> </span>package.json package-lock.json ./
+<span class="k">RUN</span><span class="w"> </span>npm ci
+<span class="k">COPY</span><span class="w"> </span>tsconfig.json ./
+<span class="k">COPY</span><span class="w"> </span>src ./src
+<span class="k">RUN</span><span class="w"> </span>npm run build
 
 <span class="c"># ここから下が実行用イメージ</span>
 
-<span class="k">FROM</span> <span class="s">node:12-buster-slim</span> <span class="k">AS</span> <span class="s">runner</span>
-<span class="k">WORKDIR</span><span class="s"> /opt/app</span>
-<span class="k">COPY</span> --from<span class="o">=</span>builder /app/dist ./
-<span class="k">USER</span><span class="s"> node</span>
-<span class="k">EXPOSE</span><span class="s"> 3000</span>
-<span class="k">CMD</span> <span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span> <span class="s2">&quot;/opt/app/index.js&quot;</span><span class="p">]</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:12-buster-slim</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">runner</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/opt/app</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>builder /app/dist ./
+<span class="k">USER</span><span class="w"> </span><span class="s">node</span>
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">3000</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;/opt/app/index.js&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -398,7 +400,7 @@ npmパッケージ to nexus</p>
 <p>今回紹介している、ビルド用イメージと実行用イメージなど、複数イメージを利用してイメージを作成する方法は「マルチステージビルド」と呼ばれます。</p>
 <p>すべてのステップがレイヤーとして保存されると紹介しました。例えば、ファイルを追加、そして削除をそれぞれ1ステップずつ実行すると、消したはずのファイルもレイヤーには残ってしまい、イメージサイズは大きなままとなります。</p>
 <p>マルチステージビルドがなかった時代は、なるべくレイヤーを作らないことでイメージサイズを減らそうとしていました。例えば、C++コンパイラをパッケージマネージャを使ってインストールし、ビルドを実行し、コンパイラを削除するというところまで、一つのRUNコマンドで行うこともありました。これであれば、結果のレイヤーは一つですし、ビルド済みのバイナリだけが格納されるのでサイズは増えません。次のコードは<a class="reference external" href="https://github.com/docker-library/redis">Redisの実際のリポジトリ</a>から取得してきたものです。Redis 3.0当時のもので、今はもっと複雑ですが、この場合は試行錯誤すると、毎回パッケージのダウンロードが始まります。もはやこのようなことは不要です。</p>
-<div class="highlight-Dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">RUN</span> <span class="nv">buildDeps</span><span class="o">=</span><span class="s1">&#39;gcc libc6-dev make&#39;</span> <span class="se">\</span>
+<div class="highlight-Dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">RUN</span><span class="w"> </span><span class="nv">buildDeps</span><span class="o">=</span><span class="s1">&#39;gcc libc6-dev make&#39;</span> <span class="se">\</span>
     <span class="o">&amp;&amp;</span> <span class="nb">set</span> -x <span class="se">\</span>
     <span class="o">&amp;&amp;</span> apt-get update <span class="o">&amp;&amp;</span> apt-get install -y <span class="nv">$buildDeps</span> --no-install-recommends <span class="se">\</span>
     <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/* <span class="se">\</span>
@@ -429,7 +431,7 @@ npmパッケージ to nexus</p>
 </div>
 </section>
 <section id="id7">
-<h3>Dockerイメージのビルドと実行<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>Dockerイメージのビルドと実行<a class="headerlink" href="#id7" title="この見出しへのパーマリンク"></a></h3>
 <p>Dockerfileができたらイメージをビルドして実行してみましょう。名前をつけなくても、最後に作成したものなので実行直後は迷子にはならないのですが、何かしら名前をつけておく方が何かと良いです。ハッシュな識別子はかならず生成されるので、削除や実行にはこの識別子も使えます。</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ビルド。作成したイメージにwebserverと名前をつける</span>
 $ docker build -t <span class="o">[</span>イメージ名<span class="o">]</span> .
@@ -458,7 +460,7 @@ $ docker rm <span class="o">[</span>コンテナ名<span class="o">]</span>
 <p>説明によってはデーモン化のための<code class="docutils literal notranslate"><span class="pre">-d</span></code>オプションを紹介しているものもありますが、ログを見たりもあると思いますし、簡単に停止ができるようにこのオプションは付けずに実行する方が便利です。代わりに、実行しているターミナルに接続して情報を出力するために<code class="docutils literal notranslate"><span class="pre">-it</span></code>（ハイフンは一つ）を付けます。また、Dockerを停止すると、停止状態になり、その後削除は<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rm</span></code>コマンドを実行しなければなりませんが、<code class="docutils literal notranslate"><span class="pre">--rm</span></code>をつけると、停止時に削除まで行ます。<code class="docutils literal notranslate"><span class="pre">-p</span></code>はあけたいポート番号です。左がホスト、右がDocker内部のプロセスのポートです。今回は同じなので、<cite>-p &quot;3000:3000&quot;</cite>を指定します。もし、コンテナ内部が80であれば、<cite>-p &quot;3000:80&quot;</cite>になります。</p>
 </section>
 <section id="distrolessdocker">
-<h3>distrolessベースのDockerイメージの作成<a class="headerlink" href="#distrolessdocker" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>distrolessベースのDockerイメージの作成<a class="headerlink" href="#distrolessdocker" title="この見出しへのパーマリンク"></a></h3>
 <p>distrolessはシェルが入っておらず、外部からログインされることもなく安全というGoogle製のDockerイメージです。標準Linuxに入っているようなツールも含めて、最小限にカットされています。Node.js、Java、Python、.netなど言語のランタイムだけが入ったバージョン、llvmベースのコンパイラで作成したコードを動かすだけのバージョン、何もないバージョンなど、いくつかのバリエーションが用意されています。今回はNode.jsを使います。</p>
 <p>現在、8種類タグが定義されています。latestはLTSが終わるまでは10のままです。<code class="docutils literal notranslate"><span class="pre">debug</span></code>がついているものはデバッグ用のシェルが内蔵されています。</p>
 <ul class="simple">
@@ -476,29 +478,29 @@ $ docker rm <span class="o">[</span>コンテナ名<span class="o">]</span>
 <div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id16" title="このコードへのパーマリンク"></a></div>
 <div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="c"># ここから下がビルド用イメージ</span>
 
-<span class="k">FROM</span> <span class="s">node:12-buster</span> <span class="k">AS</span> <span class="s">builder</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:12-buster</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">builder</span>
 
-<span class="k">WORKDIR</span><span class="s"> app</span>
-<span class="k">COPY</span> package.json package-lock.json ./
-<span class="k">RUN</span> npm ci
-<span class="k">COPY</span> tsconfig.json ./
-<span class="k">COPY</span> src ./src
-<span class="k">RUN</span> npm run build
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">app</span>
+<span class="k">COPY</span><span class="w"> </span>package.json package-lock.json ./
+<span class="k">RUN</span><span class="w"> </span>npm ci
+<span class="k">COPY</span><span class="w"> </span>tsconfig.json ./
+<span class="k">COPY</span><span class="w"> </span>src ./src
+<span class="k">RUN</span><span class="w"> </span>npm run build
 
 <span class="c"># ここから下が実行用イメージ</span>
 
-<span class="k">FROM</span> <span class="s">gcr.io/distroless/nodejs</span> <span class="k">AS</span> <span class="s">runner</span>
-<span class="k">WORKDIR</span><span class="s"> /opt/app</span>
-<span class="k">COPY</span> --from<span class="o">=</span>builder /app/dist ./
-<span class="k">EXPOSE</span><span class="s"> 3000</span>
-<span class="k">CMD</span> <span class="p">[</span><span class="s2">&quot;/opt/app/index.js&quot;</span><span class="p">]</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">gcr.io/distroless/nodejs</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">runner</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/opt/app</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>builder /app/dist ./
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">3000</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/opt/app/index.js&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </section>
 </section>
 <section id="id8">
-<h2>ウェブフロントエンドのDockerイメージの作成<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>ウェブフロントエンドのDockerイメージの作成<a class="headerlink" href="#id8" title="この見出しへのパーマリンク"></a></h2>
 <p>本節ではウェブフロントエンドが一式格納されたDockerイメージを作成します。もし、Next.jsでサーバーサイドレンダリングを行う場合、それは単なるNode.jsのサーバーですので、前節の内容に従ってNode.jsのコンテナを作成してください。本節で扱うのは、サーバーを伴わないHTML/JavaScriptなどのフロントエンドのファイルを配信する方法です。</p>
 <p>シングルページアプリケーションをビルドすると静的なHTMLやJS、CSSのファイル群ができます。これらのファイルを利用する方法はいくつかあります。</p>
 <ul class="simple">
@@ -516,55 +518,55 @@ $ docker rm <span class="o">[</span>コンテナ名<span class="o">]</span>
 <div class="code-block-caption"><span class="caption-text">Dockerfile</span><a class="headerlink" href="#id17" title="このコードへのパーマリンク"></a></div>
 <div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="c"># ここから下がビルド用イメージ</span>
 
-<span class="k">FROM</span> <span class="s">node:12-buster</span> <span class="k">AS</span> <span class="s">builder</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:12-buster</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">builder</span>
 
-<span class="k">WORKDIR</span><span class="s"> app</span>
-<span class="k">COPY</span> package.json package-lock.json ./
-<span class="k">RUN</span> npm ci --no-optional
-<span class="k">COPY</span> tsconfig.json ./
-<span class="k">COPY</span> public ./public
-<span class="k">COPY</span> src ./src
-<span class="k">RUN</span> npm run build
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">app</span>
+<span class="k">COPY</span><span class="w"> </span>package.json package-lock.json ./
+<span class="k">RUN</span><span class="w"> </span>npm ci --no-optional
+<span class="k">COPY</span><span class="w"> </span>tsconfig.json ./
+<span class="k">COPY</span><span class="w"> </span>public ./public
+<span class="k">COPY</span><span class="w"> </span>src ./src
+<span class="k">RUN</span><span class="w"> </span>npm run build
 
 <span class="c"># ここから下が実行用イメージ</span>
 
-<span class="k">FROM</span> <span class="s">nginx:alpine</span> <span class="k">AS</span> <span class="s">runner</span>
-<span class="k">COPY</span> nginx.conf /etc/nginx/nginx.conf
-<span class="k">COPY</span> --from<span class="o">=</span>builder /app/build public
-<span class="k">EXPOSE</span><span class="s"> 80</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">nginx:alpine</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">runner</span>
+<span class="k">COPY</span><span class="w"> </span>nginx.conf /etc/nginx/nginx.conf
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>builder /app/build public
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">80</span>
 </pre></div>
 </div>
 </div>
 <p>配信用のnginxの設定です。シングルページアプリケーションにとって大切なパートが<code class="docutils literal notranslate"><span class="pre">try_files</span></code>です。シングルページアプリケーションでは1つのHTML/JSがあらゆるページを作り上げます。そしてその時にURLを書き換えます。しかし、そこでブラウザリロードをすると、JavaScriptによって作られた仮想的なURLを読みにこうとします。この<code class="docutils literal notranslate"><span class="pre">try_files</span></code>を有効にすると、一度アクセスしに行って見つからなかった場合にオプションで設定したファイルを返せます。ここでは<code class="docutils literal notranslate"><span class="pre">index.html</span></code>を返すので、そこでReact Routerなどのフロントで動作しているウェブサービスが仕分けを行い、もしどこにもマッチしなければフロント側のRouterがエラーをハンドリングできます。</p>
 <div class="literal-block-wrapper docutils container" id="id18">
 <div class="code-block-caption"><span class="caption-text">nginx.conf</span><a class="headerlink" href="#id18" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">worker_processes</span> <span class="mi">2</span><span class="p">;</span>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">worker_processes</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">events</span> <span class="p">{</span>
-    <span class="kn">worker_connections</span> <span class="mi">1024</span><span class="p">;</span>
-    <span class="kn">multi_accept</span> <span class="no">on</span><span class="p">;</span>
-    <span class="kn">use</span> <span class="s">epoll</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="k">events</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kn">worker_connections</span><span class="w"> </span><span class="mi">1024</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kn">multi_accept</span><span class="w"> </span><span class="no">on</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kn">use</span><span class="w"> </span><span class="s">epoll</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">http</span> <span class="p">{</span>
-    <span class="kn">include</span> <span class="s">/etc/nginx/mime.types</span><span class="p">;</span>
-    <span class="kn">server</span> <span class="p">{</span>
-        <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
-        <span class="kn">server_name</span> <span class="mi">127</span><span class="s">.0.0.1</span><span class="p">;</span>
+<span class="k">http</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kn">include</span><span class="w"> </span><span class="s">/etc/nginx/mime.types</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kn">server</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kn">server_name</span><span class="w"> </span><span class="mi">127</span><span class="s">.0.0.1</span><span class="p">;</span><span class="w"></span>
 
-        <span class="kn">access_log</span> <span class="s">/dev/stdout</span><span class="p">;</span>
-        <span class="kn">error_log</span> <span class="s">stderr</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">access_log</span><span class="w"> </span><span class="s">/dev/stdout</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kn">error_log</span><span class="w"> </span><span class="s">stderr</span><span class="p">;</span><span class="w"></span>
 
-        <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
-            <span class="kn">root</span> <span class="s">/public</span><span class="p">;</span>
-            <span class="kn">index</span> <span class="s">index.html</span><span class="p">;</span>
-            <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri/</span> <span class="s">/index.html</span> <span class="p">=</span><span class="mi">404</span><span class="p">;</span>
-            <span class="kn">gzip</span> <span class="no">on</span><span class="p">;</span>
-            <span class="kn">gzip_types</span> <span class="s">text/css</span> <span class="s">application/javascript</span> <span class="s">application/json</span> <span class="s">image/svg+xml</span><span class="p">;</span>
-            <span class="kn">gzip_comp_level</span> <span class="mi">9</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="kn">root</span><span class="w"> </span><span class="s">/public</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="kn">index</span><span class="w"> </span><span class="s">index.html</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="kn">try_files</span><span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri/</span><span class="w"> </span><span class="s">/index.html</span><span class="w"> </span><span class="p">=</span><span class="mi">404</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="kn">gzip</span><span class="w"> </span><span class="no">on</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="kn">gzip_types</span><span class="w"> </span><span class="s">text/css</span><span class="w"> </span><span class="s">application/javascript</span><span class="w"> </span><span class="s">application/json</span><span class="w"> </span><span class="s">image/svg+xml</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="kn">gzip_comp_level</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -584,15 +586,15 @@ $ docker rm <span class="o">[</span>コンテナ名<span class="o">]</span>
 </div>
 </section>
 <section id="kubernetes">
-<h2>Kubernetesへのデプロイ<a class="headerlink" href="#kubernetes" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>Kubernetesへのデプロイ<a class="headerlink" href="#kubernetes" title="この見出しへのパーマリンク"></a></h2>
 <p>このセクションでは、作成したアプリケーションのDockerイメージをKubernetesの上で動かすための基本について説明します。</p>
 <section id="id9">
-<h3>Kubernetesの概要<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>Kubernetesの概要<a class="headerlink" href="#id9" title="この見出しへのパーマリンク"></a></h3>
 <p>KubernetesはGoogleが自社の基盤をOSSとして1から再実装したソフトウェアです。アプリケーションのデプロイ単位としてDockerコンテナを用いており、開発者はコンテナイメージを作成して配信することによって、Kubernetesの上でアプリケーションを動かすことができます。</p>
 <p>コンテナアプリケーションを本番で稼働するにあたっては、サービスを停止せずにアップデートする方法や、複数のコンテナを水平にスケールしながら負荷分散する機能など、さまざまな運用面での課題を解決する必要がありますが、Kubernetesではそれらの機能を一貫して提供してくれるメリットがあります。</p>
 </section>
 <section id="id10">
-<h3>Kubernetesをローカルで実行する<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>Kubernetesをローカルで実行する<a class="headerlink" href="#id10" title="この見出しへのパーマリンク"></a></h3>
 <p>Kubernetesをローカルで実行するには以下のようなツールを使う方法があります。</p>
 <ul class="simple">
 <li><p>minikube</p></li>
@@ -632,40 +634,40 @@ $ docker images
 </pre></div>
 </div>
 <p>そうしたら、以下のYAMLファイルを作成します。</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
-<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Deployment</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes-deployment</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="nt">selector</span><span class="p">:</span>
-    <span class="nt">matchLabels</span><span class="p">:</span>
-    <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
-<span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
-<span class="nt">template</span><span class="p">:</span>
-    <span class="nt">metadata</span><span class="p">:</span>
-    <span class="nt">labels</span><span class="p">:</span>
-        <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
-    <span class="nt">spec</span><span class="p">:</span>
-    <span class="nt">containers</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
-        <span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes:1.0.0</span>
-        <span class="l l-Scalar l-Scalar-Plain">imagePullPolicy</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
-        <span class="l l-Scalar l-Scalar-Plain">ports</span><span class="p p-Indicator">:</span>
-        <span class="p p-Indicator">-</span> <span class="nt">containerPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
-<span class="nn">---</span>
-<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Service</span>
-<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes-service</span>
-<span class="nt">labels</span><span class="p">:</span>
-    <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="nt">ports</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
-    <span class="l l-Scalar l-Scalar-Plain">targetPort</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
-<span class="nt">selector</span><span class="p">:</span>
-    <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
-<span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterIP</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span><span class="w"></span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span><span class="w"></span>
+<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes-deployment</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="nt">selector</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span><span class="w"></span>
+<span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w"></span>
+<span class="nt">template</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span><span class="w"></span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">containers</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span><span class="w"></span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes:1.0.0</span><span class="w"></span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">imagePullPolicy</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span><span class="w"></span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">ports</span><span class="p p-Indicator">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span><span class="w"></span>
+<span class="nn">---</span><span class="w"></span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span><span class="w"></span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
+<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes-service</span><span class="w"></span>
+<span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">targetPort</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span><span class="w"></span>
+<span class="nt">selector</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterIP</span><span class="w"></span>
 </pre></div>
 </div>
 <p>作成したYAMLをKubernetesに適用します。</p>
@@ -690,19 +692,19 @@ Forwarding from <span class="o">[</span>::1<span class="o">]</span>:8080 -&gt; <
 </pre></div>
 </div>
 <p>ブラウザで <code class="docutils literal notranslate"><span class="pre">localhost:8080</span></code>にアクセスすると、作成されたアプリケーションがnginxの上で動いていることが確認できます。なお、本番などでマネージドサービスを利用する場合、ClusterIP + port-forwardを利用しなくとも、以下のようにLoadBalacnerサービスを使用することで、パブリッククラウドのロードバランサーと簡単に連携させることができます。</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Service</span>
-<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes-service</span>
-<span class="nt">labels</span><span class="p">:</span>
-   <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="nt">ports</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
-   <span class="l l-Scalar l-Scalar-Plain">targetPort</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
-<span class="nt">selector</span><span class="p">:</span>
-   <span class="nt">app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span>
-<span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">LoadBalancer</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span><span class="w"></span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
+<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes-service</span><span class="w"></span>
+<span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<span class="w">   </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span><span class="w"></span>
+<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">targetPort</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span><span class="w"></span>
+<span class="nt">selector</span><span class="p">:</span><span class="w"></span>
+<span class="w">   </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">typescript-kubernetes</span><span class="w"></span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LoadBalancer</span><span class="w"></span>
 </pre></div>
 </div>
 <p>最後に、作成したminikubeの環境を削除します。</p>
@@ -716,7 +718,7 @@ Forwarding from <span class="o">[</span>::1<span class="o">]</span>:8080 -&gt; <
 </section>
 </section>
 <section id="id11">
-<h2>まとめ<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>まとめ<a class="headerlink" href="#id11" title="この見出しへのパーマリンク"></a></h2>
 <p>TypeScriptで作成したコードが価値を産むのは、何かしらのデプロイ作業を通じてになります。本章ではそのデプロイの方法について、さまざまな方法をを説明しています。</p>
 <p>Dockerは強力な武器です。ぜひ使いこなせるようになってください。</p>
 </section>

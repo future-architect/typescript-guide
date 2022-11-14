@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -107,8 +109,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ソフトウェア開発の環境を考える</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">ソフトウェア開発の環境を考える</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/prodenv.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -119,7 +121,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>ソフトウェア開発の環境を考える<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>ソフトウェア開発の環境を考える<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h1>
 <p>すでに開始しているフロントエンドの開発に加わる場合、まず文法ぐらいが分かって入れば開発に入ることができるでしょう。
 しかし、立ち上げる場合は最低1人は環境構築ができるメンバーが必要になります。
 本章以降はその最低1人を育てるための内容になります。</p>
@@ -182,7 +184,7 @@ npm scriptsは標準機能ですが、少し機能が弱いため、 <code class
 <p>さらに規模が大きくなり、ビルドしてリロードして起動、というステップに時間がかかるようになってくると、ビルドサーバーを前面にたてて開発にかかる待ち時間を減らすことも当たり前のように行われます。</p>
 <p>ビルドサーバーはコンパイル済みのファイルを結果をメモリにキャッシュします。ローカルのファイルを監視し、変更があったらそのファイルだけを更新し、JavaScriptにコンパイルします。ビルドサーバーによっては、開発ビルドではサーバーに変更があったかを問い合わせるコードを埋め込んでおくものもあります。その機能を使うと、エディタでファイルを保存すると、コンパイルが自動で走り、ブラウザが開発サーバーから変更された情報を受け取り、ブラウザに変更されたコードをロードし直すまで自動で行われたりします。</p>
 <section id="id2">
-<h2>環境構築できるメンバーがいないときはどうするか？<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>環境構築できるメンバーがいないときはどうするか？<a class="headerlink" href="#id2" title="この見出しへのパーマリンク"></a></h2>
 <p>一時的に構築できるメンバーにヘルプに入ってもらって環境整備をやってもらう、ということも方法としてはありますが、可能であれば常に質問できる人が望ましいです。もちろん、WebPackやBabelを自分で設定する覚悟があるのであれば問題はありませんが、一時的に誰かに高度な環境を作ってもらうと、やはりそこがタコツボ化してしまい、メンテナンスができなくなりがちです。あまり背伸びをしてしまうと、そこが負債になりがちです。</p>
 <p>環境構築をしても、一度きりでは終わりません。ライブラリが定期的にバージョンアップしていく作業も発生しますし、何かしらの新しいツールやライブラリを付け加えるという作業も発生します。環境周りの面倒を見れるメンバーが一人はプロジェクトにはいることが望ましいです。</p>
 <p>もしも誰もいないかつReactであればNext.jsを使い、てっとり速く作れる環境を利用すべきです。VueやAngularはデフォルトのプロジェクト作成である程度揃うので、それを活用しましょう。そして、環境設定はなるべくがんばらず、デフォルトのままで頑張れるだけ頑張るのが良いでしょう。バージョンアップ時は、新しくプロジェクトを作り、そこに既存のコードを持ってきて式年遷宮をする、というのがトラブルが少ないと思われます。</p>

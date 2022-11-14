@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -148,8 +150,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>その他の組み込み型・関数</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">その他の組み込み型・関数</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/otherbuiltinobjects.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -160,7 +162,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>その他の組み込み型・関数<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>その他の組み込み型・関数<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h1>
 <p>これまでの説明の中で、いくつかのデータの種類（ここでは誤解をおそれず、大雑把にクラスとしておきます）について説明してきました。</p>
 <ul class="simple">
 <li><p>プリミティブ型</p>
@@ -191,7 +193,7 @@
 <li><p>時間のための関数</p></li>
 </ul>
 <section id="date">
-<h2><code class="docutils literal notranslate"><span class="pre">Date</span></code><a class="headerlink" href="#date" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">Date</span></code><a class="headerlink" href="#date" title="この見出しへのパーマリンク"></a></h2>
 <p>日付と時間を扱うのが<code class="docutils literal notranslate"><span class="pre">Date</span></code>型です。これは最初期から実装されている型で、TypeScriptやJavaScriptで日付を扱う場合、まず出てくるのがこれです。ただし、即席で作られたこともあって評判がよくなく、大切な機能がいくつか抜け落ちていたり、文字列のパースが柔軟性がなかったりするため、いくつもの追加のモジュールなどが作られています。</p>
 <p>以前は <a class="reference external" href="https://momentjs.com">moment.js</a> が長い間広く使われてきましたが、現在は<a class="reference external" href="https://momentjs.com/docs/#/-project-status/">積極的な開発を中止する声明を出しています</a>。そのmoment.jsの声明の中で推奨されているのが次のライブラリです。</p>
 <ul class="simple">
@@ -208,35 +210,35 @@
 <p>将来的に、ここの説明は<code class="docutils literal notranslate"><span class="pre">Temporal</span></code>ベースで書き換えられると思いますが、ひとまずここでは<code class="docutils literal notranslate"><span class="pre">Date</span></code>のよくある使い方について紹介していきます。</p>
 <p>TypeScriptの<code class="docutils literal notranslate"><span class="pre">Date</span></code>型は数字に毛の生えたようなものですので、それを前提にみていくと良いと思います。</p>
 <section id="id3">
-<h3>現在時刻の取得・エポック時刻<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>現在時刻の取得・エポック時刻<a class="headerlink" href="#id3" title="この見出しへのパーマリンク"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date()</span></code>で簡単に作成できます。コンピュータに保存されているタイムゾーンの情報も含んだ、<code class="docutils literal notranslate"><span class="pre">Date</span></code>のインスタンスが作成できます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 現在時刻でDateのインスタンス作成</span>
-<span class="kd">const</span> <span class="nx">now</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">();</span>
-<span class="c1">// newを付けないと文字列として帰ってくる</span>
-<span class="kd">const</span> <span class="nx">nowStr</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">();</span>
-<span class="c1">// &#39;Sun Sep 06 2020 22:36:08 GMT+0900 (Japan Standard Time)&#39;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 現在時刻でDateのインスタンス作成</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span><span class="w"></span>
+<span class="c1">// newを付けないと文字列として返ってくる</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">nowStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span><span class="w"></span>
+<span class="c1">// &#39;Sun Sep 06 2020 22:36:08 GMT+0900 (Japan Standard Time)&#39;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>コンピュータの世界ではUNIX時刻、あるいはUNIX秒、エポック（Epoch）秒、エポック時刻と呼ばれるものがよく使われます。これは1970年1月1日（UTC基準）からの経過時間で時間を表すものです。JavaScriptの中ではミリ秒単位であって秒ではないため、本章ではエポック時刻という名前で統一します。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// ミリ秒単位のエポック時刻取得</span>
-<span class="kd">const</span> <span class="nx">now</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// ミリ秒単位のエポック時刻取得</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">console.time()</span></code>と<code class="docutils literal notranslate"><span class="pre">console.timeEnd()</span></code>でも時間計測ができますが、何かしらの処理の間の時間を撮りたい場合には、<code class="docutils literal notranslate"><span class="pre">Date.now()</span></code>を複数回呼び出すことで、ミリ秒単位で時間が計測できます。ブラウザでは<code class="docutils literal notranslate"><span class="pre">performance.now()</span></code>という高精度タイマーがありましたが、セキュリティの懸念もあって現在は精度が落とされていますので、<code class="docutils literal notranslate"><span class="pre">Date.now()</span></code>とあまり差はないでしょう。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">start</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
-<span class="c1">//  :</span>
-<span class="c1">// 時間のかかる処理</span>
-<span class="c1">//  :</span>
-<span class="kd">const</span> <span class="nx">duration</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nx">start</span><span class="p">;</span>
-<span class="c1">// 経過時間（ミリ秒）の取得</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span><span class="w"></span>
+<span class="c1">//  :</span><span class="w"></span>
+<span class="c1">// 時間のかかる処理</span><span class="w"></span>
+<span class="c1">//  :</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">start</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// 経過時間（ミリ秒）の取得</span><span class="w"></span>
 </pre></div>
 </div>
 <p>このエポック時刻から<code class="docutils literal notranslate"><span class="pre">Date</span></code>のインスタンスにする場合は<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date()</span></code>の引数にミリ秒単位の時間を入れます。逆に、<code class="docutils literal notranslate"><span class="pre">Date()</span></code>のインスタンスからエポック時刻を取得するには<code class="docutils literal notranslate"><span class="pre">valueOf()</span></code>メソッドを使います。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 現在の時刻から100秒（10万ミリ秒）前の時刻の取得</span>
-<span class="kd">const</span> <span class="nx">hundredSecAgo</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="mf">100</span> <span class="o">*</span> <span class="mf">1000</span><span class="p">);</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 現在の時刻から100秒（10万ミリ秒）前の時刻の取得</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">hundredSecAgo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// エポック時刻取得</span>
-<span class="kd">const</span> <span class="nx">epoch</span> <span class="o">=</span> <span class="nx">hundredSecAgo</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">();</span>
+<span class="c1">// エポック時刻取得</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">epoch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">hundredSecAgo</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 </div>
 <p>さまざまな時間の情報がありますが、TypeScriptではどれを基準に扱うべきでしょうか？ブラウザはユーザーインタフェースであるため、ユーザーの利用環境のタイムゾーン情報を持っています。しかし、多くのユーザーの情報を同時に扱うサーバーではタイムゾーン情報も含めて扱うのは手間隙がかかります。データベースエンジンによってはタイムゾーン込みの時刻も扱いやすいものもあったりはしますが、シンプルに扱うためには以下の指針で大部分のシステムはまかなえるでしょう。</p>
@@ -247,72 +249,72 @@
 </ul>
 </section>
 <section id="id4">
-<h3>特定の日時の<code class="docutils literal notranslate"><span class="pre">Date</span></code>インスタンスの作成<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>特定の日時の<code class="docutils literal notranslate"><span class="pre">Date</span></code>インスタンスの作成<a class="headerlink" href="#id4" title="この見出しへのパーマリンク"></a></h3>
 <p>特定の日時インスタンスを作成するには、<code class="docutils literal notranslate"><span class="pre">Date()</span></code>コンストラクタの引数に数値を設定して作成します。月の数値が1少なく評価される（1月は0）な点に注意が必要です。この日時は現在のタイムゾーンで評価されます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 2020年9月21日21時10分5秒</span>
-<span class="c1">// 日本で実行すると日本時間21時（UTCでは9時間前の12時）に</span>
-<span class="kd">const</span> <span class="nx">d</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mf">2020</span><span class="p">,</span> <span class="mf">8</span><span class="p">,</span> <span class="mf">21</span><span class="p">,</span> <span class="mf">21</span><span class="p">,</span> <span class="mf">10</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 2020年9月21日21時10分5秒</span><span class="w"></span>
+<span class="c1">// 日本で実行すると日本時間21時（UTCでは9時間前の12時）に</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="mf">2020</span><span class="p">,</span><span class="w"> </span><span class="mf">8</span><span class="p">,</span><span class="w"> </span><span class="mf">21</span><span class="p">,</span><span class="w"> </span><span class="mf">21</span><span class="p">,</span><span class="w"> </span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>UTCの時刻から生成したい場合には、<code class="docutils literal notranslate"><span class="pre">Date.UTC()</span></code>関数を使います。これはエポック秒を返すのでこれを<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date()</span></code>に渡すことで、UTC指定の時刻のインスタンスが作成できます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// UTCの2020年9月21日11時10分5秒</span>
-<span class="c1">// 日本で実行すると日本時間20時（日本時間はUTCは9時間進んでいるように見える）に</span>
-<span class="kd">const</span> <span class="nx">d</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">UTC</span><span class="p">(</span><span class="mf">2020</span><span class="p">,</span> <span class="mf">8</span><span class="p">,</span> <span class="mf">21</span><span class="p">,</span> <span class="mf">11</span><span class="p">,</span> <span class="mf">10</span><span class="p">,</span> <span class="mf">5</span><span class="p">))</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// UTCの2020年9月21日11時10分5秒</span><span class="w"></span>
+<span class="c1">// 日本で実行すると日本時間20時（日本時間はUTCは9時間進んでいるように見える）に</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">UTC</span><span class="p">(</span><span class="mf">2020</span><span class="p">,</span><span class="w"> </span><span class="mf">8</span><span class="p">,</span><span class="w"> </span><span class="mf">21</span><span class="p">,</span><span class="w"> </span><span class="mf">11</span><span class="p">,</span><span class="w"> </span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">))</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="id5">
-<h3>日付のフォーマット出力<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク"></a></h3>
-<p><span class="target" id="index-0"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc3393.html"><strong>RFC 3393</strong></a>形式にするには、<code class="docutils literal notranslate"><span class="pre">toISOString()</span></code>メソッドを使います。<code class="docutils literal notranslate"><span class="pre">toString()</span></code>だとECMAScriptの仕様書で定められたロケール情報も含む文字列で出力を行ます。後者の場合、ミリ秒単位のデータは丸められてしまいます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">now</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">()</span>
-<span class="nx">now</span><span class="p">.</span><span class="nx">toISOString</span><span class="p">()</span>
-<span class="c1">// &#39;2020-09-21T12:38:15.655Z&#39;</span>
+<h3>日付のフォーマット出力<a class="headerlink" href="#id5" title="この見出しへのパーマリンク"></a></h3>
+<p><span class="target" id="index-0"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc3393.html"><strong>RFC 3393</strong></a>形式にするには、<code class="docutils literal notranslate"><span class="pre">toISOString()</span></code>メソッドを使います。<code class="docutils literal notranslate"><span class="pre">toString()</span></code>だとECMAScriptの仕様書で定められたロケール情報も含む文字列で出力を行ます。後者の場合、ミリ秒単位のデータは丸められてしまいます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">()</span><span class="w"></span>
+<span class="nx">now</span><span class="p">.</span><span class="nx">toISOString</span><span class="p">()</span><span class="w"></span>
+<span class="c1">// &#39;2020-09-21T12:38:15.655Z&#39;</span><span class="w"></span>
 
-<span class="nx">now</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
-<span class="c1">// &#39;Mon Sep 21 2020 21:38:15 GMT+0900 (Japan Standard Time)&#39;</span>
+<span class="nx">now</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span><span class="w"></span>
+<span class="c1">// &#39;Mon Sep 21 2020 21:38:15 GMT+0900 (Japan Standard Time)&#39;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>短い形式やオリジナルの形式にするには自分でコードを書く必要があります。短く日時を表現しようとする場合のコードは次のようになります。月のみカレンダーの表記と異なって、0が1月になる点に注意してください。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">str</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span>
-    <span class="nx">now</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">()</span>
-<span class="si">}</span><span class="sb">/</span><span class="si">${</span>
-    <span class="nb">String</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1</span><span class="p">).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
-<span class="si">}</span><span class="sb">/</span><span class="si">${</span>
-    <span class="nb">String</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
-<span class="si">}</span><span class="sb"> </span><span class="si">${</span>
-    <span class="nb">String</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getHours</span><span class="p">()).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
-<span class="si">}</span><span class="sb">:</span><span class="si">${</span>
-    <span class="nb">String</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">()).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
-<span class="si">}</span><span class="sb">:</span><span class="si">${</span>
-    <span class="nb">String</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getSeconds</span><span class="p">()).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
-<span class="si">}</span><span class="sb">`</span><span class="p">;</span>
-<span class="c1">// &quot;2020/09/06 13:55:43&quot;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="w"></span>
+<span class="w">    </span><span class="nx">now</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">()</span><span class="w"></span>
+<span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="w"></span>
+<span class="w">    </span><span class="nb">String</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="w"></span>
+<span class="w">    </span><span class="nb">String</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="w"></span>
+<span class="w">    </span><span class="nb">String</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getHours</span><span class="p">()).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="si">}</span><span class="sb">:</span><span class="si">${</span><span class="w"></span>
+<span class="w">    </span><span class="nb">String</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">()).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="si">}</span><span class="sb">:</span><span class="si">${</span><span class="w"></span>
+<span class="w">    </span><span class="nb">String</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getSeconds</span><span class="p">()).</span><span class="nx">padStart</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="si">}</span><span class="sb">`</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// &quot;2020/09/06 13:55:43&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">padStart()</span></code>と、テンプレート文字列のおかげで、以前よりははるかに書きやすくなりましたが、Day.jsなどの提供するフォーマット関数を使った方が短く可読性も高くなるでしょう。</p>
 </section>
 <section id="id6">
-<h3>日付データの交換<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>日付データの交換<a class="headerlink" href="#id6" title="この見出しへのパーマリンク"></a></h3>
 <p>クライアントとサーバーの間ではJSONなどを通じてデータをやりとりします。JSONでデータを転送するときは数値か文字列で表現する必要があります。日付データは既に説明した通りに、ミリ秒か秒のどちらかの数値で交換するのがもっともコード的には少ない配慮で実現できます。しかし、一方で出力された数字の列を見ても、即座に現在の日時を暗算できる人はいないでしょう。可読性という点では文字列を使いたいこともあるでしょう。本節ではデータをやりとりする相手ごとのデータ変換の仕方について詳しく説明していきます。</p>
 <section id="typescript-javascript">
-<h4>TypeScript（含むJavaScript同士）<a class="headerlink" href="#typescript-javascript" title="このヘッドラインへのパーマリンク"></a></h4>
-<p>TypeScript（含むJavaScript）であれば、<code class="docutils literal notranslate"><span class="pre">toISOString()</span></code>でも、<code class="docutils literal notranslate"><span class="pre">toString()</span></code>でも、どちらの方式で出力した文字列であってもパースできます。<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date()</span></code>に渡すと<code class="docutils literal notranslate"><span class="pre">Date</span></code>のインスタンスが、<code class="docutils literal notranslate"><span class="pre">Date.parse()</span></code>に渡すと、エポック時刻が帰ってきます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">fromToISOString</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">(</span><span class="sb">`2020-09-21T12:38:15.655Z`</span><span class="p">)</span>
-<span class="c1">// 2020-09-21T12:38:15.655Z</span>
+<h4>TypeScript（含むJavaScript同士）<a class="headerlink" href="#typescript-javascript" title="この見出しへのパーマリンク"></a></h4>
+<p>TypeScript（含むJavaScript）であれば、<code class="docutils literal notranslate"><span class="pre">toISOString()</span></code>でも、<code class="docutils literal notranslate"><span class="pre">toString()</span></code>でも、どちらの方式で出力した文字列であってもパースできます。<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date()</span></code>に渡すと<code class="docutils literal notranslate"><span class="pre">Date</span></code>のインスタンスが、<code class="docutils literal notranslate"><span class="pre">Date.parse()</span></code>に渡すと、エポック時刻が返ってきます。</p>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">fromToISOString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="sb">`2020-09-21T12:38:15.655Z`</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// 2020-09-21T12:38:15.655Z</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">fromToString</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">(</span><span class="sb">`Mon Sep 21 2020 21:38:15 GMT+0900 (Japan Standard Time)`</span><span class="p">)</span>
-<span class="c1">// 2020-09-21T12:38:15.000Z</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">fromToString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="sb">`Mon Sep 21 2020 21:38:15 GMT+0900 (Japan Standard Time)`</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// 2020-09-21T12:38:15.000Z</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">fromToISOStringEpoch</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="sb">`2020-09-21T12:38:15.655Z`</span><span class="p">)</span>
-<span class="c1">// 1600691895655</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">fromToISOStringEpoch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="sb">`2020-09-21T12:38:15.655Z`</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// 1600691895655</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">fromToStringEpoch</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="sb">`Mon Sep 21 2020 21:38:15 GMT+0900 (Japan Standard Time)`</span><span class="p">)</span>
-<span class="c1">// 1600691895000</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">fromToStringEpoch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="sb">`Mon Sep 21 2020 21:38:15 GMT+0900 (Japan Standard Time)`</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// 1600691895000</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="go">
-<h4>Goとの交換の場合<a class="headerlink" href="#go" title="このヘッドラインへのパーマリンク"></a></h4>
+<h4>Goとの交換の場合<a class="headerlink" href="#go" title="この見出しへのパーマリンク"></a></h4>
 <p>Goでは日付のフォーマットが何種類か選べますが、このうち、タイムゾーンの時差が数値で入っているフォーマットはTypeScriptでパース可能です。ナノ秒の情報がミリ秒に丸められてしまいますが、一番精度良く伝達できるのは<code class="docutils literal notranslate"><span class="pre">time.RFC3339Nano</span></code>の出力です。</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">time.RubyDate</span></code></p></li>
@@ -323,46 +325,46 @@
 </ul>
 <div class="literal-block-wrapper docutils container" id="id24">
 <div class="code-block-caption"><span class="caption-text">GoでRFC3339Nanoで出力</span><a class="headerlink" href="#id24" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&quot;fmt&quot;</span>
-    <span class="s">&quot;time&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;time&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">Format</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">RFC3339Nano</span><span class="p">))</span>
-    <span class="c1">// 2020-09-21T21:35:45.057076+09:00</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">now</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">Format</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">RFC3339Nano</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// 2020-09-21T21:35:45.057076+09:00</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id25">
 <div class="code-block-caption"><span class="caption-text">TypeScriptでパース</span><a class="headerlink" href="#id25" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">receivedFromGo</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">(</span><span class="sb">`2020-09-21T21:35:45.057076+09:00`</span><span class="p">)</span>
-<span class="c1">// 2020-09-21T12:35:45.057Z</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">receivedFromGo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="sb">`2020-09-21T21:35:45.057076+09:00`</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// 2020-09-21T12:35:45.057Z</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <p>他の言語に出力する場合、<code class="docutils literal notranslate"><span class="pre">toISOString()</span></code>が無難でしょう。Goは<code class="docutils literal notranslate"><span class="pre">time.RFC3339</span></code>か、<code class="docutils literal notranslate"><span class="pre">time.RFC3339Nano</span></code>を使ってパースできます。結果はどちらも同じです。</p>
-<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&quot;fmt&quot;</span>
-    <span class="s">&quot;time&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;time&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">t</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">RFC3339</span><span class="p">,</span> <span class="s">&quot;2020-09-21T12:38:15.655Z&quot;</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
-    <span class="c1">// 2020-09-21 12:38:15.655 +0000 UTC</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">RFC3339</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2020-09-21T12:38:15.655Z&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// 2020-09-21 12:38:15.655 +0000 UTC</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="python">
-<h4>Pythonとの交換の場合<a class="headerlink" href="#python" title="このヘッドラインへのパーマリンク"></a></h4>
+<h4>Pythonとの交換の場合<a class="headerlink" href="#python" title="この見出しへのパーマリンク"></a></h4>
 <p>Pythonで出力する場合は<code class="docutils literal notranslate"><span class="pre">datetime.datetime.isoformat()</span></code>メソッドを使うと良いでしょう。このメソッドはタイムゾーン情報を取り払い、現在のタイムゾーンの表記そのものをフォーマットして出力します。TypeScriptの<code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Date()</span></code>はUTCであることを前提としてパースするため、出力時はUTCとして出すように心がける必要があります。このUTCで出力された文字列はTypeScriptでパースできます。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
 
@@ -403,42 +405,42 @@
 </dl>
 </section>
 <section id="java-8">
-<h4>Javaとの交換の場合(8以降)<a class="headerlink" href="#java-8" title="このヘッドラインへのパーマリンク"></a></h4>
+<h4>Javaとの交換の場合(8以降)<a class="headerlink" href="#java-8" title="この見出しへのパーマリンク"></a></h4>
 <p>Java8から標準になったクラス群<a class="footnote-reference brackets" href="#id10" id="id9">2</a>を使ってTypeScriptとの交換を行ってみます。ここで紹介するコードはJava8以降で動作するはずです。このサンプルはJava 11で検証しています。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Date.toISOString()</span></code>と同等の出力は<code class="docutils literal notranslate"><span class="pre">DateTimeFormatter</span></code>で作成できます。UTCのゾーンになるようにインスタンスを作成してから<code class="docutils literal notranslate"><span class="pre">format()</span></code>メソッドを使って変換します。</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.time.Instant</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.time.ZonedDateTime</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.time.ZoneId</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.time.format.DateTimeFormatter</span><span class="p">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.time.Instant</span><span class="p">;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.time.ZonedDateTime</span><span class="p">;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.time.ZoneId</span><span class="p">;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.time.format.DateTimeFormatter</span><span class="p">;</span><span class="w"></span>
 
-<span class="kd">class</span> <span class="nc">ParseTest</span> <span class="p">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[</span> <span class="o">]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="n">RFC3339_FORMAT</span> <span class="o">=</span> <span class="n">DateTimeFormatter</span><span class="p">.</span><span class="na">ofPattern</span><span class="p">(</span><span class="s">&quot;yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;&quot;</span><span class="p">);</span>
+<span class="kd">class</span> <span class="nc">ParseTest</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">RFC3339_FORMAT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTimeFormatter</span><span class="p">.</span><span class="na">ofPattern</span><span class="p">(</span><span class="s">&quot;yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;&quot;</span><span class="p">);</span><span class="w"></span>
 
-        <span class="kd">var</span> <span class="n">l</span> <span class="o">=</span> <span class="n">ZonedDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">();</span>
-        <span class="kd">var</span> <span class="n">isoString</span> <span class="o">=</span> <span class="n">l</span><span class="p">.</span><span class="na">withZoneSameInstant</span><span class="p">(</span><span class="n">ZoneOffset</span><span class="p">.</span><span class="na">UTC</span><span class="p">).</span><span class="na">format</span><span class="p">(</span><span class="n">RFC3339_FORMAT</span><span class="p">);</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">isoString</span><span class="p">);</span>
-        <span class="c1">// &quot;2020-09-23T13:55:53.780Z&quot;</span>
-     <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZonedDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">isoString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="na">withZoneSameInstant</span><span class="p">(</span><span class="n">ZoneOffset</span><span class="p">.</span><span class="na">UTC</span><span class="p">).</span><span class="na">format</span><span class="p">(</span><span class="n">RFC3339_FORMAT</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">isoString</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// &quot;2020-09-23T13:55:53.780Z&quot;</span><span class="w"></span>
+<span class="w">     </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>この文字列はTypeScriptでパースできます。</p>
 <p>TypeScriptで生成した文字列のパースには前述の<code class="docutils literal notranslate"><span class="pre">DateTimeFormatter</span></code>も使えますが、それ以外には<code class="docutils literal notranslate"><span class="pre">java.time.Instant</span></code>が使えます。これはある時点での時刻を表すクラスです。TypeScriptの<code class="docutils literal notranslate"><span class="pre">Date.toISOString()</span></code>の出力する文字列をパースできます。実際に日時の操作を行う<code class="docutils literal notranslate"><span class="pre">LocalDateTime</span></code>や<code class="docutils literal notranslate"><span class="pre">ZonedDateTime</span></code>へも、ここから変換できます。次のサンプルは<code class="docutils literal notranslate"><span class="pre">Instant</span></code>でパースし、<code class="docutils literal notranslate"><span class="pre">ZonedDateTime</span></code>に変換しています。</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.time.Instant</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.time.ZonedDateTime</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.time.ZoneId</span><span class="p">;</span>
-<span class="kn">import</span> <span class="nn">java.time.format.DateTimeFormatter</span><span class="p">;</span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.time.Instant</span><span class="p">;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.time.ZonedDateTime</span><span class="p">;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.time.ZoneId</span><span class="p">;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.time.format.DateTimeFormatter</span><span class="p">;</span><span class="w"></span>
 
-<span class="kd">class</span> <span class="nc">ParseTest</span> <span class="p">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[</span> <span class="o">]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="n">i</span> <span class="o">=</span> <span class="n">Instant</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="s">&quot;2020-09-23T14:06:11.027Z&quot;</span><span class="p">);</span>
-        <span class="kd">var</span> <span class="n">l</span> <span class="o">=</span> <span class="n">ZonedDateTime</span><span class="p">.</span><span class="na">ofInstant</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ZoneId</span><span class="p">.</span><span class="na">systemDefault</span><span class="p">());</span>
+<span class="kd">class</span> <span class="nc">ParseTest</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Instant</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="s">&quot;2020-09-23T14:06:11.027Z&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZonedDateTime</span><span class="p">.</span><span class="na">ofInstant</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">ZoneId</span><span class="p">.</span><span class="na">systemDefault</span><span class="p">());</span><span class="w"></span>
 
-        <span class="kd">var</span> <span class="n">f</span> <span class="o">=</span> <span class="n">DateTimeFormatter</span><span class="p">.</span><span class="na">ofPattern</span><span class="p">(</span><span class="s">&quot;yyyy/MM/dd HH:mm:ss&quot;</span><span class="p">);</span>
-        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="n">f</span><span class="p">));</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTimeFormatter</span><span class="p">.</span><span class="na">ofPattern</span><span class="p">(</span><span class="s">&quot;yyyy/MM/dd HH:mm:ss&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="n">f</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="footnote brackets">
@@ -449,70 +451,70 @@
 </section>
 </section>
 <section id="id11">
-<h3>1時間後、1日後、1ヶ月後、1年後の日時の取得<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>1時間後、1日後、1ヶ月後、1年後の日時の取得<a class="headerlink" href="#id11" title="この見出しへのパーマリンク"></a></h3>
 <p>バッチの次回実行時間の計算や、以前のバッチの間に含まれる情報のフィルタリングのために、1時間後や1日後、1ヶ月後、あるいは1時間前や1日前といった日時の演算が必要になることがあります。</p>
 <p>現在時刻の<code class="docutils literal notranslate"><span class="pre">Date</span></code>インスタンスを作成し、現在の情報を元に、期待する値のインクリメントを行うだけです。1時間後を計算するときに、12月31日の23時30分だから年月日をインクリメントしなければならない、今年の2月は閏年だから1年後の計算の日数が変わる、みたいなことは考慮する必要はなく、そのような演算はJavaScriptが行います。</p>
 <p>set系メソッドは値を変更してしまいますし、メソッドが返すのは<code class="docutils literal notranslate"><span class="pre">Date</span></code>インスタンスではなく、エポック秒なので、必要に応じて新しいインスタンスを作りましょう。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">now</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">();</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span><span class="w"></span>
 
-<span class="c1">// 1時間後</span>
-<span class="kd">const</span> <span class="nx">oneHourLater</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">();</span>
-<span class="nx">oneHourLater</span><span class="p">.</span><span class="nx">setHours</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getHours</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1</span><span class="p">);</span>
+<span class="c1">// 1時間後</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">oneHourLater</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span><span class="w"></span>
+<span class="nx">oneHourLater</span><span class="p">.</span><span class="nx">setHours</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getHours</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// 1日後</span>
-<span class="kd">const</span> <span class="nx">oneDayLater</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">();</span>
-<span class="nx">oneDayLater</span><span class="p">.</span><span class="nx">setDate</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1</span><span class="p">);</span>
+<span class="c1">// 1日後</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">oneDayLater</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span><span class="w"></span>
+<span class="nx">oneDayLater</span><span class="p">.</span><span class="nx">setDate</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// 1ヶ月後</span>
-<span class="kd">const</span> <span class="nx">oneMonthLater</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">();</span>
-<span class="nx">oneMonthLater</span><span class="p">.</span><span class="nx">setMonth</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1</span><span class="p">);</span>
+<span class="c1">// 1ヶ月後</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">oneMonthLater</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span><span class="w"></span>
+<span class="nx">oneMonthLater</span><span class="p">.</span><span class="nx">setMonth</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
 
-<span class="c1">// 1年後</span>
-<span class="kd">const</span> <span class="nx">oneYearLater</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">();</span>
-<span class="nx">oneYearLater</span><span class="p">.</span><span class="nx">setFullYear</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1</span><span class="p">);</span>
+<span class="c1">// 1年後</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">oneYearLater</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span><span class="w"></span>
+<span class="nx">oneYearLater</span><span class="p">.</span><span class="nx">setFullYear</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="id12">
-<h3>同一日時かどうかの比較<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>同一日時かどうかの比較<a class="headerlink" href="#id12" title="この見出しへのパーマリンク"></a></h3>
 <p>2つの日時が同じ日かどうか確認したいことがあります。たとえば、チケットの日時が今日かどうか、といった比較です。JavaScriptが提供しているのは、日時がセットになった<code class="docutils literal notranslate"><span class="pre">Date</span></code>型のみです。他の言語だと、日付だけを扱うクラス、時間だけを扱うクラス、日時を扱うクラスを別に用意しているものもありますが、JavaScriptは1つだけです。日付だけを扱いたいケースでも<code class="docutils literal notranslate"><span class="pre">Date</span></code>型を使う必要があります。</p>
-<p><code class="docutils literal notranslate"><span class="pre">Date</span></code>型で日付だけを扱う方法で簡単なのは時間部分をすべて0に正規化してしまう方法です。<code class="docutils literal notranslate"><span class="pre">setHours()</span></code>に0を4つ設定すると、時、分、秒、ミリ秒のすべてがゼロになります。また、この関数を実行するとエポック時刻が帰ってくるので、これを比較するのがもっとも簡単でしょう。ただし、このメソッドはその日付を変更してしまうため、変更したくない場合は新しいインスタンスを作ってからこのメソッドを呼ぶと良いでしょう。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Date</span></code>型で日付だけを扱う方法で簡単なのは時間部分をすべて0に正規化してしまう方法です。<code class="docutils literal notranslate"><span class="pre">setHours()</span></code>に0を4つ設定すると、時、分、秒、ミリ秒のすべてがゼロになります。また、この関数を実行するとエポック時刻が返ってくるので、これを比較するのがもっとも簡単でしょう。ただし、このメソッドはその日付を変更してしまうため、変更したくない場合は新しいインスタンスを作ってからこのメソッドを呼ぶと良いでしょう。</p>
 <p>この0時は現在のタイムゾーンでの日時になります。もし、UTCで計算したい場合は、<code class="docutils literal notranslate"><span class="pre">setUTCHours()</span></code>を使います。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 今日の0時0分0秒のエポック時刻</span>
-<span class="kd">const</span> <span class="nx">today</span> <span class="o">=</span> <span class="p">(</span><span class="ow">new</span> <span class="nb">Date</span><span class="p">()).</span><span class="nx">setHours</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 今日の0時0分0秒のエポック時刻</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">today</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">()).</span><span class="nx">setHours</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"></span>
 
-<span class="c1">// 比較したい日時</span>
-<span class="kd">const</span> <span class="nx">someDate</span>: <span class="kt">Date</span>
+<span class="c1">// 比較したい日時</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">someDate</span><span class="o">:</span><span class="w"> </span><span class="kt">Date</span><span class="w"></span>
 
-<span class="c1">// 同じ日ならtrue</span>
-<span class="kd">const</span> <span class="nx">isSameDay</span> <span class="o">=</span> <span class="p">(</span><span class="ow">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">someDate</span><span class="p">)).</span><span class="nx">setHours</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="o">===</span> <span class="nx">today</span><span class="p">;</span>
+<span class="c1">// 同じ日ならtrue</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">isSameDay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">someDate</span><span class="p">)).</span><span class="nx">setHours</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">today</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="id13">
-<h3>日時ではなく時間だけを扱う<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>日時ではなく時間だけを扱う<a class="headerlink" href="#id13" title="この見出しへのパーマリンク"></a></h3>
 <p>前節では日付だけを扱いましたが、時間だけを扱いたいケースもあるでしょう。こちらも、年月日を同一の日付、例えば、2000年1月1日などの特定の日付に固定してしまえば扱えます。例えば、サーバーではUTCの0時0分からの経過秒で扱うユースケースを考えてみます。例えば、毎日の会議が日本時間で10時であったとします。UTCで朝1時、日本時間の10時を表現するには、3600になりますね。UTCの2000年1月1日0時のエポック秒は946,684,800になりますので、これに足して<code class="docutils literal notranslate"><span class="pre">Date</span></code>インスタンスを作れば良いことがわかります。</p>
 <p>このクラスはローカルタイムゾーンの時間を計算してくれるので、<code class="docutils literal notranslate"><span class="pre">setHours()</span></code>で時間を取得すると、すでにローカルタイムゾーンの時間になります。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 基準日で時間だけオフセットしたDateインスタンス</span>
-<span class="kd">const</span> <span class="nx">meetingTime</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">((</span><span class="mf">946684800</span> <span class="o">+</span> <span class="mf">3600</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1000</span><span class="p">);</span> <span class="c1">// JSの時間はミリ秒なので1000倍する</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">meetingTime</span><span class="p">.</span><span class="nx">getHours</span><span class="p">()</span><span class="si">}</span><span class="sb">:</span><span class="si">${</span><span class="nx">meetingTime</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">()</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
-<span class="c1">// 10:00</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 基準日で時間だけオフセットしたDateインスタンス</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">meetingTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">((</span><span class="mf">946684800</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3600</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span><span class="w"> </span><span class="c1">// JSの時間はミリ秒なので1000倍する</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">meetingTime</span><span class="p">.</span><span class="nx">getHours</span><span class="p">()</span><span class="si">}</span><span class="sb">:</span><span class="si">${</span><span class="nx">meetingTime</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">()</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// 10:00</span><span class="w"></span>
 </pre></div>
 </div>
 <p>今日のミーティングの日時情報を得るにはは、今日の日付を設定すればOKです。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 今日のミーティング時間を計算するには、今日の年月日を設定する</span>
-<span class="kd">const</span> <span class="nx">now</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">();</span>
-<span class="kd">const</span> <span class="nx">todayMeeting</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">meetingTime</span><span class="p">);</span>
-<span class="nx">todayMeeting</span><span class="p">.</span><span class="nx">setFullYear</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">(),</span> <span class="nx">now</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">(),</span> <span class="nx">now</span><span class="p">.</span><span class="nx">getDate</span><span class="p">());</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// 今日のミーティング時間を計算するには、今日の年月日を設定する</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">todayMeeting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">meetingTime</span><span class="p">);</span><span class="w"></span>
+<span class="nx">todayMeeting</span><span class="p">.</span><span class="nx">setFullYear</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">(),</span><span class="w"> </span><span class="nx">now</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">(),</span><span class="w"> </span><span class="nx">now</span><span class="p">.</span><span class="nx">getDate</span><span class="p">());</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="id14">
-<h3>Date型のタイムゾーンの制約<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>Date型のタイムゾーンの制約<a class="headerlink" href="#id14" title="この見出しへのパーマリンク"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Date</span></code>は「タイムゾーンが扱える」ということは何度か説明していますが、任意の日付で自由にタイムゾーンが扱えるわけではありません。標準の国際化の機能を使えば、ニューヨークの今の時間は？というのを数値で取得、みたいなことを計算する能力はあるのですが、それが使いやすいインタフェースを提供していません。一旦文字列にしてからパースするしかありません。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">now</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Date</span><span class="p">();</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">timeZone</span><span class="o">:</span> <span class="s1">&#39;America/Los_Angeles&#39;</span> <span class="p">}));</span>
-<span class="c1">// &#39;12/8/2020, 2:19:55 AM&#39;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span><span class="w"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="s1">&#39;en-US&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">timeZone</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;America/Los_Angeles&#39;</span><span class="w"> </span><span class="p">}));</span><span class="w"></span>
+<span class="c1">// &#39;12/8/2020, 2:19:55 AM&#39;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>コンピュータでタイムゾーンで扱う名前はIANAのデータベースが一次情報になります。</p>
@@ -527,20 +529,20 @@
 </section>
 </section>
 <section id="regexp">
-<h2><code class="docutils literal notranslate"><span class="pre">RegExp</span></code><a class="headerlink" href="#regexp" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">RegExp</span></code><a class="headerlink" href="#regexp" title="この見出しへのパーマリンク"></a></h2>
 <p>正規表現のためのクラスです。TypeScriptでは組み込みで正規表現があります。正規表現は<code class="docutils literal notranslate"><span class="pre">string</span></code>と一緒に使うクラスで、ちょっと賢い検索を実現します。</p>
 <p>正規表現はいくつかの要素を組み合わせた文字列のパターン（ルール）を組み合わせて作ります。このルールを活用することで、「電話番号にマッチする」といった単なる比較以上の比較が実現できます。かなり複雑なパターンも記述できますが、TypeScriptにおいてはあまり活躍の場がありません。ユーザー入力のチェックや設定ファイルぐらいでしょう。</p>
 <p>正規表現の評価は、入力の文字列とパターンで行われます。文字列を探索し、パターンにマッチしているかどうかをみていきます。たいてい、複数の文字数の文字列を評価することになります。途中でマッチしない文字が出てきたらそこで評価終了となり、マッチしなかった、という結果が返ります。</p>
 <p>正規表現はリテラルで記述できます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">input</span> <span class="o">=</span> <span class="s2">&quot;03-1234-5678&quot;</span><span class="p">;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;03-1234-5678&quot;</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">if</span> <span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\d{2,3}-\d{3,4}-\d{4}/</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;電話番号です&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">input</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/\d{2,3}-\d{3,4}-\d{4}/</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;電話番号です&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <section id="id15">
-<h3>使い方<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>使い方<a class="headerlink" href="#id15" title="この見出しへのパーマリンク"></a></h3>
 <p>正規表現は特定の目的を持って実行されます。検索であったり、ルールに従って分割だったり</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">文字列.match(正規表現)</span></code></p></li>
@@ -556,7 +558,7 @@
 </ul>
 </section>
 <section id="id16">
-<h3>パターンのルール<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>パターンのルール<a class="headerlink" href="#id16" title="この見出しへのパーマリンク"></a></h3>
 <p>正規表現の構成要素は主にこの3つです。</p>
 <ul class="simple">
 <li><p>文字種</p></li>
@@ -616,20 +618,20 @@
 <p>2桁の一番上のものは、2桁目は3か4か5かなので、正確には <code class="docutils literal notranslate"><span class="pre">/0[3-5]/</span></code>とできると思います。正規表現だけでどこまでビジネスロジックを入れ込むかは設計次第です。正規表現だとマッチしたかどうかの0/1でしか判断できません。2桁だが09みたいな変則番号が来たときにエラーを通知する場合は、2桁で広くマッチさせておいて、次に桁をみるエラーチェックを行うなど、2段構成にする必要があるでしょう。</p>
 </section>
 <section id="id17">
-<h3>キャプチャ<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>キャプチャ<a class="headerlink" href="#id17" title="この見出しへのパーマリンク"></a></h3>
 <p>グループ化にはもう一つおまけがあります。<code class="docutils literal notranslate"><span class="pre">match()</span></code>の場合、どのカッコごとにマッチした結果を保存して返してくれます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="kd">const</span> <span class="nx">tel</span> <span class="o">=</span> <span class="sr">/(^0\d-\d{4}-\d{4}$)|(^0\d{2}-\d{3}-\d{4}$)|(^0\d{3}-\d{2}-\d{4}$)|(^0\d{4}-\d-\d{4}$)/</span>
-<span class="o">&gt;</span> <span class="s2">&quot;042-234-1234&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">tel</span><span class="p">)</span>
-<span class="p">[</span>
-  <span class="s1">&#39;042-234-1234&#39;</span><span class="p">,</span>
-  <span class="kc">undefined</span><span class="p">,</span>
-  <span class="s1">&#39;042-234-1234&#39;</span><span class="p">,</span>
-  <span class="kc">undefined</span><span class="p">,</span>
-  <span class="kc">undefined</span><span class="p">,</span>
-  <span class="nx">index</span>: <span class="kt">0</span><span class="p">,</span>
-  <span class="nx">input</span><span class="o">:</span> <span class="s1">&#39;042-234-1234&#39;</span><span class="p">,</span>
-  <span class="nx">groups</span>: <span class="kt">undefined</span>
-<span class="p">]</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">tel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sr">/(^0\d-\d{4}-\d{4}$)|(^0\d{2}-\d{3}-\d{4}$)|(^0\d{3}-\d{2}-\d{4}$)|(^0\d{4}-\d-\d{4}$)/</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"> </span><span class="s2">&quot;042-234-1234&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">tel</span><span class="p">)</span><span class="w"></span>
+<span class="p">[</span><span class="w"></span>
+<span class="w">  </span><span class="s1">&#39;042-234-1234&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="kc">undefined</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="s1">&#39;042-234-1234&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="kc">undefined</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="kc">undefined</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">input</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;042-234-1234&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">groups</span><span class="o">:</span><span class="w"> </span><span class="kt">undefined</span><span class="w"></span>
+<span class="p">]</span><span class="w"></span>
 </pre></div>
 </div>
 <p>レスポンスは一部フィールドを持った配列です。もしどれにもマッチしなければ<code class="docutils literal notranslate"><span class="pre">null</span></code>が返ります。</p>
@@ -651,24 +653,24 @@
 </pre></div>
 </div>
 <p>これで、名前でマッチした結果にアクセスできます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="kd">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="s2">&quot;01-2345-6789&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^(?&lt;AC&gt;0\d{1})-(?&lt;MA&gt;\d{4})-(?&lt;SA&gt;\d{4})$/</span><span class="p">)</span>
-<span class="o">&gt;</span> <span class="kd">const</span> <span class="p">{</span> <span class="nx">AC</span><span class="p">,</span> <span class="nx">MA</span><span class="p">,</span> <span class="nx">SA</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">match</span><span class="p">.</span><span class="nx">groups</span>
-<span class="o">&gt;</span> <span class="nx">AC</span>
-<span class="s1">&#39;01&#39;</span>
-<span class="o">&gt;</span> <span class="nx">MA</span>
-<span class="s1">&#39;2345&#39;</span>
-<span class="o">&gt;</span> <span class="nx">SA</span>
-<span class="s1">&#39;6789&#39;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">match</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;01-2345-6789&quot;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^(?&lt;AC&gt;0\d{1})-(?&lt;MA&gt;\d{4})-(?&lt;SA&gt;\d{4})$/</span><span class="p">)</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AC</span><span class="p">,</span><span class="w"> </span><span class="nx">MA</span><span class="p">,</span><span class="w"> </span><span class="nx">SA</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">match</span><span class="p">.</span><span class="nx">groups</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">AC</span><span class="w"></span>
+<span class="s1">&#39;01&#39;</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">MA</span><span class="w"></span>
+<span class="s1">&#39;2345&#39;</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">SA</span><span class="w"></span>
+<span class="s1">&#39;6789&#39;</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="json">
-<h2><code class="docutils literal notranslate"><span class="pre">JSON</span></code><a class="headerlink" href="#json" title="このヘッドラインへのパーマリンク"></a></h2>
-<p>JavaScriptで外部のAPIのやりとりなどで一番使うのはこのJSONでしょう。サーバーから帰ってくるJSON形式の文字列を、プログラム中で扱いやすいJavaScriptやTypeScriptのプリミティブなデータ型などに変換します。</p>
+<h2><code class="docutils literal notranslate"><span class="pre">JSON</span></code><a class="headerlink" href="#json" title="この見出しへのパーマリンク"></a></h2>
+<p>JavaScriptで外部のAPIのやりとりなどで一番使うのはこのJSONでしょう。サーバーから返ってくるJSON形式の文字列を、プログラム中で扱いやすいJavaScriptやTypeScriptのプリミティブなデータ型などに変換します。</p>
 <p>基本は<code class="docutils literal notranslate"><span class="pre">parse()</span></code>と<code class="docutils literal notranslate"><span class="pre">stringify()</span></code>を呼ぶだけですので使い方に迷うことはないでしょう。</p>
 <section id="id18">
-<h3>JSONのパース<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>JSONのパース<a class="headerlink" href="#id18" title="この見出しへのパーマリンク"></a></h3>
 <div class="highlight-ts notranslate"><div class="highlight"><pre><span></span>// aはany型
 const a = JSON.parse(‘{&quot;name&quot;: &quot;John Cleese&quot;}`);
 
@@ -679,104 +681,104 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <p><code class="docutils literal notranslate"><span class="pre">parse()</span></code>は<code class="docutils literal notranslate"><span class="pre">any</span></code>型になります。<code class="docutils literal notranslate"><span class="pre">as</span></code>で何かしらの型にキャストする必要がありますが、このパースは当然実行時に行われます。<code class="docutils literal notranslate"><span class="pre">as</span></code>はコンパイル時の型チェックのためのものなので、実際に実行時にどのような型が来るかは推測でしかありません。このJSONのパース周りは、コンパイルは通ったのに、想定した型と違う情報がきたためにエラーになる、ということが一番起きやすいポイントです。<code class="docutils literal notranslate"><span class="pre">as</span></code>は一見その型と同等であると保証しているように見せてしまいますが、要素の有無のチェックなどは動的な言語を扱っている意識を忘れないで行いましょう。</p>
 <p>型定義をする必要がないかと言えば、明らかなスペルチェックは見つけられますし、補完もされるので、可能なら定義しておく方が良いでしょう。</p>
 <section id="syntaxerror">
-<h4><code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code>例外<a class="headerlink" href="#syntaxerror" title="このヘッドラインへのパーマリンク"></a></h4>
+<h4><code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code>例外<a class="headerlink" href="#syntaxerror" title="この見出しへのパーマリンク"></a></h4>
 <p>この関数は、JSONの文法違反があると<code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code>例外を投げます。TypeScriptで例外を扱うことは稀ですが、キャッチしないと何か操作したのに処理が行われていないように見えるなどの不具合になります。大々的にエラーダイアログが出たりはしないので気付きにくかったりしますが、コンソールには出力されていたりします。パースするときには<code class="docutils literal notranslate"><span class="pre">try</span></code>でくくって、エラーが出たときにはダミーの値を入れるなり、自分でエラーダイアログを表示するなり、対処しましょう。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">person</span>: <span class="kt">Person</span>
-<span class="k">try</span> <span class="p">{</span>
-    <span class="nx">person</span> <span class="o">=</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span>: <span class="kt">unknown</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// fallback</span>
-    <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Eric Idle&quot;</span> <span class="p">};</span>
-<span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">person</span><span class="o">:</span><span class="w"> </span><span class="kt">Person</span><span class="w"></span>
+<span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="o">:</span><span class="w"> </span><span class="kt">unknown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// fallback</span><span class="w"></span>
+<span class="w">    </span><span class="nx">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Eric Idle&quot;</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>この関数は<code class="docutils literal notranslate"><span class="pre">fetch()</span></code>の中でも使われています。例外の発生についてもまったく同じです。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;/api/person&quot;</span><span class="p">);</span>
-<span class="c1">// 本当はres.okで通信が成功したかチェックが必要！</span>
-<span class="nx">person</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Michael Palin&quot;</span> <span class="p">};</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;/api/person&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// 本当はres.okで通信が成功したかチェックが必要！</span><span class="w"></span>
+<span class="nx">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Michael Palin&quot;</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 </pre></div>
 </div>
-<p>HTTPのAPIの場合、エラーがあると、<code class="docutils literal notranslate"><span class="pre">Forbidden</span></code>などのステータスコードの文字列がレスポンスとして帰ってくることがあり、これをJSONにパースしようとすると次のような例外が発生します。</p>
+<p>HTTPのAPIの場合、エラーがあると、<code class="docutils literal notranslate"><span class="pre">Forbidden</span></code>などのステータスコードの文字列がレスポンスとして返ってくることがあり、これをJSONにパースしようとすると次のような例外が発生します。</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Uncaught SyntaxError: Unexpected token F in JSON at position 0
 </pre></div>
 </div>
 <p>ほとんどの場合はステータスコードのチェックで防げますが、try文を使うとさらに安心です。</p>
 </section>
 <section id="id19">
-<h4>JSONとコメント<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク"></a></h4>
+<h4>JSONとコメント<a class="headerlink" href="#id19" title="この見出しへのパーマリンク"></a></h4>
 <p>JSONの厳格な文法（<a class="reference external" href="https://json.org">json.org</a>）にはコメントはありません。しかし、入れたくなることがあります。</p>
 <p>TypeScriptの設定ファイルの<code class="docutils literal notranslate"><span class="pre">tsconfig.json</span></code>や、VSCodeの設定ファイルなどはコメントが入れられます。前者はTypeScriptパーサーを流用したパーサーを使っていますので、TypeScriptと同じコメントが利用できます。後者はJSON with Comments(.jsonc)というモードを持っています。標準の<code class="docutils literal notranslate"><span class="pre">JSON.parse()</span></code>は仕様に従っているのでコメントがあるとエラーになります。次のようなライブラリを使う必要があるでしょう。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.npmjs.com/package/strip-json-comments">strip-json-comments</a></p></li>
 </ul>
 <p>設定ファイルとして使って読み手が自分自身だけならいいのですが、サーバーなどとのデータ交換用にJSONを使う場合、読み手がコメントを無視して読んでくれないかぎりはコメントを使うべきではありません。その他の方法としては、JSON Schemaの仕様にある<code class="docutils literal notranslate"><span class="pre">$comment</span></code>キーを使うという妥協案もあります。</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-   <span class="nt">&quot;$comment&quot;</span><span class="p">:</span> <span class="s2">&quot;コメントです&quot;</span><span class="p">,</span>
-   <span class="nt">&quot;location&quot;</span><span class="p">:</span> <span class="s2">&quot;鳥貴族&quot;</span>
-<span class="p">}</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;$comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;コメントです&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;鳥貴族&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="id20">
-<h3>文字列化<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>文字列化<a class="headerlink" href="#id20" title="この見出しへのパーマリンク"></a></h3>
 <p>文字列化はJavaScriptのオブジェクト、配列、数値、文字列、boolean型などの値を渡すと、それを安全に伝送できる文字列にしてくれます。</p>
 <div class="literal-block-wrapper docutils container" id="id26">
 <div class="code-block-caption"><span class="caption-text">JSON形式に文字列化</span><a class="headerlink" href="#id26" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// bは文字列</span>
-<span class="kd">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">person</span><span class="o">:</span> <span class="s2">&quot;Graham Chapman&quot;</span><span class="p">)</span>
-<span class="c1">// &#39;{&quot;person&quot;:&quot;Graham Chapman&quot;}&#39;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="c1">// bは文字列</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">person</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Graham Chapman&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// &#39;{&quot;person&quot;:&quot;Graham Chapman&quot;}&#39;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">stringify()</span></code>には2つ追加の引数があります。1つは置換関数、もう1つはインデントです。</p>
 <p>このうち置換関数は<code class="docutils literal notranslate"><span class="pre">function(key:</span> <span class="pre">any,</span> <span class="pre">value:</span> <span class="pre">any):</span> <span class="pre">any</span></code>な関数で、キーと値を見て、実際に出力する値を決めますが、あまり使い勝手の良いものではありません。階層があったり、配列で同型のオブジェクトがあったりして、仮に同名のキーがあっても、渡される情報だけではどちらの値か区別できなかったりします。<code class="docutils literal notranslate"><span class="pre">bigint</span></code>などの変換できない型の場合はreplacerが実行される前にエラーになってしまうため、この関数で出力できるように文字列にするといった使い方もできません。事前に出力可能なオブジェクト・配列・プリミティブだけのきれいな情報に変換しておくべきです。そのため、忘れてしまっても構いません。</p>
 <section id="id21">
-<h4>インデント<a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク"></a></h4>
+<h4>インデント<a class="headerlink" href="#id21" title="この見出しへのパーマリンク"></a></h4>
 <p>デフォルトではインデントがなく、文字数最小で出力されます。インデントに数値、あるいは<code class="docutils literal notranslate"><span class="pre">&quot;</span>&#160;&#160;&#160; <span class="pre">&quot;</span></code>といった文字列を渡すことでインデントが行われて見やすくなります。ただし、Node.jsやブラウザの<code class="docutils literal notranslate"><span class="pre">console.log()</span></code>の場合はインデントを設定しなくても見やすく表示してくれるため、整形してファイル出力したい場合以外は使う必要はないと思います。</p>
 <div class="literal-block-wrapper docutils container" id="id27">
 <div class="code-block-caption"><span class="caption-text">インデント</span><a class="headerlink" href="#id27" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">montyPython</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">members</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&quot;John Cleese&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Terry Gilliam&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Eric Idle&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Michael Palin&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Graham Chapman&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Terry Jones&quot;</span>
-    <span class="p">],</span>
-<span class="p">};</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">montyPython</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">members</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;John Cleese&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;Terry Gilliam&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;Eric Idle&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;Michael Palin&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;Graham Chapman&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;Terry Jones&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">montyPython</span><span class="p">));</span>
-<span class="c1">// {&quot;members&quot;:[&quot;John Cleese&quot;,&quot;Terry Gilliam&quot;,&quot;Eric Idle&quot;,&quot;Michael Palin&quot;,&quot;Graham Chapman&quot;,&quot;Terry Jones&quot;]}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">montyPython</span><span class="p">));</span><span class="w"></span>
+<span class="c1">// {&quot;members&quot;:[&quot;John Cleese&quot;,&quot;Terry Gilliam&quot;,&quot;Eric Idle&quot;,&quot;Michael Palin&quot;,&quot;Graham Chapman&quot;,&quot;Terry Jones&quot;]}</span><span class="w"></span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">montyPython</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mf">2</span><span class="p">));</span>
-<span class="c1">// {</span>
-<span class="c1">//   &quot;members&quot;: [</span>
-<span class="c1">//     &quot;John Cleese&quot;,</span>
-<span class="c1">//     &quot;Terry Gilliam&quot;,</span>
-<span class="c1">//     &quot;Eric Idle&quot;,</span>
-<span class="c1">//     &quot;Michael Palin&quot;,</span>
-<span class="c1">//     &quot;Graham Chapman&quot;,</span>
-<span class="c1">//     &quot;Terry Jones&quot;</span>
-<span class="c1">//   ]</span>
-<span class="c1">// }</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">montyPython</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">));</span><span class="w"></span>
+<span class="c1">// {</span><span class="w"></span>
+<span class="c1">//   &quot;members&quot;: [</span><span class="w"></span>
+<span class="c1">//     &quot;John Cleese&quot;,</span><span class="w"></span>
+<span class="c1">//     &quot;Terry Gilliam&quot;,</span><span class="w"></span>
+<span class="c1">//     &quot;Eric Idle&quot;,</span><span class="w"></span>
+<span class="c1">//     &quot;Michael Palin&quot;,</span><span class="w"></span>
+<span class="c1">//     &quot;Graham Chapman&quot;,</span><span class="w"></span>
+<span class="c1">//     &quot;Terry Jones&quot;</span><span class="w"></span>
+<span class="c1">//   ]</span><span class="w"></span>
+<span class="c1">// }</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="id22">
-<h4>JSONとデータロス<a class="headerlink" href="#id22" title="このヘッドラインへのパーマリンク"></a></h4>
+<h4>JSONとデータロス<a class="headerlink" href="#id22" title="この見出しへのパーマリンク"></a></h4>
 <p>JSONは言語をまたいで使われるデータのシリアライズのための仕組みです。元はJavaScriptのオブジェクト表現をフォーマットにしたものではありますが（JSONは作成されたのではなく、発見されたと言われています）、いくつかTypeScriptと違うところもあります。</p>
 <p>JSONは単純な木構造であり、TypeScriptのメモリ上の表現のすべてを表現できるわけではありません。例えば、親が子を、子が親を参照しているような循環構造の場合、うまく文字列化できず、エラーになります。事前に変換する関数を使って、子から親方向の参照を切った新しいオブジェクト階層を作るなどして単方向の参照になるようにします。</p>
 <div class="literal-block-wrapper docutils container" id="id28">
 <div class="code-block-caption"><span class="caption-text">循環参照があるとTypeError</span><a class="headerlink" href="#id28" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Terry Jones&quot;</span><span class="p">};</span>
-<span class="kd">const</span> <span class="nx">group</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Pythons&quot;</span><span class="p">,</span> <span class="nx">member</span><span class="o">:</span> <span class="p">[</span><span class="nx">person</span><span class="p">]};</span>
-<span class="nx">person</span><span class="p">.</span><span class="nx">group</span> <span class="o">=</span> <span class="nx">group</span><span class="p">;</span> <span class="c1">// お互いに参照しあっているため、循環参照になる</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Terry Jones&quot;</span><span class="p">};</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Pythons&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">member</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">person</span><span class="p">]};</span><span class="w"></span>
+<span class="nx">person</span><span class="p">.</span><span class="nx">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">group</span><span class="p">;</span><span class="w"> </span><span class="c1">// お互いに参照しあっているため、循環参照になる</span><span class="w"></span>
 
-<span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">group</span><span class="p">)</span>
-<span class="c1">// Uncaught TypeError: Converting circular structure to JSON</span>
+<span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">group</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// Uncaught TypeError: Converting circular structure to JSON</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -792,18 +794,18 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 <p>例えば<code class="docutils literal notranslate"><span class="pre">undefined</span></code>の場合はそのキーがなかったことになります。クラスの場合はメンバーフィールドのみのオブジェクトになります。一応データとしては復元できますが、戻すときには単なるオブジェクトで、クラスのインスタンスではなくなります。各クラスに、オブジェクトからインスタンスを復元するファクトリーメソッドを用意してあげる必要があるでしょう。日付は文字列になります。これも、事前に<code class="docutils literal notranslate"><span class="pre">valueOf()</span></code>で数値化しても良いでしょう。<code class="docutils literal notranslate"><span class="pre">Map()</span></code>などは値が完全に失われたインスタンスになるため、注意が必要です。</p>
 <div class="literal-block-wrapper docutils container" id="id29">
 <div class="code-block-caption"><span class="caption-text">クラス、日付</span><a class="headerlink" href="#id29" title="このコードへのパーマリンク"></a></div>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="kd">class</span> <span class="nx">C</span> <span class="p">{</span> <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mf">1</span><span class="p">;</span> <span class="k">this</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span><span class="p">;</span> <span class="p">}</span> <span class="p">}</span>
-<span class="o">&gt;</span> <span class="kd">const</span> <span class="nx">i</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">C</span><span class="p">();</span>
-<span class="o">&gt;</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
-<span class="c1">// &#39;{&quot;a&quot;:1,&quot;b&quot;:&quot;hello&quot;}&#39;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">C</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;hello&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">C</span><span class="p">();</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// &#39;{&quot;a&quot;:1,&quot;b&quot;:&quot;hello&quot;}&#39;</span><span class="w"></span>
 
-<span class="o">&gt;</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="ow">new</span> <span class="nb">Date</span><span class="p">())</span>
-<span class="c1">// &#39;&quot;2020-09-15T14:41:37.173Z&quot;&#39;</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">())</span><span class="w"></span>
+<span class="c1">// &#39;&quot;2020-09-15T14:41:37.173Z&quot;&#39;</span><span class="w"></span>
 
-<span class="o">&gt;</span> <span class="kd">const</span> <span class="nx">m</span> <span class="o">=</span> <span class="ow">new</span> <span class="nb">Map</span><span class="p">([[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">],</span> <span class="p">[</span><span class="mf">2</span><span class="p">,</span> <span class="mf">4</span><span class="p">],</span> <span class="p">[</span><span class="mf">3</span><span class="p">,</span> <span class="mf">8</span><span class="p">]])</span>
-<span class="c1">// Map(3) { 1 =&gt; 2, 2 =&gt; 4, 3 =&gt; 8 }</span>
-<span class="o">&gt;</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">m</span><span class="p">);</span>
-<span class="c1">// &#39;{}&#39;</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Map</span><span class="p">([[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">8</span><span class="p">]])</span><span class="w"></span>
+<span class="c1">// Map(3) { 1 =&gt; 2, 2 =&gt; 4, 3 =&gt; 8 }</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">m</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// &#39;{}&#39;</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -811,7 +813,7 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 </section>
 </section>
 <section id="urlurlsearchparams">
-<h2><code class="docutils literal notranslate"><span class="pre">URL</span></code>と<code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code><a class="headerlink" href="#urlurlsearchparams" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">URL</span></code>と<code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code><a class="headerlink" href="#urlurlsearchparams" title="この見出しへのパーマリンク"></a></h2>
 <p>正規表現とJSONを紹介しました。正規表現はユーザーの入力のチェックにたまに使います。JSONはサーバーとのデータのやりとりのフォーマットとしてよく使います。もう一つ、サーバーとのやり取りで利用するのが<code class="docutils literal notranslate"><span class="pre">URL</span></code>や<code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code>です。</p>
 <p>サーバーにリクエストを送るときにデータを詰め込む箱としては次の3つがあります。</p>
 <ul class="simple">
@@ -821,48 +823,48 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 </ul>
 <p>このうち、主にパスに使うのが本節で紹介する<code class="docutils literal notranslate"><span class="pre">URL</span></code>と<code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code>です。TypeScriptの元になっているECMAScriptには含まれないものですが、ブラウザには備わっていますし、Node.jsにも追加されました。Node.jsはもともと別のURL解析関数を持っていましたが、そちらは非推奨になり、現在はこちらのブラウザ互換のクラスが推奨になっています。</p>
 <section id="url">
-<h3><code class="docutils literal notranslate"><span class="pre">URL</span></code><a class="headerlink" href="#url" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">URL</span></code><a class="headerlink" href="#url" title="この見出しへのパーマリンク"></a></h3>
 <p>使い方は簡単で、コンストラクタにパスを入れると、パスのそれぞれの構成要素（プロトコルやホスト名、パス）などに分解します。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">u</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">URL</span><span class="p">(</span><span class="s2">&quot;https://developer.mozilla.org/en-US/docs/Web/API/URL#Methods&quot;</span><span class="p">)</span>
-<span class="nx">URL</span> <span class="p">{</span>
-    <span class="nx">href</span><span class="o">:</span> <span class="s1">&#39;https://developer.mozilla.org/en-US/docs/Web/API/URL#Methods&#39;</span><span class="p">,</span>
-    <span class="nx">origin</span><span class="o">:</span> <span class="s1">&#39;https://developer.mozilla.org&#39;</span><span class="p">,</span>
-    <span class="nx">protocol</span><span class="o">:</span> <span class="s1">&#39;https:&#39;</span><span class="p">,</span>
-    <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="nx">password</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="nx">host</span><span class="o">:</span> <span class="s1">&#39;developer.mozilla.org&#39;</span><span class="p">,</span>
-    <span class="nx">hostname</span><span class="o">:</span> <span class="s1">&#39;developer.mozilla.org&#39;</span><span class="p">,</span>
-    <span class="nx">port</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="nx">pathname</span><span class="o">:</span> <span class="s1">&#39;/en-US/docs/Web/API/URL&#39;</span><span class="p">,</span>
-    <span class="nx">search</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="nx">searchParams</span>: <span class="kt">URLSearchParams</span> <span class="p">{},</span>
-    <span class="nx">hash</span><span class="o">:</span> <span class="s1">&#39;#Methods&#39;</span>
- <span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="w"> </span><span class="nx">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="s2">&quot;https://developer.mozilla.org/en-US/docs/Web/API/URL#Methods&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="nx">URL</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">href</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://developer.mozilla.org/en-US/docs/Web/API/URL#Methods&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">origin</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://developer.mozilla.org&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">protocol</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https:&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">host</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;developer.mozilla.org&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">hostname</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;developer.mozilla.org&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">port</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">pathname</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;/en-US/docs/Web/API/URL&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">search</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">searchParams</span><span class="o">:</span><span class="w"> </span><span class="kt">URLSearchParams</span><span class="w"> </span><span class="p">{},</span><span class="w"></span>
+<span class="w">    </span><span class="nx">hash</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#Methods&#39;</span><span class="w"></span>
+<span class="w"> </span><span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>一部を書き換えてtoString()を呼ぶことでURLが作成できます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">pathname</span> <span class="o">=</span> <span class="s2">&quot;/en-US/docs/Web/API/URL/createObjectURL&quot;</span>
-<span class="o">&gt;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
-<span class="s1">&#39;https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL#Methods&#39;</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="w"> </span><span class="nx">u</span><span class="p">.</span><span class="nx">pathname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/en-US/docs/Web/API/URL/createObjectURL&quot;</span><span class="w"></span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">u</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span><span class="w"></span>
+<span class="s1">&#39;https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL#Methods&#39;</span><span class="w"></span>
 </pre></div>
 </div>
 <p>この程度であればテンプレート文字列を使うなどしても簡単ですが、この手の文字列を組み立てるクラスは積極的に使うべきです。SQLインジェクションなどのセキュリティホールは自分で命令を組み立てたときに、エスケープし忘れて想定しない命令が差し込まれてしまうことで発生します。URLも、何かを呼び出すときの鍵ですので、想定外のURLができてしまうのは問題があります。</p>
-<p>URLにはパスの最後にクエリーパラメータが付きますが、そこをsよりするのが<code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code>です。上記の例ではクエリーがなかったので空となっていますが、URLにクエリーがあれば、ここの部分にパラメータが保存されます。</p>
+<p>URLにはパスの最後にクエリーパラメータが付きますが、そこを処理するのが<code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code>です。上記の例ではクエリーがなかったので空となっていますが、URLにクエリーがあれば、ここの部分にパラメータが保存されます。</p>
 <p>caniuse.comで検索したURLを渡すと次のようになります。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">c</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">URL</span><span class="p">(</span><span class="s2">&quot;https://caniuse.com/?search=url%20search%20params&quot;</span><span class="p">)</span>
-<span class="nx">URL</span> <span class="p">{</span>
-    <span class="nx">href</span><span class="o">:</span> <span class="s1">&#39;https://caniuse.com/?search=url%20search%20params&#39;</span><span class="p">,</span>
-    <span class="nx">origin</span><span class="o">:</span> <span class="s1">&#39;https://caniuse.com&#39;</span><span class="p">,</span>
-    <span class="nx">searchParams</span>: <span class="kt">URLSearchParams</span> <span class="p">{</span> <span class="s1">&#39;search&#39;</span> <span class="p">=&gt;</span> <span class="s1">&#39;url search params&#39;</span> <span class="p">},</span>
-<span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="s2">&quot;https://caniuse.com/?search=url%20search%20params&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="nx">URL</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">href</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://caniuse.com/?search=url%20search%20params&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">origin</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://caniuse.com&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">searchParams</span><span class="o">:</span><span class="w"> </span><span class="kt">URLSearchParams</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;search&#39;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s1">&#39;url search params&#39;</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
 <section id="urlsearchparams">
-<h3><code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code><a class="headerlink" href="#urlsearchparams" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code><a class="headerlink" href="#urlsearchparams" title="この見出しへのパーマリンク"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code>はURLの一部としても利用されますが、クエリー部分だけを渡すことで、<code class="docutils literal notranslate"><span class="pre">URLSearchParams</span></code>を単独で利用できます。</p>
-<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">q</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">URLSearchParams</span><span class="p">(</span><span class="s2">&quot;?search=url%20search%20params&quot;</span><span class="p">)</span>
-<span class="nx">URLSearchParams</span> <span class="p">{</span> <span class="s1">&#39;search&#39;</span> <span class="p">=&gt;</span> <span class="s1">&#39;url search params&#39;</span> <span class="p">}</span>
+<div class="highlight-ts notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="w"> </span><span class="nx">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URLSearchParams</span><span class="p">(</span><span class="s2">&quot;?search=url%20search%20params&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="nx">URLSearchParams</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;search&#39;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s1">&#39;url search params&#39;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>このクラスは、<code class="docutils literal notranslate"><span class="pre">Map</span></code>に似ていますが、同一のキーに複数の値を持たせることができます。</p>
@@ -908,7 +910,7 @@ const p = JSON.parse(‘{&quot;name&quot;: &quot;Terry Gilliam&quot;}`) as Perso
 </section>
 </section>
 <section id="id23">
-<h2>時間のための関数<a class="headerlink" href="#id23" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>時間のための関数<a class="headerlink" href="#id23" title="この見出しへのパーマリンク"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">setTimeout()</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">setInterval()</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">requestAnimationFrame()</span></code></p>

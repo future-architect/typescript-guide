@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/translations.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
@@ -124,8 +126,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>おすすめのパッケージ・ツール</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">おすすめのパッケージ・ツール</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/recommended.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -136,10 +138,10 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>おすすめのパッケージ・ツール<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク"></a></h1>
+<h1>おすすめのパッケージ・ツール<a class="headerlink" href="#id1" title="この見出しへのパーマリンク"></a></h1>
 <p>ぼちぼち追加。まだ実戦投入していないものも多数あります。</p>
 <section id="typescript-playground">
-<h2>TypeScript Playground<a class="headerlink" href="#typescript-playground" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>TypeScript Playground<a class="headerlink" href="#typescript-playground" title="この見出しへのパーマリンク"></a></h2>
 <p>ブラウザでTypeScriptが試せるPlaygroundにも何種類かありますが、現在は公式のPlaygroundが一番おすすめです。以前は本家よりも強力というのを売りにしていたオープンソースのサイトもありました<a class="footnote-reference brackets" href="#id3" id="id2">1</a>が、v2になり、処理系のバージョン設定、細かいビルドオプションの設定など、この別実装にあった機能はすべて本家にも実装されました。また、本書執筆時点ではV3となった最新のPlaygroundが利用できるようになりました。こちらはビルド結果の.d.tsファイルの結果も確認することができ、書いたコードがどのようにTypeScript処理系に解釈されたのかを確認するのも簡単になりました。</p>
 <ul class="simple">
 <li><p>URL: <a class="reference external" href="https://www.typescriptlang.org/play/">https://www.typescriptlang.org/play/</a></p></li>
@@ -155,9 +157,9 @@
 </dl>
 </section>
 <section id="id4">
-<h2>ビルド補助ツール<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>ビルド補助ツール<a class="headerlink" href="#id4" title="この見出しへのパーマリンク"></a></h2>
 <section id="rush">
-<h3>Rush<a class="headerlink" href="#rush" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>Rush<a class="headerlink" href="#rush" title="この見出しへのパーマリンク"></a></h3>
 <ul class="simple">
 <li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/&#64;microsoft/rush">&#64;microsoft/api-extractor</a></p></li>
 <li><p>TypeScript型定義: CLIツールなので不要</p></li>
@@ -172,7 +174,7 @@
 </ul>
 </section>
 <section id="api-extractor">
-<h3>API extractor<a class="headerlink" href="#api-extractor" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>API extractor<a class="headerlink" href="#api-extractor" title="この見出しへのパーマリンク"></a></h3>
 <ul class="simple">
 <li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/&#64;microsoft/api-extractor">&#64;microsoft/api-extractor</a></p></li>
 <li><p>TypeScript型定義: CLIツールなので不要</p></li>
@@ -181,7 +183,7 @@
 <p>ドキュメントジェネレータ。パッケージのリファレンスマニュアルが作れる。</p>
 </section>
 <section id="cash">
-<h3>cash<a class="headerlink" href="#cash" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>cash<a class="headerlink" href="#cash" title="この見出しへのパーマリンク"></a></h3>
 <ul class="simple">
 <li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/cash">cash</a></p></li>
 <li><p>TypeScript型定義:<code class="docutils literal notranslate"><span class="pre">&#64;types/cash</span></code></p></li>
@@ -193,7 +195,7 @@
 </div>
 </section>
 <section id="cross-env">
-<h3>cross-env<a class="headerlink" href="#cross-env" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>cross-env<a class="headerlink" href="#cross-env" title="この見出しへのパーマリンク"></a></h3>
 <ul class="simple">
 <li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/cross-env">cross-env</a></p></li>
 <li><p>TypeScript型定義: CLIツールなので不要</p></li>
@@ -201,7 +203,7 @@
 <p>WindowsとLinux/macOSで環境変数変更を統一的に扱えるパッケージ。</p>
 </section>
 <section id="typesync">
-<h3>typesync<a class="headerlink" href="#typesync" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>typesync<a class="headerlink" href="#typesync" title="この見出しへのパーマリンク"></a></h3>
 <ul class="simple">
 <li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/typesync">typesync</a></p></li>
 <li><p>TypeScript型定義: CLIツールなので不要</p></li>
@@ -210,9 +212,9 @@
 </section>
 </section>
 <section id="id10">
-<h2>コマンドラインツール用ライブラリ<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>コマンドラインツール用ライブラリ<a class="headerlink" href="#id10" title="この見出しへのパーマリンク"></a></h2>
 <section id="convict">
-<h3>convict<a class="headerlink" href="#convict" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>convict<a class="headerlink" href="#convict" title="この見出しへのパーマリンク"></a></h3>
 <ul class="simple">
 <li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/convict">convict</a></p></li>
 <li><p>TypeScript型定義: <code class="docutils literal notranslate"><span class="pre">&#64;types/convict</span></code></p></li>
@@ -220,7 +222,7 @@
 <p>コマンドライン引数、設定ファイル、環境変数などを統合的に扱える設定情報管理ライブラリ。型情報付きで設定を管理できるし、設定内容のバリデーションもできる。TypeScriptで使うとさらに便利。</p>
 </section>
 <section id="microsoft-ts-command-line">
-<h3>&#64;microsoft/ts-command-line<a class="headerlink" href="#microsoft-ts-command-line" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>&#64;microsoft/ts-command-line<a class="headerlink" href="#microsoft-ts-command-line" title="この見出しへのパーマリンク"></a></h3>
 <ul class="simple">
 <li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/&#64;microsoft/ts-command-line">&#64;microsoft/ts-command-line</a></p></li>
 <li><p>TypeScript型定義: 内蔵</p></li>
@@ -229,9 +231,9 @@
 </section>
 </section>
 <section id="id13">
-<h2>アルゴリズム関連のライブラリ<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク"></a></h2>
+<h2>アルゴリズム関連のライブラリ<a class="headerlink" href="#id13" title="この見出しへのパーマリンク"></a></h2>
 <section id="p-map">
-<h3>p-map<a class="headerlink" href="#p-map" title="このヘッドラインへのパーマリンク"></a></h3>
+<h3>p-map<a class="headerlink" href="#p-map" title="この見出しへのパーマリンク"></a></h3>
 <ul class="simple">
 <li><p>npmパッケージ: <a class="reference external" href="https://www.npmjs.com/package/p-map">p-map</a></p></li>
 <li><p>TypeScript型定義: 同梱</p></li>

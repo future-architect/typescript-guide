@@ -46,6 +46,7 @@ Pull Request/Issueをくださった方々
 * `@kesoji <https://github.com/kesoji>`_
 * `@maguroguma <https://github.com/maguroguma>`_
 * `@nukopy <https://github.com/nukopy>`_
+* `@soraiyu <https://github.com/soraiyu>`_
 
 
 フィードバックをくださった方々
