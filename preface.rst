@@ -174,7 +174,7 @@ ECMAScriptの仕様および、MDN、TypeScriptの仕様などは一番のリフ
 
 本書のベースとなっているのは、本原稿を執筆した渋川がQiitaに書いたエントリーの\ `イマドキのJavaScriptの書き方2018 <https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9>`_\ [#]_\ と、それを元にして書いた `Software Design 2019年3月号 <https://gihyo.jp/magazine/SD/archive/2019/201903>`_\ のJavaScript特集です。それ以外に、状況別のTypeScriptの環境構築について書いた `2019年版: 脱Babel!フロント/JS開発をTypeScriptに移行するための環境整備マニュアル <https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1>`_ [#]_ も内包していますし、他のエントリーも細々と引用しています。
 
-これらの執筆においてもそうですが、本書自体の執筆でも、ウェブ上で多くの議論をしてくれた人たちとの交流によって得られた知識ふんだんに盛り込まれていますので、ここに感謝申し上げたいと思います。
+これらの執筆においてもそうですが、本書自体の執筆でも、ウェブ上で多くの議論をしてくれた人たちとの交流によって得られた知識がふんだんに盛り込まれていますので、ここに感謝申し上げたいと思います。
 
 .. [#] https://qiita.com/shibukawa/items/19ab5c381bbb2e09d0d9
 .. [#] https://qiita.com/shibukawa/items/0a1aaf689d5183c6e0f1
