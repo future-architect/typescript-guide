@@ -37,7 +37,7 @@ TypeScriptとJavaScriptの一番の違いは型です。型が登場する場面
        name = "小動物";
    }
 
-なお、JavaScriptと異なり、未定義の変数に代入すると、エラーなります。
+なお、JavaScriptと異なり、未定義の変数に代入すると、エラーになります。
 
 .. code-block:: ts
 
