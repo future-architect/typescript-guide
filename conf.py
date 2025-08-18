@@ -20,7 +20,7 @@ import sphinx_rtd_theme
 # -- Project information -----------------------------------------------------
 
 project = '仕事ですぐに使えるTypeScript'
-copyright = '2019-2020, Future Corporation'
+copyright = '2019-2025 by Future Corporation'
 author = 'Future Corporation'
 
 import os
