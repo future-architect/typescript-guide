@@ -1,0 +1,5 @@
+# ビルドの再現性のため、生成結果を左右するものだけを固定する
+Sphinx==8.2.3
+sphinx-rtd-theme==3.0.2
+docutils==0.21.2
+Pygments==2.21.0

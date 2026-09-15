@@ -27,7 +27,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath('ext'))
-extensions = [ 'pageinfo', 'sphinx.ext.todo', 'sphinx.ext.githubpages', 'sphinx_rtd_theme', 'sphinxcontrib.blockdiag' ]
+extensions = [ 'pageinfo', 'sphinx.ext.todo', 'sphinx.ext.githubpages', 'sphinx_rtd_theme' ]
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
@@ -67,7 +67,7 @@ language = 'ja'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '_notfinished']
+exclude_patterns = ['_build', '_site', 'docs', 'Thumbs.db', '.DS_Store', '_notfinished']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
