@@ -1,7 +1,6 @@
 _build/doctrees
 ext/__pycache__
 node_modules
-docs/.doctrees
 _build/latex
 _build/html
 _site

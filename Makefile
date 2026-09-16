@@ -22,7 +22,7 @@ help:
 html: Makefile
 	@$(SPHINXBUILD) -b html "$(SOURCEDIR)" "$(BUILDDIR)/html" $(SPHINXOPTS) $(O)
 
-# PDF は LaTeX が要るので CI では組まない。更新したら docs/ のものを差し替えてコミットする
+# PDF は LaTeX が要るので CI では組まない。更新したら _extra/ のものを差し替えてコミットする
 pdf: Makefile
 	@$(SPHINXBUILD) -M latexpdf "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	cp $(BUILDDIR)/latex/typescript-guide.pdf ./docs
+	cp $(BUILDDIR)/latex/typescript-guide.pdf ./_extra

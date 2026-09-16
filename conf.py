@@ -67,7 +67,7 @@ language = 'ja'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = ['_build', '_site', 'docs', 'Thumbs.db', '.DS_Store', '_notfinished']
+exclude_patterns = ['_build', '_site', 'Thumbs.db', '.DS_Store', '_notfinished']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -90,6 +90,9 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# PDF は LaTeX が要るので CI では組まない。出来合いのものを出力へそのまま置く
+html_extra_path = ['_extra']
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.

@@ -25,8 +25,6 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - run: sphinx-build -b html . _site
-      # PDF は LaTeX が要るので CI では組まず、コミット済みのものを配る
-      - run: cp docs/typescript-guide.pdf _site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
