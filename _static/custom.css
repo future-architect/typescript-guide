@@ -14,6 +14,35 @@
 
 /* ------------------------------------------------ インラインコード */
 
+/* 技術ブログの札にそろえる（テーマ既定は白地・枠あり・赤い文字・75%）。
+   code.literal を名指しするのは、テーマが同じ詳細度で色を持っているため。
+   コードブロックは <code> を持たないのでここには入らない */
+.rst-content code,
+.rst-content code.literal,
+.rst-content tt.literal {
+  background: #eee;
+  border: 0;
+  color: #424242;
+  font-size: .875em;
+  padding: .25em .4em;
+  border-radius: 4px;
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", "Source Code Pro", Menlo,
+    Monaco, Consolas, "Liberation Mono", monospace;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+/* 押せることが読めなくなるので、リンクの中だけ札の上で AA を満たす青にする */
+.rst-content a code,
+.rst-content a code.literal {
+  color: #0a58ca;
+}
+
+.rst-content a:visited code,
+.rst-content a:visited code.literal {
+  color: #590fc7;
+}
+
 /* ------------------------------------------------ コードブロック */
 
 /* ------------------------------------------------ note（admonition） */
