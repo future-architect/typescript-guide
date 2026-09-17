@@ -72,6 +72,32 @@ html.writer-html5 .rst-content dl.footnote code {
   padding-left: 0.15em;
 }
 
+/* 項目の中が2段落以上ある箇条書きは、項目の切れ目を空きで示す。テーマは
+   項目の中の段落の空きと項目と項目の空きがどちらも 12px で、どこまでが
+   1つの項目か読めない。中を 4px に詰め、項目の間にその4倍を置く。
+   1段落の項目だけが並ぶ箇条書きは間隔を持たないまま（行として並ぶので詰めて読む）*/
+.rst-content section ul li > p,
+.rst-content section ol li > p {
+  margin-bottom: 4px;
+}
+
+.rst-content section ul li > p:last-child,
+.rst-content section ol li > p:last-child {
+  margin-bottom: 0;
+}
+
+/* テーマは2段落目に上の空き 12px を持たせている。上下から挟むと大きい方だけが
+   効いて 4px が見えないので、空きは下だけで持つ */
+.rst-content section ul li > p + p,
+.rst-content section ol li > p + p {
+  margin-top: 0;
+}
+
+.rst-content section ul:has(li > p + p) > li + li,
+.rst-content section ol:has(li > p + p) > li + li {
+  margin-top: 16px;
+}
+
 /* 入れ子の切れ目は「戻り」の空きが示す。子のリストが終わって同じ階層の項目に
    戻るところに刻み1つぶんを置く。開き（親から子へ入るところ）は 0 のまま——
    字下げが1段深くなること自体が開きを示す */
