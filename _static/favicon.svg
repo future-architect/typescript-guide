@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 152">
+<defs><style>
+    .cls-1{fill:#0a1561;}
+    @media (prefers-color-scheme: dark) {
+      .cls-1{fill:white;}
+    }
+</style></defs>
+<path class="cls-1" d="M21.16,12.75H130.91L115.05,40.98H48.5V65.14h52.95L85.45,93.57H48.5v45.68H21.16Z"/>
+</svg>
