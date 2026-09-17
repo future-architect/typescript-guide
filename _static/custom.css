@@ -57,7 +57,9 @@ html.writer-html5 .rst-content dl.footnote code {
 }
 
 .rst-content section ul li,
-.rst-content section ol li {
+.rst-content section ol li,
+.rst-content section ul[class] li,
+.rst-content section ol[class] li {
   margin-left: 0;
 }
 
