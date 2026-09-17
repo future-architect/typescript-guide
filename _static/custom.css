@@ -116,6 +116,46 @@ html.writer-html5 .rst-content dl.footnote code {
 
 /* ---------------------------------------------------------------- 見出し */
 
+/* 見出しのアンカー。テーマは水色（#2980b9）で、押すと訪問済みの色に変わる。
+   ブログと同じネイビーにし、4つの状態で同じ色にする——これは「行き先」ではなく
+   その見出しの位置を指す印なので、訪問済みで色が変わると意味が読めなくなる */
+.rst-content h1 .headerlink,
+.rst-content h2 .headerlink,
+.rst-content h3 .headerlink,
+.rst-content h4 .headerlink,
+.rst-content h5 .headerlink,
+.rst-content h6 .headerlink,
+.rst-content h1 .headerlink:visited,
+.rst-content h2 .headerlink:visited,
+.rst-content h3 .headerlink:visited,
+.rst-content h4 .headerlink:visited,
+.rst-content h5 .headerlink:visited,
+.rst-content h6 .headerlink:visited,
+.rst-content h1 .headerlink:hover,
+.rst-content h2 .headerlink:hover,
+.rst-content h3 .headerlink:hover,
+.rst-content h4 .headerlink:hover,
+.rst-content h5 .headerlink:hover,
+.rst-content h6 .headerlink:hover,
+.rst-content h1 .headerlink:focus,
+.rst-content h2 .headerlink:focus,
+.rst-content h3 .headerlink:focus,
+.rst-content h4 .headerlink:focus,
+.rst-content h5 .headerlink:focus,
+.rst-content h6 .headerlink:focus {
+  color: #0a1461;
+}
+
+/* キャプションのアンカーは出さない。:name: を書いていないので行き先が
+   #id11 のような自動連番で、前にコードや図が1つ増えると番号がずれる。
+   共有したリンクが別のブロックを指すので、アンカーとして働いていない
+   （見出しは見出し名の id なので安定している）*/
+.rst-content .code-block-caption .headerlink,
+.rst-content figure figcaption .headerlink,
+.rst-content table > caption .headerlink {
+  display: none;
+}
+
 /* 見出しは 直前の空き・太さ・罫線 で階層を作る。テーマは margin-top が 0 で、
    前の段落の下の空き（24px）しか無く、h2 も h6 も同じ間隔で始まる */
 .rst-content h1,
