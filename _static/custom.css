@@ -45,10 +45,11 @@
 
 /* ------------------------------------------------ コードブロック */
 
-/* 枠を持たせず、輪郭は地の差だけが作る。配色と地は ext/futurelight.py 側 */
+/* 枠の色だけブログの枠の段へ。地の差（1.06）では輪郭が出ないので枠は残す。
+   配色と地は ext/futurelight.py 側 */
 .rst-content div[class^=highlight],
 .rst-content pre.literal-block {
-  border: 0;
+  border-color: #ddd;
 }
 
 /* ------------------------------------------------ note（admonition） */
