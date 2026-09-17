@@ -97,6 +97,17 @@
 
 /* ------------------------------------------------ インラインコード */
 
+/* 合字を切る。スタックの Cascadia Code（Windows に入っている）は === や !== を
+   1つの記号に合成するので、記法そのものを説明する文書では元の字が読めない */
+code,
+kbd,
+pre,
+samp,
+.rst-content div[class^=highlight],
+.rst-content div[class^=highlight] pre {
+  font-variant-ligatures: none;
+}
+
 /* 技術ブログの札にそろえる（テーマ既定は白地・枠あり・赤い文字・75%）。
    code.literal を名指しするのは、テーマが同じ詳細度で色を持っているため。
    コードブロックは <code> を持たないのでここには入らない */
