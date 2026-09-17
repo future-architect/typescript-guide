@@ -277,6 +277,46 @@ html.writer-html5 .rst-content table.docutils th > p {
 
 /* ------------------------------------------------------------ リンク */
 
+/* 地の文のリンク。テーマの #2980b9 は白地で 4.30 と AA を割る。
+   色だけでは地の文と 3:1 に届かない（2.24）ので、静止でも下線を持つ */
+.rst-content section p a,
+.rst-content section li a,
+.rst-content section td a,
+.rst-content table.docutils td a {
+  color: #0072E5;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.rst-content section p a:visited,
+.rst-content section li a:visited,
+.rst-content section td a:visited {
+  color: #590fc7;
+}
+
+/* 静止で下線を持つぶん、反応は線の太さで返す */
+.rst-content section p a:hover,
+.rst-content section li a:hover,
+.rst-content section td a:hover {
+  color: #0072E5;
+  text-decoration-thickness: 2px;
+}
+
+/* 一覧（章立て）は地の文ではないので、静止では下線を持たず hover で出す。
+   脚注の番号と戻りは上付きの数字と記号で地の文に紛れない */
+.rst-content .toctree-wrapper li a,
+.rst-content a.footnote-reference,
+.rst-content aside.footnote a.fn-backref {
+  text-decoration: none;
+}
+
+.rst-content .toctree-wrapper li a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
 /* ------------------------------------------ レイアウトの部品 */
 
 /* フッターの添え。テーマの grey (#808080) は白地で 3.54 しかなく AA を割る */
