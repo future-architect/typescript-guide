@@ -50,6 +50,8 @@
 .rst-content div[class^=highlight],
 .rst-content pre.literal-block {
   border-color: #ddd;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 /* ------------------------------------------------ note（admonition） */
