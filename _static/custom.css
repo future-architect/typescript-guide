@@ -324,6 +324,75 @@ samp,
 }
 
 
+
+/* note の中のリンクは hover でも色を動かさず、下線の太さだけで返す。
+   地の文の hover（青）が要素の数のぶん詳細度で勝っていて、todo の中の
+   リンクだけ hover で青くなっていた。訪問済みも紫のまま */
+.rst-content .admonition.note a:hover,
+.rst-content .admonition.seealso a:hover,
+.rst-content .admonition.note a:focus,
+.rst-content .admonition.seealso a:focus {
+  color: #2D58D7;
+  text-decoration-thickness: 2px;
+}
+.rst-content .admonition.note a:visited:hover,
+.rst-content .admonition.seealso a:visited:hover,
+.rst-content .admonition.note a:visited:focus,
+.rst-content .admonition.seealso a:visited:focus {
+  color: #590fc7;
+}
+.rst-content .admonition.tip a:hover,
+.rst-content .admonition.hint a:hover,
+.rst-content .admonition.tip a:focus,
+.rst-content .admonition.hint a:focus {
+  color: #257718;
+  text-decoration-thickness: 2px;
+}
+.rst-content .admonition.tip a:visited:hover,
+.rst-content .admonition.hint a:visited:hover,
+.rst-content .admonition.tip a:visited:focus,
+.rst-content .admonition.hint a:visited:focus {
+  color: #590fc7;
+}
+.rst-content .admonition.warning a:hover,
+.rst-content .admonition.caution a:hover,
+.rst-content .admonition.attention a:hover,
+.rst-content .admonition.important a:hover,
+.rst-content .admonition-todo a:hover,
+.rst-content .admonition.warning a:focus,
+.rst-content .admonition.caution a:focus,
+.rst-content .admonition.attention a:focus,
+.rst-content .admonition.important a:focus,
+.rst-content .admonition-todo a:focus {
+  color: #7B6D18;
+  text-decoration-thickness: 2px;
+}
+.rst-content .admonition.warning a:visited:hover,
+.rst-content .admonition.caution a:visited:hover,
+.rst-content .admonition.attention a:visited:hover,
+.rst-content .admonition.important a:visited:hover,
+.rst-content .admonition-todo a:visited:hover,
+.rst-content .admonition.warning a:visited:focus,
+.rst-content .admonition.caution a:visited:focus,
+.rst-content .admonition.attention a:visited:focus,
+.rst-content .admonition.important a:visited:focus,
+.rst-content .admonition-todo a:visited:focus {
+  color: #590fc7;
+}
+.rst-content .admonition.danger a:hover,
+.rst-content .admonition.error a:hover,
+.rst-content .admonition.danger a:focus,
+.rst-content .admonition.error a:focus {
+  color: #AC1B1B;
+  text-decoration-thickness: 2px;
+}
+.rst-content .admonition.danger a:visited:hover,
+.rst-content .admonition.error a:visited:hover,
+.rst-content .admonition.danger a:visited:focus,
+.rst-content .admonition.error a:visited:focus {
+  color: #590fc7;
+}
+
 /* note の中のキャプション付きコード。note の中ではコードブロックの枠を地と
    同じ色にして消しているので、タブだけが枠を持つと食い違う。タブの地と枠も
    その note のコードブロックの地にそろえて、タブとブロックを1つの面にする */
