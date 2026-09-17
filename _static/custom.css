@@ -315,6 +315,34 @@ samp,
   white-space: nowrap;
 }
 
+
+/* note の中のキャプション付きコード。note の中ではコードブロックの枠を地と
+   同じ色にして消しているので、タブだけが枠を持つと食い違う。タブの地と枠も
+   その note のコードブロックの地にそろえて、タブとブロックを1つの面にする */
+.rst-content .admonition.note .code-block-caption,
+.rst-content .admonition.seealso .code-block-caption {
+  border-color: #f7f7f9;
+  background: #f7f7f9;
+}
+.rst-content .admonition.tip .code-block-caption,
+.rst-content .admonition.hint .code-block-caption {
+  border-color: #f2fbf0;
+  background: #f2fbf0;
+}
+.rst-content .admonition.warning .code-block-caption,
+.rst-content .admonition.caution .code-block-caption,
+.rst-content .admonition.attention .code-block-caption,
+.rst-content .admonition.important .code-block-caption,
+.rst-content .admonition-todo .code-block-caption {
+  border-color: #fefcf0;
+  background: #fefcf0;
+}
+.rst-content .admonition.danger .code-block-caption,
+.rst-content .admonition.error .code-block-caption {
+  border-color: #ffeded;
+  background: #ffeded;
+}
+
 /* タブが載る角だけ丸みを落として、タブとブロックを地続きにする */
 .rst-content .literal-block-wrapper div[class^=highlight] {
   border-top-left-radius: 0;
