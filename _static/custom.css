@@ -10,6 +10,26 @@
 
 /* -------------------------------------------------------------- 本文の組 */
 
+/* 脚注。補足情報なので本文から一段落とす。テーマは 90%（14.4px）で、色の
+   #808080 は白地で 3.54 と AA を割っていた。ブログは脚注を body の段
+   （13px）に乗せ、色は本文と同じにしている */
+html.writer-html5 .rst-content aside.footnote,
+html.writer-html5 .rst-content aside.footnote p,
+html.writer-html5 .rst-content aside.footnote-list aside.footnote,
+html.writer-html5 .rst-content dl.footnote,
+html.writer-html5 .rst-content dl.footnote > dd p {
+  color: #424242;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+/* 中のインラインコードは .875em だと 11.4px まで落ちるので、本文のコードと
+   同じ 12px で止める */
+html.writer-html5 .rst-content aside.footnote code,
+html.writer-html5 .rst-content dl.footnote code {
+  font-size: 12px;
+}
+
 /* 箇条書き。テーマは li の margin-left で 24px 字下げ、2段目が白丸・3段目が四角。
    ブログは全段が黒丸で、字下げは ul 側が 20px（入れ子は 16px）*/
 .rst-content section ul,
