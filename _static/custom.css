@@ -691,6 +691,77 @@ html.writer-html5 .rst-content table.docutils th > p {
 
 /* ------------------------------------------ レイアウトの部品 */
 
+/* 現在地の表し方。テーマは現在の枝だけ明るいグレー（#e3e3e3）、その中の
+   ページは白（#fcfcfc）、さらに深い枝は #c9c9c9 と、暗い地の上に3段の
+   明るい面が積み上がる。暗い地のまま白を薄く重ねる形に替える */
+.wy-menu-vertical li.current,
+.wy-menu-vertical li.toctree-l2.current,
+.wy-menu-vertical li.toctree-l3.current {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.wy-menu-vertical li.current > a,
+.wy-menu-vertical li.toctree-l2.current > a,
+.wy-menu-vertical li.toctree-l3.current > a,
+.wy-menu-vertical li.current a:hover,
+.wy-menu-vertical li a:hover {
+  border: 0;
+  background: transparent;
+  color: #fff;
+}
+
+.wy-menu-vertical li a:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+/* 深い枝にもテーマが明るい地を当てている（l3 に #c9c9c9、l4 に #bdbdbd）。
+   こちらの文字は明るいので、残ると明るい地の上に明るい文字になって読めない */
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3 > a,
+.wy-menu-vertical li.toctree-l3.current li.toctree-l4 > a,
+.wy-menu-vertical li.current a {
+  background: transparent;
+  border-right: 0;
+}
+
+/* いま開いているページの行だけ一段持ち上げる */
+.wy-menu-vertical li.current > a.current,
+.wy-menu-vertical a.current {
+  background: rgba(255, 255, 255, 0.13);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* 枝の中の行の文字。テーマは明るい面に載る前提で #404040 にしている */
+.wy-menu-vertical li.current a,
+.wy-menu-vertical li.toctree-l2 a,
+.wy-menu-vertical li.toctree-l3 a,
+.wy-menu-vertical li.toctree-l4 a {
+  color: #d9d9d9;
+}
+
+/* 開閉の三角も面に合わせる */
+.wy-menu-vertical li.current > a button.toctree-expand,
+.wy-menu-vertical li.on a button.toctree-expand,
+.wy-menu-vertical li button.toctree-expand {
+  color: #9b9b9b;
+}
+
+/* 章のラベル（「TypeScriptの書き方」など）。テーマは水色（#55a5d9）で、
+   押せない見出しなのにリンクに見える。項目（#d9d9d9・14.4px）より弱い
+   灰と一段小さい字で、押せるものと分ける */
+.wy-menu-vertical p.caption,
+.wy-menu-vertical p.caption .caption-text {
+  color: #9b9b9b;
+  font-size: 12px;
+}
+
+/* 枝の見出し（章のラベル）は地を持たない */
+.wy-menu-vertical li.toctree-l1.current > a {
+  border-top: 0;
+  border-bottom: 0;
+}
+
+
 /* 所在の目印。テーマは部品ごとにばらばらで、リンクは UA のリング、
    ボタンは 4px の -webkit-focus-ring-color、入力欄は outline: none（＝目印が無い）。
    所在の目印は1つなので、サイト全体を 2px のネイビーにそろえる */
