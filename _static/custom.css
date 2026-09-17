@@ -278,6 +278,36 @@ samp,
 
 /* ------------------------------------------------ コードブロック */
 
+/* ファイル名のキャプション。テーマは中央・イタリック・85%（13.6px）で、
+   どのブロックの名前か読み取りにくい。ブログと同じく、ブロックの左上に
+   載るタブの形にする。ファイル名はコードではなくブロックのラベルなので
+   書体は本文と同じにし、大きさは中身と同じ 12px */
+.rst-content .code-block-caption {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: -1px;
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  border-bottom-color: #f5f5f5;
+  border-radius: 8px 8px 0 0;
+  background: #f5f5f5;
+  color: #24292E;
+  font-family: inherit;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.4;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* タブが載る角だけ丸みを落として、タブとブロックを地続きにする */
+.rst-content .literal-block-wrapper div[class^=highlight] {
+  border-top-left-radius: 0;
+}
+
 /* 枠の色だけブログの枠の段へ。地の差（1.06）では輪郭が出ないので枠は残す。
    配色と地は ext/futurelight.py 側 */
 .rst-content div[class^=highlight],
