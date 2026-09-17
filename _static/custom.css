@@ -737,6 +737,15 @@ html.writer-html5 .rst-content table.docutils th > p {
   color: #9b9b9b;
 }
 
+/* 章のラベル（「TypeScriptの書き方」など）。テーマは水色（#55a5d9）で、
+   押せない見出しなのにリンクに見える。項目（#d9d9d9・14.4px）より弱い
+   灰と一段小さい字で、押せるものと分ける */
+.wy-menu-vertical p.caption,
+.wy-menu-vertical p.caption .caption-text {
+  color: #9b9b9b;
+  font-size: 12px;
+}
+
 /* 枝の見出し（章のラベル）は地を持たない */
 .wy-menu-vertical li.toctree-l1.current > a {
   border-top: 0;
