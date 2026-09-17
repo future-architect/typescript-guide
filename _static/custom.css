@@ -371,6 +371,60 @@ html.writer-html5 .rst-content table.docutils th > p {
 
 /* ------------------------------------------ レイアウトの部品 */
 
+/* 所在の目印。テーマは部品ごとにばらばらで、リンクは UA のリング、
+   ボタンは 4px の -webkit-focus-ring-color、入力欄は outline: none（＝目印が無い）。
+   所在の目印は1つなので、サイト全体を 2px のネイビーにそろえる */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 2px solid #0a1461;
+  outline-offset: 2px;
+}
+
+/* 暗い地の上ではネイビーが沈む（左のナビとスキップリンクの板で 1.05）ので、
+   白の輪郭に替える。反応の色とは別に保つため、差し色ではなく無彩色の最上段 */
+.wy-nav-side a:focus-visible,
+.wy-nav-side button:focus-visible,
+.wy-nav-side input:focus-visible,
+.skip-link:focus-visible {
+  outline-color: #fff;
+}
+
+/* 着地点そのものには輪郭を出さない。本文全体が囲まれても所在は分からない */
+#main-content:focus,
+#main-content:focus-visible {
+  outline: none;
+}
+
+/* キーボードの入口。Tab の起点はブラウザが持っていて、ホイールで送っただけでは
+   動かない。そのため読者がどこを見ていても Tab は左のナビの先頭に入り、
+   本文まで 34 回かかっていた。
+   position: fixed にする——絶対配置だと、押される前にブラウザがページを先頭まで
+   送ってしまい、読んでいた位置を失う */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 1000;
+  padding: 10px 16px;
+  border-radius: 4px;
+  background-color: #0a1461;
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  color: #fff;
+  text-decoration: none;
+}
+
 /* フッターの添え。テーマの grey (#808080) は白地で 3.54 しかなく AA を割る */
 .rst-content footer,
 .rst-content footer div[role=contentinfo] p {

@@ -1,0 +1,34 @@
+{% extends "!layout.html" %}
+
+{# キーボードの入口。Tab の起点はブラウザが持っていて、ホイールで送っただけでは
+   動かない。そのため読者がどこを見ていても Tab は左のナビの先頭に入り、本文まで
+   34 回かかる #}
+{% block extrabody %}
+  <a class="skip-link" href="#main-content">本文へスキップ</a>
+{% endblock %}
+
+{# 本体の div に id と tabindex を足すためだけの差し替え。tabindex が無いと
+   フォーカスが本文へ移らず、次の Tab がまた先頭から始まる。
+   中身は sphinx_rtd_theme 3.0.2 の layout.html と同じ（版は requirements.txt で固定） #}
+{% block content %}
+  {%- if theme_style_external_links|tobool %}
+  <div class="rst-content style-external-links">
+  {%- else %}
+  <div class="rst-content">
+  {%- endif %}
+    {% include "breadcrumbs.html" %}
+    <div role="main" id="main-content" tabindex="-1" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+    {%- block document %}
+     <div itemprop="articleBody">
+       {% block body %}{% endblock %}
+     </div>
+     {%- if self.comments()|trim %}
+       <div class="articleComments">
+         {%- block comments %}{% endblock %}
+       </div>
+     {%- endif%}
+    </div>
+    {%- endblock %}
+    {% include "footer.html" %}
+  </div>
+{% endblock %}
