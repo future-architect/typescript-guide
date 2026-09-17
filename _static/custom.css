@@ -10,6 +10,14 @@
 
 /* -------------------------------------------------------------- 本文の組 */
 
+/* 読み下す文章の行間。テーマは 24px（1.5）で、和文だと目が次の行の頭へ戻りにくい */
+.rst-content section p,
+.rst-content section li,
+.rst-content section blockquote,
+.rst-content section dl dd {
+  line-height: 1.75;
+}
+
 /* ---------------------------------------------------------------- 見出し */
 
 /* ------------------------------------------------ インラインコード */
@@ -247,6 +255,9 @@ html.writer-html5 .rst-content table.docutils th {
   padding: 8px 10px;
   border: 1px solid #ccc;
   font-size: 13px;
+  /* 表は行として並ぶものなので 1.4。docutils が表を blockquote で包むことがあり、
+     本文の 1.75 がそこから降りてくる */
+  line-height: 1.4;
 }
 
 /* テーマは見出しの行だけ 2px で引く。ブログは全部の罫線が同じ太さ。
