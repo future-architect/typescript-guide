@@ -714,6 +714,15 @@ html.writer-html5 .rst-content table.docutils th > p {
   background: rgba(255, 255, 255, 0.09);
 }
 
+/* 深い枝にもテーマが明るい地を当てている（l3 に #c9c9c9、l4 に #bdbdbd）。
+   こちらの文字は明るいので、残ると明るい地の上に明るい文字になって読めない */
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3 > a,
+.wy-menu-vertical li.toctree-l3.current li.toctree-l4 > a,
+.wy-menu-vertical li.current a {
+  background: transparent;
+  border-right: 0;
+}
+
 /* いま開いているページの行だけ一段持ち上げる */
 .wy-menu-vertical li.current > a.current,
 .wy-menu-vertical a.current {
