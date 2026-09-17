@@ -232,3 +232,95 @@
 /* ------------------------------------------------------------ リンク */
 
 /* ------------------------------------------ レイアウトの部品 */
+
+/* テーマの clearfix（幅100%の display:table）が flex アイテムになって
+   場所を取るので消す */
+.rst-footer-buttons::before,
+.rst-footer-buttons::after {
+  content: none;
+}
+
+/* 枠で囲って2つに割る。テーマ既定は灰色のボタンが左右に浮いている形 */
+.rst-footer-buttons {
+  display: flex;
+  margin: 40px 0 24px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 地と文字色はテーマが .btn-neutral に !important を付けているので、こちらも付ける */
+.rst-footer-buttons .btn {
+  flex: 1 1 0;
+  min-width: 0;
+  display: block;
+  /* px で書く。日本語ラベルの案では font-size を 0 にするので、em だと余白ごと潰れる */
+  padding: 10px 12px;
+  background: none !important;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: #616161 !important;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: left;
+  text-shadow: none;
+  white-space: normal;
+}
+
+.rst-footer-buttons .btn[rel=next] {
+  text-align: right;
+  border-left: 1px solid #ecebeb;
+}
+
+/* 行き先の名前。テーマは title 属性に入れているだけで画面に出していない */
+.rst-footer-buttons .btn::after {
+  content: attr(title);
+  display: block;
+  margin-top: 0.2em;
+  color: #424242;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* 面が変わることで押せると分かるので、文字色は動かさない。
+   テーマの :hover は緑（#2cc36b）に塗る */
+.rst-footer-buttons .btn:hover,
+.rst-footer-buttons .btn:focus {
+  background: #eee !important;
+  color: #616161 !important;
+  text-decoration: none;
+}
+
+.rst-footer-buttons .btn:visited {
+  color: #616161 !important;
+}
+
+.rst-footer-buttons .btn:active {
+  padding: 10px 12px;
+  box-shadow: none;
+}
+
+/* 矢印は方向のラベルの側で持つ */
+.rst-footer-buttons .btn .fa {
+  display: none;
+}
+
+/* 「Previous」「Next」を隠し、日本語の方向ラベルを出す */
+.rst-footer-buttons .btn {
+  font-size: 0;
+}
+
+.rst-footer-buttons .btn::before {
+  font-size: 12px;
+}
+
+.rst-footer-buttons .btn[rel=prev]::before {
+  content: '‹ 前のページ';
+}
+
+.rst-footer-buttons .btn[rel=next]::before {
+  content: '次のページ ›';
+}
