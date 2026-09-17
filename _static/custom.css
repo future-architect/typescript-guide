@@ -10,6 +10,59 @@
 
 /* -------------------------------------------------------------- 本文の組 */
 
+/* 箇条書き。テーマは li の margin-left で 24px 字下げ、2段目が白丸・3段目が四角。
+   ブログは全段が黒丸で、字下げは ul 側が 20px（入れ子は 16px）*/
+.rst-content section ul,
+.rst-content section ul li,
+.rst-content section ul li li,
+.rst-content section ul li li li {
+  list-style-type: disc;
+}
+
+.rst-content section li::marker {
+  color: #616161;
+}
+
+.rst-content section ul,
+.rst-content section ol {
+  padding-inline-start: 20px;
+}
+
+.rst-content section ul li,
+.rst-content section ol li {
+  margin-left: 0;
+}
+
+/* 入れ子は1段ごとに字下げが積み上がるので、2段目以降を詰める。
+   開き（親の項目から子のリストへ入るところ）の空きは持たない——字下げが
+   1段深くなること自体が開きを示す */
+.rst-content section li ul,
+.rst-content section li ol {
+  margin-top: 0;
+  padding-inline-start: 16px;
+}
+
+/* 連番・中黒と本文の間隔。既定ではマーカーが本文の左端に貼り付く。
+   間隔を作るには本文側（li）を動かす。中黒は「1.」より字が細いぶん空きが広く見える */
+.rst-content section li {
+  padding-left: 0.4em;
+}
+
+.rst-content section ul > li {
+  padding-left: 0.15em;
+}
+
+/* 入れ子の切れ目は「戻り」の空きが示す。子のリストが終わって同じ階層の項目に
+   戻るところに刻み1つぶんを置く。開き（親から子へ入るところ）は 0 のまま——
+   字下げが1段深くなること自体が開きを示す */
+.rst-content section li:has(> ul) + li {
+  margin-top: 4px;
+}
+
+.rst-content section li:has(> ol) + li {
+  margin-top: 4px;
+}
+
 /* 画像のキャプション。図の補足なので本文より一段小さくし、絵の中央に置く。
    figure を table にして中身の幅に縮めるので、画像が列より狭いときも
    絵の中央にそろう（いまは全部の画像が列いっぱいだが、狭い絵が来ても崩れない）*/
