@@ -70,7 +70,9 @@ language = 'ja'
 exclude_patterns = ['_build', '_site', 'Thumbs.db', '.DS_Store', '_notfinished']
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+# 役ごとの色は ext/futurelight.py が持つ。トークンの型で当てるので、
+# 新しい言語が来ても色が抜けない（LaTeX 側も同じスタイルを読む）
+pygments_style = 'futurelight.FutureLightStyle'
 
 
 # -- Options for HTML output -------------------------------------------------
