@@ -23,6 +23,14 @@ html.writer-html5 .rst-content dl.footnote > dd p {
   line-height: 1.75;
 }
 
+/* 本文中の脚注の番号。テーマは 90%（14.4px）で、上付きなのに本文とほとんど
+   同じ大きさに見える。ブログの上付き（sub / sup の 0.75em）と同じ比にする。
+   上付きの作り（vertical-align: baseline ＋ top: -0.4em）はテーマのまま */
+.rst-content .footnote-reference,
+.rst-content .citation-reference {
+  font-size: 12px;
+}
+
 /* 中のインラインコードは .875em だと 11.4px まで落ちるので、本文のコードと
    同じ 12px で止める */
 html.writer-html5 .rst-content aside.footnote code,
