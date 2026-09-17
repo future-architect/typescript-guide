@@ -10,6 +10,29 @@
 
 /* -------------------------------------------------------------- 本文の組 */
 
+/* 画像のキャプション。図の補足なので本文より一段小さくし、絵の中央に置く。
+   figure を table にして中身の幅に縮めるので、画像が列より狭いときも
+   絵の中央にそろう（いまは全部の画像が列いっぱいだが、狭い絵が来ても崩れない）*/
+.rst-content figure {
+  display: table;
+  max-width: 100%;
+  margin: 24px 0;
+}
+
+.rst-content figure > figcaption {
+  display: table-caption;
+  caption-side: bottom;
+  padding-top: 8px;
+  color: #616161;
+  text-align: center;
+}
+
+.rst-content figure > figcaption p {
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
 /* 読み下す文章の行間。テーマは 24px（1.5）で、和文だと目が次の行の頭へ戻りにくい */
 .rst-content section p,
 .rst-content section li,
