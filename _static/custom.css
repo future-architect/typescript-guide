@@ -20,6 +20,58 @@
 
 /* ---------------------------------------------------------------- 見出し */
 
+/* 見出しは 直前の空き・太さ・罫線 で階層を作る。テーマは margin-top が 0 で、
+   前の段落の下の空き（24px）しか無く、h2 も h6 も同じ間隔で始まる */
+.rst-content h1,
+.rst-content h2,
+.rst-content h3,
+.rst-content h4,
+.rst-content h5,
+.rst-content h6 {
+  line-height: 1.3;
+}
+
+.rst-content section h2 {
+  margin-top: 56px;
+  margin-bottom: 12px;
+}
+
+.rst-content section h3 {
+  margin-top: 32px;
+  margin-bottom: 10px;
+}
+
+.rst-content section h4 {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.rst-content section h5 {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.rst-content section h6 {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+/* 節の切れ目は直前の空きが担うので、線は「境目がある」と気づかせる程度でよい */
+.rst-content section h2 {
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ecebeb;
+}
+
+/* 折り返した見出しの最終行が短いと、見出しと本文の隙間が空いて見える。
+   balance は2行以上のときしか働かないので、列の狭い画面では当てない */
+@media (min-width: 768px) {
+  .rst-content h2,
+  .rst-content h3,
+  .rst-content h4 {
+    text-wrap: balance;
+  }
+}
+
 /* ------------------------------------------------ インラインコード */
 
 /* 技術ブログの札にそろえる（テーマ既定は白地・枠あり・赤い文字・75%）。
