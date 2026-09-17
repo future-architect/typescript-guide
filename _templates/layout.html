@@ -7,6 +7,14 @@
   <a class="skip-link" href="#main-content">本文へスキップ</a>
 {% endblock %}
 
+{# タブのアイコン。F マーク（ブログと同じ絵）。SVG の中の prefers-color-scheme で
+   暗いタブでは白抜きになる。ico は SVG を読まないブラウザ用 #}
+{% block extrahead %}
+  <link rel="icon" href="{{ pathto('_static/favicon.svg', 1) }}" sizes="any" type="image/svg+xml">
+  <link rel="icon" href="{{ pathto('_static/favicon.ico', 1) }}" sizes="16x16 32x32 48x48 64x64" type="image/x-icon">
+  <link rel="mask-icon" href="{{ pathto('_static/favicon.svg', 1) }}" color="#0a1561">
+{% endblock %}
+
 {# 本体の div に id と tabindex を足すためだけの差し替え。tabindex が無いと
    フォーカスが本文へ移らず、次の Tab がまた先頭から始まる。
    中身は sphinx_rtd_theme 3.0.2 の layout.html と同じ（版は requirements.txt で固定） #}
