@@ -229,6 +229,39 @@
 
 /* -------------------------------------------------------------------- 表 */
 
+/* 縞を落とす。行の区別は罫線が持つ */
+.rst-content table.docutils:not(.field-list) tr:nth-child(2n-1) td,
+.rst-content .wy-table-odd td,
+.rst-content .wy-table-striped tr:nth-child(2n-1) td {
+  background-color: transparent;
+}
+
+.rst-content table.docutils {
+  border-color: #ccc;
+}
+
+.rst-content table.docutils td,
+html.writer-html5 .rst-content table.docutils th {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+}
+
+/* テーマは見出しの行だけ 2px で引く。ブログは全部の罫線が同じ太さ。
+   th はテーマが html.writer-html5 付きで色を持っているので、こちらも同じ形で書く */
+html.writer-html5 .rst-content table.docutils thead th {
+  border-bottom: 1px solid #ccc;
+  background-color: #f5f5f5;
+  font-weight: 700;
+}
+
+/* セルの中の段落はテーマが .9rem / 行間 1rem を当てている */
+html.writer-html5 .rst-content table.docutils td > p,
+html.writer-html5 .rst-content table.docutils th > p {
+  font-size: inherit;
+  line-height: 1.4;
+}
+
 /* ------------------------------------------------------------ リンク */
 
 /* ------------------------------------------ レイアウトの部品 */
