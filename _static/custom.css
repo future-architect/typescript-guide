@@ -74,11 +74,11 @@ html.writer-html5 .rst-content dl.footnote code {
 
 /* 項目の中が2段落以上ある箇条書きは、項目の切れ目を空きで示す。テーマは
    項目の中の段落の空きと項目と項目の空きがどちらも 12px で、どこまでが
-   1つの項目か読めない。中を 8px に詰め、項目の間にその2倍を置く。
+   1つの項目か読めない。中を 4px に詰め、項目の間にその4倍を置く。
    1段落の項目だけが並ぶ箇条書きは間隔を持たないまま（行として並ぶので詰めて読む）*/
 .rst-content section ul li > p,
 .rst-content section ol li > p {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .rst-content section ul li > p:last-child,
@@ -87,7 +87,7 @@ html.writer-html5 .rst-content dl.footnote code {
 }
 
 /* テーマは2段落目に上の空き 12px を持たせている。上下から挟むと大きい方だけが
-   効いて 8px が見えないので、空きは下だけで持つ */
+   効いて 4px が見えないので、空きは下だけで持つ */
 .rst-content section ul li > p + p,
 .rst-content section ol li > p + p {
   margin-top: 0;
