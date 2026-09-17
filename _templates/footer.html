@@ -1,0 +1,6 @@
+{% extends "!footer.html" %}
+
+{# 「Copyright」の語と末尾の句点を落とし、技術ブログのフッターと同じ「© 年 会社名」にする #}
+{% block contentinfo %}
+  <p>&#169; {{ copyright }}</p>
+{% endblock %}

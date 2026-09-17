@@ -268,6 +268,18 @@ html.writer-html5 .rst-content table.docutils th > p {
 
 /* ------------------------------------------ レイアウトの部品 */
 
+/* フッターの添え。テーマの grey (#808080) は白地で 3.54 しかなく AA を割る */
+.rst-content footer,
+.rst-content footer div[role=contentinfo] p {
+  color: #616161;
+  font-size: 12px;
+}
+
+.rst-content footer div[role=contentinfo] p {
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
 /* テーマの clearfix（幅100%の display:table）が flex アイテムになって
    場所を取るので消す */
 .rst-footer-buttons::before,

@@ -19,8 +19,11 @@ import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
+from datetime import date
+
 project = '仕事ですぐに使えるTypeScript'
-copyright = '2019-2020, Future Corporation'
+# 年は毎年のビルドで進む。手で直す形だと 2020 のまま止まる
+copyright = f'2019 - {date.today().year} Future Corporation'
 author = 'Future Corporation'
 
 import os
